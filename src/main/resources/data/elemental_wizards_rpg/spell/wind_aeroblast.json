@@ -88,9 +88,6 @@
           "effect_id": "elemental_wizards_rpg:aeroblast",
           "duration": 2,
           "apply_mode": "SET",
-          "apply_limit": {
-            "health_base": 50
-          },
           "show_particles": false
         }
       }

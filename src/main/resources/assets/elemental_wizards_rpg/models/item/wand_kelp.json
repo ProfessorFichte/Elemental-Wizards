@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/wand_kelp"
+    "layer0": "elemental_wizards_rpg:item/weapons/wands/wand_kelp"
   }
 }

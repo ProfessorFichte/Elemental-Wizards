@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/netherite_wind_feet"
+    "layer0": "elemental_wizards_rpg:item/armor/wind/netherite_wind_feet"
   }
 }

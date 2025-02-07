@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/netherite_dripstone_head"
+    "layer0": "elemental_wizards_rpg:item/armor/terranetherite_dripstone_head"
   }
 }

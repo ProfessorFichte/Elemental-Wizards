@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/aqua_spell_book"
+    "layer0": "elemental_wizards_rpg:item/spellbooks/aqua_spell_book"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/kelp_legs"
+    "layer0": "elemental_wizards_rpg:item/armor/aqua/kelp_legs"
   }
 }
