@@ -145,7 +145,7 @@ public class WeaponsRegister {
                     .attribute(ItemConfig.Attribute.bonus(MoreSpellSchools.AIR.id, 7))
             ;
         }
-        if(FabricLoader.getInstance().isModLoaded(AETHER)) {
+        if(FabricLoader.getInstance().isModLoaded(AETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
             staff(AETHER, "staff_aether",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))

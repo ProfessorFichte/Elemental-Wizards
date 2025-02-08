@@ -10,6 +10,7 @@ import net.elemental_wizards_rpg.item.ElementalItems;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.config.Default;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
+import net.elemental_wizards_rpg.config.TweaksConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -37,6 +38,12 @@ public class ElementalMod implements ModInitializer {
 			.build();
 	public static ConfigManager<EffectsConfig> effectsConfig = new ConfigManager<EffectsConfig>
 			("effects_v1", new EffectsConfig())
+			.builder()
+			.setDirectory(MOD_ID)
+			.sanitize(true)
+			.build();
+	public static ConfigManager<TweaksConfig> tweaksConfig = new ConfigManager<>
+			("tweaks", new TweaksConfig())
 			.builder()
 			.setDirectory(MOD_ID)
 			.sanitize(true)
