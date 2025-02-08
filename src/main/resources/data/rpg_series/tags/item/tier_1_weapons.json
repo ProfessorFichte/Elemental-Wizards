@@ -3,6 +3,8 @@
   "values": [
     "elemental_wizards_rpg:wand_aqua",
     "elemental_wizards_rpg:wand_terra",
-    "elemental_wizards_rpg:wand_feather"
+    "elemental_wizards_rpg:wand_wind",
+
+    "elemental_wizards_rpg:staff_elemental"
   ]
 }

@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "elemental_wizards_rpg:wand_kelp",
-    "elemental_wizards_rpg:wand_clay"
+    "elemental_wizards_rpg:wand_clay",
+    "elemental_wizards_rpg:wand_feather"
   ]
 }

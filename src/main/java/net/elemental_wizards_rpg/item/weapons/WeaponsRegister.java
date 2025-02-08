@@ -13,6 +13,7 @@ import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.item.ItemConfig;
 import net.spell_engine.api.item.weapon.StaffItem;
 import net.spell_engine.api.item.weapon.Weapon;
+import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -97,6 +98,13 @@ public class WeaponsRegister {
     private static Weapon.Entry staff(String requiredMod, String name, Weapon.CustomMaterial material) {
         return entry(requiredMod, name, material, StaffItem::new, new ItemConfig.Weapon(staffAttackDamage, staffAttackSpeed));
     }
+    public static final Weapon.Entry elementalStaff= staff("staff_elemental",
+            Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.STICK)))
+            .attribute(ItemConfig.Attribute.bonus(MoreSpellSchools.AIR.id, 4))
+            .attribute(ItemConfig.Attribute.bonus(MoreSpellSchools.EARTH.id, 4))
+            .attribute(ItemConfig.Attribute.bonus(MoreSpellSchools.WATER.id, 4))
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.FIRE.id, 4))
+            ;
 
     public static final Weapon.Entry aquaStaff= staff("staff_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
@@ -127,14 +135,14 @@ public class WeaponsRegister {
     private static final String AETHER = "aether";
     //Registration
     public static void register(Map<String,ItemConfig.Weapon> configs) {
-        if(FabricLoader.getInstance().isModLoaded(BETTER_NETHER)) {
+        if(FabricLoader.getInstance().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             staff("betternether", "staff_ruby_terra",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(ItemConfig.Attribute.bonus(MoreSpellSchools.EARTH.id, 7))
             ;
         }
-        if(FabricLoader.getInstance().isModLoaded(BETTER_END)) {
+        if(FabricLoader.getInstance().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
             staff("betterend", "staff_crystal_aqua",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
