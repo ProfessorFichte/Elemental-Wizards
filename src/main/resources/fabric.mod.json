@@ -38,9 +38,7 @@
 		"azurelibarmor": "*",
 		"spell_engine": ">=1.0.0",
 		"spell_power": ">=0.10.0",
-		"more_rpg_classes": ">=2.0.7-1.21.1",
-		"runes": "*",
-		"wizards": ">=2.0.0-1.21.1"
+		"more_rpg_classes": ">=2.0.7-1.21.1"
 	},
 	"suggests": {
 		"better_combat": "*"

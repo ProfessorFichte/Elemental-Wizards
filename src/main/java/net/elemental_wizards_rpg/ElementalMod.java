@@ -51,7 +51,7 @@ public class ElementalMod implements ModInitializer {
 
 	private void registerItemGroup() {
 		ElementalGroup.ELEMENTAL_WIZARD = FabricItemGroup.builder()
-				.icon(() -> new ItemStack(Armors.elementalArmor.head))
+				.icon(() -> new ItemStack(Armors.kelpArmor.head))
 				.displayName(Text.translatable("itemGroup." + MOD_ID + ".general"))
 				.build();
 		Registry.register(Registries.ITEM_GROUP, ElementalGroup.ELEMENTAL_WIZARD_KEY, ElementalGroup.ELEMENTAL_WIZARD);
