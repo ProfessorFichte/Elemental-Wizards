@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/elemental_head"
+    "layer0": "elemental_wizards_rpg:item/armor/elemental/elemental_head"
   }
 }

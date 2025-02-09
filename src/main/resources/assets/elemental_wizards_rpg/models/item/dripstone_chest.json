@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "elemental_wizards_rpg:item/dripstone_chest"
+    "layer0": "elemental_wizards_rpg:item/armor/terra/dripstone_chest"
   }
 }
