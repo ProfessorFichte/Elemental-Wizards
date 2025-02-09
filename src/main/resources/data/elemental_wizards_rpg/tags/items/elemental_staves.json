@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "elemental_wizards_rpg:staff_elemental",
     "elemental_wizards_rpg:staff_aqua",
     "elemental_wizards_rpg:staff_terra",
     "elemental_wizards_rpg:staff_netherite_aqua",
