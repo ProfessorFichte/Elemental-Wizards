@@ -5,6 +5,13 @@
 - removed custom spell impacts, now every spell works with spell engine api options
 - increased trembling effect amplifier stun conversion
 - tweaked some cooldowns
+- [BREAKING FOR TEXTURE PACKS] Clean up item texture folder
+- Add Elementalist Staff with all 3 elemental Spell Powers
+- Re-Textured and recolored some Water Mage Spells
+- Re-Textured all Item-Textures
+- Changed the elementalist armor texture a bit
+- Add TweaksConfig, so special Weapons can also be used without Better End & Nether and the Aether
+- 
 
 # 2.3.1 - 1.21.1
 - Wind related Spell Effect Conditions, like the Tornado knock up will not work on bosses "#c:bosses"
