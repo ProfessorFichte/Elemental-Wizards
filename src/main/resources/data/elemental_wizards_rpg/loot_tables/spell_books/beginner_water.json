@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "minecraft:book"
+        },
+        {
+          "type": "item",
+          "name": "elemental_wizards_rpg:aqua_spell_book",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:aqua\",spell_ids:[\"elemental_wizards_rpg:aqua_water_whip\"],spell_container:\"MAGIC\"}}"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "elemental_wizards_rpg:aqua_spell_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:aqua\",spell_ids:[\"elemental_wizards_rpg:aqua_water_whip\",\"elemental_wizards_rpg:aqua_bubble_beam\"],spell_container:\"MAGIC\"}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "elemental_wizards_rpg:elemental_essence"
+    },
+    "A": [
+      {
+        "tag": "c:wood_sticks"
+      },
+      {
+        "item": "minecraft:stick"
+      }
+    ]
+  },
+  "pattern": [
+    "  B",
+    " A ",
+    "A  "
+  ],
+  "result": {
+    "item": "elemental_wizards_rpg:staff_elemental"
+  }
+}

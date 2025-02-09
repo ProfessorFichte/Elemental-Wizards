@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "elemental_wizards_rpg:terra_spell_book",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:terra\",spell_ids:[\"elemental_wizards_rpg:terra_stone_spear\",\"elemental_wizards_rpg:terra_stone_flesh\"],spell_container:\"MAGIC\"}}"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "elemental_wizards_rpg:terra_spell_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:terra\",spell_ids:[\"elemental_wizards_rpg:terra_stone_spear\",\"elemental_wizards_rpg:terra_stone_flesh\",\"elemental_wizards_rpg:terra_drip_circle\"],spell_container:\"MAGIC\"}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
