@@ -86,18 +86,6 @@
           "amplifier": 0,
           "duration": 4,
           "apply_mode": "SET",
-          "show_particles": false
-        }
-      }
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "elemental_wizards_rpg:bubble_foam",
-          "amplifier": 0,
-          "duration": 4,
-          "apply_mode": "SET",
           "amplifier_power_multiplier": 0.2,
           "show_particles": false
         },
