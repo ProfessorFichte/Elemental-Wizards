@@ -7,6 +7,8 @@
   "item.elemental_wizards_rpg.terra_spell_book": "Mountain peak Journal",
   "item.elemental_wizards_rpg.wind_spell_book": "Songs of Winds",
 
+  "item.elemental_wizards_rpg.staff_elemental": "Elemental Staff",
+
   "item.elemental_wizards_rpg.wand_kelp": "Kelp Wand",
   "item.elemental_wizards_rpg.wand_aqua": "Aqua Wand",
   "item.elemental_wizards_rpg.wand_netherite_aqua": "Netherite Aqua Wand",
@@ -85,7 +87,7 @@
   "spell.elemental_wizards_rpg.aqua_water_whip.name": "Water Whip",
   "spell.elemental_wizards_rpg.aqua_water_whip.description": "Fast water whip, dealing {damage} water spell damage, soaking the target.",
   "spell.elemental_wizards_rpg.aqua_bubble_beam.name": "Bubble Beam",
-  "spell.elemental_wizards_rpg.aqua_bubble_beam.description": "Spawning small bubbles, dealing {damage} water spell damage on targets, protecting friends.",
+  "spell.elemental_wizards_rpg.aqua_bubble_beam.description": "Spawning small bubbles, dealing {damage} water spell damage on targets, protecting yourself.",
   "spell.elemental_wizards_rpg.aqua_springwater.name": "Springwater",
   "spell.elemental_wizards_rpg.aqua_springwater.description": "Summoning water springs, healing and cleansing friends by {heal}, and dealing {damage} water spell damage to targets.",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.name": "Hydro Beam",
