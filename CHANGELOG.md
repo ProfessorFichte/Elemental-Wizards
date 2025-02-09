@@ -1,3 +1,16 @@
+1.3.2 - 1.20.1
+- deleted unused old spells
+- bubble beam will now only give the shield to the caster
+- increased trembling effect amplifier stun conversion
+- [BREAKING FOR TEXTURE PACKS] Clean up item texture folder
+- Add Elementalist Staff with all 3 elemental Spell Powers
+- Re-Textured and recolored some Water Mage Spells
+- Re-Textured all Item-Textures
+- Changed the Elementalist armor texture a bit
+- Add TweaksConfig, so special Weapons can also be used without Better End & Nether
+- Inject Elemental Wizards Items to Wizard Villager Chests
+- Prepare Loot Tables for Loot & Explore Add On
+
 1.3.1 - 1.20.1
 - forgot rpg series armor tags for netherite armor loot injection
 
@@ -24,7 +37,7 @@ Official Release of the Mod!
 - Gust, Basic Ranged Damaging Wind Attack, with knockback
 - Air Cutter, Basic Ranged Damaging Wind Attack, with knockback
 - Aeroblast, High Damaging single target spell, also Knocking the target up
-- Updraft, Damaging the target constantly and reducing its attack speed (if the target is in the air, damage will be increasedand it stays in the air)
+- Updraft, Damaging the target constantly and reducing its attack speed (if the target is in the air, damage will be increased and it stays in the air)
 - Tornado Summons a Spell Cloud-Tornado, damages the target heavily and knocking it up / sucking it in the tornado
 
 ###BALANCING

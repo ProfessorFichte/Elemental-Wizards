@@ -1,5 +1,6 @@
 package net.elemental_wizards_rpg;
 
+import net.elemental_wizards_rpg.compat.ElementalWizardLootTableInjection;
 import net.elemental_wizards_rpg.config.EffectsConfig;
 import net.elemental_wizards_rpg.custom.CustomSpells;
 import net.elemental_wizards_rpg.effect.Effects;
@@ -63,6 +64,7 @@ public class ElementalMod implements ModInitializer {
 		itemConfig.refresh();
 		effectsConfig.refresh();
 		ElementalItems.registerModItems();
+		ElementalWizardLootTableInjection.modifyLootTables();
 		ElementalGroup.registerItemGroups();
 		CustomSpells.register();
 		WeaponsRegister.register(itemConfig.value.weapons);
