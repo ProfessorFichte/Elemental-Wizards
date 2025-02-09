@@ -14,7 +14,7 @@ public class TremblingEffect extends StatusEffect {
     }
     @Override
     public void applyUpdateEffect(LivingEntity entity, int pAmplifier) {
-        if(pAmplifier == 3){
+        if(pAmplifier == 5){
             entity.addStatusEffect(new StatusEffectInstance(MRPGCEffects.STUNNED,effectsConfig.value.trembling_stun_apply_duration * 10));
             entity.removeStatusEffect(Effects.TREMBLING);
         }
