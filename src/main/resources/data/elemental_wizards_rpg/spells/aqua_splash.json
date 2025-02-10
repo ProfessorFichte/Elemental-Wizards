@@ -138,10 +138,7 @@
         "status_effect": {
           "effect_id": "elemental_wizards_rpg:soaked",
           "duration": 4,
-          "apply_mode": "ADD",
-          "apply_limit": {
-            "health_base": 50
-          },
+          "apply_mode": "SET",
           "show_particles": false
         }
       }

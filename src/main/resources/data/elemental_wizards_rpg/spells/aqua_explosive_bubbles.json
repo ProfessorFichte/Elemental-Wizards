@@ -1,0 +1,185 @@
+{
+  "school": "WATER",
+  "range": 16,
+  "learn": {
+    "tier": 3
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "more_rpg_classes:two_handed_ground_channeling",
+    "sound": {
+      "id": "block.bubble_column.whirlpool_ambient",
+      "volume": 0.5
+    },
+    "particles": [
+      {
+        "particle_id": "more_rpg_classes:bubble",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 1.0,
+        "min_speed": 0.001,
+        "max_speed": 0.1
+      }
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "PROJECTILE",
+      "projectile": {
+        "launch_properties": {
+          "velocity": 0.3,
+          "extra_launch_count": 5,
+          "extra_launch_delay": 5
+        },
+        "projectile": {
+          "divergence": 25,
+          "homing_angle": 3,
+          "perks": {
+            "bounce": 10
+          },
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "bubble_pop",
+                "shape": "SPHERE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 1.0,
+                "min_speed": 0.1,
+                "max_speed": 0.2
+              }
+            ],
+            "model": {
+              "model_id": "elemental_wizards_rpg:projectile/big_bubble",
+              "scale": 3.0,
+              "rotate_degrees_per_tick": 10,
+              "rotate_degrees_offset": 0
+            }
+          }
+        }
+      }
+    },
+    "animation": "spell_engine:one_handed_projectile_release",
+    "sound": {
+      "id": "block.bubble_column.whirlpool_ambient",
+      "volume": 1.5
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.85
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:bubble_pop",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 10.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:splash",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 10.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        },
+        {
+          "particle_id": "more_rpg_classes:bubble",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 1.0,
+          "min_speed": 0.001,
+          "max_speed": 0.1
+        }
+      ],
+      "sound": {
+        "id": "block.bubble_column.bubble_pop"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "elemental_wizards_rpg:soaked",
+          "duration": 4,
+          "apply_mode": "SET",
+          "show_particles": false
+        }
+      }
+    },
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.65
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:water_heal",
+          "shape": "CIRCLE",
+          "origin": "FEET",
+          "count": 5,
+          "min_speed": 0.01,
+          "max_speed": 0.05
+        },
+        {
+          "particle_id": "more_rpg_classes:water_heal",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 5,
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_1"
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 3.0,
+    "area": {
+      "distance_dropoff": "NONE"
+    },
+    "particles": [
+      {
+        "particle_id": "more_rpg_classes:bubble_pop",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 1.0,
+        "min_speed": 0.6,
+        "max_speed": 1.0
+      },
+      {
+        "particle_id": "more_rpg_classes:big_splash",
+        "shape": "PILLAR",
+        "origin": "FEET",
+        "count": 20,
+        "min_speed": 0.05,
+        "max_speed": 0.2
+      },
+      {
+        "particle_id": "more_rpg_classes:splash",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 15.0,
+        "min_speed": 0.05,
+        "max_speed": 0.2
+      }
+    ],
+    "sound": {
+      "id": "more_rpg_classes:water_magic_impact1"
+    }
+  },
+  "cost": {
+    "item_id": "more_rpg_classes:aqua_stone"
+  }
+}
