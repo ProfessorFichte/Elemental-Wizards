@@ -36,7 +36,7 @@
       "type": "AREA",
       "area": {
         "include_caster": true,
-        "distance_dropoff": "SQUARED",
+        "distance_dropoff": "NONE",
         "angle_degrees": 360.0
       }
     },

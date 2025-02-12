@@ -1,0 +1,53 @@
+{
+  "school": "AIR",
+  "range": 8,
+  "learn": {
+    "tier": 3
+  },
+  "cast": {
+    "duration": 1.5,
+    "animation": "spell_engine:one_handed_projectile_charge",
+    "sound": {
+      "id": "",
+      "randomness": 0
+    },
+    "particles": [
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "AREA",
+      "area": {
+        "distance_dropoff": "NONE",
+        "angle_degrees": 360.0
+      }
+    },
+    "animation": "spell_engine:one_handed_projectile_release",
+    "sound": {
+      "id": ""
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0.8,
+          "spell_power_coefficient": 10
+        }
+      },
+      "particles": [
+      ],
+      "sound": {
+        "id": "",
+        "volume": 0.4
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "more_rpg_classes:storm_stone",
+    "cooldown_duration": 5,
+    "exhaust" : 0.4,
+    "cooldown_haste_affected": true
+  }
+}
