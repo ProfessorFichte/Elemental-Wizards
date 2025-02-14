@@ -11,7 +11,8 @@
 - Re-Textured all Item-Textures
 - Changed the elementalist armor texture a bit
 - Add TweaksConfig, so special Weapons can also be used without Better End & Nether and the Aether
-- 
+- Update to Fabric Loom 1.9
+- The Tornado can now be spawned on the target, with the caster as a fallback
 
 # 2.3.1 - 1.21.1
 - Wind related Spell Effect Conditions, like the Tornado knock up will not work on bosses "#c:bosses"

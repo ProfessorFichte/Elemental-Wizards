@@ -1,7 +1,7 @@
 package net.elemental_wizards_rpg.item.config;
 
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
-import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.config.ConfigFile;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Default {
-    public final static ItemConfig itemConfig;
+    public static final ConfigFile.Equipment itemConfig;
 
     static{
-        itemConfig = new ItemConfig();
+        itemConfig = new ConfigFile.Equipment();
         for (var weapon: WeaponsRegister.entries) {
             itemConfig.weapons.put(weapon.name(), weapon.defaults());
         }

@@ -21,7 +21,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.config.ConfigFile;
 import net.tinyconfig.ConfigManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +30,8 @@ public class ElementalMod implements ModInitializer {
 	public static final String MOD_ID = "elemental_wizards_rpg";
     public static final Logger LOGGER = LoggerFactory.getLogger("elemental_wizards_rpg");
 
-	public static ConfigManager<ItemConfig> itemConfig = new ConfigManager<ItemConfig>
-			("items_v3", Default.itemConfig)
+	public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
+			("equipment", Default.itemConfig)
 			.builder()
 			.setDirectory(MOD_ID)
 			.sanitize(true)

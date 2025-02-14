@@ -1,10 +1,8 @@
 package net.elemental_wizards_rpg.item.armor;
 
-import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
@@ -14,7 +12,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
-import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.config.ArmorSetConfig;
+import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
@@ -102,7 +101,7 @@ public class Armors {
 
 
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
-    private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability, Armor.Set.ItemFactory factory, ItemConfig.ArmorSet defaults) {
+    private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability, Armor.Set.ItemFactory factory, ArmorSetConfig defaults) {
         var entry = Armor.Entry.create(
                 material,
                 id,
@@ -119,34 +118,34 @@ public class Armors {
                     Identifier.of(MOD_ID, "elemental"),
                     10,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(SpellSchools.FIRE.id, spell_power_t1)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
+                                            AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(SpellSchools.FIRE.id, spell_power_t1)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
+                                            AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(SpellSchools.FIRE.id, spell_power_t1)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
+                                            AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
-                                            ItemConfig.Attribute.multiply(SpellSchools.FIRE.id, spell_power_t1)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t1),
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
+                                            AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     ))
                     ))
                     .armorSet();
@@ -157,26 +156,26 @@ public class Armors {
                     Identifier.of(MOD_ID, "kelp"),
                     20,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     ))
                     ))
                     .armorSet();
@@ -187,26 +186,26 @@ public class Armors {
                     Identifier.of(MOD_ID, "dripstone"),
                     20,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     ))
                     ))
                     .armorSet();
@@ -217,26 +216,26 @@ public class Armors {
                     Identifier.of(MOD_ID, "wind"),
                     20,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     ))
                     ))
                     .armorSet();
@@ -247,26 +246,26 @@ public class Armors {
                     Identifier.of(MOD_ID, "netherite_kelp"),
                     30,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     ))
                     ))
                     .armorSet();
@@ -277,26 +276,26 @@ public class Armors {
                     Identifier.of(MOD_ID, "netherite_dripstone"),
                     30,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     ))
                     ))
                     .armorSet();
@@ -307,31 +306,31 @@ public class Armors {
                     Identifier.of(MOD_ID, "netherite_wind"),
                     30,
                     ElementalRobe::new,
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(3)
+                            new ArmorSetConfig.Piece(3)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(2)
+                            new ArmorSetConfig.Piece(2)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     )),
-                            new ItemConfig.ArmorSet.Piece(1)
+                            new ArmorSetConfig.Piece(1)
                                     .addAll(List.of(
-                                            ItemConfig.Attribute.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
-                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
+                                            AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
+                                            AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     ))
                     ))
                     .armorSet();
 
-    public static void register(Map<String, ItemConfig.ArmorSet> configs) {
+    public static void register(Map<String, ArmorSetConfig> configs) {
         Armor.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
     }
 }
