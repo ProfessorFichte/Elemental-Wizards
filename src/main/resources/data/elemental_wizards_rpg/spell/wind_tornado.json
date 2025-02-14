@@ -1,11 +1,11 @@
 {
   "school": "AIR",
-  "range": 0,
-  "learn": {
-    "tier": 4
-  },
+  "range": 20,
+  "tier": 4,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "movement_speed": 0,
       "duration": 1.5,
@@ -37,6 +37,8 @@
   "target": {
     "type": "AIM",
     "aim": {
+      "required": false,
+      "sticky": true,
       "use_caster_as_fallback": true
     }
   },
@@ -100,10 +102,7 @@
           }
         },
         "placement": {
-          "force_onto_ground": true,
-          "location_offset_by_look": 8,
-          "location_yaw_offset": 0,
-          "apply_yaw": true
+          "force_onto_ground": true
         }
       }
 
@@ -113,7 +112,7 @@
   "release": {
   },
 
-  "impact": [
+  "impacts": [
     {
       "target_conditions": [
         {
@@ -128,10 +127,6 @@
           "duration": 1,
           "apply_mode": "ADD",
           "amplifier": 0,
-          "apply_limit": {
-            "health_base": 50,
-            "spell_power_multiplier": 2
-          },
           "show_particles": false
         }
       }

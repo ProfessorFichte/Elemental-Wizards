@@ -2,11 +2,11 @@
   "school": "AIR",
   "group": "primary",
   "range": 16,
-  "learn": {
-    "tier": 1
-  },
+  "tier": 1,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "duration": 1.5,
       "animation": "spell_engine:two_handed_channeling",
@@ -45,7 +45,7 @@
     "animation": "spell_engine:one_handed_projectile_release"
   },
 
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "DAMAGE",

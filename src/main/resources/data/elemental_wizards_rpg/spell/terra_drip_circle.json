@@ -1,11 +1,11 @@
 {
   "school": "EARTH",
   "range": 0,
-  "learn": {
-    "tier": 3
-  },
+  "tier": 3,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "animation": "more_rpg_classes:two_handed_ground_channeling",
       "duration": 0.7,
@@ -13,6 +13,15 @@
         "id": "more_rpg_classes:earth_magic_cast1",
         "volume": 0.5
       }
+    }
+  },
+
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "required": false,
+      "sticky": true,
+      "use_caster_as_fallback": true
     }
   },
 
@@ -1684,7 +1693,7 @@
     "animation": "more_rpg_classes:two_handed_ground_release"
   },
 
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "DAMAGE",

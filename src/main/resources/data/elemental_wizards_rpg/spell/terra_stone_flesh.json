@@ -1,11 +1,11 @@
 {
   "school": "EARTH",
   "range": 0,
-  "learn": {
-    "tier": 2
-  },
+  "tier": 2,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "duration": 0.75,
       "animation": "spell_engine:one_handed_area_charge",
@@ -48,7 +48,7 @@
     ]
   },
 
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "STATUS_EFFECT",

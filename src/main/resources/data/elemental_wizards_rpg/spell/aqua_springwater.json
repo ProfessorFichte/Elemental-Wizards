@@ -1,11 +1,11 @@
 {
   "school": "WATER",
   "range": 6,
-  "learn": {
-    "tier": 2
-  },
+  "tier": 2,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "duration": 1.5,
       "animation": "spell_engine:one_handed_projectile_charge",
@@ -49,7 +49,7 @@
     }
   },
 
-  "impact": [
+  "impacts": [
     {
       "target_conditions": [
         {

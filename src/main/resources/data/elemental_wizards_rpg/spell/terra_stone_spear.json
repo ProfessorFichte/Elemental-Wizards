@@ -2,11 +2,11 @@
   "school": "EARTH",
   "group": "primary",
   "range": 32,
-  "learn": {
-    "tier": 1
-  },
+  "tier": 1,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "duration": 1.2,
       "animation": "more_rpg_classes:two_handed_ground_release",
@@ -67,7 +67,7 @@
     }
   },
 
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "DAMAGE",

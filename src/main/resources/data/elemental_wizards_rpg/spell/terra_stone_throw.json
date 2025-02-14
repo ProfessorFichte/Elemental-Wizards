@@ -2,9 +2,8 @@
   "school": "EARTH",
   "group": "primary",
   "range": 20,
-  "learn": {
-    "tier": 0
-  },
+  "tier": 0,
+  "learn": {},
 
   "active": {
     "cast": {
@@ -63,7 +62,7 @@
     }
   },
 
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "DAMAGE",

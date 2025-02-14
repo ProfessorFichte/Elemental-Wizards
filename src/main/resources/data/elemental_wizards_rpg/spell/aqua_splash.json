@@ -2,9 +2,8 @@
   "school": "WATER",
   "group": "primary",
   "range": 16,
-  "learn": {
-    "tier": 0
-  },
+  "tier": 0,
+  "learn": {},
 
   "active": {
     "cast": {
@@ -54,7 +53,7 @@
     "animation": "spell_engine:one_handed_projectile_release"
   },
 
-  "impact": [
+  "impacts": [
     {
       "target_conditions": [
         {

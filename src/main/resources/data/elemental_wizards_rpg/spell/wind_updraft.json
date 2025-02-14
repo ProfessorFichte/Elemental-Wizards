@@ -1,11 +1,11 @@
 {
   "school": "AIR",
   "range": 20.0,
-  "learn": {
-    "tier": 3
-  },
+  "tier": 3,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "duration": 2.0,
       "animation": "spell_engine:one_handed_sky_charge",
@@ -41,7 +41,7 @@
   "release": {
   },
 
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "DAMAGE",

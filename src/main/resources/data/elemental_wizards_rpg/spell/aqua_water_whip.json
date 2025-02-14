@@ -2,11 +2,11 @@
   "school": "WATER",
   "group": "primary",
   "range": 16,
-  "learn": {
-    "tier": 1
-  },
+  "tier": 1,
+  "learn": {},
 
   "active": {
+    "scroll": {},
     "cast": {
       "duration": 1.0,
       "animation": "spell_engine:one_handed_projectile_charge",
@@ -18,7 +18,7 @@
       "particles": [
         {
           "particle_id": "more_rpg_classes:big_splash",
-          "shape": "PIPE",
+          "shape": "WIDE_PIPE",
           "origin": "FEET",
           "count": 5.0,
           "min_speed": 0.01,
@@ -74,7 +74,7 @@
     ]
   },
 
-  "impact": [
+  "impacts": [
     {
       "target_conditions": [
         {
