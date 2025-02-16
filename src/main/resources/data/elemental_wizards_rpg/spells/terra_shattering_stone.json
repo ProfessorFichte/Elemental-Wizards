@@ -103,7 +103,7 @@
   },
   "cost": {
     "item_id": "more_rpg_classes:terra_stone",
-    "cooldown_duration": 14,
+    "cooldown_duration": 18,
     "exhaust" : 0.4
   }
 }

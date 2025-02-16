@@ -52,7 +52,7 @@
             "model": {
               "model_id": "elemental_wizards_rpg:projectile/big_bubble",
               "light_level": 5,
-              "scale": 3.0,
+              "scale": 3.5,
               "rotate_degrees_per_tick": 10,
               "rotate_degrees_offset": 0
             }
@@ -187,7 +187,7 @@
   },
   "cost": {
     "item_id": "more_rpg_classes:aqua_stone",
-    "cooldown_duration": 22,
+    "cooldown_duration": 20,
     "exhaust" : 0.4,
     "cooldown_haste_affected": true
   }

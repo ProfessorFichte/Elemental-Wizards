@@ -3,7 +3,6 @@
   "package": "net.elemental_wizards_rpg.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ExampleMixin",
     "LivingEntityMixin"
   ],
   "injectors": {

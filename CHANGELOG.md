@@ -10,6 +10,10 @@
 - Add TweaksConfig, so special Weapons can also be used without Better End & Nether
 - Inject Elemental Wizards Items to Wizard Villager Chests
 - Prepare Loot Tables for Loot & Explore Add On
+- Add 3 new Treasure Spells
+- Water: Exploding Bubbles, slow bouncing projectiles, that explode on impact, dealing damage to enemies, healing allies
+- Earth: Shattering Stones, Projectile that Shatters on impact, creating more projectiles, inflicts bleeding
+- Wind: Aeroburst, creating a high pressure air explosion in an area, dealing damage and knocking all targets back
 
 1.3.1 - 1.20.1
 - forgot rpg series armor tags for netherite armor loot injection
