@@ -9,7 +9,7 @@
     "animation": "more_rpg_classes:two_handed_ground_channeling",
     "duration": 0.7,
     "sound": {
-      "id": "more_rpg_classes:earth_magic_cast1",
+      "id": "more_rpg_classes:earth_magic_impact1",
       "volume": 0.5
     }
   },
@@ -1713,10 +1713,6 @@
           "apply_mode": "SET",
           "amplifier_power_multiplier": 0.2,
           "amplifier": 0,
-          "apply_limit": {
-            "health_base": 100,
-            "spell_power_multiplier": 2
-          },
           "show_particles": false
         }
       }

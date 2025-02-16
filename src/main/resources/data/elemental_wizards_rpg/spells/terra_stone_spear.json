@@ -7,9 +7,9 @@
   },
   "cast": {
     "duration": 1.2,
-    "animation": "more_rpg_classes:two_handed_ground_release",
+    "animation": "more_rpg_classes:two_handed_ground_channeling",
     "sound": {
-      "id": "more_rpg_classes:earth_magic_cast1",
+      "id": "more_rpg_classes:earth_magic_impact1",
       "volume": 0.5
     },
     "particles": [
@@ -55,7 +55,7 @@
         }
       }
     },
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "more_rpg_classes:two_handed_ground_release",
     "sound": {
       "id": "block.pointed_dripstone.fall",
       "volume": 1.5
@@ -78,14 +78,10 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "more_rpg_classes:bleeding",
-          "duration": 3,
+          "duration": 5,
           "apply_mode": "SET",
           "amplifier_power_multiplier": 0.2,
           "amplifier": 0,
-          "apply_limit": {
-            "health_base": 50,
-            "spell_power_multiplier": 2
-          },
           "show_particles": false
         }
       },
@@ -104,7 +100,7 @@
   "area_impact": {
   "radius": 2.5,
   "area": {
-    "distance_dropoff": "SQUARED"
+    "distance_dropoff": "NONE"
   },
   "particles": [
     {

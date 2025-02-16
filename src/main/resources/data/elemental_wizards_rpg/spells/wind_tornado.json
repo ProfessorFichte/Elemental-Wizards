@@ -7,7 +7,7 @@
   "cast": {
     "movement_speed": 0,
     "duration": 1.5,
-    "animation": "spell_engine:one_handed_sky_charge",
+    "animation": "more_rpg_classes:two_handed_sky_channeling",
     "sound": {
       "id": "spell_engine:generic_wind_charging"
     },

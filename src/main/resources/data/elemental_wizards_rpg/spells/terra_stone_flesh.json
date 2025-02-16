@@ -6,7 +6,7 @@
   },
   "cast": {
     "duration": 0.75,
-    "animation": "spell_engine:one_handed_area_charge",
+    "animation": "more_rpg_classes:two_handed_ground_channeling",
     "particles": [
       {
         "particle_id": "more_rpg_classes:stone_particle",
@@ -28,7 +28,7 @@
     },
     "animation": "more_rpg_classes:two_handed_ground_release",
     "sound": {
-      "id": "more_rpg_classes:earth_magic_cast1",
+      "id": "more_rpg_classes:earth_magic_impact1",
       "volume": 0.5
     },
     "particles": [

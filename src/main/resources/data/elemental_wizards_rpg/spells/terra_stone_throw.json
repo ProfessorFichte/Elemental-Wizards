@@ -7,9 +7,9 @@
   },
   "cast": {
     "duration": 1,
-    "animation": "more_rpg_classes:two_handed_ground_channeling",
+    "animation": "spell_engine:two_handed_channeling",
     "sound": {
-      "id": "more_rpg_classes:earth_magic_cast1",
+      "id": "more_rpg_classes:earth_magic_impact1",
       "volume": 0.5
     },
     "particles": [
@@ -51,7 +51,7 @@
         }
       }
     },
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "more_rpg_classes:two_handed_ground_release",
     "sound": {
       "id": "block.pointed_dripstone.fall",
       "volume": 1.5
@@ -88,7 +88,7 @@
   "area_impact": {
     "radius": 1.0,
     "area": {
-      "distance_dropoff": "SQUARED"
+      "distance_dropoff": "NONE"
     },
     "particles": [
       {
