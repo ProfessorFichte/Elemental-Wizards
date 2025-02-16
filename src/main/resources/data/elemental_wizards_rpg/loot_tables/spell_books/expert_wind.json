@@ -8,11 +8,11 @@
         {
           "type": "item",
           "name": "elemental_wizards_rpg:wind_spell_book",
-          "weight": 2,
+          "weight": 1,
           "functions": [
             {
               "function": "set_nbt",
-              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:wind\",spell_ids:[\"elemental_wizards_rpg:wind_air_cutter\",\"elemental_wizards_rpg:wind_aeroblast\"],spell_container:\"MAGIC\"}}"
+              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:wind\",spell_ids:[\"elemental_wizards_rpg:wind_air_cutter\",\"elemental_wizards_rpg:wind_aeroblast\",\"elemental_wizards_rpg:wind_updraft\"],spell_container:\"MAGIC\"}}"
             }
           ]
         },
@@ -23,7 +23,7 @@
           "functions": [
             {
               "function": "set_nbt",
-              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:wind\",spell_ids:[\"elemental_wizards_rpg:wind_air_cutter\",\"elemental_wizards_rpg:wind_aeroblast\",\"elemental_wizards_rpg:wind_updraft\"],spell_container:\"MAGIC\"}}"
+              "tag": "{spell_container:{pool:\"elemental_wizards_rpg:wind\",spell_ids:[\"elemental_wizards_rpg:wind_air_cutter\",\"elemental_wizards_rpg:wind_aeroblast\",\"elemental_wizards_rpg:wind_updraft\",\"elemental_wizards_rpg:wind_aeroburst\"],spell_container:\"MAGIC\"}}"
             }
           ]
         }
