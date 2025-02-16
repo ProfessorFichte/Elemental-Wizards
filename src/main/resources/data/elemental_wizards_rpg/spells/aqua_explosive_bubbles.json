@@ -1,15 +1,15 @@
 {
   "school": "WATER",
-  "range": 16,
+  "range": 12,
   "learn": {
     "tier": 3
   },
   "cast": {
-    "duration": 1,
-    "animation": "more_rpg_classes:two_handed_ground_channeling",
+    "duration": 1.25,
+    "animation": "spell_engine:one_handed_healing_charge",
     "sound": {
       "id": "block.bubble_column.whirlpool_ambient",
-      "volume": 0.5
+      "volume": 2.0
     },
     "particles": [
       {
@@ -32,7 +32,7 @@
           "extra_launch_delay": 5
         },
         "projectile": {
-          "divergence": 20,
+          "divergence": 15,
           "homing_angle": 2,
           "perks": {
             "bounce": 10
@@ -101,7 +101,9 @@
         }
       ],
       "sound": {
-        "id": "block.bubble_column.bubble_pop"
+        "id": "block.bubble_column.bubble_pop",
+        "volume": 2.0,
+        "pitch": -1.5
       }
     },
     {
@@ -177,11 +179,15 @@
       }
     ],
     "sound": {
-      "id": "more_rpg_classes:water_magic_impact1"
+      "id": "entity.dragon_fireball.explode",
+      "random": 0.5,
+      "volume": 0.15,
+      "pitch": 2.5
     }
   },
   "cost": {
     "item_id": "more_rpg_classes:aqua_stone",
+    "cooldown_duration": 22,
     "exhaust" : 0.4,
     "cooldown_haste_affected": true
   }

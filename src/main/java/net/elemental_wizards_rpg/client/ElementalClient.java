@@ -28,6 +28,7 @@ public class ElementalClient implements ClientModInitializer {
                 BubbleFoamRenderer.modelId_base,
                 TornadoRenderer.modelId,
                 new Identifier(ElementalMod.MOD_ID, "projectile/stone_spear"),
+                new Identifier(ElementalMod.MOD_ID, "projectile/stone_shard"),
                 new Identifier(ElementalMod.MOD_ID, "projectile/spell_stone"),
                 new Identifier(ElementalMod.MOD_ID, "projectile/big_bubble")
         ));
