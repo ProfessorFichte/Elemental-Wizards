@@ -16,4 +16,5 @@ public class DripstoneBigEntity extends SpellCloud {
     public boolean canBeHitByProjectile() {
         return this.isAlive();
     }
+
 }

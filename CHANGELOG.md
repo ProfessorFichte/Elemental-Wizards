@@ -1,3 +1,6 @@
+# 2.4.1 - 1.21.1
+- The Dripstone Circle Spell can now also be casted on the targets location, with the casters location as fallback
+
 # 2.4.0 - 1.21.1
 - Spell Engine 1.5 Update
 - deleted unused old spells
