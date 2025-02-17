@@ -8,6 +8,7 @@ import net.elemental_wizards_rpg.client.effect.*;
 import net.elemental_wizards_rpg.client.entity.DripstoneSmallRenderer;
 import net.elemental_wizards_rpg.client.entity.TornadoRenderer;
 import net.elemental_wizards_rpg.effect.Effects;
+import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.armor.ElementalRobe;
 import net.fabricmc.api.ClientModInitializer;
@@ -53,6 +54,7 @@ public class ElementalClient implements ClientModInitializer {
         CustomParticleStatusEffect.register(Effects.STONE_FLESH.effect, new StoneFleshParticleSpawner());
 
         EntityRendererRegistry.register(DripstoneBigEntity.ENTITY_TYPE, DripstoneBigRenderer::new);
+        EntityRendererRegistry.register(DripstoneSmallEntity.ENTITY_TYPE, DripstoneSmallRenderer::new);
     }
     private static void registerArmorRenderer(Armor.Set set, Supplier<AzArmorRenderer> armorRendererSupplier) {
         AzArmorRendererRegistry.register(armorRendererSupplier, set.head, set.chest, set.legs, set.feet);
