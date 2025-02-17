@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "elemental_wizards_rpg:spell_books/beginner_earth",
+          "name": "elemental_wizards_rpg:spell_books/expert_earth",
           "weight": 2
         },
         {

@@ -1,3 +1,6 @@
+1.3.3 - 1.20.1
+- fix loot chest error: water_tower
+
 1.3.2 - 1.20.1
 - deleted unused old spells
 - bubble beam will now only give the shield to the caster
