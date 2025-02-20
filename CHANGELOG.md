@@ -1,5 +1,6 @@
 1.3.3 - 1.20.1
 - fix loot chest error: water_tower
+- add tags for optional LNE-Wizards Add-On Structures
 
 1.3.2 - 1.20.1
 - deleted unused old spells
