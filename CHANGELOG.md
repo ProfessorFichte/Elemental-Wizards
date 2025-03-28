@@ -1,5 +1,8 @@
 # 2.4.1 - 1.21.1
 - The Dripstone Circle Spell can now also be casted on the targets location, with the casters location as fallback
+- Spell Engine 1.6 Update
+- changed some tags
+- inject elemental wizards loot in Wizard Villager Chest
 
 # 2.4.0 - 1.21.1
 - Spell Engine 1.5 Update

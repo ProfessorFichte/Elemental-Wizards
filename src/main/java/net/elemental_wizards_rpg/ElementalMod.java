@@ -1,5 +1,6 @@
 package net.elemental_wizards_rpg;
 
+import net.elemental_wizards_rpg.compat.ElementalWizardLootTableInjection;
 import net.elemental_wizards_rpg.config.EffectsConfig;
 import net.elemental_wizards_rpg.effect.Effects;
 import net.elemental_wizards_rpg.entity.DripstoneBigEntity;
@@ -14,6 +15,7 @@ import net.elemental_wizards_rpg.config.TweaksConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.ItemStack;
@@ -61,7 +63,12 @@ public class ElementalMod implements ModInitializer {
 	public void onInitialize() {
 		itemConfig.refresh();
 		effectsConfig.refresh();
+		tweaksConfig.refresh();
+		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+			tweaksConfig.value.ignore_items_required_mods = true;
+		}
 		ElementalItems.registerModItems();
+		ElementalWizardLootTableInjection.modifyLootTables();
 		ElementalGroup.registerItemGroups();
 		WeaponsRegister.register(itemConfig.value.weapons);
 		Armors.register(itemConfig.value.armor_sets);

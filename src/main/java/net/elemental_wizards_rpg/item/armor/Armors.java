@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.config.ArmorSetConfig;
 import net.spell_engine.api.config.AttributeModifier;
+import net.spell_engine.api.item.Equipment;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
@@ -101,13 +102,16 @@ public class Armors {
 
 
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
-    private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability, Armor.Set.ItemFactory factory, ArmorSetConfig defaults) {
+    private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability,
+                                      Armor.Set.ItemFactory factory, ArmorSetConfig defaults, int tier) {
         var entry = Armor.Entry.create(
                 material,
                 id,
                 durability,
                 factory,
-                defaults);
+                defaults,
+                Equipment.LootProperties.of(tier)
+        );
         entries.add(entry);
         return entry;
     }
@@ -147,7 +151,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
                                             AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     ))
-                    ))
+                    ),1)
                     .armorSet();
 
     public static final Armor.Set kelpArmor =
@@ -177,7 +181,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
                                             AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     ))
-                    ))
+                    ),2)
                     .armorSet();
 
     public static final Armor.Set dripstoneArmor =
@@ -207,7 +211,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     ))
-                    ))
+                    ),2)
                     .armorSet();
 
     public static final Armor.Set windArmor =
@@ -237,7 +241,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     ))
-                    ))
+                    ),2)
                     .armorSet();
 
     public static final Armor.Set netheriteKelpNetheriteArmor =
@@ -267,7 +271,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
                                             AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     ))
-                    ))
+                    ),3)
                     .armorSet();
 
     public static final Armor.Set netheriteDripstoneArmor =
@@ -297,7 +301,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     ))
-                    ))
+                    ),3)
                     .armorSet();
 
     public static final Armor.Set netheriteWindArmor =
@@ -327,7 +331,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     ))
-                    ))
+                    ),3)
                     .armorSet();
 
     public static void register(Map<String, ArmorSetConfig> configs) {

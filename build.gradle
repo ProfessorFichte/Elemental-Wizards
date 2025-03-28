@@ -75,6 +75,8 @@ dependencies {
 	//modImplementation(files("run/mods/dev/more_rpg_classes-${project.more_rpg_classes_version}.jar"))
 	modImplementation("maven.modrinth:more-rpg-classes:${project.more_rpg_classes_version}")
 
+	modImplementation("maven.modrinth:wizards:${project.wizards_version}")
+
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.4")))
