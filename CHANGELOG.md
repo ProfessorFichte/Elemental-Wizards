@@ -1,3 +1,8 @@
+# 2.4.2 - 1.21.1
+- Add Spell Scroll Textures
+- Add smelting recipes for disassembling weapons and armor pieces
+- Add Datagen
+
 # 2.4.1 - 1.21.1
 - The Dripstone Circle Spell can now also be casted on the targets location, with the casters location as fallback
 - Spell Engine 1.6 Update
