@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:netherite_scrap_from_smelting_wand_netherite_aqua"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wand_netherite_aqua": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:wand_netherite_aqua"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wand_netherite_aqua"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:netherite_scrap_from_smelting_wand_netherite_aqua"
+    ]
+  }
+}

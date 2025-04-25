@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:wind_charge_from_smelting_wind_feet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wind_feet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:wind_feet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wind_feet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:wind_charge_from_smelting_wind_feet"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_smelting_wand_wind"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wand_wind": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:wand_wind"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wand_wind"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_smelting_wand_wind"
+    ]
+  }
+}

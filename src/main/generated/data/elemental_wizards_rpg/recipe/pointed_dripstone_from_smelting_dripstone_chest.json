@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 300,
+  "experience": 0.1,
+  "group": "disassemble",
+  "ingredient": {
+    "item": "elemental_wizards_rpg:dripstone_chest"
+  },
+  "result": {
+    "id": "minecraft:pointed_dripstone"
+  }
+}

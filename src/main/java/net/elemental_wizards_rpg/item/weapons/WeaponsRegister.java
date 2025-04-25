@@ -154,7 +154,7 @@ public class WeaponsRegister {
             staff("betternether", "staff_ruby_terra",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
-            ;
+                    .loot(Equipment.LootProperties.of(4));
         }
         if(FabricLoader.getInstance().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);

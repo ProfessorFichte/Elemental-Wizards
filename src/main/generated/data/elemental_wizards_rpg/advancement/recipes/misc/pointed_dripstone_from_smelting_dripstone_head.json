@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dripstone_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:dripstone_head"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:pointed_dripstone_from_smelting_dripstone_head"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dripstone_head"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:pointed_dripstone_from_smelting_dripstone_head"
+    ]
+  }
+}

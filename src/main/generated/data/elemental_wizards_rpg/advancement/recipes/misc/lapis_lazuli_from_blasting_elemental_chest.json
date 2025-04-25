@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elemental_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:elemental_chest"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:lapis_lazuli_from_blasting_elemental_chest"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_elemental_chest"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:lapis_lazuli_from_blasting_elemental_chest"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elemental_feet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:elemental_feet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:lapis_lazuli_from_smelting_elemental_feet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_elemental_feet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:lapis_lazuli_from_smelting_elemental_feet"
+    ]
+  }
+}

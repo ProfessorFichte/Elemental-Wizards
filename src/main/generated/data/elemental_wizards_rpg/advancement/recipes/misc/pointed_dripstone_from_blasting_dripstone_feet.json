@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dripstone_feet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:dripstone_feet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:pointed_dripstone_from_blasting_dripstone_feet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dripstone_feet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:pointed_dripstone_from_blasting_dripstone_feet"
+    ]
+  }
+}

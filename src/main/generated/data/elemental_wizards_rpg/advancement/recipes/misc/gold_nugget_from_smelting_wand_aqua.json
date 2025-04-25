@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_smelting_wand_aqua"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wand_aqua": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:wand_aqua"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wand_aqua"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_smelting_wand_aqua"
+    ]
+  }
+}

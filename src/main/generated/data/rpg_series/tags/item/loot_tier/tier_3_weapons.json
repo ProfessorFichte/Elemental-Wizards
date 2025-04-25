@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:wand_netherite_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_netherite_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_netherite_wind",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_netherite_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_netherite_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_netherite_wind",
+      "required": false
+    }
+  ]
+}

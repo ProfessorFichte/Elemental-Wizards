@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:elemental_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_feet",
+      "required": false
+    }
+  ]
+}

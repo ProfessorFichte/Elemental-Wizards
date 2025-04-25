@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:wand_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_wind",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_wind",
+      "required": false
+    }
+  ]
+}

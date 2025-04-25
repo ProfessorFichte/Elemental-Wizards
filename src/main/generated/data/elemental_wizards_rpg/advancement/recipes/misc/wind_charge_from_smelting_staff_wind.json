@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_staff_wind": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemental_wizards_rpg:staff_wind"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:wind_charge_from_smelting_staff_wind"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_staff_wind"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:wind_charge_from_smelting_staff_wind"
+    ]
+  }
+}
