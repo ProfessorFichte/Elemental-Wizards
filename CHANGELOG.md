@@ -1,3 +1,7 @@
+# 2.4.3 - 1.21.1
+- add armor meta type tags
+- add weapon type tags for damage wands
+
 # 2.4.2 - 1.21.1
 - Add Spell Scroll Textures
 - Add smelting recipes for disassembling weapons and armor pieces

@@ -26,12 +26,9 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 public class WeaponsRegister {
     public static final ArrayList<Weapon.Entry> entries = new ArrayList<>();
 
-    private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults) {
-        return entry(null, name, material, factory, defaults);
-    }
 
-    private static Weapon.Entry entry(String requiredMod, String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults) {
-        var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, Equipment.WeaponType.DAMAGE_STAFF);
+    private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType category) {
+        var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, category);
         if (entry.isRequiredModInstalled()) {
             entries.add(entry);
         }
@@ -57,7 +54,7 @@ public class WeaponsRegister {
     private static final float wandAttackDamage = 2;
     private static final float wandAttackSpeed = -2.4F;
     private static Weapon.Entry wand(String name, Weapon.CustomMaterial material) {
-        return entry(name, material, StaffItem::new, new WeaponConfig(wandAttackDamage, wandAttackSpeed));
+        return entry(name, material, StaffItem::new, new WeaponConfig(wandAttackDamage, wandAttackSpeed), Equipment.WeaponType.DAMAGE_WAND);
     }
 
     public static final Weapon.Entry kelpWand = wand("wand_kelp",
@@ -103,11 +100,7 @@ public class WeaponsRegister {
     private static final float staffAttackDamage = 4;
     private static final float staffAttackSpeed = -3F;
     private static Weapon.Entry staff(String name, Weapon.CustomMaterial material) {
-        return staff(null, name, material);
-    }
-
-    private static Weapon.Entry staff(String requiredMod, String name, Weapon.CustomMaterial material) {
-        return entry(requiredMod, name, material, StaffItem::new, new WeaponConfig(staffAttackDamage, staffAttackSpeed));
+        return entry(name, material, StaffItem::new, new WeaponConfig(staffAttackDamage, staffAttackSpeed), Equipment.WeaponType.DAMAGE_STAFF);
     }
     public static final Weapon.Entry elementalStaff= staff("staff_elemental",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.STICK)))
@@ -151,25 +144,25 @@ public class WeaponsRegister {
     public static void register(Map<String,WeaponConfig> configs) {
         if(FabricLoader.getInstance().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
-            staff("betternether", "staff_ruby_terra",
+            staff( "staff_ruby_terra",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
                     .loot(Equipment.LootProperties.of(4));
         }
         if(FabricLoader.getInstance().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
-            staff("betterend", "staff_crystal_aqua",
+            staff( "staff_crystal_aqua",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
                     .loot(Equipment.LootProperties.of(4));
-            staff("betterend", "staff_aeternium_wind",
+            staff( "staff_aeternium_wind",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
                     .loot(Equipment.LootProperties.of(4));
         }
         if(FabricLoader.getInstance().isModLoaded(AETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
-            staff(AETHER, "staff_aether",
+            staff( "staff_aether",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))

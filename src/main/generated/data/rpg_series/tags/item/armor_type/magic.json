@@ -1,0 +1,116 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:elemental_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_feet",
+      "required": false
+    }
+  ]
+}

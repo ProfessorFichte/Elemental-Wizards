@@ -14,6 +14,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_engine.rpg_series.datagen.RPGSeriesDataGen;
+import net.spell_engine.rpg_series.tags.RPGSeriesItemTags;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -33,7 +34,7 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 			generateWeaponTags(WeaponsRegister.entries);
-			generateArmorTags(Armors.entries);
+			generateArmorTags(Armors.entries, RPGSeriesItemTags.ArmorMetaType.MAGIC);
 		}
 	}
 

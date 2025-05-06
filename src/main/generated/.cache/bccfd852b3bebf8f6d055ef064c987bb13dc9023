@@ -1,4 +1,4 @@
-// 1.21.1	2025-04-25T15:25:49.35896	Elemental Wizards (RPG Class)/Tags for minecraft:item
+// 1.21.1	2025-05-06T19:29:59.4962398	Elemental Wizards (RPG Class)/Tags for minecraft:item
 ee7d799ae09f6ecb46483ad09da642676d8ebe20 data\minecraft\tags\item\foot_armor.json
 551aa5dc02e789a9b9bdb61a29cb0b2fd971cb61 data\minecraft\tags\item\head_armor.json
 b16bfd996465ff85ce35fbda2f48a3e7701baede data\minecraft\tags\item\chest_armor.json
@@ -6,8 +6,10 @@ b16bfd996465ff85ce35fbda2f48a3e7701baede data\minecraft\tags\item\chest_armor.js
 f21245b080e97e933b179ea763c92101af7777de data\rpg_series\tags\item\loot_tier\tier_2_armors.json
 d6311ae9f508d3a7d2ff277b79edcd2ab2062147 data\rpg_series\tags\item\loot_tier\tier_1_armors.json
 10ecc22d51601b2c22df0f74d4108b95bac3e994 data\rpg_series\tags\item\loot_tier\tier_4_weapons.json
+739f2d0e6a11ae0da5d92fdd919bbe09f52fb769 data\rpg_series\tags\item\armor_type\magic.json
 19f82477a6e295c64d6a5d7634b4088b1fb1e5db data\rpg_series\tags\item\loot_tier\tier_2_weapons.json
-83ffac9da48c7894138f7ad1c1f1e78a43a39e56 data\rpg_series\tags\item\weapon_type\damage_staff.json
+9118b4959b8ebd5bbc6a353cb244242ab67ad6cb data\rpg_series\tags\item\weapon_type\damage_wand.json
+11753757582d73b104f87424bf62a88978d9cf04 data\rpg_series\tags\item\weapon_type\damage_staff.json
 50839330cdfff8abc915ceffb279bbce8d9209dd data\rpg_series\tags\item\loot_tier\tier_1_weapons.json
 2b97ab17033222d8bedf134d93f62bd6b26cb479 data\rpg_series\tags\item\loot_tier\tier_0_weapons.json
 af828516b3a64b82ebf9be59cca11ac800e5ac1c data\rpg_series\tags\item\loot_theme\aether.json

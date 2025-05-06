@@ -1,0 +1,40 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:wand_kelp",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_netherite_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_clay",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_netherite_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_feather",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_wind",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wand_netherite_wind",
+      "required": false
+    }
+  ]
+}
