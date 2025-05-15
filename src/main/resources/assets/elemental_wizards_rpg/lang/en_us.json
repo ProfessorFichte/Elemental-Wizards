@@ -96,6 +96,8 @@
   "spell.elemental_wizards_rpg.aqua_springwater.description": "Summoning water springs, healing and cleansing friends by {heal}, and dealing {damage} water spell damage to targets.",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.name": "Hydro Beam",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.description": "Channeling a high hydro-pressure beam, dealing {damage} water damage every second and soaking targets.",
+  "spell.elemental_wizards_rpg.aqua_explosive_bubbles.name": "Explosive Bubbles",
+  "spell.elemental_wizards_rpg.aqua_explosive_bubbles.description": "Slow bouncy bubbles, dealing {damage} damage and healing allies for {heal} hearts in a area on impact.",
 
   "spell.elemental_wizards_rpg.terra_stone_throw.name": "Stone Throw",
   "spell.elemental_wizards_rpg.terra_stone_throw.description": "Projectile dealing {damage} earth spell damage, exploding on contact damaging nearby targets.",
@@ -107,6 +109,8 @@
   "spell.elemental_wizards_rpg.terra_drip_circle.description": "Spawning two dripstone circles, dealing {damage} earth spell damage and adding bleeding.",
   "spell.elemental_wizards_rpg.terra_earthquake.name": "Earthquake",
   "spell.elemental_wizards_rpg.terra_earthquake.description": "Dealing {damage} earth spell damage, throwing targets around and adding Trembling effect.",
+  "spell.elemental_wizards_rpg.terra_shattering_stone.name": "Shattering Stones",
+  "spell.elemental_wizards_rpg.terra_shattering_stone.description": "Stone projectile, that creates more projectiles on impact, dealing {damage} and inflicting bleeding.",
 
   "spell.elemental_wizards_rpg.wind_gust.name": "Gust",
   "spell.elemental_wizards_rpg.wind_gust.description": "Small gust dealing {damage} air spell damage.",
@@ -118,6 +122,8 @@
   "spell.elemental_wizards_rpg.wind_updraft.description": "Damaging the target constantly with {damage} air spell damage, dealing more damage when the target is in the air.",
   "spell.elemental_wizards_rpg.wind_tornado.name": "Tornado",
   "spell.elemental_wizards_rpg.wind_tornado.description": "Summoning a tornado, dealing {damage} air spell damage, knocking enemies up and sucking them in the tornado.",
+  "spell.elemental_wizards_rpg.wind_aeroburst.name": "Aeroburst",
+  "spell.elemental_wizards_rpg.wind_aeroburst.description": "Pressure Burst, knocking targets in a circle back and dealing {damage} damage.",
 
   "advancements.rpg_classes.water_rune.title": "Path of Water",
   "advancements.rpg_classes.water_rune.description": "Obtain a Water Rune",

@@ -125,7 +125,7 @@
         "status_effect": {
           "effect_id": "elemental_wizards_rpg:tornado",
           "duration": 1,
-          "apply_mode": "ADD",
+          "apply_mode": "SET",
           "amplifier": 0,
           "show_particles": false
         }

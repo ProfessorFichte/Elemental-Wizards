@@ -1,3 +1,8 @@
+# 2.4.4 - 1.21.1
+- Update for newest Spell Engine API
+- fix elemental wizard stuff loot injection in villager wizard chest
+- Fix Springwater Spell Tier
+
 # 2.4.3 - 1.21.1
 - add armor meta type tags
 - add weapon type tags for damage wands

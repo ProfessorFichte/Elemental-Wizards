@@ -1,7 +1,7 @@
 {
   "school": "WATER",
   "range": 6,
-  "tier": 2,
+  "tier": 3,
   "learn": {},
 
   "active": {
@@ -169,8 +169,7 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "elemental_wizards_rpg:cleansing_water",
-          "amplifier": 0,
-          "duration": 4,
+          "duration": 6,
           "apply_mode": "SET",
           "amplifier_power_multiplier": 0.2,
           "show_particles": false

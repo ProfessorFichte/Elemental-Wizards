@@ -10,6 +10,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.item.MRPGCItems;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
@@ -18,8 +19,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 
 public class ElementalWizardLootTableInjection {
-    private static final Identifier WIZARDS_VILLAGER =
-            Identifier.of("wizards", "chests/village_wizard");
+    private static final Identifier WIZARDS_VILLAGER_ID = Identifier.of("wizards", "village_wizard");
+    public static final RegistryKey<LootTable> WIZARDS_VILLAGER =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, WIZARDS_VILLAGER_ID.withPrefixedPath("chests/"));
 
     public static void modifyLootTables(){
         LootTableEvents.MODIFY.register(new LootTableEvents.Modify() {
@@ -33,10 +35,10 @@ public class ElementalWizardLootTableInjection {
                             .with(ItemEntry.builder(MRPGCItems.AQUA_STONE))
                             .with(ItemEntry.builder(MRPGCItems.TERRA_STONE))
                             .with(ItemEntry.builder(MRPGCItems.STORM_STONE))
-                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(5.0f, 16.0f)).build());
+                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3.0f, 12.0f)).build());
                     tableBuilder.pool(poolBuilder0.build());
                     LootPool.Builder poolBuilder1 = LootPool.builder()
-                            .rolls(ConstantLootNumberProvider.create(2))
+                            .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(0.25F))
                             .with(ItemEntry.builder(WeaponsRegister.elementalStaff.item()))
                             .with(ItemEntry.builder(WeaponsRegister.kelpWand.item()))
@@ -52,7 +54,7 @@ public class ElementalWizardLootTableInjection {
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(0.2F))
                             .with(ItemEntry.builder(ElementalItems.ELEMENTAL_ESSENCE))
-                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 3.0f)).build());
+                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f)).build());
                     tableBuilder.pool(poolBuilder2.build());
                 }
                 }

@@ -87,7 +87,8 @@
           "duration": 2.0,
           "apply_mode": "SET",
           "apply_limit": {
-            "health_base": 50
+            "health_base": 50,
+            "spell_power_multiplier": 5.0
           },
           "show_particles": false
         }

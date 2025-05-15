@@ -169,7 +169,7 @@
         "status_effect": {
           "effect_id": "elemental_wizards_rpg:soaked",
           "duration": 4,
-          "apply_mode": "ADD",
+          "apply_mode": "SET",
           "show_particles": false
         }
       }

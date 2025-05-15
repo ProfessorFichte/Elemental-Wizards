@@ -90,8 +90,9 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "elemental_wizards_rpg:trembling",
-          "amplifier": 3,
+          "amplifier": 1,
           "duration": 8,
+          "amplifier_cap": 4,
           "apply_mode": "ADD",
           "show_particles": false
         }
