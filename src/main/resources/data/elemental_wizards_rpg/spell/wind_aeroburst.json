@@ -1,0 +1,120 @@
+{
+  "school": "AIR",
+  "range": 8,
+  "tier": 5,
+
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.5,
+      "animation": "more_rpg_classes:two_handed_sky_channeling",
+      "sound": {
+        "id": "spell_engine:generic_wind_charging",
+        "randomness": 0
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "shape": "SPHERE",
+          "origin": "FEET",
+          "count": 20,
+          "min_speed": 0.2,
+          "max_speed": 0.5
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "shape": "CIRCLE",
+          "origin": "FEET",
+          "count": 5.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+
+  "release": {
+    "animation": "more_rpg_classes:two_handed_ground_release",
+    "particles": [
+      {
+        "particle_id": "spell_engine:smoke_medium",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 50.0,
+        "min_speed": 0.6,
+        "max_speed": 2.0,
+        "extend": 2,
+        "invert": true
+      },
+      {
+        "particle_id": "more_rpg_classes:water_mist",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 100.0,
+        "min_speed": 0.6,
+        "max_speed": 2.0,
+        "extend": 2,
+        "invert": true
+      },
+      {
+        "particle_id": "spell_engine:smoke_medium",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 50.0,
+        "min_speed": 1.0,
+        "max_speed": 2.4,
+        "extend": 4
+      },
+      {
+        "particle_id": "spell_engine:smoke_medium",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 50.0,
+        "min_speed": 1.4,
+        "max_speed": 3.0,
+        "extend": 6
+      }
+    ],
+    "sound": {
+      "id": "more_rpg_classes:air_explosion"
+    }
+  },
+
+  "target": {
+    "type": "AREA",
+    "area": {
+      "distance_dropoff": "NONE",
+      "angle_degrees": 360.0
+    }
+  },
+
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 10.0,
+          "spell_power_coefficient": 0.8
+        }
+      },
+      "particles": [
+      ],
+      "sound": {
+        "id": "more_rpg_classes:air_magic_impact2",
+        "volume": 0.4
+      }
+    }
+  ],
+
+  "cost": {
+    "exhaust" : 0.4,
+    "cooldown":{
+      "duration": 28,
+      "haste_affected": true
+    },
+    "item": {
+      "id": "more_rpg_classes:storm_stone"
+    }
+
+  }
+}
