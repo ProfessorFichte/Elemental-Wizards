@@ -94,15 +94,23 @@
 
   "impacts": [
     {
-      "target_conditions": [
+      "target_modifiers": [
         {
-          "entity_type": "#more_rpg_classes:vulnerable_to_water_spells",
+          "conditions": [
+            {
+              "entity_type": "#more_rpg_classes:vulnerable_to_water_spells"
+            }
+          ],
           "modifier": {
-            "critical_chance_bonus": 1
+            "critical_chance_bonus": 0.3
           }
         },
         {
-          "entity_type": "#more_rpg_classes:resistant_to_water_spells",
+          "conditions": [
+            {
+              "entity_type": "#more_rpg_classes:resistant_to_water_spells"
+            }
+          ],
           "modifier": {
             "power_multiplier": -0.3
           }
@@ -147,10 +155,14 @@
       }
     },
     {
-      "target_conditions": [
+      "target_modifiers": [
         {
-          "entity_type": "#more_rpg_classes:resistant_to_water_spells",
-          "allow_action": false
+          "conditions": [
+            {
+              "entity_type": "#more_rpg_classes:resistant_to_water_spells"
+            }
+          ],
+          "execute": "DENY"
         }
       ],
       "action": {
@@ -164,10 +176,14 @@
       }
     },
     {
-      "target_conditions": [
+      "target_modifiers": [
         {
-          "entity_type": "#spell_engine:mechanical",
-          "allow_action": false
+          "conditions": [
+            {
+              "entity_type": "#spell_engine:mechanical"
+            }
+          ],
+          "execute": "DENY"
         }
       ],
       "action": {

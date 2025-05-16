@@ -74,10 +74,14 @@
       }
     },
     {
-      "target_conditions": [
+      "target_modifiers": [
         {
-          "entity_type": "#c:bosses",
-          "allow_action": false
+          "conditions": [
+            {
+              "entity_type": "#c:bosses"
+            }
+          ],
+          "execute": "DENY"
         }
       ],
       "action": {

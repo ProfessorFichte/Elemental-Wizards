@@ -1,3 +1,6 @@
+# 2.4.5 - 1.21.1
+- fix some target modifiers in Passive Spell Impact
+
 # 2.4.4 - 1.21.1
 - Update for newest Spell Engine API
 - fix elemental wizard stuff loot injection in villager wizard chest

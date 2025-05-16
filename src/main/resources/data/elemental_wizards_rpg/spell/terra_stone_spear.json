@@ -80,10 +80,14 @@
       }
     },
     {
-      "target_conditions": [
+      "target_modifiers": [
         {
-          "entity_type": "#minecraft:undead",
-          "allow_action": false
+          "conditions": [
+            {
+              "entity_type": "#minecraft:undead"
+            }
+          ],
+          "execute": "DENY"
         }
       ],
       "action": {

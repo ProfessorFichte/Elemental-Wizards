@@ -56,21 +56,11 @@ public class CleansingWaterEffect extends StatusEffect {
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
         int i;
-        if (this == Effects.CLEANSING_WATER.registryEntry) {
-            i = 35 >> amplifier;
-            if (i > 0) {
-                return duration % i == 0;
-            } else {
-                return true;
-            }
-        }
-        return true;
-    }
-
-    public void onApplied(LivingEntity entity, int amplifier) {
-        super.onApplied(entity, amplifier);
-        if(entity.isPlayer() && entity.getMaxHealth() == entity.getHealth()){
-            CustomMethods.clearNegativeEffects(entity,true);
+        i = 40 >> amplifier;
+        if (i > 0) {
+            return duration % i == 0;
+        } else {
+            return true;
         }
     }
 }
