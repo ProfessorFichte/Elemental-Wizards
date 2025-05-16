@@ -2,6 +2,7 @@
 - Update for newest Spell Engine API
 - fix elemental wizard stuff loot injection in villager wizard chest
 - Fix Springwater Spell Tier
+- Add LNE related data & spells
 
 # 2.4.3 - 1.21.1
 - add armor meta type tags

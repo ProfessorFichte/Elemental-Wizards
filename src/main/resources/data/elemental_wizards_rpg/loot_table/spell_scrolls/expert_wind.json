@@ -1,0 +1,78 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "spell_engine:scroll",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "spell_engine:spell_container": {
+                  "spell_ids": ["elemental_wizards_rpg:wind_updraft"],
+                  "max_spell_count": 1
+                },
+                "minecraft:custom_model_data": 106,
+                "minecraft:item_name": "{translate:item.elemental_wizards_rpg.wind.spell_scroll}",
+                "minecraft:rarity": "rare"
+              }
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "spell_engine:scroll",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "spell_engine:spell_container": {
+                  "spell_ids": ["elemental_wizards_rpg:wind_tornado"],
+                  "max_spell_count": 1
+                },
+                "minecraft:custom_model_data": 106,
+                "minecraft:item_name": "{translate:item.elemental_wizards_rpg.wind.spell_scroll}",
+                "minecraft:rarity": "epic"
+              }
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "spell_engine:scroll",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "spell_engine:spell_container": {
+                  "spell_ids": ["elemental_wizards_rpg:wind_aeroburst"],
+                  "max_spell_count": 1
+                },
+                "minecraft:custom_model_data": 106,
+                "minecraft:item_name": "{translate:item.elemental_wizards_rpg.wind.treasure_spell_scroll}",
+                "minecraft:rarity": "epic"
+              }
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

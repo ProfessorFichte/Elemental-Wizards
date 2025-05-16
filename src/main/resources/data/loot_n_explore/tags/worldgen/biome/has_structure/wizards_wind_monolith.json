@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#minecraft:is_hill",
+    {
+      "id": "#c:mountain_peak",
+      "required": false
+    },
+    {
+      "id": "#c:extreme_hills",
+      "required": false
+    }
+  ]
+}

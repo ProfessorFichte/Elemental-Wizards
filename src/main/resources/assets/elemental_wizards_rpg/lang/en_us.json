@@ -138,5 +138,9 @@
   "advancements.rpg_classes.air_rune.title": "Path of Air",
   "advancements.rpg_classes.air_rune.description": "Obtain a Air Rune",
   "advancements.more_rpg_content.air_spells.title": "Eye of the Storm",
-  "advancements.more_rpg_content.air_spells.description": "Obtain all Air Elemental Spells"
+  "advancements.more_rpg_content.air_spells.description": "Obtain all Air Elemental Spells",
+
+  "item.elemental_wizards_rpg.aqua.treasure_spell_scroll": "Treasure Water Spell Scroll",
+  "item.elemental_wizards_rpg.terra.treasure_spell_scroll": "Treasure Earth Spell Scroll",
+  "item.elemental_wizards_rpg.wind.treasure_spell_scroll": "Treasure Wind Spell Scroll"
 }

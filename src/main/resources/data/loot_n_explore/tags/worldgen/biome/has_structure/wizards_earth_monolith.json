@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#minecraft:is_mountain",
+    "minecraft:desert",
+    "minecraft:savanna",
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:dripstone_caves",
+    "minecraft:lush_caves",
+    {
+      "id": "#c:caves",
+      "required": false
+    }
+  ]
+}
