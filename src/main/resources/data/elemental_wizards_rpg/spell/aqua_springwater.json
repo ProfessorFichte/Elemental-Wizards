@@ -8,7 +8,7 @@
     "scroll": {},
     "cast": {
       "duration": 1.5,
-      "animation": "spell_engine:one_handed_projectile_charge",
+      "animation": "more_rpg_classes:two_handed_ground_channeling",
       "sound": {
         "id": "block.bubble_column.whirlpool_ambient",
         "randomness": 0
@@ -43,9 +43,9 @@
   },
 
   "release": {
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "more_rpg_classes:two_handed_ground_release",
     "sound": {
-      "id": "ambient.underwater.exit"
+      "id": ""
     }
   },
 

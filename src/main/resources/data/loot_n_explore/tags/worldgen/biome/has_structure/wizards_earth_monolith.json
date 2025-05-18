@@ -7,6 +7,7 @@
     "minecraft:sunflower_plains",
     "minecraft:dripstone_caves",
     "minecraft:lush_caves",
+    "minecraft:windswept_hills",
     {
       "id": "#c:caves",
       "required": false

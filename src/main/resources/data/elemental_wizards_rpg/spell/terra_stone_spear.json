@@ -9,7 +9,7 @@
     "scroll": {},
     "cast": {
       "duration": 1.2,
-      "animation": "more_rpg_classes:two_handed_ground_release",
+      "animation": "more_rpg_classes:two_handed_ground_channeling",
       "sound": {
         "id": "more_rpg_classes:earth_magic_cast1",
         "volume": 0.5
@@ -60,7 +60,7 @@
   },
 
   "release": {
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "more_rpg_classes:two_handed_ground_release",
     "sound": {
       "id": "block.pointed_dripstone.fall",
       "volume": 1.5

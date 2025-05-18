@@ -1,3 +1,8 @@
+# 2.4.6 - 1.21.1
+- fix some spell animations
+- fix earth tower biome tag for LNE-Add-On
+- Fix some spells, which could damage the caster
+
 # 2.4.5 - 1.21.1
 - fix some target modifiers in Passive Spell Impact
 

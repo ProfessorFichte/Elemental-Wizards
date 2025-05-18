@@ -34,7 +34,7 @@
   "target": {
     "type": "AIM",
     "aim": {
-      "use_caster_as_fallback": true
+      "required": true
     }
   },
 
