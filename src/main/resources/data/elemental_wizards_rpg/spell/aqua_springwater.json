@@ -18,17 +18,10 @@
           "particle_id": "more_rpg_classes:big_splash",
           "shape": "PIPE",
           "origin": "FEET",
-          "count": 5.0,
+          "count": 1.0,
           "min_speed": 0.01,
-          "max_speed": 0.05
-        },
-        {
-          "particle_id": "more_rpg_classes:splash",
-          "shape": "CIRCLE",
-          "origin": "FEET",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.1
+          "max_speed": 0.05,
+          "extent": 0.5
         }
       ]
     }
@@ -70,14 +63,6 @@
       "particles": [
         {
           "particle_id": "more_rpg_classes:water_heal",
-          "shape": "CIRCLE",
-          "origin": "FEET",
-          "count": 5,
-          "min_speed": 0.01,
-          "max_speed": 0.05
-        },
-        {
-          "particle_id": "more_rpg_classes:water_heal",
           "shape": "SPHERE",
           "origin": "CENTER",
           "count": 5,
@@ -88,7 +73,7 @@
           "particle_id": "more_rpg_classes:water_circle",
           "shape": "CIRCLE",
           "origin": "FEET",
-          "count": 1.0,
+          "count": 0.1,
           "min_speed": 0.2,
           "max_speed": 1.0
         }
@@ -125,7 +110,7 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 0.5,
-          "spell_power_coefficient": 1
+          "spell_power_coefficient": 0.8
         }
       },
       "particles": [
@@ -133,15 +118,16 @@
           "particle_id": "more_rpg_classes:big_splash",
           "shape": "PILLAR",
           "origin": "FEET",
-          "count": 40,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "count": 25,
+          "min_speed": 0.3,
+          "max_speed": 0.7,
+          "extent": 0.75
         },
         {
           "particle_id": "more_rpg_classes:splash",
           "shape": "CIRCLE",
           "origin": "FEET",
-          "count": 30.0,
+          "count": 5.0,
           "min_speed": 0.05,
           "max_speed": 0.2
         },
@@ -149,7 +135,7 @@
           "particle_id": "more_rpg_classes:water_circle",
           "shape": "CIRCLE",
           "origin": "FEET",
-          "count": 1.0,
+          "count": 0.1,
           "min_speed": 0.2,
           "max_speed": 1.0
         }
@@ -217,7 +203,7 @@
           "particle_id": "spell_engine:magic_holy_impact_decelerate",
           "origin": "FEET",
           "shape": "WIDE_PIPE",
-          "count": 15.0,
+          "count": 5.0,
           "min_speed": 0.3,
           "max_speed": 0.3
         }

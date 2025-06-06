@@ -1,3 +1,7 @@
+# 2.4.7 - 1.21.1
+- Reduce Water Wizard Particles due to server lag
+- Improve TornadoEffect a bit
+
 # 2.4.6 - 1.21.1
 - fix some spell animations
 - fix earth tower biome tag for LNE-Add-On

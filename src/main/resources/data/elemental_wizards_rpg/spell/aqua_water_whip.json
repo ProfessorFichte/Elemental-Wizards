@@ -18,19 +18,12 @@
       "particles": [
         {
           "particle_id": "more_rpg_classes:big_splash",
-          "shape": "WIDE_PIPE",
+          "shape": "PIPE",
           "origin": "FEET",
-          "count": 5.0,
+          "count": 1.0,
           "min_speed": 0.01,
-          "max_speed": 0.05
-        },
-        {
-          "particle_id": "more_rpg_classes:splash",
-          "shape": "CIRCLE",
-          "origin": "FEET",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.1
+          "max_speed": 0.05,
+          "extent": 0.5
         },
         {
           "particle_id": "more_rpg_classes:water_circle",
@@ -62,14 +55,6 @@
         "count": 10.0,
         "min_speed": 0.05,
         "max_speed": 0.1
-      },
-      {
-        "particle_id": "more_rpg_classes:water_circle",
-        "shape": "CIRCLE",
-        "origin": "FEET",
-        "count": 1.0,
-        "min_speed": 1.0,
-        "max_speed": 1.0
       }
     ]
   },
@@ -115,14 +100,6 @@
           "max_speed": 0.2
         },
         {
-          "particle_id": "more_rpg_classes:splash",
-          "shape": "CIRCLE",
-          "origin": "FEET",
-          "count": 15.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
-        },
-        {
           "particle_id": "more_rpg_classes:water_whip",
           "shape": "SPHERE",
           "origin": "CENTER",
@@ -134,7 +111,7 @@
           "particle_id": "more_rpg_classes:water_circle",
           "shape": "CIRCLE",
           "origin": "FEET",
-          "count": 1.0,
+          "count": 0.1,
           "min_speed": 0.2,
           "max_speed": 1.0
         }
