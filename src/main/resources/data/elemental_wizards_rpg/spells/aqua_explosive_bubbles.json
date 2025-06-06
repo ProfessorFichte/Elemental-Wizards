@@ -16,7 +16,7 @@
         "particle_id": "more_rpg_classes:bubble",
         "shape": "SPHERE",
         "origin": "CENTER",
-        "count": 1.0,
+        "count": 3.0,
         "min_speed": 0.001,
         "max_speed": 0.1
       }
@@ -84,18 +84,10 @@
           "max_speed": 0.2
         },
         {
-          "particle_id": "more_rpg_classes:splash",
-          "shape": "CIRCLE",
-          "origin": "CENTER",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.1
-        },
-        {
           "particle_id": "more_rpg_classes:bubble",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 1.0,
+          "count": 10.0,
           "min_speed": 0.001,
           "max_speed": 0.1
         }
@@ -127,17 +119,9 @@
       "particles": [
         {
           "particle_id": "more_rpg_classes:water_heal",
-          "shape": "CIRCLE",
-          "origin": "FEET",
-          "count": 5,
-          "min_speed": 0.01,
-          "max_speed": 0.05
-        },
-        {
-          "particle_id": "more_rpg_classes:water_heal",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 5,
+          "count": 10,
           "min_speed": 0.05,
           "max_speed": 0.1
         }
@@ -157,7 +141,7 @@
         "particle_id": "more_rpg_classes:bubble_pop",
         "shape": "SPHERE",
         "origin": "CENTER",
-        "count": 1.0,
+        "count": 10.0,
         "min_speed": 0.6,
         "max_speed": 1.0
       },
@@ -165,15 +149,7 @@
         "particle_id": "more_rpg_classes:big_splash",
         "shape": "PILLAR",
         "origin": "FEET",
-        "count": 20,
-        "min_speed": 0.05,
-        "max_speed": 0.2
-      },
-      {
-        "particle_id": "more_rpg_classes:splash",
-        "shape": "CIRCLE",
-        "origin": "FEET",
-        "count": 15.0,
+        "count": 10,
         "min_speed": 0.05,
         "max_speed": 0.2
       }

@@ -1,3 +1,6 @@
+1.3.4 - 1.20.1
+- reduce water spell particles
+
 1.3.3 - 1.20.1
 - fix loot chest error: water_tower
 - add tags for optional LNE-Wizards Add-On Structures

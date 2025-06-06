@@ -73,9 +73,9 @@
           "particle_id": "more_rpg_classes:big_splash",
           "shape": "CIRCLE",
           "origin": "FEET",
-          "count": 30.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "count": 20.0,
+          "min_speed": 0.1,
+          "max_speed": 0.4
         },
         {
           "particle_id": "more_rpg_classes:water_mist",
@@ -84,22 +84,6 @@
           "count": 2.0,
           "min_speed": 0.01,
           "max_speed": 0.03
-        },
-        {
-          "particle_id": "more_rpg_classes:big_splash",
-          "shape": "PILLAR",
-          "origin": "FEET",
-          "count": 40,
-          "min_speed": 0.05,
-          "max_speed": 0.2
-        },
-        {
-          "particle_id": "more_rpg_classes:water_splash",
-          "shape": "SPHERE",
-          "origin": "CENTER",
-          "count": 1.0,
-          "min_speed": 0.2,
-          "max_speed": 0.5
         }
       ],
       "sound": {

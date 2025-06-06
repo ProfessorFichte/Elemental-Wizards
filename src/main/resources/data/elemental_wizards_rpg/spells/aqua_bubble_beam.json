@@ -21,7 +21,7 @@
         "shape": "CONE",
         "rotation": "LOOK",
         "origin": "LAUNCH_POINT",
-        "count": 5.0,
+        "count": 3.0,
         "min_speed": 0.2,
         "max_speed": 1
       }
@@ -58,18 +58,10 @@
           "max_speed": 0.2
         },
         {
-          "particle_id": "more_rpg_classes:splash",
-          "shape": "CIRCLE",
-          "origin": "CENTER",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.1
-        },
-        {
           "particle_id": "more_rpg_classes:bubble",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 1.0,
+          "count": 5.0,
           "min_speed": 0.001,
           "max_speed": 0.1
         }
