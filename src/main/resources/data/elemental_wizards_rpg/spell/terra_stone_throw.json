@@ -26,11 +26,16 @@
     }
   },
 
+  "target": {
+    "type": "AIM",
+    "aim": { }
+  },
+
   "deliver": {
     "type": "PROJECTILE",
     "projectile": {
       "launch_properties": {
-        "velocity": 1.3
+        "velocity": 1.1
       },
       "projectile": {
         "client_data": {

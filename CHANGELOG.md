@@ -1,3 +1,6 @@
+# 2.4.8 - 1.21.1
+- fix projectile spells
+
 # 2.4.7 - 1.21.1
 - Reduce Water Wizard Particles due to server lag
 - Improve TornadoEffect a bit

@@ -32,6 +32,11 @@
     }
   },
 
+  "target": {
+    "type": "AIM",
+    "aim": { }
+  },
+
   "deliver": {
     "type": "PROJECTILE",
     "projectile": {
