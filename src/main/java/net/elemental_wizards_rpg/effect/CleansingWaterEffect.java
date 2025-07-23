@@ -1,14 +1,12 @@
 package net.elemental_wizards_rpg.effect;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import net.more_rpg_classes.client.particle.MoreParticles;
-import net.more_rpg_classes.util.CustomMethods;
 import net.minecraft.server.world.ServerWorld;
 
 

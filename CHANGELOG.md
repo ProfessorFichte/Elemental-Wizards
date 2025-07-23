@@ -1,3 +1,8 @@
+# 2.4.9 - 1.21.1
+- Spell Engine 1.7 Update
+- Changed Terra Circle Spell a bit, outer circles now have a delay and the spawn locations got rearranged
+- Add missing recipe for Elemental Staff
+
 # 2.4.8 - 1.21.1
 - fix projectile spells
 

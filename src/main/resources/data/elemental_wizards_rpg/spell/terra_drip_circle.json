@@ -35,12 +35,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -56,7 +57,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 0,
           "apply_yaw": true
         }
@@ -69,12 +70,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -90,7 +92,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 32,
           "apply_yaw": true
         }
@@ -103,12 +105,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -124,7 +127,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 64,
           "apply_yaw": true
         }
@@ -137,12 +140,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -158,7 +162,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 96,
           "apply_yaw": true
         }
@@ -171,12 +175,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -192,7 +197,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 128,
           "apply_yaw": true
         }
@@ -205,12 +210,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -226,7 +232,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 160,
           "apply_yaw": true
         }
@@ -239,12 +245,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -260,7 +267,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": 196,
           "apply_yaw": true
         }
@@ -273,12 +280,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -294,7 +302,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": -32,
           "apply_yaw": true
         }
@@ -307,12 +315,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -328,7 +337,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": -64,
           "apply_yaw": true
         }
@@ -341,12 +350,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -362,7 +372,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": -96,
           "apply_yaw": true
         }
@@ -375,12 +385,13 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
           "model": {
             "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
+            "scale": 0.75,
             "rotate_degrees_per_tick": 0,
             "light_emission": "NONE"
           },
@@ -389,14 +400,14 @@
               "particle_id": "campfire_cosy_smoke",
               "shape": "PILLAR",
               "origin": "FEET",
-              "count": 0.25,
+              "count": 1,
               "min_speed": 0.0001,
               "max_speed": 0.0008
             }
           ]
         },
         "placement": {
-          "location_offset_by_look": 10.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": -128,
           "apply_yaw": true
         }
@@ -409,42 +420,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 1.0,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 10.0,
-          "location_yaw_offset": -160,
-          "apply_yaw": true
-        }
-      },
-
-
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
+        "delay_ticks": 10,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -457,346 +433,6 @@
           "particles": [
             {
               "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 0,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 32,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 64,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 96,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 128,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 160,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": 196,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": -32,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": -64,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 0.25,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": -96,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "smoke",
               "shape": "PILLAR",
               "origin": "FEET",
               "count": 1,
@@ -806,41 +442,7 @@
           ]
         },
         "placement": {
-          "location_offset_by_look": 8.0,
-          "location_yaw_offset": -128,
-          "apply_yaw": true
-        }
-      },
-
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.5
-          }
-        },
-        "impact_tick_interval": 20,
-        "time_to_live_seconds": 5,
-        "client_data": {
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
-            "scale": 0.75,
-            "rotate_degrees_per_tick": 0,
-            "light_emission": "NONE"
-          },
-          "particles": [
-            {
-              "particle_id": "smoke",
-              "shape": "PILLAR",
-              "origin": "FEET",
-              "count": 1,
-              "min_speed": 0.0001,
-              "max_speed": 0.0008
-            }
-          ]
-        },
-        "placement": {
-          "location_offset_by_look": 8.0,
+          "location_offset_by_look": 6.0,
           "location_yaw_offset": -160,
           "apply_yaw": true
         }
@@ -853,6 +455,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -887,6 +490,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -921,6 +525,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -955,6 +560,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -989,6 +595,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1023,6 +630,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1057,6 +665,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1091,6 +700,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1125,6 +735,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1159,6 +770,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1193,6 +805,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1227,6 +840,7 @@
             "vertical_range_multiplier": 1.5
           }
         },
+        "delay_ticks": 5,
         "impact_tick_interval": 20,
         "time_to_live_seconds": 5,
         "client_data": {
@@ -1614,7 +1228,7 @@
           },
           "particles": [
             {
-              "particle_id": "smoke",
+              "particle_id": "campfire_cosy_smoke",
               "shape": "PILLAR",
               "origin": "FEET",
               "count": 1,
@@ -1648,7 +1262,7 @@
           },
           "particles": [
             {
-              "particle_id": "smoke",
+              "particle_id": "campfire_cosy_smoke",
               "shape": "PILLAR",
               "origin": "FEET",
               "count": 1,
