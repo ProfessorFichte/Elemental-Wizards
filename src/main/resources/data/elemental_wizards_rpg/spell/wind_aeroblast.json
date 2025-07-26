@@ -87,12 +87,10 @@
         }
       ],
       "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "elemental_wizards_rpg:aeroblast",
-          "duration": 2,
-          "apply_mode": "SET",
-          "show_particles": false
+        "type": "CUSTOM",
+        "custom": {
+          "handler": "more_rpg_classes:knock_up",
+          "intent": "HARMFUL"
         }
       }
     }

@@ -69,8 +69,6 @@
   "item.elemental_wizards_rpg.staff_netherite_wind": "Netherite Wind Staff",
   "item.elemental_wizards_rpg.staff_aeternium_wind": "Aeternium Wind Staff",
 
-  "effect.elemental_wizards_rpg.soaked": "Soaked",
-  "effect.elemental_wizards_rpg.soaked.description": "Soaking the target with water extinguishing fire, more vulnerable to frost, lightning and water spells.",
   "effect.elemental_wizards_rpg.cleansing_water": "Cleansing Water",
   "effect.elemental_wizards_rpg.cleansing_water.description": "Holy water, extinguishing fire and regenerating health. If the target is full health, cleansing negative effects on applying the effect.",
   "effect.elemental_wizards_rpg.bubble_foam": "Bubble Shield",
@@ -79,10 +77,8 @@
   "effect.elemental_wizards_rpg.stone_flesh.description": "Gives the user armor and armor toughness, if you have all hearts, the next attack will get reduced by 50%.",
   "effect.elemental_wizards_rpg.trembling": "Trembling",
   "effect.elemental_wizards_rpg.trembling.description": "Slows the target, when the effect amplifier is 4, the target gets stunned.",
-  "effect.elemental_wizards_rpg.aeroblast": "Aeroblast",
-  "effect.elemental_wizards_rpg.aeroblast.description": "Knocks the target up when applied.",
   "effect.elemental_wizards_rpg.updraft": "Updraft",
-  "effect.elemental_wizards_rpg.updraft.description": "Makes the target more vulnerable to air spell damage, if its in the air and keeps the target in the air.",
+  "effect.elemental_wizards_rpg.updraft.description": "keeps the target in the air and makes the target more vulnerable to air spell damage, if its in the air.",
   "effect.elemental_wizards_rpg.tornado": "Tornado",
   "effect.elemental_wizards_rpg.tornado.description": "Makes the target more vulnerable to fire spell damage, sucks it in the nearest tornado and knocks the target up.",
 

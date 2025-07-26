@@ -1,3 +1,8 @@
+# 2.4.10 - 1.21.1
+- Update to MRPGLib 2.3.0
+- Use new Custom Impact Types from MRPGLib
+- Delete Soaked Effect, is now registered via MRPGLib
+
 # 2.4.9 - 1.21.1
 - Spell Engine 1.7 Update
 - Changed Terra Circle Spell a bit, outer circles now have a delay and the spawn locations got rearranged

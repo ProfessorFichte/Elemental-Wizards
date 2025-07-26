@@ -16,7 +16,7 @@ public class UpdraftEffect extends SpellVulnerabilityStatusEffect {
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(!entity.isOnGround()){
             Vec3d currentMovement = entity.getVelocity();
-            entity.setVelocity(currentMovement.x, currentMovement.y+0.05F, currentMovement.z);
+            entity.setVelocity(currentMovement.x, currentMovement.y+0.075F, currentMovement.z);
             entity.velocityModified = true;
         }
         return true;

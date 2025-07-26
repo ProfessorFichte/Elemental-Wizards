@@ -5,7 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.math.Vec3d;
-import net.more_rpg_classes.effect.MRPGCEffects;
+import net.spell_engine.api.effect.SpellEngineEffects;
 
 import static net.elemental_wizards_rpg.ElementalMod.effectsConfig;
 
@@ -35,7 +35,7 @@ public class TremblingEffect extends StatusEffect {
     @Override
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(amplifier == 5){
-            entity.addStatusEffect(new StatusEffectInstance(MRPGCEffects.STUNNED.registryEntry,effectsConfig.value.trembling_stun_apply_duration * 10));
+            entity.addStatusEffect(new StatusEffectInstance(SpellEngineEffects.STUN.entry,effectsConfig.value.trembling_stun_apply_duration * 10));
             entity.removeStatusEffect(Effects.TREMBLING.registryEntry);
         }
         return true;

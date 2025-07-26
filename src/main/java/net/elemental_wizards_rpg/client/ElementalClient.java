@@ -50,7 +50,6 @@ public class ElementalClient implements ClientModInitializer {
         registerArmorRenderer(Armors.netheriteWindArmor, ElementalRobeRenderer::netherite_wind);
 
         CustomModelStatusEffect.register(Effects.BUBBLE_FOAM.effect, new BubbleFoamRenderer());
-        CustomParticleStatusEffect.register(Effects.SOAKED.effect, new SoakedParticles(5));
         CustomParticleStatusEffect.register(Effects.CLEANSING_WATER.effect, new CleansingWaterParticleSpawner());
         CustomParticleStatusEffect.register(Effects.BUBBLE_FOAM.effect, new BubbleFoamParticleSpawner());
         CustomParticleStatusEffect.register(Effects.STONE_FLESH.effect, new StoneFleshParticleSpawner());

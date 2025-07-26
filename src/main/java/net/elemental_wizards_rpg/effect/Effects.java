@@ -40,23 +40,12 @@ public class Effects {
     //WATER EFFECTS
     public static final Entry CLEANSING_WATER  =  new Entry("cleansing_water",new CleansingWaterEffect(StatusEffectCategory.BENEFICIAL, 0x01d9cf));
     public static final Entry BUBBLE_FOAM  = new Entry("bubble_foam",new BubbleFoamEffect(StatusEffectCategory.BENEFICIAL, 0x01d9cf));
-    public static final Entry SOAKED = new Entry("soaked",new SoakedEffect(StatusEffectCategory.HARMFUL, 0x01d9cf)
-            .setVulnerability(SpellSchools.LIGHTNING, new SpellPower.Vulnerability(
-                    effectsConfig.value.soaked_lightning_damage_vulnerability,
-                    effectsConfig.value.soaked_lightning_critical_chance_vulnerability,
-                    0))
-            .setVulnerability(SpellSchools.FROST, new SpellPower.Vulnerability(
-                    effectsConfig.value.soaked_frost_damage_vulnerability,
-                    0,
-                    effectsConfig.value.soaked_frost_crit_damage_vulnerability))
-    );
 
     //EARTH EFFECTS
     public static final Entry STONE_FLESH   =  new Entry("stone_flesh",new StoneFleshEffect(StatusEffectCategory.BENEFICIAL, 0xbd8b00));
     public static final Entry TREMBLING = new Entry("trembling",new TremblingEffect(StatusEffectCategory.HARMFUL, 0xbd8b00));
 
     //AIR EFFECTS
-    public static final Entry AEROBLAST   =  new Entry("aeroblast",new AeroblastEffect(StatusEffectCategory.HARMFUL, 0xd5ebff));
     public static final Entry UPDRAFT= new Entry("updraft",new UpdraftEffect(StatusEffectCategory.HARMFUL, 0xd5ebff)
             .setVulnerability(MoreSpellSchools.AIR, new SpellPower.Vulnerability(
                     effectsConfig.value.updraft_air_damage_vulnerability,
@@ -85,12 +74,10 @@ public class Effects {
                 effectsConfig.value.updraft_attack_speed_reduction,EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
 
-        Synchronized.configure(SOAKED.effect,true);
         Synchronized.configure(CLEANSING_WATER.effect,true);
         Synchronized.configure(BUBBLE_FOAM.effect,true);
         Synchronized.configure(STONE_FLESH.effect,true);
         Synchronized.configure(TREMBLING.effect,true);
-        Synchronized.configure(AEROBLAST.effect,true);
         Synchronized.configure(UPDRAFT.effect,true);
         Synchronized.configure(TORNADO.effect,true);
 

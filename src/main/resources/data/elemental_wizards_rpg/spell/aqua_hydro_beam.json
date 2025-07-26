@@ -133,7 +133,7 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "elemental_wizards_rpg:soaked",
+          "effect_id": "more_rpg_classes:soaked",
           "duration": 10.0,
           "apply_mode": "SET",
           "amplifier": 0,
