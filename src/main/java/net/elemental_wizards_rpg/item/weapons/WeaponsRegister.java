@@ -2,6 +2,7 @@ package net.elemental_wizards_rpg.item.weapons;
 
 import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.item.ElementalGroup;
+import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -9,6 +10,7 @@ import net.minecraft.item.ToolMaterials;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.WeaponConfig;
@@ -19,19 +21,17 @@ import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class WeaponsRegister {
     public static final ArrayList<Weapon.Entry> entries = new ArrayList<>();
-
-
-    private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType category) {
-        var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, category);
-        if (entry.isRequiredModInstalled()) {
-            entries.add(entry);
-        }
+    private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType weaponType) {
+        var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, weaponType);
+        entry.castSpell();
+        entries.add(entry);
         return entry;
     }
 
@@ -140,6 +140,7 @@ public class WeaponsRegister {
     private static final String BETTER_END = "betterend";
     private static final String BETTER_NETHER = "betternether";
     private static final String AETHER = "aether";
+    private static final String ARSENAL = "arsenal";
     //Registration
     public static void register(Map<String,WeaponConfig> configs) {
         if(FabricLoader.getInstance().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
@@ -168,6 +169,16 @@ public class WeaponsRegister {
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
                     .loot(Equipment.LootProperties.of("aether"));
+        }
+        if (FabricLoader.getInstance().isModLoaded(ARSENAL) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+            staff( "unique_staff_1",
+                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.IRON_BLOCK)))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
+                    .spell(ElementalWizardSpells.elemental_avatar.id())
+                    .loot(Equipment.LootProperties.of(5))
+                    .rarity = Rarity.RARE;
         }
 
         Weapon.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);

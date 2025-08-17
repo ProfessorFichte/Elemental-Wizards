@@ -3,6 +3,13 @@ plugins {
 	id 'maven-publish'
 }
 
+fabricApi {
+	configureDataGeneration(){
+		client = true
+		modId = "elemental_wizards_rpg"
+	}
+}
+
 version = project.mod_version
 group = project.maven_group
 
@@ -44,10 +51,6 @@ repositories {
 	maven {url 'https://maven.azuredoom.com/mods'}
 }
 
-fabricApi {
-	configureDataGeneration()
-}
-
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -75,8 +78,6 @@ dependencies {
 	//modImplementation(files("run/mods/dev/more_rpg_classes-${project.more_rpg_classes_version}.jar"))
 	modImplementation("maven.modrinth:more-rpg-classes:${project.more_rpg_classes_version}")
 
-	modImplementation("maven.modrinth:wizards:${project.wizards_version}")
-
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.4")))
@@ -93,7 +94,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -102,8 +103,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {

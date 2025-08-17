@@ -1,3 +1,10 @@
+# 2.4.11 - 1.21.1
+### New Content
+- **Added a new Tier 5 Staff!**
+- [DISCLAIMER] Only available if Arsenal (RPG-Series) is installed or the config is enabled
+- Staff: The Avatar
+- New Passive: The Staff casts a unique passive spell, depending on your highest spell power element
+
 # 2.4.10 - 1.21.1
 - Update to MRPGLib 2.3.0
 - Use new Custom Impact Types from MRPGLib

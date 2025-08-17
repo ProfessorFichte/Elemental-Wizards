@@ -12,6 +12,7 @@ import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.config.Default;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.elemental_wizards_rpg.config.TweaksConfig;
+import net.elemental_wizards_rpg.spell.CustomSpellImpacts;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -68,6 +69,7 @@ public class ElementalMod implements ModInitializer {
 			tweaksConfig.value.ignore_items_required_mods = true;
 		}
 		ElementalItems.registerModItems();
+		CustomSpellImpacts.registerCustomImpacts();
 		ElementalWizardLootTableInjection.modifyLootTables();
 		ElementalGroup.registerItemGroups();
 		WeaponsRegister.register(itemConfig.value.weapons);

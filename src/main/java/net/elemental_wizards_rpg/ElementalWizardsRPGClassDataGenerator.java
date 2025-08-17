@@ -2,6 +2,7 @@ package net.elemental_wizards_rpg;
 
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
+import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -12,7 +13,9 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.spell_engine.api.datagen.SpellGenerator;
 import net.spell_engine.api.item.armor.Armor;
+import net.spell_engine.api.spell.Spell;
 import net.spell_engine.rpg_series.datagen.RPGSeriesDataGen;
 import net.spell_engine.rpg_series.tags.RPGSeriesItemTags;
 
@@ -25,7 +28,21 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(UnsmeltGenerator::new);
+		pack.addProvider(SpellGen::new);
 	}
+	public static class SpellGen extends SpellGenerator {
+		public SpellGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, registryLookup);
+		}
+
+		@Override
+		public void generateSpells(Builder builder) {
+			for (var entry: ElementalWizardSpells.entries) {
+				builder.add(entry.id(), entry.spell());
+			}
+		}
+	}
+
 	public static class ItemTagGenerator extends RPGSeriesDataGen.ItemTagGenerator {
 		public ItemTagGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
 			super(dataOutput, registryLookup);
