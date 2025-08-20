@@ -1,0 +1,87 @@
+{
+  "school": "spell_power:air",
+  "range": 0.0,
+  "tier": 8,
+  "type": "PASSIVE",
+  "passive": {},
+  "impacts": [
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#c:bosses"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "minecraft:levitation",
+          "duration": 2.0,
+          "amplifier_power_multiplier": 0.3
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "WIDE_PIPE",
+          "count": 25.0,
+          "min_speed": 0.2,
+          "extent": 1.0
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "WIDE_PIPE",
+          "count": 25.0,
+          "min_speed": 0.2,
+          "extent": 3.0
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "WIDE_PIPE",
+          "count": 25.0,
+          "min_speed": 0.2,
+          "extent": 5.0
+        }
+      ]
+    },
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4,
+          "knockback": 0.1
+        }
+      },
+      "sound": {
+        "id": "more_rpg_classes:air_magic_impact2"
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 5.0,
+    "area": {
+      "distance_dropoff": "SQUARED"
+    },
+    "particles": [
+      {
+        "particle_id": "more_rpg_classes:small_gust",
+        "origin": "FEET",
+        "shape": "WIDE_PIPE",
+        "count": 50.0,
+        "min_speed": 0.5
+      }
+    ]
+  },
+  "cost": {
+    "cooldown": {
+      "duration": 20.0
+    }
+  }
+}

@@ -1,12 +1,13 @@
 {
   "school": "spell_power:generic",
-  "range": 12.0,
+  "range": 0.0,
   "tier": 8,
   "type": "PASSIVE",
   "passive": {
     "triggers": [
       {
         "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.2,
         "spell": {
           "type": "ACTIVE"
         },
@@ -31,9 +32,8 @@
     }
   ],
   "cost": {
-    "exhaust": 0.3,
     "cooldown": {
-      "duration": 1.0
+      "duration": 20.0
     }
   }
 }
