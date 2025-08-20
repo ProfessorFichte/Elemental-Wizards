@@ -1,0 +1,22 @@
+{
+  "school": "spell_power:water",
+  "range": 0.0,
+  "tier": 1,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "gray"
+    }
+  },
+  "type": "MODIFIER",
+  "modifiers": [
+    {
+      "spell_pattern": "elemental_wizards_rpg:aqua_springwater",
+      "effect_duration_add": 2.0
+    }
+  ]
+}

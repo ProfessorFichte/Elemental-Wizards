@@ -10,13 +10,14 @@ import net.elemental_wizards_rpg.client.entity.TornadoRenderer;
 import net.elemental_wizards_rpg.effect.Effects;
 import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
 import net.elemental_wizards_rpg.item.armor.Armors;
-import net.elemental_wizards_rpg.item.armor.ElementalRobe;
+import net.elemental_wizards_rpg.item.armor.ArmoryCompat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.elemental_wizards_rpg.client.entity.DripstoneBigRenderer;
 import net.elemental_wizards_rpg.entity.DripstoneBigEntity;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
@@ -48,6 +49,14 @@ public class ElementalClient implements ClientModInitializer {
         registerArmorRenderer(Armors.netheriteKelpNetheriteArmor, ElementalRobeRenderer::netherite_kelp);
         registerArmorRenderer(Armors.netheriteDripstoneArmor, ElementalRobeRenderer::netherite_dripstone);
         registerArmorRenderer(Armors.netheriteWindArmor, ElementalRobeRenderer::netherite_wind);
+        /*
+        if (FabricLoader.getInstance().isModLoaded("armory_rpgs") || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+            registerArmorRenderer(ArmoryCompat.hurricane.armorSet(), ElementalRobeRenderer::hurricane);
+            registerArmorRenderer(ArmoryCompat.mountain.armorSet(), ElementalRobeRenderer::mountain);
+            registerArmorRenderer(ArmoryCompat.ocean.armorSet(), ElementalRobeRenderer::ocean);
+        }
+
+         */
 
         CustomModelStatusEffect.register(Effects.BUBBLE_FOAM.effect, new BubbleFoamRenderer());
         CustomParticleStatusEffect.register(Effects.CLEANSING_WATER.effect, new CleansingWaterParticleSpawner());

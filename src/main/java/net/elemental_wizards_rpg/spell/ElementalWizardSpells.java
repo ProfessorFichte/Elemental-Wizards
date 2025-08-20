@@ -1,12 +1,18 @@
 package net.elemental_wizards_rpg.spell;
 
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
+import net.more_rpg_classes.effect.MRPGCEffects;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.api.util.TriState;
 import net.spell_engine.client.gui.SpellTooltip;
+import net.spell_engine.client.util.Color;
+import net.spell_engine.fx.SpellEngineParticles;
 import net.spell_engine.internals.target.SpellTarget;
 import net.spell_power.api.SpellSchool;
 import net.spell_power.api.SpellSchools;
@@ -85,6 +91,16 @@ public class ElementalWizardSpells {
         modifier.execute = TriState.DENY;
         impact.target_modifiers = List.of(modifier);
     }
+    private static void bossImmuneDeny(Spell.Impact impact) {
+        var modifier = createImpactModifier("#c:bosses");
+        modifier.execute = TriState.DENY;
+        impact.target_modifiers = List.of(modifier);
+    }
+    private static void impactDeniedForMechanical(Spell.Impact impact) {
+        var modifier = createImpactModifier("#spell_engine:mechanical");
+        modifier.execute = TriState.DENY;
+        impact.target_modifiers = List.of(modifier);
+    }
     private static Spell passiveSpellBase() {
         var spell = new Spell();
         spell.range = 0;
@@ -94,6 +110,68 @@ public class ElementalWizardSpells {
         spell.passive = new Spell.Passive();
         return spell;
     }
+    private static Spell.Impact createHeal(float coefficient) {
+        var buff = new Spell.Impact();
+        buff.action = new Spell.Impact.Action();
+        buff.action.type = Spell.Impact.Action.Type.HEAL;
+        buff.action.heal = new Spell.Impact.Action.Heal();
+        buff.action.heal.spell_power_coefficient = coefficient;
+        return buff;
+    }
+    private static Spell.Impact.TargetModifier critAgainstWaterVulnerable() {
+        var modifier = createImpactModifier("#more_rpg_classes:vulnerable_to_water_spells");
+        var powerModifier = new Spell.Impact.Modifier();
+        powerModifier.critical_chance_bonus = 0.3F;
+        modifier.modifier = powerModifier;
+        return modifier;
+    }
+    ///MODIFIERS
+    public static Entry improved_wind_updraft = add(improved_wind_updraft());
+    private static Entry improved_wind_updraft() {
+        var id = Identifier.of(MOD_ID, "improved_wind_updraft");
+        var title = "Improved Updraft";
+        var description = "Increases critical chance of Updraft by {critical_chance_bonus}";
+        var spell = modifierSpellBase();
+        spell.school = MoreSpellSchools.AIR;
+
+        var modifier = new Spell.Modifier();
+        modifier.spell_pattern = "elemental_wizards_rpg:wind_updraft";
+        modifier.power_modifier = new Spell.Impact.Modifier();
+        modifier.power_modifier.critical_chance_bonus = 0.05F;
+        spell.modifiers = List.of(modifier);
+
+        return new Entry(id, spell, title, description, null);
+    }
+    public static final Entry improved_terra_drip_circle = add(improved_terra_drip_circle());
+    private static Entry improved_terra_drip_circle() {
+        var id = Identifier.of(MOD_ID, "improved_terra_drip_circle");
+        var title = "Improved Terra Circle";
+        var description = "Increases the duration of Terra Circle by {spawn_duration_add} sec.";
+        var spell = modifierSpellBase();
+        spell.school = MoreSpellSchools.EARTH;
+
+        var modifier = new Spell.Modifier();
+        modifier.spell_pattern = "elemental_wizards_rpg:terra_drip_circle";
+        modifier.spawn_duration_add = 2;
+        spell.modifiers = List.of(modifier);
+
+        return new Entry(id, spell, title, description, null);
+    }
+    public static Entry improved_aqua_springwater = add(improved_aqua_springwater());
+    private static Entry improved_aqua_springwater() {
+        var id = Identifier.of(MOD_ID, "improved_aqua_springwater");
+        var title = "Improved Springwater";
+        var description = "Increases duration of Springwater Regeneration by {effect_duration_add} sec";
+        var spell = modifierSpellBase();
+        spell.school = MoreSpellSchools.WATER;
+
+        var modifier = new Spell.Modifier();
+        modifier.spell_pattern = "elemental_wizards_rpg:aqua_springwater";
+        modifier.effect_duration_add = 2;
+        spell.modifiers = List.of(modifier);
+
+        return new Entry(id, spell, title, description, null);
+    }
     ///PASSIVES
     public static Entry elemental_avatar = add(elemental_avatar());
     private static Entry elemental_avatar() {
@@ -102,17 +180,15 @@ public class ElementalWizardSpells {
         var description = "";
         var spell = passiveSpellBase();
         spell.school = SpellSchools.GENERIC;
-        spell.range = 64F;
 
         var trigger = new Spell.Trigger();
         trigger.type = Spell.Trigger.Type.SPELL_IMPACT_SPECIFIC;
-        trigger.chance = 1F;
+        trigger.chance = 0.2F;
         trigger.impact = new Spell.Trigger.ImpactCondition();
         trigger.impact.impact_type = Spell.Impact.Action.Type.DAMAGE.toString();
         trigger.spell = new Spell.Trigger.SpellCondition();
         trigger.spell.type = Spell.Type.ACTIVE;
         spell.passive.triggers = List.of(trigger);
-
 
         spell.target.type = Spell.Target.Type.FROM_TRIGGER;
 
@@ -125,8 +201,174 @@ public class ElementalWizardSpells {
 
         spell.impacts = List.of(custom);
 
-        configureCooldown(spell, 5);
+        configureCooldown(spell, 20);
 
+        return new Entry(id, spell, title, description, null);
+    }
+    public static Entry avatar_passives_air_draft = add(avatar_passives_air_draft());
+    private static Entry avatar_passives_air_draft() {
+        var id = Identifier.of(MOD_ID, "avatar_passives/air_draft");
+        var title = "";
+        var description = "";
+        var spell = passiveSpellBase();
+        spell.school = MoreSpellSchools.AIR;
+
+        var damage = damageImpact(0.4F, 0.1F);
+        damage.sound = new Sound("more_rpg_classes:air_magic_impact2");
+
+        var debuff = createEffectImpact(Identifier.of("minecraft:levitation"), 2);
+        bossImmuneDeny(debuff);
+        debuff.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
+        debuff.action.status_effect.show_particles = false;
+        debuff.action.status_effect.amplifier_power_multiplier = 0.3F;
+        debuff.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:small_gust",
+                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
+                        25, 0.2F, 1.0F).extent(1),
+                new ParticleBatch("more_rpg_classes:small_gust",
+                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
+                        25, 0.2F, 1.0F).extent(3),
+                new ParticleBatch("more_rpg_classes:small_gust",
+                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
+                        25, 0.2F, 1.0F).extent(5),
+        };
+
+        spell.impacts = List.of(debuff, damage);
+
+        spell.area_impact = new Spell.AreaImpact();
+        spell.area_impact.radius = 5.0F;
+        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
+        spell.area_impact.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "more_rpg_classes:small_gust",
+                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
+                        50, 0.5F, 1.0F)
+        };
+        configureCooldown(spell, 20);
+        return new Entry(id, spell, title, description, null);
+    }
+    public static Entry avatar_passives_earth_stoning = add(avatar_passives_earth_stoning());
+    private static Entry avatar_passives_earth_stoning() {
+        var id = Identifier.of(MOD_ID, "avatar_passives/earth_stoning");
+        var title = "";
+        var description = "";
+        var spell = passiveSpellBase();
+        spell.school = MoreSpellSchools.EARTH;
+
+        spell.deliver.type = Spell.Delivery.Type.METEOR;
+        var meteor = new Spell.Delivery.Meteor();
+        meteor.launch_height = 12;
+        meteor.launch_radius = 4;
+        meteor.launch_properties.velocity = 0.8F;
+        meteor.launch_properties.extra_launch_count = 12;
+        meteor.launch_properties.extra_launch_delay = 4;
+        var projectile = new Spell.ProjectileData();
+        projectile.client_data = new Spell.ProjectileData.Client();
+        projectile.client_data.travel_particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        "campfire_cosy_smoke",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        ParticleBatch.Rotation.LOOK,
+                        2, 0.1F, 0.3F,0),
+        };
+        var model = new Spell.ProjectileModel();
+        model.model_id = "elemental_wizards_rpg:projectile/spell_stone";
+        model.scale = 0.7F;
+        projectile.client_data.model = model;
+
+        meteor.projectile = projectile;
+        spell.deliver.meteor = meteor;
+
+
+        var damage = damageImpact(0.5F, 1.5F);
+        spell.impacts = List.of(damage);
+
+        spell.area_impact = new Spell.AreaImpact();
+        spell.area_impact.radius = 2.0F;
+        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
+        spell.area_impact.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "campfire_cosy_smoke",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        5, 0.1F, 0.2F),
+                new ParticleBatch(
+                        "more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        5, 0.1F, 0.2F)
+        };
+        spell.area_impact.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"),0.7F);
+        configureCooldown(spell, 20);
+        return new Entry(id, spell, title, description, null);
+    }
+    public static final Color WATER_SPELL_COLOR = Color.from(0x4a8bff);
+    public static final Entry avatar_passives_water_undercurrent= add(avatar_passives_water_undercurrent());
+    private static Entry avatar_passives_water_undercurrent() {
+        var id = Identifier.of(MOD_ID, "avatar_passives/water_undercurrent");
+        var title = "";
+        var description = "";
+        var spell = passiveSpellBase();
+        spell.school = MoreSpellSchools.WATER;
+
+        var areaParticle = SpellEngineParticles.area_effect_658;
+
+        spell.deliver.type = Spell.Delivery.Type.CLOUD;
+        var cloud = new Spell.Delivery.Cloud();
+        cloud.volume.radius = 4.0F;
+        cloud.volume.area.vertical_range_multiplier = 0.3F;
+        cloud.volume.sound = new Sound("");
+        cloud.impact_tick_interval = 15;
+        cloud.time_to_live_seconds = 5;
+        cloud.client_data = new Spell.Delivery.Cloud.ClientData();
+        cloud.client_data.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "more_rpg_classes:splash",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        20, 0, 0)
+        };
+        cloud.client_data.particle_spawn_interval = SpellEngineParticles.area_effect_480.texture().frames();
+        cloud.client_data.interval_particles = new ParticleBatch[] {
+                new ParticleBatch(areaParticle.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.GROUND,
+                        1, 0.0F, 0.F)
+                        .scale(4)
+                        .color(WATER_SPELL_COLOR.alpha(0.75F).toRGBA()),
+        };
+        spell.deliver.clouds = List.of(cloud);
+
+
+        var damage = damageImpact(0.15F, 1.5F);
+        damage.target_modifiers = List.of(critAgainstWaterVulnerable());
+        damage.sound = new Sound("more_rpg_classes:water_magic_impact1");
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "more_rpg_classes:splash",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        20, 0, 0)
+        };
+
+        var heal = createHeal(0.2F);
+        impactDeniedForMechanical(heal);
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        SpellEngineParticles.MagicParticles.get(
+                                SpellEngineParticles.MagicParticles.Shape.HEAL,
+                                SpellEngineParticles.MagicParticles.Motion.ASCEND).id().toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        15, 0.02F, 0.15F)
+                        .color(WATER_SPELL_COLOR.toRGBA()),
+                new ParticleBatch(
+                        SpellEngineParticles.MagicParticles.get(
+                                SpellEngineParticles.MagicParticles.Shape.HOLY,
+                                SpellEngineParticles.MagicParticles.Motion.DECELERATE).id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        15, 0.2F, 0.25F)
+                        .color(WATER_SPELL_COLOR.toRGBA())
+        };
+        heal.sound = new Sound("spell_engine:generic_healing_impact_2");
+
+        spell.impacts = List.of(damage, heal);
+
+        configureCooldown(spell, 20);
         return new Entry(id, spell, title, description, null);
     }
 }

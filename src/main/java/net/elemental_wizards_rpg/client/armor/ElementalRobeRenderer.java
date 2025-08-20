@@ -31,6 +31,16 @@ public class ElementalRobeRenderer extends AzArmorRenderer {
         return new ElementalRobeRenderer("wizard_t1", "netherite_wind");
     }
 
+    public static ElementalRobeRenderer hurricane() {
+        return new ElementalRobeRenderer("hurricane", "hurricane");
+    }
+    public static ElementalRobeRenderer mountain() {
+        return new ElementalRobeRenderer("mountain", "mountain");
+    }
+    public static ElementalRobeRenderer ocean() {
+        return new ElementalRobeRenderer("ocean", "ocean");
+    }
+
     public ElementalRobeRenderer(String modelName, String textureName) {
         super(AzArmorRendererConfig.builder(
                 Identifier.of(MOD_ID, "geo/" + modelName + ".geo.json"),

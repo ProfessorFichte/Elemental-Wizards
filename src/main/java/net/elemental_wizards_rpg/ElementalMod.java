@@ -9,6 +9,7 @@ import net.elemental_wizards_rpg.entity.TornadoEntity;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.item.ElementalItems;
 import net.elemental_wizards_rpg.item.armor.Armors;
+import net.elemental_wizards_rpg.item.armor.ArmoryCompat;
 import net.elemental_wizards_rpg.item.config.Default;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.elemental_wizards_rpg.config.TweaksConfig;
@@ -16,6 +17,8 @@ import net.elemental_wizards_rpg.spell.CustomSpellImpacts;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.SpawnGroup;
@@ -74,6 +77,18 @@ public class ElementalMod implements ModInitializer {
 		ElementalGroup.registerItemGroups();
 		WeaponsRegister.register(itemConfig.value.weapons);
 		Armors.register(itemConfig.value.armor_sets);
+		/*
+		if (FabricLoader.getInstance().isModLoaded("armory_rpgs") || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+			ArmoryCompat.register(itemConfig.value.armor_sets);
+			FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer -> {
+				ResourceManagerHelper.registerBuiltinResourcePack(
+						Identifier.of(MOD_ID, "elemental_wizards_armory_compat"),
+						modContainer,
+						ResourcePackActivationType.ALWAYS_ENABLED
+				);
+			});
+		}
+		 */
 		itemConfig.save();
 		registerItemGroup();
 		Effects.register();
