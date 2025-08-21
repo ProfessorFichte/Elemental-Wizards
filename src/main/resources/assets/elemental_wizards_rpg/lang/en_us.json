@@ -12,6 +12,7 @@
 
   "item.elemental_wizards_rpg.staff_aether": "Valkyrie Elementalist Staff",
   "item.elemental_wizards_rpg.staff_elemental": "Elemental Staff",
+  "item.elemental_wizards_rpg.unique_staff_1": "Avatar's Staff",
 
   "item.elemental_wizards_rpg.wand_kelp": "Kelp Wand",
   "item.elemental_wizards_rpg.wand_aqua": "Aqua Wand",
@@ -55,6 +56,21 @@
   "item.elemental_wizards_rpg.netherite_wind_legs": "Netherite Wind Robe Bottom",
   "item.elemental_wizards_rpg.netherite_wind_feet": "Netherite Wind Boots",
 
+  "item.elemental_wizards_rpg.hurricane_robe_head": "Hurricane Hat",
+  "item.elemental_wizards_rpg.hurricane_robe_chest": "Hurricane Robe Top",
+  "item.elemental_wizards_rpg.hurricane_robe_legs": "Hurricane Robe Bottom",
+  "item.elemental_wizards_rpg.hurricane_robe_feet": "Hurricane Boots",
+
+  "item.elemental_wizards_rpg.mountain_robe_head": "Mountain Hat",
+  "item.elemental_wizards_rpg.mountain_robe_chest": "Mountain Robe Top",
+  "item.elemental_wizards_rpg.mountain_robe_legs": "Mountain Robe Bottom",
+  "item.elemental_wizards_rpg.mountain_robe_feet": "Mountain Boots",
+
+  "item.elemental_wizards_rpg.ocean_robe_head": "Ocean Hat",
+  "item.elemental_wizards_rpg.ocean_robe_chest": "Ocean Robe Top",
+  "item.elemental_wizards_rpg.ocean_robe_legs": "Ocean Robe Bottom",
+  "item.elemental_wizards_rpg.ocean_robe_feet": "Ocean Boots",
+
   "item.elemental_wizards_rpg.wand_clay": "Clay Wand",
   "item.elemental_wizards_rpg.wand_terra": "Terra Wand",
   "item.elemental_wizards_rpg.wand_netherite_terra": "Netherite Terra Wand",
@@ -89,7 +105,7 @@
   "spell.elemental_wizards_rpg.aqua_bubble_beam.name": "Bubble Beam",
   "spell.elemental_wizards_rpg.aqua_bubble_beam.description": "Spawning small bubbles, dealing {damage} water spell damage on targets, protecting and healing allies for {heal} hearts..",
   "spell.elemental_wizards_rpg.aqua_springwater.name": "Springwater",
-  "spell.elemental_wizards_rpg.aqua_springwater.description": "Summoning water springs, healing and cleansing friends by {heal}, and dealing {damage} water spell damage to targets.",
+  "spell.elemental_wizards_rpg.aqua_springwater.description": "Summoning water springs, healing allies by {heal}, and dealing {damage} water spell damage to targets.",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.name": "Hydro Beam",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.description": "Channeling a high hydro-pressure beam, dealing {damage} water damage every second and soaking targets.",
   "spell.elemental_wizards_rpg.aqua_explosive_bubbles.name": "Explosive Bubbles",
@@ -121,6 +137,16 @@
   "spell.elemental_wizards_rpg.wind_aeroburst.name": "Aeroburst",
   "spell.elemental_wizards_rpg.wind_aeroburst.description": "Pressure Burst, knocking targets in a circle back and dealing {damage} damage.",
 
+  "spell.elemental_wizards_rpg.elemental_avatar.name": "Elemental Avatar",
+  "spell.elemental_wizards_rpg.elemental_avatar.description": "On spell impact: {trigger_chance} chance to perform a special elemental impact according to your highest power attribute.",
+
+  "spell.elemental_wizards_rpg.improved_wind_updraft.name": "Improved Updraft",
+  "spell.elemental_wizards_rpg.improved_wind_updraft.description": "Increases critical chance of Updraft by {critical_chance_bonus}.",
+  "spell.elemental_wizards_rpg.improved_terra_drip_circle.name": "Improved Terra Circle",
+  "spell.elemental_wizards_rpg.improved_terra_drip_circle.description": "Increases the duration of Terra Circle by {spawn_duration_add} sec.",
+  "spell.elemental_wizards_rpg.improved_aqua_springwater.name": "Improved Springwater",
+  "spell.elemental_wizards_rpg.improved_aqua_springwater.description": "Increases duration of Springwater Regeneration by {effect_duration_add} sec.",
+
   "advancements.rpg_classes.water_rune.title": "Path of Water",
   "advancements.rpg_classes.water_rune.description": "Obtain a Water Rune",
   "advancements.more_rpg_content.water_spells.title": "Soothing Water",
@@ -138,5 +164,9 @@
 
   "item.elemental_wizards_rpg.aqua.treasure_spell_scroll": "Treasure Water Spell Scroll",
   "item.elemental_wizards_rpg.terra.treasure_spell_scroll": "Treasure Earth Spell Scroll",
-  "item.elemental_wizards_rpg.wind.treasure_spell_scroll": "Treasure Wind Spell Scroll"
+  "item.elemental_wizards_rpg.wind.treasure_spell_scroll": "Treasure Wind Spell Scroll",
+
+  "equipment_set.elemental_wizards_rpg.hurricane": "Eye of the Hurricane",
+  "equipment_set.elemental_wizards_rpg.mountain": "Mountains Wrath",
+  "equipment_set.elemental_wizards_rpg.ocean": "Oceans Grace"
 }

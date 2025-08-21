@@ -4,6 +4,11 @@
 - [DISCLAIMER] Only available if Arsenal (RPG-Series) is installed or the config is enabled
 - Staff: The Avatar
 - New Passive: The Staff casts a unique passive spell, depending on your highest spell power element
+### Internal Changes
+- Explosive Bubbles, Shattering Stone & Aeroburst are now T4 Spells (Only important if LNE-Wizards is installed)
+- Nerf the Springwater Spell a bit (Had a lot of impacts)
+- already added Armory Compat Code (just awaiting Armor Model & Texture for release)
+- again change the Terra Circle -> Its less scattered and more dense, but is more compact now
 
 # 2.4.10 - 1.21.1
 - Update to MRPGLib 2.3.0

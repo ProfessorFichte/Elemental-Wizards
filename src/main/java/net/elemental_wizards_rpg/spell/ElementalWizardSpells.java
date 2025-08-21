@@ -6,6 +6,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.more_rpg_classes.effect.MRPGCEffects;
+import net.spell_engine.api.datagen.SpellBuilder;
+import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.api.spell.fx.Sound;
@@ -370,5 +372,183 @@ public class ElementalWizardSpells {
 
         configureCooldown(spell, 20);
         return new Entry(id, spell, title, description, null);
+    }
+    ///ACTIVE SPELLS
+    public static Entry terra_drip_circle = add(terra_drip_circle());
+    private static Entry terra_drip_circle() {
+        var id = Identifier.of(MOD_ID, "terra_drip_circle");
+        var name = "";
+        var description = "";
+        var debuffEffect = MRPGCEffects.BLEEDING;
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.range = 15;
+        spell.tier = 3;
+        spell.school = MoreSpellSchools.EARTH;
+
+        spell.learn = new Spell.Learn();
+
+        SpellBuilder.Casting.cast(spell,0.7F);
+        SpellBuilder.Casting.visuals(spell,"more_rpg_classes:two_handed_ground_channeling",
+                new ParticleBatch[] {
+                        new ParticleBatch("more_rpg_classes:stone_particle",
+                                ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                                3, 0.01F, 0.05F),
+                },
+                new Sound("more_rpg_classes:earth_magic_cast1"));
+        SpellBuilder.Release.visuals(spell,
+                "more_rpg_classes:two_handed_ground_release",
+                new ParticleBatch[] {
+                        new ParticleBatch("more_rpg_classes:stone_particle",
+                                ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
+                                3, 0.01F, 0.05F),
+                        new ParticleBatch("campfire_cosy_smoke",
+                                ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                                3.0F, 0.001F, 0.001F),
+                } ,
+                new Sound("more_rpg_classes:earth_magic_impact1"));
+
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+        spell.target.aim.use_caster_as_fallback = true;
+        spell.target.aim.sticky = true;
+
+        spell.deliver.type = Spell.Delivery.Type.CLOUD;
+
+        int delay1 = 2;
+        int delay2 = 6;
+        int delay3 = 10;
+        float offset1 = 1.0F;
+        float offset2 = 2.0F;
+        float offset3 = 3.0F;
+        var cloud = new Spell.Delivery.Cloud();
+        cloud.volume.radius = 0.4F;
+        cloud.volume.area.vertical_range_multiplier = 0.3F;
+        cloud.delay_ticks = delay1;
+        cloud.impact_tick_interval = 20;
+        cloud.time_to_live_seconds = 5;
+        cloud.spawn = new Spell.Delivery.Cloud.Spawn();
+        cloud.client_data = new Spell.Delivery.Cloud.ClientData();
+        cloud.client_data.model = new Spell.ProjectileModel();
+        cloud.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_big";
+        cloud.client_data.model.rotate_degrees_per_tick = 0;
+        cloud.client_data.model.light_emission = LightEmission.NONE;
+        cloud.client_data.model.scale = 0.3F;
+        cloud.client_data.particles = new ParticleBatch[] {
+                new ParticleBatch("campfire_cosy_smoke",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        0.25F, 0.0001F, 0.0008F),
+        };
+
+        cloud.placement = SpellBuilder.Deliver.placementByLook(0, 0, 0);
+        cloud.additional_placements = List.of(
+                SpellBuilder.Deliver.placementByLook(offset1, 0, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, 32, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, 64, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, 96, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, 128, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, 160, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, -32, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, -64, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, -96, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, -128, 0),
+                SpellBuilder.Deliver.placementByLook(offset1, -160, 0)
+        );
+        var cloud2 = new Spell.Delivery.Cloud();
+        cloud2.volume.radius = 0.4F;
+        cloud2.volume.area.vertical_range_multiplier = 0.5F;
+        cloud2.delay_ticks = delay2;
+        cloud2.impact_tick_interval = 20;
+        cloud2.time_to_live_seconds = 5;
+        cloud2.spawn = new Spell.Delivery.Cloud.Spawn();
+        cloud2.client_data = new Spell.Delivery.Cloud.ClientData();
+        cloud2.client_data.model = new Spell.ProjectileModel();
+        cloud2.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_big";
+        cloud2.client_data.model.rotate_degrees_per_tick = 0;
+        cloud2.client_data.model.light_emission = LightEmission.NONE;
+        cloud2.client_data.model.scale = 0.5F;
+        cloud2.client_data.particles = new ParticleBatch[] {
+                new ParticleBatch("campfire_cosy_smoke",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        0.25F, 0.0001F, 0.0008F),
+        };
+
+        cloud2.placement = SpellBuilder.Deliver.placementByLook(offset2, 0, 0);
+        cloud2.additional_placements = List.of(
+                SpellBuilder.Deliver.placementByLook(offset2, 32, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, 64, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, 96, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, 128, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, 160, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, -32, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, -64, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, -96, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, -128, 0),
+                SpellBuilder.Deliver.placementByLook(offset2, -160, 0)
+        );
+        var cloud3 = new Spell.Delivery.Cloud();
+        cloud3.volume.radius = 0.7F;
+        cloud3.volume.area.vertical_range_multiplier = 1.25F;
+        cloud3.delay_ticks = delay3;
+        cloud3.impact_tick_interval = 20;
+        cloud3.time_to_live_seconds = 5;
+        cloud3.spawn = new Spell.Delivery.Cloud.Spawn();
+        cloud3.client_data = new Spell.Delivery.Cloud.ClientData();
+        cloud3.client_data.model = new Spell.ProjectileModel();
+        cloud3.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_big";
+        cloud3.client_data.model.rotate_degrees_per_tick = 0;
+        cloud3.client_data.model.light_emission = LightEmission.NONE;
+        cloud3.client_data.model.scale = 1.0F;
+        cloud3.client_data.particles = new ParticleBatch[] {
+                new ParticleBatch("campfire_cosy_smoke",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        0.25F, 0.0001F, 0.0008F),
+        };
+
+        cloud3.placement = SpellBuilder.Deliver.placementByLook(offset3, 0, 0);
+        cloud3.additional_placements = List.of(
+                SpellBuilder.Deliver.placementByLook(offset3, 32, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, 64, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, 96, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, 128, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, 160, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, -32, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, -64, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, -96, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, -128, 0),
+                SpellBuilder.Deliver.placementByLook(offset3, -160, 0)
+        );
+
+        spell.deliver.clouds = List.of(cloud, cloud2,cloud3);
+
+        var damage = SpellBuilder.Impacts.damage(0.65F, 0F);
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch("campfire_cosy_smoke",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        0.25F, 0.0001F, 0.0008F)
+        };
+        damage.sound = new Sound("block.pointed_dripstone.break");
+
+        var debuff = createEffectImpact(debuffEffect.id, 4);
+        bleedImmuneDeny(debuff);
+        debuff.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
+        debuff.action.status_effect.show_particles = false;
+        debuff.action.status_effect.amplifier_power_multiplier = 0.2F;
+        debuff.particles = new ParticleBatch[]{
+                new ParticleBatch(SpellEngineParticles.dripping_blood.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        10, 0.05F, 0.3F),
+                new ParticleBatch("more_rpg_classes:blood_drop",
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                        10, 0.2F, 0.4F),
+        };
+
+        spell.impacts = List.of(damage, debuff);
+
+        SpellBuilder.Cost.cooldown(spell, 22);
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.exhaust(spell, 0.4F);
+
+        return new Entry(id, spell, name, description, null);
     }
 }
