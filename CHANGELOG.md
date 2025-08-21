@@ -9,6 +9,8 @@
 - Nerf the Springwater Spell a bit (Had a lot of impacts)
 - already added Armory Compat Code (just awaiting Armor Model & Texture for release)
 - again change the Terra Circle -> Its less scattered and more dense, but is more compact now
+- nerfed Earthquake range
+- removed the trembling effect, Earthquake now uses custom spell impact from the MRPGLib
 
 # 2.4.10 - 1.21.1
 - Update to MRPGLib 2.3.0

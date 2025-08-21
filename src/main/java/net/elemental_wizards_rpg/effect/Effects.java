@@ -43,7 +43,6 @@ public class Effects {
 
     //EARTH EFFECTS
     public static final Entry STONE_FLESH   =  new Entry("stone_flesh",new StoneFleshEffect(StatusEffectCategory.BENEFICIAL, 0xbd8b00));
-    public static final Entry TREMBLING = new Entry("trembling",new TremblingEffect(StatusEffectCategory.HARMFUL, 0xbd8b00));
 
     //AIR EFFECTS
     public static final Entry UPDRAFT= new Entry("updraft",new UpdraftEffect(StatusEffectCategory.HARMFUL, 0xd5ebff)
@@ -63,9 +62,6 @@ public class Effects {
                         effectsConfig.value.stone_flesh_armor_increase, EntityAttributeModifier.Operation.ADD_VALUE)
                 .addAttributeModifier(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, STONE_FLESH.modifierId(),
                         effectsConfig.value.stone_flesh_armor_toughness_increase, EntityAttributeModifier.Operation.ADD_VALUE);
-        TREMBLING.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_MOVEMENT_SPEED, TREMBLING.modifierId(),
-                effectsConfig.value.trembling_movement_speed_decrease, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         TORNADO.effect.addAttributeModifier(
                 EntityAttributes.GENERIC_MOVEMENT_SPEED,TORNADO.modifierId(),
                 -0.99F,EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
@@ -77,7 +73,6 @@ public class Effects {
         Synchronized.configure(CLEANSING_WATER.effect,true);
         Synchronized.configure(BUBBLE_FOAM.effect,true);
         Synchronized.configure(STONE_FLESH.effect,true);
-        Synchronized.configure(TREMBLING.effect,true);
         Synchronized.configure(UPDRAFT.effect,true);
         Synchronized.configure(TORNADO.effect,true);
 

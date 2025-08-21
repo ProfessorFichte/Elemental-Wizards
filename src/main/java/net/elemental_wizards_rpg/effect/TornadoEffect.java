@@ -56,7 +56,7 @@ public class TornadoEffect extends SpellVulnerabilityStatusEffect {
 
             double velocityX = (newX - entityPos.x);
             double velocityZ = (newZ - entityPos.z);
-            double velocityY = 0.1 + (range - radiusDistance) * 0.03; // je näher, desto höher
+            double velocityY = 0.1 + (range - radiusDistance) * 0.03;
             entity.setVelocity(velocityX * 1.2, velocityY, velocityZ * 1.2);
         } else {
             entity.removeStatusEffect(Effects.TORNADO.registryEntry);

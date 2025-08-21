@@ -1,7 +1,5 @@
 package net.elemental_wizards_rpg.spell;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
@@ -16,7 +14,6 @@ import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
 import net.spell_engine.internals.target.SpellTarget;
-import net.spell_power.api.SpellSchool;
 import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
@@ -551,4 +548,61 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, name, description, null);
     }
+    public static final Entry terra_earthquake = add(terra_earthquake());
+    private static Entry terra_earthquake() {
+        var id = Identifier.of(MOD_ID, "terra_earthquake");
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.EARTH;
+        spell.range = 16;
+        spell.tier = 4;
+        var title = "";
+        var description = "";
+
+        spell.active.cast.duration = 5.0F;
+        spell.active.cast.animation = "more_rpg_classes:two_handed_ground_channeling";
+        spell.active.cast.channel_ticks = 10;
+        spell.active.cast.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "campfire_cosy_smoke",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        10, 0.001F, 0.1F),
+                new ParticleBatch(
+                        "more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        3, 0.01F, 0.05F)
+        };
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact2"),0.5F);
+
+        spell.target.type = Spell.Target.Type.AREA;
+        spell.target.area = new Spell.Target.Area();
+        spell.target.area.angle_degrees = 360;
+        spell.target.area.vertical_range_multiplier = 1.0F;
+
+
+        var damage = damageImpact(0.8F,0);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "campfire_cosy_smoke",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        5, 0.005F, 0.01F)
+        };
+        damage.sound = new Sound("block.pointed_dripstone.break");
+        var custom = new Spell.Impact();
+        bossImmuneDeny(custom);
+        custom.action = new Spell.Impact.Action();
+        custom.action.custom = new Spell.Impact.Action.Custom();
+        custom.action.type = Spell.Impact.Action.Type.CUSTOM;
+        custom.action.custom.intent = SpellTarget.Intent.HARMFUL;
+        custom.action.custom.handler = "more_rpg_classes:trembling";
+
+        spell.impacts = List.of(damage, custom);
+
+
+        SpellBuilder.Cost.cooldown(spell, 30);
+        SpellBuilder.Cost.exhaust(spell, 0.5F);
+        SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
+
+        return new Entry(id, spell, title, description, null);
+    }
+
 }

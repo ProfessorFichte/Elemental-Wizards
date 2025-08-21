@@ -1,11 +1,32 @@
 {
   "values": [
-    "elemental_wizards_rpg:elemental_legs",
-    "elemental_wizards_rpg:kelp_legs",
-    "elemental_wizards_rpg:dripstone_legs",
-    "elemental_wizards_rpg:wind_legs",
-    "elemental_wizards_rpg:netherite_kelp_legs",
-    "elemental_wizards_rpg:netherite_dripstone_legs",
-    "elemental_wizards_rpg:netherite_wind_legs"
+    {
+      "id": "elemental_wizards_rpg:elemental_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_legs",
+      "required": false
+    }
   ]
 }

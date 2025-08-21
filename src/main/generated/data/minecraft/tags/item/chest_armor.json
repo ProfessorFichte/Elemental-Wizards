@@ -1,11 +1,32 @@
 {
   "values": [
-    "elemental_wizards_rpg:elemental_chest",
-    "elemental_wizards_rpg:kelp_chest",
-    "elemental_wizards_rpg:dripstone_chest",
-    "elemental_wizards_rpg:wind_chest",
-    "elemental_wizards_rpg:netherite_kelp_chest",
-    "elemental_wizards_rpg:netherite_dripstone_chest",
-    "elemental_wizards_rpg:netherite_wind_chest"
+    {
+      "id": "elemental_wizards_rpg:elemental_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_chest",
+      "required": false
+    }
   ]
 }

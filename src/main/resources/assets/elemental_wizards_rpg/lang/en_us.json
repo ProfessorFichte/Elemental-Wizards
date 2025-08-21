@@ -91,8 +91,6 @@
   "effect.elemental_wizards_rpg.bubble_foam.description": "On contact protecting the player and pushing targets away.",
   "effect.elemental_wizards_rpg.stone_flesh": "Stone Flesh",
   "effect.elemental_wizards_rpg.stone_flesh.description": "Gives the user armor and armor toughness, if you have all hearts, the next attack will get reduced by 50%.",
-  "effect.elemental_wizards_rpg.trembling": "Trembling",
-  "effect.elemental_wizards_rpg.trembling.description": "Slows the target, when the effect amplifier is 4, the target gets stunned.",
   "effect.elemental_wizards_rpg.updraft": "Updraft",
   "effect.elemental_wizards_rpg.updraft.description": "keeps the target in the air and makes the target more vulnerable to air spell damage, if its in the air.",
   "effect.elemental_wizards_rpg.tornado": "Tornado",
@@ -120,7 +118,7 @@
   "spell.elemental_wizards_rpg.terra_drip_circle.name": "Terra Circle",
   "spell.elemental_wizards_rpg.terra_drip_circle.description": "Spawning two dripstone circles, dealing {damage} earth spell damage and adding bleeding.",
   "spell.elemental_wizards_rpg.terra_earthquake.name": "Earthquake",
-  "spell.elemental_wizards_rpg.terra_earthquake.description": "Dealing {damage} earth spell damage, throwing targets around and adding Trembling effect.",
+  "spell.elemental_wizards_rpg.terra_earthquake.description": "Dealing {damage} earth spell damage, throwing targets around.",
   "spell.elemental_wizards_rpg.terra_shattering_stone.name": "Shattering Stones",
   "spell.elemental_wizards_rpg.terra_shattering_stone.description": "Stone projectile, that creates more projectiles on impact, dealing {damage} and inflicting bleeding.",
 

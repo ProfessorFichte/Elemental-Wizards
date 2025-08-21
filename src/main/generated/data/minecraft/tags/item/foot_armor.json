@@ -1,11 +1,32 @@
 {
   "values": [
-    "elemental_wizards_rpg:elemental_feet",
-    "elemental_wizards_rpg:kelp_feet",
-    "elemental_wizards_rpg:dripstone_feet",
-    "elemental_wizards_rpg:wind_feet",
-    "elemental_wizards_rpg:netherite_kelp_feet",
-    "elemental_wizards_rpg:netherite_dripstone_feet",
-    "elemental_wizards_rpg:netherite_wind_feet"
+    {
+      "id": "elemental_wizards_rpg:elemental_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:kelp_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:dripstone_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_kelp_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_dripstone_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_feet",
+      "required": false
+    }
   ]
 }

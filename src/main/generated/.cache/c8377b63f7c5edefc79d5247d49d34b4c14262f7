@@ -1,5 +1,6 @@
-// 1.21.1	2025-08-21T02:32:34.4239689	Elemental Wizards (RPG Class)/Spell Generator
+// 1.21.1	2025-08-21T14:57:23.128069	Elemental Wizards (RPG Class)/Spell Generator
 6ff50d5e78906351e09ff885dfd5fa6d89ab04df data\elemental_wizards_rpg\spell\avatar_passives\air_draft.json
+f518a558155d4dbaf148aca8e2cffb99fab757d3 data\elemental_wizards_rpg\spell\terra_earthquake.json
 d8c6e32afc3633754ae8ff4335fae7ac00ff3e85 data\elemental_wizards_rpg\spell\improved_terra_drip_circle.json
 e0d485a76f30f74afb5f0264e0d5393ed4ac17e4 data\elemental_wizards_rpg\spell\avatar_passives\earth_stoning.json
 a885471fd7b1ff3b178b7299a0000c215471b9cc data\elemental_wizards_rpg\spell\improved_wind_updraft.json
