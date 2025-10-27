@@ -28,10 +28,12 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class WeaponsRegister {
     public static final ArrayList<Weapon.Entry> entries = new ArrayList<>();
-    private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType weaponType) {
-        var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, weaponType);
-        entry.castSpell();
-        entries.add(entry);
+
+    private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType category) {
+        var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, category);
+        if (entry.isRequiredModInstalled()) {
+            entries.add(entry);
+        }
         return entry;
     }
 

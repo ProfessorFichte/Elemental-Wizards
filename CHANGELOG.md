@@ -1,3 +1,14 @@
+# 2.5.0 - 1.21.1
+- Move to Architectury Enviroment for Multiloader
+- NeoForge Beta!
+- Changed Spell Book Texture to be more in line with the RPG-Series Books (by SirGhaith, Thanks!)
+- Improve Armor Model Assets (by Slepykat, Thanks!)
+- change some inventory item textures to match their new asset looks
+- rename spell books to "Tome of..." to match the original wizards mod names
+- fixed missing spell assignments
+- improve some water spell textures
+- Add new Terra Circle Dripstone Models
+
 # 2.4.11 - 1.21.1
 ### New Content
 - **Added a new Tier 5 Staff!**

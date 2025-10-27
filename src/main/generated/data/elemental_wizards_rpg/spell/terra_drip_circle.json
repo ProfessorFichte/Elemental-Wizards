@@ -134,7 +134,7 @@
             }
           ],
           "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+            "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
             "light_emission": "NONE",
             "scale": 0.3,
             "rotate_degrees_per_tick": 0.0
@@ -219,7 +219,7 @@
             }
           ],
           "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+            "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
             "light_emission": "NONE",
             "scale": 0.5,
             "rotate_degrees_per_tick": 0.0
@@ -304,7 +304,7 @@
             }
           ],
           "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+            "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
             "light_emission": "NONE",
             "rotate_degrees_per_tick": 0.0
           }

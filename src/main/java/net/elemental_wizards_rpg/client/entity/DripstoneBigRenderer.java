@@ -14,7 +14,6 @@ import net.minecraft.util.math.RotationAxis;
 import net.spell_engine.api.render.CustomModels;
 
 public class DripstoneBigRenderer<T extends DripstoneBigEntity> extends EntityRenderer<T> {
-    // Item renderer
     private final ItemRenderer itemRenderer;
     public DripstoneBigRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -36,7 +35,7 @@ public class DripstoneBigRenderer<T extends DripstoneBigEntity> extends EntityRe
         super.render(entity, yaw, tickDelta, matrixStack, vertexConsumers, light);
         matrixStack.push();
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-1F * entity.getYaw() + 180F));
-        matrixStack.translate(0, 0.5, 0); // Compensate for translate within CustomModels.render
+        matrixStack.translate(0, 0.5, 0);
         CustomModels.render(layer, itemRenderer, modelId, matrixStack, vertexConsumers, light, entity.getId());
         matrixStack.translate(0.5, 0, 0.5);
         matrixStack.pop();

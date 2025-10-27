@@ -1,7 +1,7 @@
 package net.elemental_wizards_rpg.client.entity;
 
 import net.elemental_wizards_rpg.ElementalMod;
-import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
+import net.elemental_wizards_rpg.entity.DripstoneBigEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -13,9 +13,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.spell_engine.api.render.CustomModels;
 
-public class DripstoneSmallRenderer <T extends DripstoneSmallEntity> extends EntityRenderer<T> {
+public class DripstoneStraightRenderer<T extends DripstoneBigEntity> extends EntityRenderer<T> {
     private final ItemRenderer itemRenderer;
-    public DripstoneSmallRenderer(EntityRendererFactory.Context context) {
+    public DripstoneStraightRenderer(EntityRendererFactory.Context context) {
         super(context);
         this.itemRenderer = context.getItemRenderer();
     }
@@ -25,7 +25,7 @@ public class DripstoneSmallRenderer <T extends DripstoneSmallEntity> extends Ent
         return null;
     }
 
-    public static final Identifier modelId = Identifier.of(ElementalMod.MOD_ID, "effect/dripstone_small");
+    public static final Identifier modelId = Identifier.of(ElementalMod.MOD_ID, "effect/dripstone_straight");
 
     private static final RenderLayer layer =
             RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
