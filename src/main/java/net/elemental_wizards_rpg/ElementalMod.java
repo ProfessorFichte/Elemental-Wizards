@@ -62,6 +62,7 @@ public class ElementalMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		itemConfig.refresh();
+		tweaksConfig.refresh();
 		effectsConfig.refresh();
 		ElementalItems.registerModItems();
 		ElementalWizardLootTableInjection.modifyLootTables();
@@ -72,6 +73,8 @@ public class ElementalMod implements ModInitializer {
 		itemConfig.save();
 		registerItemGroup();
 		Effects.register();
+		tweaksConfig.save();
+		effectsConfig.save();
 	}
 	static {
 		DripstoneBigEntity.ENTITY_TYPE = Registry.register(

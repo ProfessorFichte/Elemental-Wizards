@@ -1,3 +1,13 @@
+1.3.5 - 1.20.1
+- Changed Spell Book Texture to be more in line with the RPG-Series Books (by SirGhaith, Thanks!)
+- Improve Armor Model Assets (by Slepykat, Thanks!)
+- Improve Terra Circle Model (by Pedravila, Thanks!)
+- fix some config related issues
+- improved some spell textures
+- fix unused sprite error with storm_layer texture
+- Fix wrong Air Cutter Description
+- Rename Spell Books to "Tome of ..." to better match the Wizard Spell Books
+
 1.3.4 - 1.20.1
 - reduce water spell particles
 

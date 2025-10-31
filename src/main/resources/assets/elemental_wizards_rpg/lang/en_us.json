@@ -3,9 +3,9 @@
 
   "item.elemental_wizards_rpg.elemental_essence": "Elemental Essence",
 
-  "item.elemental_wizards_rpg.aqua_spell_book": "Secrets of the Ocean",
-  "item.elemental_wizards_rpg.terra_spell_book": "Mountain peak Journal",
-  "item.elemental_wizards_rpg.wind_spell_book": "Songs of Winds",
+  "item.elemental_wizards_rpg.aqua_spell_book": "Tome of Water",
+  "item.elemental_wizards_rpg.terra_spell_book": "Tome of Earth",
+  "item.elemental_wizards_rpg.wind_spell_book": "Tome of Wind",
 
   "item.elemental_wizards_rpg.staff_elemental": "Elemental Staff",
 
@@ -113,7 +113,7 @@
   "spell.elemental_wizards_rpg.wind_gust.name": "Gust",
   "spell.elemental_wizards_rpg.wind_gust.description": "Small gust dealing {damage} air spell damage.",
   "spell.elemental_wizards_rpg.wind_air_cutter.name": "Air Cutter",
-  "spell.elemental_wizards_rpg.wind_air_cutter.description": "Dealing constant {damage} air spell damage in a small area.",
+  "spell.elemental_wizards_rpg.wind_air_cutter.description": "Dealing {damage} air spell damage to a target and knocking it back.",
   "spell.elemental_wizards_rpg.wind_aeroblast.name": "Aeroblast",
   "spell.elemental_wizards_rpg.wind_aeroblast.description": "Air blast, dealing {damage} air spell damage and knocking the target up.",
   "spell.elemental_wizards_rpg.wind_updraft.name": "Updraft",
