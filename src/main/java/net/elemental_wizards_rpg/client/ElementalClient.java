@@ -3,6 +3,7 @@ package net.elemental_wizards_rpg.client;
 import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.client.effect.*;
 import net.elemental_wizards_rpg.client.entity.DripstoneSmallRenderer;
+import net.elemental_wizards_rpg.client.entity.DripstoneStraightRenderer;
 import net.elemental_wizards_rpg.client.entity.TornadoRenderer;
 import net.elemental_wizards_rpg.effect.Effects;
 import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
@@ -26,6 +27,7 @@ public class ElementalClient implements ClientModInitializer {
         CustomModels.registerModelIds(List.of(
                 DripstoneBigRenderer.modelId,
                 DripstoneSmallRenderer.modelId,
+                DripstoneStraightRenderer.modelId,
                 BubbleFoamRenderer.modelId_base,
                 TornadoRenderer.modelId,
                 new Identifier(ElementalMod.MOD_ID, "projectile/stone_spear"),

@@ -52,7 +52,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -86,7 +86,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -120,7 +120,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -154,7 +154,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -188,7 +188,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -222,7 +222,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -256,7 +256,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -290,7 +290,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -324,7 +324,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -358,7 +358,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -392,7 +392,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -426,7 +426,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -462,7 +462,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -496,7 +496,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -530,7 +530,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -564,7 +564,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -598,7 +598,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -632,7 +632,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -666,7 +666,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -700,7 +700,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -734,7 +734,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -768,7 +768,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -802,7 +802,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -836,7 +836,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -870,7 +870,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -904,7 +904,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -938,7 +938,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -972,7 +972,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1006,7 +1006,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1040,7 +1040,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1074,7 +1074,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1108,7 +1108,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1142,7 +1142,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1176,7 +1176,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1210,7 +1210,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1244,7 +1244,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 1.0,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1280,7 +1280,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1314,7 +1314,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1348,7 +1348,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1382,7 +1382,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1416,7 +1416,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1450,7 +1450,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1484,7 +1484,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1518,7 +1518,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1552,7 +1552,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1586,7 +1586,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1620,7 +1620,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
@@ -1654,7 +1654,7 @@
           "time_to_live_seconds": 5,
           "client_data": {
             "model": {
-              "model_id": "elemental_wizards_rpg:effect/dripstone_big",
+              "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
               "scale": 0.75,
               "rotate_degrees_per_tick": 0,
               "light_emission": "NONE"
