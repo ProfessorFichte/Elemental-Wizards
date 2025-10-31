@@ -8,6 +8,8 @@
 - fixed missing spell assignments
 - improve some water spell textures
 - Add new Terra Circle Dripstone Models
+- Fix wrong Air Cutter Description
+- fix unused sprite error with storm_layer texture
 
 # 2.4.11 - 1.21.1
 ### New Content

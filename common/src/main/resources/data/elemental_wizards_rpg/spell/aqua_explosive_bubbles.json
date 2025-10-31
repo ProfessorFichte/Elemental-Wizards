@@ -1,0 +1,217 @@
+{
+  "school": "WATER",
+  "range": 12,
+  "tier": 4,
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.25,
+      "animation": "spell_engine:one_handed_healing_charge",
+      "sound": {
+        "id": "block.bubble_column.whirlpool_ambient",
+        "volume": 2.0
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:bubble",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 3.0,
+          "min_speed": 0.001,
+          "max_speed": 0.1
+        }
+      ]
+    }
+  },
+
+  "release": {
+    "animation": "spell_engine:one_handed_projectile_release",
+    "sound": {
+      "id": "block.bubble_column.whirlpool_ambient",
+      "volume": 1.5
+    }
+  },
+
+  "target": {
+    "type": "AIM",
+    "aim": { }
+  },
+
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "direction_offsets": [
+        {
+          "yaw": 10,
+          "pitch": 0
+        },
+        {
+          "yaw": 0,
+          "pitch": 10
+        },
+        {
+          "yaw": 25,
+          "pitch": 0
+        },
+        {
+          "yaw": 0,
+          "pitch": 25
+        }
+      ],
+      "launch_properties": {
+        "velocity": 0.4,
+        "extra_launch_count": 3,
+        "extra_launch_delay": 7
+      },
+      "projectile": {
+        "hitbox": {
+          "width": 1.0,
+          "height": 1.0
+        },
+        "divergence": 15,
+        "homing_angle": 2,
+        "perks": {
+          "bounce": 10
+        },
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "bubble_pop",
+              "shape": "SPHERE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 3.0,
+              "min_speed": 0.1,
+              "max_speed": 0.2
+            }
+          ],
+          "model": {
+            "model_id": "elemental_wizards_rpg:projectile/big_bubble",
+            "light_level": 5,
+            "scale": 3.5,
+            "rotate_degrees_per_tick": 10,
+            "rotate_degrees_offset": 0
+          }
+        }
+      }
+    }
+  },
+
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.85
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:bubble_pop",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 10.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:bubble",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 10.0,
+          "min_speed": 0.001,
+          "max_speed": 0.1
+        }
+      ],
+      "sound": {
+        "id": "block.bubble_column.bubble_pop",
+        "volume": 2.0,
+        "pitch": -1.5
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#more_rpg_classes:resistant_to_water"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "more_rpg_classes:soaked",
+          "duration": 4,
+          "apply_mode": "SET",
+          "show_particles": false
+        }
+      }
+    },
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.65
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:water_heal",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 10,
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_1"
+      }
+    }
+  ],
+
+  "area_impact": {
+    "radius": 3.0,
+    "area": {
+      "distance_dropoff": "NONE"
+    },
+    "particles": [
+      {
+        "particle_id": "more_rpg_classes:bubble_pop",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 10.0,
+        "min_speed": 0.6,
+        "max_speed": 1.0
+      },
+      {
+        "particle_id": "more_rpg_classes:big_splash",
+        "shape": "PILLAR",
+        "origin": "FEET",
+        "count": 10,
+        "min_speed": 0.05,
+        "max_speed": 0.2
+      }
+    ],
+    "sound": {
+      "id": "entity.dragon_fireball.explode",
+      "random": 0.5,
+      "volume": 0.15,
+      "pitch": 2.5
+    }
+  },
+
+  "cost": {
+    "exhaust" : 0.4,
+    "cooldown":{
+      "duration": 20,
+      "haste_affected": true
+    },
+    "item": {
+      "id": "more_rpg_classes:aqua_stone"
+    }
+  }
+}
