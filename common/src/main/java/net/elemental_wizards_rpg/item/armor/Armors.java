@@ -38,13 +38,18 @@ public class Armors {
     private static final float spell_power_t1 = 0.2F;
     private static final float spell_power_t2 = 0.25F;
     private static final float spell_power_t3 = 0.3F;
-    private static final float crit_damage_t2 = 0.1F;
-    private static final float crit_chance_t2 = 0.02F;
-    private static final float haste_t2 = 0.03F;
-    private static final float crit_damage_t3 = 0.1F;
-    private static final float crit_chance_t3 = 0.02F;
-    private static final float haste_t3 = 0.03F;
 
+    private static final float haste_t2 = 0.02F;
+    private static final float haste_t3 = 0.03F;
+    private static final float haste_t4 = 0.03F;
+
+    private static final float crit_damage_t2 = 0.05F;
+    private static final float crit_damage_t3 = 0.06F;
+    private static final float crit_damage_t4 = 0.08F;
+
+    private static final float crit_chance_t2 = 0.02F;
+    private static final float crit_chance_t3 = 0.03F;
+    private static final float crit_chance_t4 = 0.03F;
 
     public static RegistryEntry<ArmorMaterial> material(String name,
                                                         int protectionHead, int protectionChest, int protectionLegs, int protectionFeet,
