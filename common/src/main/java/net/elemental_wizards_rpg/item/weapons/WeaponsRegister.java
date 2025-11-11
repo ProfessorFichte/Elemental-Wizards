@@ -33,6 +33,7 @@ public class WeaponsRegister {
         var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, category);
         if (entry.isRequiredModInstalled()) {
             entries.add(entry);
+            entry.loot(Equipment.LootProperties.of(""));
         }
         return entry;
     }
@@ -179,7 +180,7 @@ public class WeaponsRegister {
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
                     .spell(ElementalWizardSpells.elemental_avatar.id())
-                    .loot(Equipment.LootProperties.of(5))
+                    .loot(Equipment.LootProperties.of(5, "crystal"))
                     .rarity = Rarity.RARE;
         }
 

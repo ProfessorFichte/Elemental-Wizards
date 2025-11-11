@@ -404,6 +404,7 @@ public class ElementalWizardSpells {
         float offset1 = 1.0F;
         float offset2 = 2.0F;
         float offset3 = 3.0F;
+        /*
         var cloud = new Spell.Delivery.Cloud();
         cloud.volume.radius = 0.4F;
         cloud.volume.area.vertical_range_multiplier = 0.3F;
@@ -413,7 +414,7 @@ public class ElementalWizardSpells {
         cloud.spawn = new Spell.Delivery.Cloud.Spawn();
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.model = new Spell.ProjectileModel();
-        cloud.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_big";
+        cloud.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_straight";
         cloud.client_data.model.rotate_degrees_per_tick = 0;
         cloud.client_data.model.light_emission = LightEmission.NONE;
         cloud.client_data.model.scale = 0.3F;
@@ -437,6 +438,8 @@ public class ElementalWizardSpells {
                 SpellBuilder.Deliver.placementByLook(offset1, -128, 0),
                 SpellBuilder.Deliver.placementByLook(offset1, -160, 0)
         );
+
+         */
         var cloud2 = new Spell.Delivery.Cloud();
         cloud2.volume.radius = 0.4F;
         cloud2.volume.area.vertical_range_multiplier = 0.5F;
@@ -446,7 +449,7 @@ public class ElementalWizardSpells {
         cloud2.spawn = new Spell.Delivery.Cloud.Spawn();
         cloud2.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud2.client_data.model = new Spell.ProjectileModel();
-        cloud2.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_big";
+        cloud2.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_straight";
         cloud2.client_data.model.rotate_degrees_per_tick = 0;
         cloud2.client_data.model.light_emission = LightEmission.NONE;
         cloud2.client_data.model.scale = 0.5F;
@@ -478,7 +481,7 @@ public class ElementalWizardSpells {
         cloud3.spawn = new Spell.Delivery.Cloud.Spawn();
         cloud3.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud3.client_data.model = new Spell.ProjectileModel();
-        cloud3.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_big";
+        cloud3.client_data.model.model_id = "elemental_wizards_rpg:effect/dripstone_straight";
         cloud3.client_data.model.rotate_degrees_per_tick = 0;
         cloud3.client_data.model.light_emission = LightEmission.NONE;
         cloud3.client_data.model.scale = 1.0F;
@@ -502,7 +505,7 @@ public class ElementalWizardSpells {
                 SpellBuilder.Deliver.placementByLook(offset3, -160, 0)
         );
 
-        spell.deliver.clouds = List.of(cloud, cloud2,cloud3);
+        spell.deliver.clouds = List.of(cloud2,cloud3);
 
         var damage = SpellBuilder.Impacts.damage(0.65F, 0F);
         damage.particles = new ParticleBatch[] {

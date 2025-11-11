@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lapis_lazuli_from_blasting_elemental_chest"
+        "recipe": "elemental_wizards_rpg:lapis_lazuli_from_blasting_elemental_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:lapis_lazuli_from_blasting_elemental_chest"
+      "elemental_wizards_rpg:lapis_lazuli_from_blasting_elemental_chest"
     ]
   }
 }

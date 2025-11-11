@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gold_nugget_from_smelting_wand_wind"
+        "recipe": "elemental_wizards_rpg:gold_nugget_from_smelting_wand_wind"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gold_nugget_from_smelting_wand_wind"
+      "elemental_wizards_rpg:gold_nugget_from_smelting_wand_wind"
     ]
   }
 }
