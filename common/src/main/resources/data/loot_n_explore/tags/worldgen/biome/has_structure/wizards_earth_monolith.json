@@ -11,6 +11,10 @@
     {
       "id": "#c:caves",
       "required": false
+    },
+    {
+      "id": "#c:is_mountain",
+      "required": false
     }
   ]
 }

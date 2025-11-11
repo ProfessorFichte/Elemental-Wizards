@@ -1,12 +1,12 @@
 {
   "values": [
-    "#minecraft:is_hill",
+    "#minecraft:is_jungle",
     {
-      "id": "#c:mountain_peak",
+      "id": "#c:is_lush",
       "required": false
     },
     {
-      "id": "#c:extreme_hills",
+      "id": "#c:is_jungle",
       "required": false
     }
   ]
