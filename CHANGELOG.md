@@ -1,3 +1,9 @@
+# 2.5.1 - 1.21.1
+- Re-Balance some of the armor attributes
+- Change some LNE-Wizards Biome Tags
+- Add Avatar's Staff to "Crystal Loot Theme"
+- Nerf Terra Circle again
+
 # 2.5.0 - 1.21.1
 - Move to Architectury Enviroment for Multiloader
 - NeoForge Beta!
