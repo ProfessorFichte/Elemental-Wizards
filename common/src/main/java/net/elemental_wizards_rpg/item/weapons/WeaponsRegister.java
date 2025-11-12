@@ -56,47 +56,57 @@ public class WeaponsRegister {
     //WANDS
     private static final float wandAttackDamage = 2;
     private static final float wandAttackSpeed = -2.4F;
+    // Wand spell power bonuses
+    private static final float T0_WAND_POWER = 3F;
+    private static final float T1_WAND_POWER = 4F;
+    private static final float T2_WAND_POWER = 5F;
+    private static final float T3_WAND_POWER = 5.5F;
+    private static final float T1_STAFF_POWER = 5F;
+    private static final float T2_STAFF_POWER = 6F;
+    private static final float T3_STAFF_POWER = 7F;
+    private static final float T4_STAFF_POWER = 8F;
+
     private static Weapon.Entry wand(String name, Weapon.CustomMaterial material) {
         return entry(name, material, StaffItem::new, new WeaponConfig(wandAttackDamage, wandAttackSpeed), Equipment.WeaponType.DAMAGE_WAND);
     }
 
     public static final Weapon.Entry kelpWand = wand("wand_kelp",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 3))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T0_WAND_POWER))
             .loot(Equipment.LootProperties.of(0));
     public static final Weapon.Entry aquaWand = wand("wand_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 4))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T2_WAND_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netheriteAquaWand = wand("wand_netherite_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 4.5F))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T3_WAND_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     public static final Weapon.Entry clayWand = wand("wand_clay",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 3))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T0_WAND_POWER))
             .loot(Equipment.LootProperties.of(0));
     public static final Weapon.Entry terraWand = wand("wand_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 4))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T2_WAND_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netheriteTerraWand = wand("wand_netherite_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 4.5F))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T3_WAND_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     public static final Weapon.Entry featherWand = wand("wand_feather",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 3))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T0_WAND_POWER))
             .loot(Equipment.LootProperties.of(0));
     public static final Weapon.Entry windWand = wand("wand_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 4))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T2_WAND_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netheriteWindWand = wand("wand_netherite_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 4.5F))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T3_WAND_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     //STAFFS
@@ -107,37 +117,37 @@ public class WeaponsRegister {
     }
     public static final Weapon.Entry elementalStaff= staff("staff_elemental",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.STICK)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 4))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 4))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 4))
-            .attribute(AttributeModifier.bonus(SpellSchools.FIRE.id, 4))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T1_STAFF_POWER))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T1_STAFF_POWER))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T1_STAFF_POWER))
+            .attribute(AttributeModifier.bonus(SpellSchools.FIRE.id, T1_STAFF_POWER))
             .loot(Equipment.LootProperties.of(1));
 
     public static final Weapon.Entry aquaStaff= staff("staff_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 5))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T2_STAFF_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netheriteAquaStaff = staff("staff_netherite_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 6))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T3_STAFF_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     public static final Weapon.Entry terraStaff= staff("staff_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 5))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T2_STAFF_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netheriteTerraStaff = staff("staff_netherite_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 6))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T3_STAFF_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     public static final Weapon.Entry windStaff= staff("staff_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 5))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T2_STAFF_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netheriteWindStaff = staff("staff_netherite_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 6))
+            .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T3_STAFF_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     private static final String BETTER_END = "betterend";
@@ -150,35 +160,35 @@ public class WeaponsRegister {
             var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             staff( "staff_ruby_terra",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
                     .loot(Equipment.LootProperties.of(4));
         }
         if(FabricLoader.getInstance().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
             staff( "staff_crystal_aqua",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
                     .loot(Equipment.LootProperties.of(4));
             staff( "staff_aeternium_wind",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T4_STAFF_POWER))
                     .loot(Equipment.LootProperties.of(4));
         }
         if(FabricLoader.getInstance().isModLoaded(AETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
             staff( "staff_aether",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T4_STAFF_POWER))
                     .loot(Equipment.LootProperties.of("aether"));
         }
         if (FabricLoader.getInstance().isModLoaded(ARSENAL) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             staff( "unique_staff_1",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.IRON_BLOCK)))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, 7))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, 7))
-                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, 7))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T4_STAFF_POWER))
                     .spell(ElementalWizardSpells.elemental_avatar.id())
                     .loot(Equipment.LootProperties.of(5, "crystal"))
                     .rarity = Rarity.RARE;
