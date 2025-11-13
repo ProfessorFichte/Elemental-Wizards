@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "elemental_wizards_rpg:item/armor/aqua/ocean_robe_legs"
+  }
+}
