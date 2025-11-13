@@ -11,7 +11,7 @@ authors = "Fichte"
 description = '''
 Master the elements to overcome your foes! Spell Engine Add-On
 '''
-#logoFile = ""
+logoFile = "icon.png"
 
 [[dependencies.elemental_wizards_rpg]]
 modId = "neoforge"
@@ -31,6 +31,13 @@ side = "BOTH"
 modId = "spell_engine"
 type = "required"
 versionRange = "[${spell_engine_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "wizards"
+type = "required"
+versionRange = "[${wizards_version},)"
 ordering = "NONE"
 side = "BOTH"
 

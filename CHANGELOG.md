@@ -1,3 +1,7 @@
+# 2.5.2 - 1.21.1
+- Buff Weapon Spell Power
+- Add T5 Armor Sets (Models by Slepykat)
+
 # 2.5.1 - 1.21.1
 - Re-Balance some of the armor attributes
 - Change some LNE-Wizards Biome Tags

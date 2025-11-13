@@ -11,7 +11,7 @@
 		"sources": "https://github.com/ProfessorFichte"
 	},
 	"license": "ARR",
-	"icon": "assets/elemental_wizards_rpg/icon.png",
+	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"client":[
