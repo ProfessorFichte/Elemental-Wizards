@@ -1,32 +1,14 @@
 {
   "values": [
-    {
-      "id": "elemental_wizards_rpg:elemental_head",
-      "required": false
-    },
-    {
-      "id": "elemental_wizards_rpg:kelp_head",
-      "required": false
-    },
-    {
-      "id": "elemental_wizards_rpg:dripstone_head",
-      "required": false
-    },
-    {
-      "id": "elemental_wizards_rpg:wind_head",
-      "required": false
-    },
-    {
-      "id": "elemental_wizards_rpg:netherite_kelp_head",
-      "required": false
-    },
-    {
-      "id": "elemental_wizards_rpg:netherite_dripstone_head",
-      "required": false
-    },
-    {
-      "id": "elemental_wizards_rpg:netherite_wind_head",
-      "required": false
-    }
+    "elemental_wizards_rpg:hurricane_robe_head",
+    "elemental_wizards_rpg:mountain_robe_head",
+    "elemental_wizards_rpg:ocean_robe_head",
+    "elemental_wizards_rpg:elemental_head",
+    "elemental_wizards_rpg:kelp_head",
+    "elemental_wizards_rpg:dripstone_head",
+    "elemental_wizards_rpg:wind_head",
+    "elemental_wizards_rpg:netherite_kelp_head",
+    "elemental_wizards_rpg:netherite_dripstone_head",
+    "elemental_wizards_rpg:netherite_wind_head"
   ]
 }

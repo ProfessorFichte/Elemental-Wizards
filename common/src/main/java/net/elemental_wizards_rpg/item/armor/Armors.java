@@ -1,6 +1,7 @@
 package net.elemental_wizards_rpg.item.armor;
 
 import net.elemental_wizards_rpg.item.ElementalGroup;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
@@ -11,11 +12,13 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.config.ArmorSetConfig;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.item.Equipment;
 import net.spell_engine.api.item.armor.Armor;
+import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
 
@@ -26,6 +29,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
 
 public class Armors {
     private static final Supplier<Ingredient> WOOL_INGREDIENTS = () -> { return Ingredient.ofItems(
@@ -38,18 +42,19 @@ public class Armors {
     private static final float spell_power_t1 = 0.2F;
     private static final float spell_power_t2 = 0.25F;
     private static final float spell_power_t3 = 0.3F;
+    private static final float spell_power_t5 = 0.35F;
 
     private static final float haste_t2 = 0.02F;
     private static final float haste_t3 = 0.03F;
-    private static final float haste_t4 = 0.03F;
+    private static final float haste_t5 = 0.03F;
 
     private static final float crit_damage_t2 = 0.05F;
     private static final float crit_damage_t3 = 0.06F;
-    private static final float crit_damage_t4 = 0.08F;
+    private static final float crit_damage_t5 = 0.08F;
 
     private static final float crit_chance_t2 = 0.02F;
     private static final float crit_chance_t3 = 0.03F;
-    private static final float crit_chance_t4 = 0.03F;
+    private static final float crit_chance_t5 = 0.03F;
 
     public static RegistryEntry<ArmorMaterial> material(String name,
                                                         int protectionHead, int protectionChest, int protectionLegs, int protectionFeet,
@@ -104,21 +109,35 @@ public class Armors {
             1, 3, 2, 1,
             15,
             SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); });
+    public static RegistryEntry<ArmorMaterial> epic_wizard_robe = material(
+            "wizard_robe",
+            1, 3, 2, 1,
+            18,
+            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); });
 
 
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
     private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability,
-                                      Armor.Set.ItemFactory factory, ArmorSetConfig defaults, int tier) {
+                                      Armor.Set.ItemFactory factory, ArmorSetConfig defaults, int tier, Armor.ItemSettingsTweaker settings) {
         var entry = Armor.Entry.create(
                 material,
                 id,
                 durability,
                 factory,
                 defaults,
-                Equipment.LootProperties.of(tier)
+                Equipment.LootProperties.of(tier),
+                settings
         );
         entries.add(entry);
         return entry;
+    }
+
+    private static Armor.ItemSettingsTweaker commonSettings(Identifier equipmentSetId) {
+        return Armor.ItemSettingsTweaker.standard(itemSettings -> {
+            itemSettings
+                    .component(SpellDataComponents.EQUIPMENT_SET, equipmentSetId)
+                    .component(DataComponentTypes.RARITY, Rarity.RARE);
+        });
     }
 
     public static final Armor.Set elementalArmor =
@@ -156,7 +175,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t1),
                                             AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     ))
-                    ),1)
+                    ),1,null)
                     .armorSet();
 
     public static final Armor.Set kelpArmor =
@@ -186,7 +205,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t2),
                                             AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     ))
-                    ),2)
+                    ),2,null)
                     .armorSet();
 
     public static final Armor.Set dripstoneArmor =
@@ -216,7 +235,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t2),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     ))
-                    ),2)
+                    ),2,null)
                     .armorSet();
 
     public static final Armor.Set windArmor =
@@ -246,7 +265,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t2),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     ))
-                    ),2)
+                    ),2,null)
                     .armorSet();
 
     public static final Armor.Set netheriteKelpNetheriteArmor =
@@ -276,7 +295,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t3),
                                             AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     ))
-                    ),3)
+                    ),3,null)
                     .armorSet();
 
     public static final Armor.Set netheriteDripstoneArmor =
@@ -306,7 +325,7 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.EARTH.id,  spell_power_t3),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     ))
-                    ),3)
+                    ),3,null)
                     .armorSet();
 
     public static final Armor.Set netheriteWindArmor =
@@ -336,10 +355,80 @@ public class Armors {
                                             AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t3),
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     ))
-                    ),3)
+                    ),3,null)
                     .armorSet();
+    public static Armor.Entry oceanArmorSet;
+    public static Armor.Entry hurricaneArmorSet;
+    public static Armor.Entry mountainArmorSet;
+    public static Identifier hurricane_passive = Identifier.of(MOD_ID, "hurricane");
+    public static Identifier mountain_passive = Identifier.of(MOD_ID, "mountain");
+    public static Identifier ocean_passive = Identifier.of(MOD_ID, "ocean");
 
     public static void register(Map<String, ArmorSetConfig> configs) {
+        if (armoryLoadCheck()) {
+            hurricaneArmorSet = create(
+                    epic_wizard_robe,
+                    Identifier.of(MOD_ID, "hurricane_robe"),
+                    40,
+                    Armor.CustomItem::new,
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
+                            new ArmorSetConfig.Piece(3)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
+                            new ArmorSetConfig.Piece(2)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
+                            new ArmorSetConfig.Piece(1)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5))
+                    ), 5,commonSettings(hurricane_passive))
+                    .translatedName("", "", "", "");
+            mountainArmorSet = create(
+                    epic_wizard_robe,
+                    Identifier.of(MOD_ID, "mountain_robe"),
+                    40,
+                    Armor.CustomItem::new,
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
+                            new ArmorSetConfig.Piece(3)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
+                            new ArmorSetConfig.Piece(2)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
+                            new ArmorSetConfig.Piece(1)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5))
+                    ),5,
+                    commonSettings(mountain_passive))
+                    .translatedName("", "", "", "");
+            oceanArmorSet = create(
+                    epic_wizard_robe,
+                    Identifier.of(MOD_ID, "ocean_robe"),
+                    40,
+                    Armor.CustomItem::new,
+                    ArmorSetConfig.with(
+                            new ArmorSetConfig.Piece(1)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
+                            new ArmorSetConfig.Piece(3)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
+                            new ArmorSetConfig.Piece(2)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
+                            new ArmorSetConfig.Piece(1)
+                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5))
+                    ),5,
+                    commonSettings(ocean_passive))
+                    .translatedName("", "", "", "");
+        }
         Armor.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
     }
 }

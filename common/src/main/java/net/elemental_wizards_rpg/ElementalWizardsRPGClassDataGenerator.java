@@ -1,7 +1,6 @@
 package net.elemental_wizards_rpg;
 
 import net.elemental_wizards_rpg.item.armor.Armors;
-import net.elemental_wizards_rpg.item.armor.ArmoryCompat;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -114,11 +113,22 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 
 		}
 
+		List<String> armoryKeywords = List.of("hurricane", "ocean","mountain");
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 			generateWeaponTags(WeaponsRegister.entries);
-			armorTags(Armors.entries, RPGSeriesItemTags.ArmorMetaType.MAGIC);
-	//		armorTags(ArmoryCompat.entries, RPGSeriesItemTags.ArmorMetaType.MAGIC);
+			var armorTagOptions1 = new ArmorOptions(false, true);
+			var armorTagOptions2 = new ArmorOptions(true, true);
+			generateArmorTags(
+					Armors.entries.stream().filter(entry -> armoryKeywords.stream().anyMatch(entry.name()::contains)).toList(),
+					RPGSeriesItemTags.ArmorMetaType.MAGIC,
+					armorTagOptions1
+			);
+			generateArmorTags(
+					Armors.entries.stream().filter(entry -> armoryKeywords.stream().noneMatch(entry.name()::contains)).toList(),
+					RPGSeriesItemTags.ArmorMetaType.MAGIC,
+					armorTagOptions2
+			);
 		}
 	}
 

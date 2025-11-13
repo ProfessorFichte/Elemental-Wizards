@@ -15,6 +15,8 @@ import net.elemental_wizards_rpg.config.TweaksConfig;
 import net.elemental_wizards_rpg.spell.CustomSpellImpacts;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.SpawnGroup;
@@ -28,12 +30,14 @@ import net.tiny_config.ConfigManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
+
 public class ElementalMod {
 	public static final String MOD_ID = "elemental_wizards_rpg";
     public static final Logger LOGGER = LoggerFactory.getLogger("elemental_wizards_rpg");
 
 	public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
-			("equipment", Default.itemConfig)
+			("equipment_v1", Default.itemConfig)
 			.builder()
 			.setDirectory(MOD_ID)
 			.sanitize(true)
@@ -71,9 +75,7 @@ public class ElementalMod {
 		ElementalGroup.registerItemGroups();
 		WeaponsRegister.register(itemConfig.value.weapons);
 		Armors.register(itemConfig.value.armor_sets);
-		/*
-		if (FabricLoader.getInstance().isModLoaded("armory_rpgs") || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
-			ArmoryCompat.register(itemConfig.value.armor_sets);
+		if (armoryLoadCheck()) {
 			FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer -> {
 				ResourceManagerHelper.registerBuiltinResourcePack(
 						Identifier.of(MOD_ID, "elemental_wizards_armory_compat"),
@@ -82,7 +84,6 @@ public class ElementalMod {
 				);
 			});
 		}
-		 */
 		itemConfig.save();
 	}
 	public static void registerEffects() {
