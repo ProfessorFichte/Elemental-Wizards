@@ -1,8 +1,17 @@
 {
   "values": [
-    "elemental_wizards_rpg:hurricane_robe_feet",
-    "elemental_wizards_rpg:mountain_robe_feet",
-    "elemental_wizards_rpg:ocean_robe_feet",
+    {
+      "id": "elemental_wizards_rpg:hurricane_robe_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:mountain_robe_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:ocean_robe_feet",
+      "required": false
+    },
     "elemental_wizards_rpg:elemental_feet",
     "elemental_wizards_rpg:kelp_feet",
     "elemental_wizards_rpg:dripstone_feet",

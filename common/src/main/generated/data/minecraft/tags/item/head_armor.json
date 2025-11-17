@@ -1,8 +1,17 @@
 {
   "values": [
-    "elemental_wizards_rpg:hurricane_robe_head",
-    "elemental_wizards_rpg:mountain_robe_head",
-    "elemental_wizards_rpg:ocean_robe_head",
+    {
+      "id": "elemental_wizards_rpg:hurricane_robe_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:mountain_robe_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:ocean_robe_head",
+      "required": false
+    },
     "elemental_wizards_rpg:elemental_head",
     "elemental_wizards_rpg:kelp_head",
     "elemental_wizards_rpg:dripstone_head",

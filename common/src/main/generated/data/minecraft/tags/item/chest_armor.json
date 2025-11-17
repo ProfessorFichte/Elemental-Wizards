@@ -1,8 +1,17 @@
 {
   "values": [
-    "elemental_wizards_rpg:hurricane_robe_chest",
-    "elemental_wizards_rpg:mountain_robe_chest",
-    "elemental_wizards_rpg:ocean_robe_chest",
+    {
+      "id": "elemental_wizards_rpg:hurricane_robe_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:mountain_robe_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:ocean_robe_chest",
+      "required": false
+    },
     "elemental_wizards_rpg:elemental_chest",
     "elemental_wizards_rpg:kelp_chest",
     "elemental_wizards_rpg:dripstone_chest",

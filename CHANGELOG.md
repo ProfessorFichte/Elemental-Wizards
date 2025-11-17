@@ -1,6 +1,9 @@
+# 2.5.3 - 1.21.1
+- fix minecraft armor tags not loading when armory compat sets are not loading
+
 # 2.5.2 - 1.21.1
 - Buff Weapon Spell Power
-- Add T5 Armor Sets (Models by Slepykat)
+- Add T5 Armor Sets (Assets by Slepykat)
 
 # 2.5.1 - 1.21.1
 - Re-Balance some of the armor attributes

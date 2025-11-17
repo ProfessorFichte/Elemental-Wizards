@@ -1,8 +1,17 @@
 {
   "values": [
-    "elemental_wizards_rpg:hurricane_robe_legs",
-    "elemental_wizards_rpg:mountain_robe_legs",
-    "elemental_wizards_rpg:ocean_robe_legs",
+    {
+      "id": "elemental_wizards_rpg:hurricane_robe_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:mountain_robe_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:ocean_robe_legs",
+      "required": false
+    },
     "elemental_wizards_rpg:elemental_legs",
     "elemental_wizards_rpg:kelp_legs",
     "elemental_wizards_rpg:dripstone_legs",
