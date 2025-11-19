@@ -1,3 +1,6 @@
+1.3.6 - 1.20.1
+- Add Amplifier Cap for Bubble Beam's Bubble Foam
+
 1.3.5 - 1.20.1
 - Changed Spell Book Texture to be more in line with the RPG-Series Books (by SirGhaith, Thanks!)
 - Improve Armor Model Assets (by Slepykat, Thanks!)

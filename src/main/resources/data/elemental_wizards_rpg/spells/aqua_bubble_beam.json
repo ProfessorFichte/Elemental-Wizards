@@ -78,7 +78,6 @@
           "amplifier": 0,
           "duration": 4,
           "apply_mode": "SET",
-          "amplifier_power_multiplier": 0.2,
           "show_particles": false
         },
         "apply_to_caster": true
