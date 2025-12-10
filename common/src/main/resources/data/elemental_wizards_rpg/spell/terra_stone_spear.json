@@ -120,9 +120,6 @@
 
   "area_impact": {
   "radius": 2.5,
-  "area": {
-    "distance_dropoff": "SQUARED"
-  },
   "particles": [
     {
       "particle_id": "more_rpg_classes:stone_explosion",

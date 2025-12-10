@@ -97,10 +97,7 @@
   ],
 
   "area_impact": {
-    "radius": 1.0,
-    "area": {
-      "distance_dropoff": "SQUARED"
-    },
+    "radius": 1.5,
     "particles": [
       {
         "particle_id": "campfire_cosy_smoke",
