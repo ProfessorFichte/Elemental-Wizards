@@ -1,8 +1,27 @@
 plugins {
     id 'com.gradleup.shadow'
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id "com.modrinth.minotaur" version "2.+"
 }
 
+
 def platform = project.name;
+
+// Function to read the last section from CHANGELOG.md
+def changelog_last_section() {
+    def changelogFile = rootProject.file('CHANGELOG.md')
+    if (!changelogFile.exists()) {
+        return "No changelog available"
+    }
+
+    def content = changelogFile.text
+    def sections = content.split(/(?m)(?=^# )/)
+
+    // Return the first section (most recent) after the split
+    // Remove the first empty element if it exists
+    def recentSection = sections.find { it.trim().startsWith('#') }
+    return recentSection ?: "No changelog available"
+}
 
 architectury {
     platformSetupLoomIde()
@@ -111,4 +130,77 @@ shadowJar {
 
 remapJar {
     inputFile.set shadowJar.archiveFile
+}
+
+// Publishing configuration
+def release_type = project.hasProperty('release_type') ? project.property('release_type') : 'release'
+
+tasks.register('publishMod') {
+    group = 'publishing'
+    description = 'Publishes the mod to CurseForge and Modrinth'
+    dependsOn(tasks.remapJar)
+    finalizedBy(tasks.curseforge)
+    finalizedBy(tasks.modrinth)
+}
+
+if (System.getenv("CURSEFORGE_API_KEY")) {
+    curseforge {
+        apiKey = System.getenv("CURSEFORGE_API_KEY")
+        project {
+            id = System.getenv("CURSEFORGE_PROJECT_ID")
+            changelog = changelog_last_section()
+            changelogType = 'markdown'
+            releaseType = release_type
+            addGameVersion "${rootProject.minecraft_version}"
+            addGameVersion "NeoForge"
+
+            relations {
+                // Required dependencies
+                requiredDependency 'spell-engine'
+                requiredDependency 'more-rpg-library'
+                requiredDependency 'wizards'
+
+                // Optional dependencies
+                optionalDependency 'lne-wizards'
+            }
+
+            mainArtifact(remapJar)
+            afterEvaluate {
+                uploadTask.dependsOn(remapJar)
+            }
+            options {
+                forgeGradleIntegration = false
+            }
+        }
+    }
+}
+
+if (System.getenv("MODRINTH_API_KEY")) {
+    modrinth {
+        token = System.getenv("MODRINTH_API_KEY")
+        projectId = System.getenv("MODRINTH_PROJECT_ID")
+        versionName = "${version}-${platform}"
+        versionNumber = "${version}-${platform}"
+        versionType = release_type
+        uploadFile = remapJar
+        gameVersions = ["${project.minecraft_version}"]
+        loaders = ["neoforge"]
+        changelog = changelog_last_section()
+        dependencies {
+            // Required dependencies
+            required.project 'spell-engine'
+            required.project 'wizards'
+            required.project 'more-rpg-library'
+
+            // Optional dependencies
+            optional.project 'lne-wizards'
+        }
+    }
+}
+
+if (System.getenv("CURSEFORGE_API_KEY")) {
+    tasks.curseforge.dependsOn remapJar
+}
+if (System.getenv("MODRINTH_API_KEY")) {
+    tasks.modrinth.dependsOn remapJar
 }

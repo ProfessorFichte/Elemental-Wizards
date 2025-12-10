@@ -1,3 +1,7 @@
+# 2.5.4 - 1.21.1
+- fix Stone Throw and Stone Spear not damaging Targets around correctly
+- Update to newest MRPG-Lib version
+
 # 2.5.3 - 1.21.1
 - fix minecraft armor tags not loading when armory compat sets are not loading
 
