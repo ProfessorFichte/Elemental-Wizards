@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:kelp"
+    },
+    "B": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "   ",
+    "A A",
+    "B B"
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:kelp_feet"
+  }
+}

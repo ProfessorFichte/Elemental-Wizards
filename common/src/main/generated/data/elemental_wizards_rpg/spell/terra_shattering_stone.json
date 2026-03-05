@@ -1,0 +1,120 @@
+{
+  "school": "spell_power:earth",
+  "range": 38.0,
+  "tier": 5,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.2,
+      "animation": {
+        "id": "more_rpg_classes:two_handed_ground_channeling"
+      },
+      "sound": {
+        "id": "more_rpg_classes:earth_magic_impact1",
+        "volume": 0.5
+      }
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "more_rpg_classes:two_handed_ground_release"
+    },
+    "sound": {
+      "id": "minecraft:block.pointed_dripstone.fall",
+      "volume": 1.5
+    }
+  },
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "launch_properties": {
+        "velocity": 1.2,
+        "sound": {
+          "id": ""
+        }
+      },
+      "projectile": {
+        "divergence": 10.0,
+        "perks": {
+          "chain_reaction_size": 10
+        },
+        "client_data": {
+          "model": {
+            "model_id": "elemental_wizards_rpg:spell_projectile/stone_shard",
+            "scale": 0.5
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.7,
+          "knockback": 0.0
+        }
+      },
+      "sound": {
+        "id": "more_rpg_classes:earth_magic_impact1",
+        "volume": 0.5
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:undead"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "more_rpg_classes:bleeding",
+          "duration": 5.0,
+          "amplifier_power_multiplier": 0.2
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:stone_particle",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 5.0,
+          "min_speed": 0.02,
+          "max_speed": 0.07
+        }
+      ]
+    }
+  ],
+  "area_impact": {
+    "radius": 1.5,
+    "particles": [
+      {
+        "particle_id": "more_rpg_classes:stone_explosion",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 1.0,
+        "min_speed": 0.6
+      }
+    ],
+    "sound": {
+      "id": "minecraft:block.pointed_dripstone.break",
+      "volume": 1.5
+    }
+  },
+  "cost": {
+    "exhaust": 0.4,
+    "cooldown": {
+      "duration": 18.0
+    },
+    "item": {
+      "id": "more_rpg_classes:terra_stone"
+    }
+  }
+}

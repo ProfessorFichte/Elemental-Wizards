@@ -1,0 +1,27 @@
+{
+  "parent": "elemental_wizards_rpg:path_choose_terra",
+  "criteria": {
+    "bind": {
+      "conditions": {
+        "complete": false,
+        "spell_pool": "elemental_wizards_rpg:spell_book/terra"
+      },
+      "trigger": "spell_engine:spell_binding"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.spell_novice_terra.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "elemental_wizards_rpg:wand_terra"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.spell_novice_terra.title"
+    }
+  }
+}

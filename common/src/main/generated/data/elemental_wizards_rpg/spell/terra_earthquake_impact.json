@@ -1,0 +1,50 @@
+{
+  "school": "spell_power:earth",
+  "range": 16.0,
+  "tier": 4,
+  "learn": {},
+  "active": {},
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.8,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "campfire_cosy_smoke",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 5.0,
+          "min_speed": 0.005,
+          "max_speed": 0.01
+        }
+      ],
+      "sound": {
+        "id": "block.pointed_dripstone.break"
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#c:bosses"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "CUSTOM",
+        "custom": {
+          "intent": "HARMFUL",
+          "handler": "more_rpg_classes:trembling"
+        }
+      }
+    }
+  ]
+}

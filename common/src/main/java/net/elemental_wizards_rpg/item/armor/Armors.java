@@ -16,8 +16,8 @@ import net.minecraft.util.Rarity;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.config.ArmorSetConfig;
 import net.spell_engine.api.config.AttributeModifier;
-import net.spell_engine.api.item.Equipment;
-import net.spell_engine.api.item.armor.Armor;
+import net.spell_engine.rpg_series.item.Equipment;
+import net.spell_engine.rpg_series.item.Armor;
 import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
@@ -140,7 +140,7 @@ public class Armors {
         });
     }
 
-    public static final Armor.Set elementalArmor =
+    public static final Armor.Entry elementalArmor =
             create(
                     material_elemental,
                     Identifier.of(MOD_ID, "elemental"),
@@ -176,9 +176,9 @@ public class Armors {
                                             AttributeModifier.multiply(SpellSchools.FIRE.id, spell_power_t1)
                                     ))
                     ),1,null)
-                    .armorSet();
+                    .translatedName("Elemental Apprentice Hat", "Elemental Apprentice Robe Top", "Elemental Apprentice Robe Bottom", "Elemental Apprentice Boots");
 
-    public static final Armor.Set kelpArmor =
+    public static final Armor.Entry kelpArmor =
             create(
                     material_kelp,
                     Identifier.of(MOD_ID, "kelp"),
@@ -206,9 +206,9 @@ public class Armors {
                                             AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t2)
                                     ))
                     ),2,null)
-                    .armorSet();
+                    .translatedName("Aqua Hat", "Aqua Robe Top", "Aqua Robe Bottom", "Aqua Boots");
 
-    public static final Armor.Set dripstoneArmor =
+    public static final Armor.Entry dripstoneArmor =
             create(
                     material_dripstone,
                     Identifier.of(MOD_ID, "dripstone"),
@@ -236,9 +236,9 @@ public class Armors {
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t2)
                                     ))
                     ),2,null)
-                    .armorSet();
+                    .translatedName("Terra Hat", "Terra Robe Top", "Terra Robe Bottom", "Terra Boots");
 
-    public static final Armor.Set windArmor =
+    public static final Armor.Entry windArmor =
             create(
                     material_wind,
                     Identifier.of(MOD_ID, "wind"),
@@ -266,9 +266,9 @@ public class Armors {
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t2)
                                     ))
                     ),2,null)
-                    .armorSet();
+                    .translatedName("Wind Hat", "Wind Robe Top", "Wind Robe Bottom", "Wind Boots");
 
-    public static final Armor.Set netheriteKelpNetheriteArmor =
+    public static final Armor.Entry netheriteKelpNetheriteArmor =
             create(
                     material_netherite_kelp,
                     Identifier.of(MOD_ID, "netherite_kelp"),
@@ -296,9 +296,9 @@ public class Armors {
                                             AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t3)
                                     ))
                     ),3,null)
-                    .armorSet();
+                    .translatedName("Netherite Aqua Hat", "Netherite Aqua Robe Top", "Netherite Aqua Robe Bottom", "Netherite Aqua Boots");
 
-    public static final Armor.Set netheriteDripstoneArmor =
+    public static final Armor.Entry netheriteDripstoneArmor =
             create(
                     material_netherite_dripstone,
                     Identifier.of(MOD_ID, "netherite_dripstone"),
@@ -326,9 +326,9 @@ public class Armors {
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t3)
                                     ))
                     ),3,null)
-                    .armorSet();
+                    .translatedName("Netherite Terra Hat", "Netherite Terra Robe Top", "Netherite Terra Robe Bottom", "Netherite Terra Boots");
 
-    public static final Armor.Set netheriteWindArmor =
+    public static final Armor.Entry netheriteWindArmor =
             create(
                     material_netherite_wind,
                     Identifier.of(MOD_ID, "netherite_wind"),
@@ -356,7 +356,7 @@ public class Armors {
                                             AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t3)
                                     ))
                     ),3,null)
-                    .armorSet();
+                    .translatedName("Netherite Wind Hat", "Netherite Wind Robe Top", "Netherite Wind Robe Bottom", "Netherite Wind Boots");
     public static Armor.Entry oceanArmorSet;
     public static Armor.Entry hurricaneArmorSet;
     public static Armor.Entry mountainArmorSet;
@@ -385,7 +385,7 @@ public class Armors {
                                     .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
                                     .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5))
                     ), 5,commonSettings(hurricane_passive))
-                    .translatedName("", "", "", "");
+                    .translatedName("Hurricane Hat", "Hurricane Robe Top", "Hurricane Robe Bottom", "Hurricane Boots");
             mountainArmorSet = create(
                     epic_wizard_robe,
                     Identifier.of(MOD_ID, "mountain_robe"),
@@ -406,7 +406,7 @@ public class Armors {
                                     .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5))
                     ),5,
                     commonSettings(mountain_passive))
-                    .translatedName("", "", "", "");
+                    .translatedName("Mountain Hat", "Mountain Robe Top", "Mountain Robe Bottom", "Mountain Boots");
             oceanArmorSet = create(
                     epic_wizard_robe,
                     Identifier.of(MOD_ID, "ocean_robe"),
@@ -427,7 +427,7 @@ public class Armors {
                                     .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5))
                     ),5,
                     commonSettings(ocean_passive))
-                    .translatedName("", "", "", "");
+                    .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots");
         }
         Armor.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
     }

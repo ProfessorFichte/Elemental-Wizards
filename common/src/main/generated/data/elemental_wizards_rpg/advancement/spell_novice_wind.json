@@ -1,0 +1,27 @@
+{
+  "parent": "elemental_wizards_rpg:path_choose_wind",
+  "criteria": {
+    "bind": {
+      "conditions": {
+        "complete": false,
+        "spell_pool": "elemental_wizards_rpg:spell_book/wind"
+      },
+      "trigger": "spell_engine:spell_binding"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.spell_novice_wind.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "elemental_wizards_rpg:wand_wind"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.spell_novice_wind.title"
+    }
+  }
+}

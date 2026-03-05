@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:pointed_dripstone"
+    },
+    "B": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "B B",
+    "A A"
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:dripstone_legs"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:wind_charge"
+    },
+    "B": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "   ",
+    "A A",
+    "B B"
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:wind_feet"
+  }
+}

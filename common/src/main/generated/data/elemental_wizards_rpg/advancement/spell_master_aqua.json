@@ -1,0 +1,27 @@
+{
+  "parent": "elemental_wizards_rpg:spell_novice_aqua",
+  "criteria": {
+    "bind": {
+      "conditions": {
+        "complete": true,
+        "spell_pool": "elemental_wizards_rpg:spell_book/aqua"
+      },
+      "trigger": "spell_engine:spell_binding"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.spell_master_aqua.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "elemental_wizards_rpg:staff_netherite_aqua"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.spell_master_aqua.title"
+    }
+  }
+}

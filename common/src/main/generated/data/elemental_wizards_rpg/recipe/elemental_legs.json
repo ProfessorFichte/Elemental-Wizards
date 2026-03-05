@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "elemental_wizards_rpg:elemental_essence"
+    },
+    "B": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "B B",
+    "A A"
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:elemental_legs"
+  }
+}

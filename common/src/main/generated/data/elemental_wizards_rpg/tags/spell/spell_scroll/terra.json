@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:terra_stone_flesh",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:terra_drip_circle",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:terra_earthquake",
+      "required": false
+    }
+  ]
+}

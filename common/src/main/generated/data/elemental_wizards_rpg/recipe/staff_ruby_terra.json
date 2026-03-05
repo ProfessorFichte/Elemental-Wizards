@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "betternether:nether_ruby"
+    },
+    "B": {
+      "item": "minecraft:obsidian"
+    },
+    "C": {
+      "item": "minecraft:gilded_blackstone"
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "betternether"
+    }
+  ],
+  "pattern": [
+    " BA",
+    " CB",
+    "C  "
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:staff_ruby_terra"
+  }
+}

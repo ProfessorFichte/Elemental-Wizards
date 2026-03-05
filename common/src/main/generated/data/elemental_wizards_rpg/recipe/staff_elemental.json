@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:nether_star"
+    },
+    "B": {
+      "item": "minecraft:stick"
+    },
+    "C": {
+      "item": "elemental_wizards_rpg:elemental_essence"
+    }
+  },
+  "pattern": [
+    " CA",
+    " BC",
+    "B  "
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:staff_elemental"
+  }
+}

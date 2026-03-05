@@ -1,0 +1,76 @@
+{
+  "school": "spell_power:air",
+  "range": 16.0,
+  "group": "primary",
+  "tier": 0,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.0,
+      "animation": {
+        "id": "spell_engine:one_handed_projectile_charge"
+      },
+      "sound": {
+        "id": "spell_engine:generic_wind_charging"
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 2.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 5.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "spell_engine:one_handed_projectile_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "required": true
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.65,
+          "knockback": 0.75
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "gust",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 1.0,
+          "min_speed": 0.5,
+          "max_speed": 0.8
+        }
+      ],
+      "sound": {
+        "id": "more_rpg_classes:air_magic_impact3"
+      }
+    }
+  ],
+  "cost": {
+    "item": {
+      "id": "more_rpg_classes:storm_stone"
+    }
+  }
+}

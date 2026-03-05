@@ -25,7 +25,7 @@ public class DripstoneStraightRenderer<T extends DripstoneBigEntity> extends Ent
         return null;
     }
 
-    public static final Identifier modelId = Identifier.of(ElementalMod.MOD_ID, "effect/dripstone_straight");
+    public static final Identifier modelId = Identifier.of(ElementalMod.MOD_ID, "spell_effect/dripstone_straight");
 
     private static final RenderLayer layer =
             RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);

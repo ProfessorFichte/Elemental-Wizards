@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "B": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "C": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "pattern": [
+    " BA",
+    " CB",
+    "C  "
+  ],
+  "result": {
+    "id": "elemental_wizards_rpg:staff_netherite_aqua"
+  }
+}

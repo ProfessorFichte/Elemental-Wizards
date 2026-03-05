@@ -1,0 +1,70 @@
+{
+  "school": "spell_power:air",
+  "range": 20.0,
+  "tier": 4,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.5,
+      "animation": {
+        "id": "spell_engine:one_handed_sky_charge"
+      },
+      "movement_speed": 0.0,
+      "sound": {
+        "id": "spell_engine:generic_wind_charging"
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 2.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 5.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "required": true,
+      "sticky": true
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "SPAWN",
+        "spawns": [
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:tornado",
+            "time_to_live_seconds": 7,
+            "placement": {
+              "apply_yaw": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.3,
+    "cooldown": {
+      "duration": 30.0,
+      "proportional": true
+    },
+    "item": {
+      "id": "more_rpg_classes:storm_stone"
+    }
+  }
+}

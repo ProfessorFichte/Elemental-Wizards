@@ -2,25 +2,45 @@ package net.elemental_wizards_rpg.client;
 
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
-import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.client.armor.ElementalRobeRenderer;
 import net.elemental_wizards_rpg.client.effect.*;
 import net.elemental_wizards_rpg.client.entity.DripstoneSmallRenderer;
 import net.elemental_wizards_rpg.client.entity.DripstoneStraightRenderer;
 import net.elemental_wizards_rpg.client.entity.TornadoRenderer;
-import net.elemental_wizards_rpg.effect.Effects;
+import net.elemental_wizards_rpg.client.entity.WhirlwindRenderer;
+import net.elemental_wizards_rpg.client.entity.StormDraftRenderer;
+import net.elemental_wizards_rpg.client.entity.TerraStoneRenderer;
+import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityRenderer;
+import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemSpikeEntityRenderer;
+import net.elemental_wizards_rpg.client.entity.TidalWaveEntityRenderer;
+import net.elemental_wizards_rpg.client.entity.HealingRainCloudEntityRenderer;
+import net.elemental_wizards_rpg.client.entity.EarthquakeEntityRenderer;
+import net.elemental_wizards_rpg.client.particle.HealingRainParticle;
+import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
+import net.elemental_wizards_rpg.entity.TornadoEntity;
+import net.elemental_wizards_rpg.entity.WhirlwindEntity;
+import net.elemental_wizards_rpg.entity.StormDraftEntity;
+import net.elemental_wizards_rpg.entity.TerraStoneEntity;
+import net.elemental_wizards_rpg.entity.EarthGolemEntity;
+import net.elemental_wizards_rpg.entity.EarthGolemSpikeEntity;
+import net.elemental_wizards_rpg.entity.TidalWaveEntity;
+import net.elemental_wizards_rpg.entity.HealingRainCloudEntity;
+import net.elemental_wizards_rpg.entity.EarthquakeEntity;
 import net.elemental_wizards_rpg.item.armor.Armors;
+import net.elemental_wizards_rpg.particle.ModParticles;
+import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
+import net.spell_engine.client.gui.SpellTooltip;
+import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityModel;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.elemental_wizards_rpg.client.entity.DripstoneBigRenderer;
 import net.elemental_wizards_rpg.entity.DripstoneBigEntity;
-import net.minecraft.util.Identifier;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
-import net.spell_engine.api.item.armor.Armor;
-import net.spell_engine.api.render.CustomModels;
+import net.spell_engine.rpg_series.item.Armor;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
@@ -29,25 +49,19 @@ import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadChec
 public class ElementalClient{
 
     public static void init(){
-        CustomModels.registerModelIds(List.of(
-                DripstoneBigRenderer.modelId,
-                DripstoneSmallRenderer.modelId,
-                DripstoneStraightRenderer.modelId,
-                BubbleFoamRenderer.modelId_base,
-                TornadoRenderer.modelId,
-                Identifier.of(ElementalMod.MOD_ID, "projectile/stone_spear"),
-                Identifier.of(ElementalMod.MOD_ID, "projectile/spell_stone"),
-                Identifier.of(ElementalMod.MOD_ID, "projectile/stone_shard"),
-                Identifier.of(ElementalMod.MOD_ID, "projectile/big_bubble")
-        ));
+        for (var entry : ElementalWizardSpells.entries) {
+            if (entry.mutator() != null) {
+                SpellTooltip.addDescriptionMutator(entry.id(), entry.mutator());
+            }
+        }
 
-        registerArmorRenderer(Armors.elementalArmor, ElementalRobeRenderer::elemental);
-        registerArmorRenderer(Armors.kelpArmor, ElementalRobeRenderer::kelp);
-        registerArmorRenderer(Armors.dripstoneArmor, ElementalRobeRenderer::dripstone);
-        registerArmorRenderer(Armors.windArmor, ElementalRobeRenderer::wind);
-        registerArmorRenderer(Armors.netheriteKelpNetheriteArmor, ElementalRobeRenderer::netherite_kelp);
-        registerArmorRenderer(Armors.netheriteDripstoneArmor, ElementalRobeRenderer::netherite_dripstone);
-        registerArmorRenderer(Armors.netheriteWindArmor, ElementalRobeRenderer::netherite_wind);
+        registerArmorRenderer(Armors.elementalArmor.armorSet(), ElementalRobeRenderer::elemental);
+        registerArmorRenderer(Armors.kelpArmor.armorSet(), ElementalRobeRenderer::kelp);
+        registerArmorRenderer(Armors.dripstoneArmor.armorSet(), ElementalRobeRenderer::dripstone);
+        registerArmorRenderer(Armors.windArmor.armorSet(), ElementalRobeRenderer::wind);
+        registerArmorRenderer(Armors.netheriteKelpNetheriteArmor.armorSet(), ElementalRobeRenderer::netherite_kelp);
+        registerArmorRenderer(Armors.netheriteDripstoneArmor.armorSet(), ElementalRobeRenderer::netherite_dripstone);
+        registerArmorRenderer(Armors.netheriteWindArmor.armorSet(), ElementalRobeRenderer::netherite_wind);
 
         if (armoryLoadCheck()) {
             registerArmorRenderer(Armors.hurricaneArmorSet.armorSet(), ElementalRobeRenderer::hurricane);
@@ -55,13 +69,28 @@ public class ElementalClient{
             registerArmorRenderer(Armors.oceanArmorSet.armorSet(), ElementalRobeRenderer::ocean);
         }
 
-        CustomModelStatusEffect.register(Effects.BUBBLE_FOAM.effect, new BubbleFoamRenderer());
-        CustomParticleStatusEffect.register(Effects.CLEANSING_WATER.effect, new CleansingWaterParticleSpawner());
-        CustomParticleStatusEffect.register(Effects.BUBBLE_FOAM.effect, new BubbleFoamParticleSpawner());
-        CustomParticleStatusEffect.register(Effects.STONE_FLESH.effect, new StoneFleshParticleSpawner());
+        CustomModelStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamRenderer());
+        CustomParticleStatusEffect.register(ElementalEffects.CLEANSING_WATER.effect, new CleansingWaterParticleSpawner());
+        CustomParticleStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamParticleSpawner());
+        CustomParticleStatusEffect.register(ElementalEffects.STONE_FLESH.effect, new StoneFleshParticleSpawner());
+
+        // Register model layers
+        EntityModelLayerRegistry.registerModelLayer(EarthGolemEntityModel.LAYER_LOCATION, EarthGolemEntityModel::createBodyLayer);
 
         EntityRendererRegistry.register(DripstoneBigEntity.ENTITY_TYPE, DripstoneBigRenderer::new);
         EntityRendererRegistry.register(DripstoneSmallEntity.ENTITY_TYPE, DripstoneSmallRenderer::new);
+        EntityRendererRegistry.register(TornadoEntity.ENTITY_TYPE, TornadoRenderer::new);
+        EntityRendererRegistry.register(WhirlwindEntity.ENTITY_TYPE, WhirlwindRenderer::new);
+        EntityRendererRegistry.register(StormDraftEntity.ENTITY_TYPE, StormDraftRenderer::new);
+        EntityRendererRegistry.register(TerraStoneEntity.ENTITY_TYPE, TerraStoneRenderer::new);
+        EntityRendererRegistry.register(EarthGolemEntity.ENTITY_TYPE, EarthGolemEntityRenderer::new);
+        EntityRendererRegistry.register(EarthGolemSpikeEntity.ENTITY_TYPE, EarthGolemSpikeEntityRenderer::new);
+        EntityRendererRegistry.register(TidalWaveEntity.ENTITY_TYPE, TidalWaveEntityRenderer::new);
+        EntityRendererRegistry.register(HealingRainCloudEntity.ENTITY_TYPE, HealingRainCloudEntityRenderer::new);
+        EntityRendererRegistry.register(EarthquakeEntity.ENTITY_TYPE, EarthquakeEntityRenderer::new);
+
+        // Register particle factories
+        ParticleFactoryRegistry.getInstance().register(ModParticles.HEALING_RAIN, HealingRainParticle.Factory::new);
     }
     private static void registerArmorRenderer(Armor.Set set, Supplier<AzArmorRenderer> armorRendererSupplier) {
         AzArmorRendererRegistry.register(armorRendererSupplier, set.head, set.chest, set.legs, set.feet);

@@ -7,8 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.spell_engine.api.item.SpellBooks;
-
 import java.util.HashMap;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
@@ -38,9 +36,6 @@ public class ElementalItems {
     }
 
     public static void registerModItems(){
-        SpellBooks.createAndRegister(Identifier.of(MOD_ID,"aqua"), ElementalGroup.ELEMENTAL_WIZARD_KEY);
-        SpellBooks.createAndRegister(Identifier.of(MOD_ID,"terra"), ElementalGroup.ELEMENTAL_WIZARD_KEY);
-        SpellBooks.createAndRegister(Identifier.of(MOD_ID,"wind"), ElementalGroup.ELEMENTAL_WIZARD_KEY);
 
     }
 

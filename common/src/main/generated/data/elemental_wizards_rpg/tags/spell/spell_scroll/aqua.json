@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:aqua_bubble_beam",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:aqua_springwater",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:aqua_hydro_beam",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:aqua_healing_rain",
+      "required": false
+    }
+  ]
+}

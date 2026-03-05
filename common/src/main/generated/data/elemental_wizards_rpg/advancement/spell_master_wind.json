@@ -1,0 +1,27 @@
+{
+  "parent": "elemental_wizards_rpg:spell_novice_wind",
+  "criteria": {
+    "bind": {
+      "conditions": {
+        "complete": true,
+        "spell_pool": "elemental_wizards_rpg:spell_book/wind"
+      },
+      "trigger": "spell_engine:spell_binding"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.spell_master_wind.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "elemental_wizards_rpg:staff_netherite_wind"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.spell_master_wind.title"
+    }
+  }
+}

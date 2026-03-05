@@ -1,0 +1,107 @@
+{
+  "school": "spell_power:air",
+  "range": 20.0,
+  "tier": 2,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.5,
+      "animation": {
+        "id": "spell_engine:two_handed_channeling"
+      },
+      "sound": {
+        "id": "spell_engine:generic_wind_charging"
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 2.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 5.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "spell_engine:one_handed_area_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "required": true
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.8,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:wind_vacuum",
+          "origin": "LAUNCH_POINT",
+          "shape": "SPHERE",
+          "rotation": "LOOK",
+          "count": 1.0,
+          "min_speed": 0.1
+        },
+        {
+          "particle_id": "gust",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "count": 1.0,
+          "min_speed": 0.5,
+          "max_speed": 0.8
+        }
+      ],
+      "sound": {
+        "id": "more_rpg_classes:air_magic_impact2"
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#c:bosses"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "CUSTOM",
+        "custom": {
+          "intent": "HARMFUL",
+          "handler": "more_rpg_classes:knock_up"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.3,
+    "cooldown": {
+      "duration": 8.0,
+      "proportional": true
+    },
+    "item": {
+      "id": "more_rpg_classes:storm_stone"
+    }
+  }
+}

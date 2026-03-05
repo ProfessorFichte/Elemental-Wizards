@@ -1,25 +1,20 @@
 package net.elemental_wizards_rpg;
 
 import net.elemental_wizards_rpg.compat.WizardsCompat;
-import net.elemental_wizards_rpg.config.EffectsConfig;
-import net.elemental_wizards_rpg.effect.Effects;
-import net.elemental_wizards_rpg.entity.DripstoneBigEntity;
-import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
-import net.elemental_wizards_rpg.entity.TornadoEntity;
+import net.elemental_wizards_rpg.effect.ElementalEffects;
+import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.item.ElementalItems;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.config.Default;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.elemental_wizards_rpg.config.TweaksConfig;
+import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.CustomSpellImpacts;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -42,8 +37,8 @@ public class ElementalMod {
 			.setDirectory(MOD_ID)
 			.sanitize(true)
 			.build();
-	public static ConfigManager<EffectsConfig> effectsConfig = new ConfigManager<EffectsConfig>
-			("effects_v1", new EffectsConfig())
+	public static ConfigManager<ConfigFile.Effects> effectsConfig = new ConfigManager<>
+			("effects_v2", new ConfigFile.Effects())
 			.builder()
 			.setDirectory(MOD_ID)
 			.sanitize(true)
@@ -67,7 +62,7 @@ public class ElementalMod {
 	}
 	public static void registerItems() {
 		ElementalGroup.ELEMENTAL_WIZARD = FabricItemGroup.builder()
-				.icon(() -> new ItemStack(Armors.kelpArmor.head))
+				.icon(() -> new ItemStack(Armors.kelpArmor.armorSet().head))
 				.displayName(Text.translatable("itemGroup." + MOD_ID + ".general"))
 				.build();
 		Registry.register(Registries.ITEM_GROUP, ElementalGroup.ELEMENTAL_WIZARD_KEY, ElementalGroup.ELEMENTAL_WIZARD);
@@ -87,38 +82,13 @@ public class ElementalMod {
 		itemConfig.save();
 	}
 	public static void registerEffects() {
-		Effects.register();
+		ElementalEffects.register(effectsConfig.value);
+		effectsConfig.save();
 	}
 	public static void registerEntities() {
-		DripstoneBigEntity.ENTITY_TYPE = Registry.register(
-				Registries.ENTITY_TYPE,
-				Identifier.of(MOD_ID, "dripstone_big"),
-				FabricEntityTypeBuilder.<DripstoneBigEntity>create(SpawnGroup.MISC, DripstoneBigEntity::new)
-						.dimensions(EntityDimensions.changing(6F, 0.5F)) // dimensions in Minecraft units of the render
-						.fireImmune()
-						.trackRangeBlocks(128)
-						.trackedUpdateRate(20)
-						.build()
-		);
-		DripstoneSmallEntity.ENTITY_TYPE = Registry.register(
-				Registries.ENTITY_TYPE,
-				Identifier.of(MOD_ID, "dripstone_small"),
-				FabricEntityTypeBuilder.<DripstoneSmallEntity>create(SpawnGroup.MISC, DripstoneSmallEntity::new)
-						.dimensions(EntityDimensions.changing(6F, 0.5F)) // dimensions in Minecraft units of the render
-						.fireImmune()
-						.trackRangeBlocks(128)
-						.trackedUpdateRate(20)
-						.build()
-		);
-		TornadoEntity.ENTITY_TYPE = Registry.register(
-				Registries.ENTITY_TYPE,
-				Identifier.of(MOD_ID, "tornado"),
-				FabricEntityTypeBuilder.<TornadoEntity>create(SpawnGroup.MISC, TornadoEntity::new)
-						.dimensions(EntityDimensions.changing(6F, 0.5F))
-						.fireImmune()
-						.trackRangeBlocks(128)
-						.trackedUpdateRate(20)
-						.build()
-		);
+		ModEntitiesRegistry.registerEntities();
+	}
+	public static void registerParticles() {
+		ModParticles.register();
 	}
 }

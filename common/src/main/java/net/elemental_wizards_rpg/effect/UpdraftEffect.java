@@ -29,8 +29,8 @@ public class UpdraftEffect extends SpellVulnerabilityStatusEffect {
             ground_on_apply = true;
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING,15,0,false,false,false));
         }else{
-            if(entity.hasStatusEffect(Effects.UPDRAFT.registryEntry)){
-                entity.removeStatusEffect(Effects.UPDRAFT.registryEntry);
+            if(entity.hasStatusEffect(ElementalEffects.getEntry(ElementalEffects.UPDRAFT))){
+                entity.removeStatusEffect(ElementalEffects.getEntry(ElementalEffects.UPDRAFT));
             }
         }
 

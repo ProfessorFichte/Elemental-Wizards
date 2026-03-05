@@ -1,0 +1,77 @@
+{
+  "school": "spell_power:water",
+  "range": 6.0,
+  "tier": 3,
+  "learn": {},
+  "active": {},
+  "impacts": [
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:water_heal",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 5.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 0.1,
+          "min_speed": 0.2
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_2",
+        "volume": 1.2
+      }
+    },
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.7,
+          "knockback": 0.2
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:big_splash",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 25.0,
+          "min_speed": 0.3,
+          "max_speed": 0.7,
+          "extent": 0.75
+        },
+        {
+          "particle_id": "more_rpg_classes:splash",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 5.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 0.1,
+          "min_speed": 0.2
+        }
+      ],
+      "sound": {
+        "id": "more_rpg_classes:water_magic_impact1",
+        "volume": 0.4
+      }
+    }
+  ]
+}

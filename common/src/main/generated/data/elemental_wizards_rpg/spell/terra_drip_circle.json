@@ -6,7 +6,9 @@
   "active": {
     "cast": {
       "duration": 0.7,
-      "animation": "more_rpg_classes:two_handed_ground_channeling",
+      "animation": {
+        "id": "more_rpg_classes:two_handed_ground_channeling"
+      },
       "particles": [
         {
           "particle_id": "more_rpg_classes:stone_particle",
@@ -20,7 +22,9 @@
     }
   },
   "release": {
-    "animation": "more_rpg_classes:two_handed_ground_release",
+    "animation": {
+      "id": "more_rpg_classes:two_handed_ground_release"
+    },
     "particles": [
       {
         "particle_id": "more_rpg_classes:stone_particle",
@@ -46,244 +50,146 @@
   "target": {
     "type": "AIM",
     "aim": {
-      "sticky": true,
-      "use_caster_as_fallback": true
+      "required": true,
+      "sticky": true
     }
-  },
-  "deliver": {
-    "type": "CLOUD",
-    "clouds": [
-      {
-        "volume": {
-          "radius": 0.4,
-          "area": {
-            "vertical_range_multiplier": 0.5
-          }
-        },
-        "time_to_live_seconds": 5.0,
-        "impact_tick_interval": 20,
-        "delay_ticks": 6,
-        "placement": {
-          "location_offset_by_look": 2.0,
-          "apply_yaw": true
-        },
-        "additional_placements": [
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": 32.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": 64.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": 96.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": 128.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": 160.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": -32.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": -64.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": -96.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": -128.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 2.0,
-            "location_yaw_offset": -160.0,
-            "apply_yaw": true
-          }
-        ],
-        "client_data": {
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "origin": "FEET",
-              "shape": "PILLAR",
-              "count": 0.25,
-              "min_speed": 1.0E-4,
-              "max_speed": 8.0E-4
-            }
-          ],
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
-            "light_emission": "NONE",
-            "scale": 0.5,
-            "rotate_degrees_per_tick": 0.0
-          }
-        }
-      },
-      {
-        "volume": {
-          "radius": 0.7,
-          "area": {
-            "vertical_range_multiplier": 1.25
-          }
-        },
-        "time_to_live_seconds": 5.0,
-        "impact_tick_interval": 20,
-        "delay_ticks": 10,
-        "placement": {
-          "location_offset_by_look": 3.0,
-          "apply_yaw": true
-        },
-        "additional_placements": [
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": 32.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": 64.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": 96.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": 128.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": 160.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": -32.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": -64.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": -96.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": -128.0,
-            "apply_yaw": true
-          },
-          {
-            "location_offset_by_look": 3.0,
-            "location_yaw_offset": -160.0,
-            "apply_yaw": true
-          }
-        ],
-        "client_data": {
-          "particles": [
-            {
-              "particle_id": "campfire_cosy_smoke",
-              "origin": "FEET",
-              "shape": "PILLAR",
-              "count": 0.25,
-              "min_speed": 1.0E-4,
-              "max_speed": 8.0E-4
-            }
-          ],
-          "model": {
-            "model_id": "elemental_wizards_rpg:effect/dripstone_straight",
-            "light_emission": "NONE",
-            "rotate_degrees_per_tick": 0.0
-          }
-        }
-      }
-    ]
   },
   "impacts": [
     {
       "action": {
-        "type": "DAMAGE",
-        "damage": {
-          "spell_power_coefficient": 0.65,
-          "knockback": 0.0
-        }
-      },
-      "particles": [
-        {
-          "particle_id": "campfire_cosy_smoke",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 0.25,
-          "min_speed": 1.0E-4,
-          "max_speed": 8.0E-4
-        }
-      ],
-      "sound": {
-        "id": "block.pointed_dripstone.break"
-      }
-    },
-    {
-      "target_modifiers": [
-        {
-          "conditions": [
-            {
-              "entity_type": "#minecraft:undead"
+        "type": "SPAWN",
+        "spawns": [
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "apply_yaw": true
             }
-          ],
-          "execute": "DENY"
-        }
-      ],
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "more_rpg_classes:bleeding",
-          "duration": 4.0,
-          "amplifier_power_multiplier": 0.2
-        }
-      },
-      "particles": [
-        {
-          "particle_id": "spell_engine:dripping_blood",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.3
-        },
-        {
-          "particle_id": "more_rpg_classes:blood_drop",
-          "origin": "FEET",
-          "shape": "PIPE",
-          "count": 10.0,
-          "min_speed": 0.2,
-          "max_speed": 0.4
-        }
-      ]
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 32.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 32.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 64.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 96.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 128.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 160.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": 32.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": -32.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": -64.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": -96.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": -128.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "intent": "HARMFUL",
+            "entity_type_id": "elemental_wizards_rpg:terra_stone",
+            "time_to_live_seconds": 8,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "location_yaw_offset": -160.0,
+              "apply_yaw": true
+            }
+          }
+        ]
+      }
     }
   ],
   "cost": {

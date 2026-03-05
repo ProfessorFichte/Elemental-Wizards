@@ -1,13 +1,14 @@
 {
   "school": "spell_power:earth",
-  "range": 16.0,
+  "range": 0.0,
   "tier": 4,
   "learn": {},
   "active": {
     "cast": {
-      "duration": 5.0,
-      "channel_ticks": 10,
-      "animation": "more_rpg_classes:two_handed_ground_channeling",
+      "duration": 1.0,
+      "animation": {
+        "id": "more_rpg_classes:two_handed_ground_channeling"
+      },
       "sound": {
         "id": "more_rpg_classes:earth_magic_impact2",
         "volume": 0.5
@@ -32,59 +33,26 @@
       ]
     }
   },
-  "target": {
-    "type": "AREA",
-    "area": {
-      "angle_degrees": 360.0
-    }
-  },
   "impacts": [
     {
       "action": {
-        "type": "DAMAGE",
-        "damage": {
-          "spell_power_coefficient": 0.8,
-          "knockback": 0.0
-        }
-      },
-      "particles": [
-        {
-          "particle_id": "campfire_cosy_smoke",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 5.0,
-          "min_speed": 0.005,
-          "max_speed": 0.01
-        }
-      ],
-      "sound": {
-        "id": "block.pointed_dripstone.break"
-      }
-    },
-    {
-      "target_modifiers": [
-        {
-          "conditions": [
-            {
-              "entity_type": "#c:bosses"
+        "type": "SPAWN",
+        "spawns": [
+          {
+            "entity_type_id": "elemental_wizards_rpg:earthquake",
+            "time_to_live_seconds": 5,
+            "placement": {
+              "apply_yaw": true
             }
-          ],
-          "execute": "DENY"
-        }
-      ],
-      "action": {
-        "type": "CUSTOM",
-        "custom": {
-          "intent": "HARMFUL",
-          "handler": "more_rpg_classes:trembling"
-        }
+          }
+        ]
       }
     }
   ],
   "cost": {
     "exhaust": 0.5,
     "cooldown": {
-      "duration": 30.0
+      "duration": 35.0
     },
     "item": {
       "id": "more_rpg_classes:terra_stone"

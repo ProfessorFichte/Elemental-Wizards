@@ -1,3 +1,24 @@
+# 2.6.0 - 1.21.1
+**Update to use Spell Engine 1.9.0**
+- DISCLAIMER: All spell books and spell scrolls will be reset, due to major API changes.
+- The Elemental Wizard Spell Books now offer 3 spells only, to match other classes
+- Splash, Gust & Stone Throw are not in the Spell Book any longer, they're Weapon Spells for Wand's
+- Water Whip, Wind Cutter & Stone Spear are not in the Spell Book any longer, they're Weapon Spells for Stave's
+- The Elemental Staff, Avatar's Staff & Valkyrie Elementalist Staff can now choose between all three Elemental Staves Weapon Spells
+- Hydro Beam is no longer the Tier 4 Spell of the Water Wizard, it is now a Tier 3 choice with the Springwater Spell
+- Hydro Beam's Damage was nerfed and knockback buffed
+- New Tier 4 Water Wizard Spell: **Healing Rain Cloud**, a new Entity that is following the caster or the Ally with the lowest health.
+- The Healing Rain Cloud deals damage to targets and heals allies that are below the cloud entity standing in the rain
+- All Heal coefficients of Water Spells where slightly nerfed
+- The following spells where changed from Spell Cloud Entities to custom Entities: Terra Circle, Tornado, Earthquake
+- Earthquake and Terra Circle received some new renderers for better visuals
+- Enemies cant move through the Terra Circle Entities now
+- The Tornado Entity will now pull enemies in its center
+- The Tornado & Terra Circle can now be spawned at the targets location
+- I've added Spell Book Descriptions in the Spell Binding table
+- Already added some internal code, for future extra Spells
+- The Elemental Avatar Passive from the Avatar's Staff will now show in the tooltip which spell will trigger.
+
 # 2.5.4 - 1.21.1
 - fix Stone Throw and Stone Spear not damaging Targets around correctly
 - Update to newest MRPG-Lib version

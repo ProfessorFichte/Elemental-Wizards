@@ -14,9 +14,10 @@ import net.minecraft.util.Rarity;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.WeaponConfig;
-import net.spell_engine.api.item.Equipment;
 import net.spell_engine.api.item.weapon.StaffItem;
-import net.spell_engine.api.item.weapon.Weapon;
+import net.spell_engine.api.spell.container.SpellContainers;
+import net.spell_engine.rpg_series.item.Equipment;
+import net.spell_engine.rpg_series.item.Weapon;
 import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
@@ -73,41 +74,59 @@ public class WeaponsRegister {
     public static final Weapon.Entry kelpWand = wand("wand_kelp",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T0_WAND_POWER))
-            .loot(Equipment.LootProperties.of(0));
+            .loot(Equipment.LootProperties.of(0))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.aqua_splash.id()))
+            .translatedName("Kelp Wand");
     public static final Weapon.Entry aquaWand = wand("wand_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T2_WAND_POWER))
-            .loot(Equipment.LootProperties.of(2));
+            .loot(Equipment.LootProperties.of(2))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.aqua_splash.id()))
+            .translatedName("Aqua Wand");
     public static final Weapon.Entry netheriteAquaWand = wand("wand_netherite_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T3_WAND_POWER))
-            .loot(Equipment.LootProperties.of(3));
+            .loot(Equipment.LootProperties.of(3))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.aqua_splash.id()))
+            .translatedName("Netherite Aqua Wand");
 
     public static final Weapon.Entry clayWand = wand("wand_clay",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T0_WAND_POWER))
-            .loot(Equipment.LootProperties.of(0));
+            .loot(Equipment.LootProperties.of(0))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_throw.id()))
+            .translatedName("Clay Wand");
     public static final Weapon.Entry terraWand = wand("wand_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T2_WAND_POWER))
-            .loot(Equipment.LootProperties.of(2));
+            .loot(Equipment.LootProperties.of(2))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_throw.id()))
+            .translatedName("Terra Wand");
     public static final Weapon.Entry netheriteTerraWand = wand("wand_netherite_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T3_WAND_POWER))
-            .loot(Equipment.LootProperties.of(3));
+            .loot(Equipment.LootProperties.of(3))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_throw.id()))
+            .translatedName("Netherite Terra Wand");
 
     public static final Weapon.Entry featherWand = wand("wand_feather",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T0_WAND_POWER))
-            .loot(Equipment.LootProperties.of(0));
+            .loot(Equipment.LootProperties.of(0))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_gust.id()))
+            .translatedName("Feather Wand");
     public static final Weapon.Entry windWand = wand("wand_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T2_WAND_POWER))
-            .loot(Equipment.LootProperties.of(2));
+            .loot(Equipment.LootProperties.of(2))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_gust.id()))
+            .translatedName("Wind Wand");
     public static final Weapon.Entry netheriteWindWand = wand("wand_netherite_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T3_WAND_POWER))
-            .loot(Equipment.LootProperties.of(3));
+            .loot(Equipment.LootProperties.of(3))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_gust.id()))
+            .translatedName("Netherite Wind Wand");
 
     //STAFFS
     private static final float staffAttackDamage = 4;
@@ -121,34 +140,49 @@ public class WeaponsRegister {
             .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T1_STAFF_POWER))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T1_STAFF_POWER))
             .attribute(AttributeModifier.bonus(SpellSchools.FIRE.id, T1_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(1));
+            .loot(Equipment.LootProperties.of(1))
+            .spellContainer(SpellContainers.forMagicWeapon())
+            .withSpellChoices("elemental_wizards_rpg:weapon/elemental_staff")
+            .translatedName("Elemental Staff");
 
     public static final Weapon.Entry aquaStaff= staff("staff_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T2_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(2));
+            .loot(Equipment.LootProperties.of(2))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.aqua_water_whip.id()))
+            .translatedName("Aqua Staff");
     public static final Weapon.Entry netheriteAquaStaff = staff("staff_netherite_aqua",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T3_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(3));
+            .loot(Equipment.LootProperties.of(3))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.aqua_water_whip.id()))
+            .translatedName("Netherite Aqua Staff");
 
     public static final Weapon.Entry terraStaff= staff("staff_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T2_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(2));
+            .loot(Equipment.LootProperties.of(2))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_spear.id()))
+            .translatedName("Terra Staff");
     public static final Weapon.Entry netheriteTerraStaff = staff("staff_netherite_terra",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T3_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(3));
+            .loot(Equipment.LootProperties.of(3))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_spear.id()))
+            .translatedName("Netherite Terra Staff");
 
     public static final Weapon.Entry windStaff= staff("staff_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T2_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(2));
+            .loot(Equipment.LootProperties.of(2))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_air_cutter.id()))
+            .translatedName("Wind Staff");
     public static final Weapon.Entry netheriteWindStaff = staff("staff_netherite_wind",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T3_STAFF_POWER))
-            .loot(Equipment.LootProperties.of(3));
+            .loot(Equipment.LootProperties.of(3))
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_air_cutter.id()))
+            .translatedName("Netherite Wind Staff");
 
     private static final String BETTER_END = "betterend";
     private static final String BETTER_NETHER = "betternether";
@@ -161,18 +195,24 @@ public class WeaponsRegister {
             staff( "staff_ruby_terra",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
-                    .loot(Equipment.LootProperties.of(4));
+                    .loot(Equipment.LootProperties.of(4))
+                    .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_spear.id()))
+                    .translatedName("Ruby Terra Staff");
         }
         if(FabricLoader.getInstance().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
             staff( "staff_crystal_aqua",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
-                    .loot(Equipment.LootProperties.of(4));
+                    .loot(Equipment.LootProperties.of(4))
+                    .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.aqua_water_whip.id()))
+                    .translatedName("Crystal Aqua Staff");
             staff( "staff_aeternium_wind",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T4_STAFF_POWER))
-                    .loot(Equipment.LootProperties.of(4));
+                    .loot(Equipment.LootProperties.of(4))
+                    .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_air_cutter.id()))
+                    .translatedName("Aeternium Wind Staff");
         }
         if(FabricLoader.getInstance().isModLoaded(AETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
@@ -181,7 +221,10 @@ public class WeaponsRegister {
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T4_STAFF_POWER))
-                    .loot(Equipment.LootProperties.of("aether"));
+                    .loot(Equipment.LootProperties.of("aether"))
+                    .spellContainer(SpellContainers.forMagicWeapon())
+                    .withSpellChoices("elemental_wizards_rpg:weapon/elemental_staff")
+                    .translatedName("Valkyrie Elementalist Staff");
         }
         if (FabricLoader.getInstance().isModLoaded(ARSENAL) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             staff( "unique_staff_1",
@@ -189,8 +232,11 @@ public class WeaponsRegister {
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.AIR.id, T4_STAFF_POWER))
-                    .spell(ElementalWizardSpells.elemental_avatar.id())
+                    .spellContainer(SpellContainers.forMagicWeapon())
+                    .withSpellChoices("elemental_wizards_rpg:weapon/elemental_staff")
+                    .withAdditionalSpell(ElementalWizardSpells.elemental_avatar.id().toString())
                     .loot(Equipment.LootProperties.of(5, "crystal"))
+                    .translatedName("Avatar's Staff")
                     .rarity = Rarity.RARE;
         }
 

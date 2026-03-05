@@ -46,7 +46,7 @@ public class CleansingWaterEffect extends StatusEffect {
                 }
             }
             pLivingEntity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH,2,1);
-            pLivingEntity.removeStatusEffect(Effects.CLEANSING_WATER.registryEntry);
+            pLivingEntity.removeStatusEffect(ElementalEffects.getEntry(ElementalEffects.CLEANSING_WATER));
         }
         return true;
     }

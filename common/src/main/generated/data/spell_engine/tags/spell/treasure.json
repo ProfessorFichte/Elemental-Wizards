@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#elemental_wizards_rpg:spell_scroll/aqua",
+      "required": false
+    },
+    {
+      "id": "#elemental_wizards_rpg:spell_scroll/terra",
+      "required": false
+    },
+    {
+      "id": "#elemental_wizards_rpg:spell_scroll/wind",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "school": "spell_power:water",
+  "range": 7.0,
+  "tier": 2,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 4.0,
+      "channel_ticks": 22,
+      "animation": {
+        "id": "spell_engine:one_handed_healing_charge"
+      },
+      "start_sound": {
+        "id": "block.bubble_column.whirlpool_ambient"
+      },
+      "sound": {
+        "id": "minecraft:block.bubble_column.upwards_ambient",
+        "volume": 2.5
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:bubble",
+          "origin": "LAUNCH_POINT",
+          "shape": "CONE",
+          "rotation": "LOOK",
+          "count": 3.0,
+          "min_speed": 0.2,
+          "angle": 65.0
+        }
+      ]
+    }
+  },
+  "release": {
+    "sound": {
+      "id": "block.bubble_column.whirlpool_ambient"
+    }
+  },
+  "target": {
+    "type": "AREA",
+    "area": {
+      "distance_dropoff": "SQUARED",
+      "angle_degrees": 65.0
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.3
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:water_heal",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 10.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 1.0,
+          "min_speed": 0.2
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_2",
+        "volume": 1.2
+      }
+    },
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.85,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:bubble_pop",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "count": 10.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:bubble",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 5.0,
+          "min_speed": 0.001,
+          "max_speed": 0.1
+        }
+      ],
+      "sound": {
+        "id": "block.bubble_column.bubble_pop"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "apply_to_caster": true,
+        "status_effect": {
+          "effect_id": "elemental_wizards_rpg:bubble_foam",
+          "duration": 4.0,
+          "amplifier_power_multiplier": 0.2
+        }
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.2,
+    "cooldown": {
+      "duration": 15.0,
+      "proportional": true
+    },
+    "item": {
+      "id": "more_rpg_classes:aqua_stone"
+    }
+  }
+}
