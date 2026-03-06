@@ -3,6 +3,7 @@ package com.elemental_wizards.neoforge;
 import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
 import net.minecraft.registry.RegistryKeys;
+import net.more_rpg_classes.client.particle.MoreParticles;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -22,6 +23,9 @@ public final class NeoForgeMod {
         });
         event.register(RegistryKeys.STATUS_EFFECT, reg -> {
             ElementalMod.registerEffects();
+        });
+        event.register(RegistryKeys.PARTICLE_TYPE, reg -> {
+            ElementalMod.registerParticles();
         });
         event.register(RegistryKeys.ENTITY_TYPE, reg -> {
             ElementalMod.registerEntities();

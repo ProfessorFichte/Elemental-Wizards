@@ -238,34 +238,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
         );
 
         // ==========================================
-        // WANDS - TIER 3 (Netherite)
-        // ==========================================
-
-        createShapedRecipe("wand_netherite_aqua",
-                WeaponsRegister.netheriteAquaWand.item(),
-                1,
-                new String[]{" A", "B "},
-                "A", Items.PRISMARINE_CRYSTALS,
-                "B", new Item[]{Items.NETHERITE_INGOT}
-        );
-
-        createShapedRecipe("wand_netherite_terra",
-                WeaponsRegister.netheriteTerraWand.item(),
-                1,
-                new String[]{" A", "B "},
-                "A", Items.OBSIDIAN,
-                "B", new Item[]{Items.NETHERITE_INGOT}
-        );
-
-        createShapedRecipe("wand_netherite_wind",
-                WeaponsRegister.netheriteWindWand.item(),
-                1,
-                new String[]{" A", "B "},
-                "A", Items.WIND_CHARGE,
-                "B", new Item[]{Items.NETHERITE_INGOT}
-        );
-
-        // ==========================================
         // STAFFS - TIER 1 (Elemental)
         // ==========================================
 
@@ -311,38 +283,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", Items.GOLD_INGOT,
                 "C", Items.WIND_CHARGE
         );
-
-        // ==========================================
-        // STAFFS - TIER 3 (Netherite)
-        // ==========================================
-
-        createShapedRecipe("staff_netherite_aqua",
-                WeaponsRegister.netheriteAquaStaff.item(),
-                1,
-                new String[]{" BA", " CB", "C  "},
-                "A", Items.PRISMARINE_CRYSTALS,
-                "B", Items.HEART_OF_THE_SEA,
-                "C", Items.NETHERITE_INGOT
-        );
-
-        createShapedRecipe("staff_netherite_terra",
-                WeaponsRegister.netheriteTerraStaff.item(),
-                1,
-                new String[]{" BA", " CB", "C  "},
-                "A", Items.DIAMOND,
-                "B", Items.OBSIDIAN,
-                "C", Items.NETHERITE_INGOT
-        );
-
-        createShapedRecipe("staff_netherite_wind",
-                WeaponsRegister.netheriteWindStaff.item(),
-                1,
-                new String[]{" BA", " CB", "C  "},
-                "A", Items.PHANTOM_MEMBRANE,
-                "B", Items.WIND_CHARGE,
-                "C", Items.NETHERITE_INGOT
-        );
-
         // ==========================================
         // STAFFS - TIER 4 (Better End)
         // ==========================================

@@ -4,10 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "elemental_wizards_rpg:dripstone_chest"
+    "item": "elemental_wizards_rpg:staff_aqua"
   },
   "result": {
-    "id": "elemental_wizards_rpg:netherite_dripstone_chest"
+    "count": 1,
+    "id": "elemental_wizards_rpg:staff_netherite_aqua"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

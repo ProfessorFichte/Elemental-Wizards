@@ -4,10 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "elemental_wizards_rpg:staff_aqua"
+    "item": "elemental_wizards_rpg:wand_aqua"
   },
   "result": {
-    "id": "elemental_wizards_rpg:staff_netherite_aqua"
+    "count": 1,
+    "id": "elemental_wizards_rpg:wand_netherite_aqua"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

@@ -4,8 +4,6 @@ import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
 import net.elemental_wizards_rpg.client.armor.ElementalRobeRenderer;
 import net.elemental_wizards_rpg.client.effect.*;
-import net.elemental_wizards_rpg.client.entity.DripstoneSmallRenderer;
-import net.elemental_wizards_rpg.client.entity.DripstoneStraightRenderer;
 import net.elemental_wizards_rpg.client.entity.TornadoRenderer;
 import net.elemental_wizards_rpg.client.entity.WhirlwindRenderer;
 import net.elemental_wizards_rpg.client.entity.StormDraftRenderer;
@@ -17,7 +15,6 @@ import net.elemental_wizards_rpg.client.entity.HealingRainCloudEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.EarthquakeEntityRenderer;
 import net.elemental_wizards_rpg.client.particle.HealingRainParticle;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
-import net.elemental_wizards_rpg.entity.DripstoneSmallEntity;
 import net.elemental_wizards_rpg.entity.TornadoEntity;
 import net.elemental_wizards_rpg.entity.WhirlwindEntity;
 import net.elemental_wizards_rpg.entity.StormDraftEntity;
@@ -35,8 +32,6 @@ import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityModel
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.elemental_wizards_rpg.client.entity.DripstoneBigRenderer;
-import net.elemental_wizards_rpg.entity.DripstoneBigEntity;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.rpg_series.item.Armor;
@@ -77,8 +72,6 @@ public class ElementalClient{
         // Register model layers
         EntityModelLayerRegistry.registerModelLayer(EarthGolemEntityModel.LAYER_LOCATION, EarthGolemEntityModel::createBodyLayer);
 
-        EntityRendererRegistry.register(DripstoneBigEntity.ENTITY_TYPE, DripstoneBigRenderer::new);
-        EntityRendererRegistry.register(DripstoneSmallEntity.ENTITY_TYPE, DripstoneSmallRenderer::new);
         EntityRendererRegistry.register(TornadoEntity.ENTITY_TYPE, TornadoRenderer::new);
         EntityRendererRegistry.register(WhirlwindEntity.ENTITY_TYPE, WhirlwindRenderer::new);
         EntityRendererRegistry.register(StormDraftEntity.ENTITY_TYPE, StormDraftRenderer::new);
@@ -89,10 +82,12 @@ public class ElementalClient{
         EntityRendererRegistry.register(HealingRainCloudEntity.ENTITY_TYPE, HealingRainCloudEntityRenderer::new);
         EntityRendererRegistry.register(EarthquakeEntity.ENTITY_TYPE, EarthquakeEntityRenderer::new);
 
-        // Register particle factories
-        ParticleFactoryRegistry.getInstance().register(ModParticles.HEALING_RAIN, HealingRainParticle.Factory::new);
     }
     private static void registerArmorRenderer(Armor.Set set, Supplier<AzArmorRenderer> armorRendererSupplier) {
         AzArmorRendererRegistry.register(armorRendererSupplier, set.head, set.chest, set.legs, set.feet);
+    }
+    public static void registerParticleAppearances() {
+        ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
+        ParticleFactoryRegistry.getInstance().register(ModParticles.HEALING_RAIN, HealingRainParticle.Factory::new);
     }
 }

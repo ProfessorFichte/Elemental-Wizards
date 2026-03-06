@@ -1,5 +1,6 @@
 # 2.6.1 - 1.21.1
 - Fix Neoforge not loading (Did not Register the Entity Attributes on NeoForge)
+- Fixed some model and particle renderer issues on NeoForge
 
 # 2.6.0 - 1.21.1
 **Update to use Spell Engine 1.9.0**

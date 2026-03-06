@@ -16,7 +16,7 @@ import net.minecraft.util.math.RotationAxis;
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class EarthGolemSpikeEntityRenderer extends EntityRenderer<EarthGolemSpikeEntity> {
-    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/spell_effect/sharp_dripstone.png");
+    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "spell_effect/sharp_dripstone.png");
     public static final Identifier modelId = Identifier.of(MOD_ID, "spell_effect/dripstone_straight");
 
     private static final float MODEL_HEIGHT = 2.75F;

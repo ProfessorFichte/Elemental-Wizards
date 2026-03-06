@@ -20,28 +20,6 @@ public class ModEntitiesRegistry {
     }
 
     private static void registerDripstoneEntities() {
-        DripstoneBigEntity.ENTITY_TYPE = Registry.register(
-                Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "dripstone_big"),
-                FabricEntityTypeBuilder.<DripstoneBigEntity>create(SpawnGroup.MISC, DripstoneBigEntity::new)
-                        .dimensions(EntityDimensions.changing(6F, 0.5F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(20)
-                        .build()
-        );
-
-        DripstoneSmallEntity.ENTITY_TYPE = Registry.register(
-                Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "dripstone_small"),
-                FabricEntityTypeBuilder.<DripstoneSmallEntity>create(SpawnGroup.MISC, DripstoneSmallEntity::new)
-                        .dimensions(EntityDimensions.changing(6F, 0.5F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(20)
-                        .build()
-        );
-
         TerraStoneEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
                 Identifier.of(MOD_ID, "terra_stone"),

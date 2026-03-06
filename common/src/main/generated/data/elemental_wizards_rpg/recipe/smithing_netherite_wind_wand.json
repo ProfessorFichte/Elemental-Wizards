@@ -4,10 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "elemental_wizards_rpg:wind_legs"
+    "item": "elemental_wizards_rpg:wand_wind"
   },
   "result": {
-    "id": "elemental_wizards_rpg:netherite_wind_legs"
+    "count": 1,
+    "id": "elemental_wizards_rpg:wand_netherite_wind"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

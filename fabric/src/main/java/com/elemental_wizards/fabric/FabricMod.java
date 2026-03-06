@@ -14,12 +14,10 @@ public final class FabricMod implements ModInitializer {
         ElementalMod.registerEntities();
         ElementalMod.registerParticles();
 
-        // Register entity attributes for living entities (Fabric-specific)
         registerEntityAttributes();
     }
 
     private void registerEntityAttributes() {
-        // Use the centralized registry with a lambda that delegates to Fabric's attribute registry
         ModEntitiesRegistry.registerEntityAttributes(FabricDefaultAttributeRegistry::register);
     }
 }

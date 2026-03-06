@@ -4,10 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "elemental_wizards_rpg:kelp_chest"
+    "item": "elemental_wizards_rpg:staff_wind"
   },
   "result": {
-    "id": "elemental_wizards_rpg:netherite_kelp_chest"
+    "count": 1,
+    "id": "elemental_wizards_rpg:staff_netherite_wind"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"
