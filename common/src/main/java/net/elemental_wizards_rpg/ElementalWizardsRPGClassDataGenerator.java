@@ -7,6 +7,7 @@ import net.elemental_wizards_rpg.datagen.WeaponAttributesGenerator;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
+import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -22,6 +23,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
+import net.spell_engine.api.datagen.SimpleSoundGeneratorV2;
 import net.spell_engine.api.datagen.SpellGenerator;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
@@ -54,6 +56,7 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 		pack.addProvider(WeaponAttributesGenerator::new);
 		pack.addProvider(ElementalVanillaAdvancementProvider::new);
 		pack.addProvider(ElementalAdvancementDataGen::new);
+		pack.addProvider(SoundGen::new);
 		// Recipe Providers
 		pack.addProvider(net.elemental_wizards_rpg.datagen.ElementalRecipeProvider::new);
 		pack.addProvider(net.elemental_wizards_rpg.datagen.ElementalSmithingRecipeProvider::new);
@@ -125,7 +128,8 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 			});
 
 			// Spells
-			ElementalWizardSpells.entries.forEach(entry -> {
+
+			ElementalWizardSpells.entries.stream().filter(entry -> !entry.id().getPath().startsWith("helper/")).forEach(entry -> {
 				var id = entry.id();
 				translationBuilder.add("spell." + id.getNamespace() + "." + id.getPath() + ".name", entry.title());
 				translationBuilder.add("spell." + id.getNamespace() + "." + id.getPath() + ".description", entry.description());
@@ -342,6 +346,21 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 					weaponGroupTag.addOptional(entry.id());
 				}
 			});
+		}
+	}
+
+	public static class SoundGen extends SimpleSoundGeneratorV2 {
+		public SoundGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, registryLookup);
+		}
+
+		@Override
+		public void generateSounds(Builder builder) {
+			builder.entries.add(new Entry(MOD_ID,
+					ElementalSounds.entries.stream()
+							.map(entry -> SoundEntry.withVariants(entry.id().getPath(), entry.variants()))
+							.toList()
+			));
 		}
 	}
 }

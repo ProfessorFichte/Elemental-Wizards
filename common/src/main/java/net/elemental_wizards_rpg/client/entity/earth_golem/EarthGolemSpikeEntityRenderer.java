@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity.earth_golem;
 
-import net.elemental_wizards_rpg.entity.EarthGolemSpikeEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemSpikeEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

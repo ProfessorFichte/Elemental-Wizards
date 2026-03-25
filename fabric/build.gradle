@@ -88,7 +88,11 @@ dependencies {
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
     modImplementation("mod.azure.azurelibarmor:azurelibarmor-fabric-${project.azure_mc_version}:${project.azure_lib_version}")
     modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
-    modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
+    if (findProperty('use_local_mrpg')?.toBoolean()) {
+        modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${project.more_rpg_library_version}")
+    } else {
+        modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
+    }
     modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
     modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"
 

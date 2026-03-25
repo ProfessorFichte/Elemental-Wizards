@@ -1,0 +1,62 @@
+{
+  "school": "spell_power:earth",
+  "range": 3.0,
+  "tier": 4,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.5,
+      "animation": {
+        "id": "more_rpg_classes:two_handed_ground_channeling"
+      },
+      "sound": {
+        "id": "more_rpg_classes:earth_magic_cast1",
+        "volume": 0.5
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:stone_particle",
+          "origin": "FEET",
+          "shape": "PIPE",
+          "count": 1.0,
+          "min_speed": 0.01,
+          "max_speed": 0.02
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "more_rpg_classes:two_handed_ground_release"
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "SPAWN",
+        "spawns": [
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem",
+            "time_to_live_seconds": 15,
+            "placement": {
+              "location_offset_by_look": 2.0,
+              "apply_yaw": true
+            }
+          }
+        ]
+      },
+      "sound": {
+        "id": "elemental_wizards_rpg:earth_summon"
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.5,
+    "cooldown": {
+      "duration": 45.0
+    },
+    "item": {
+      "id": "more_rpg_classes:terra_stone"
+    }
+  }
+}

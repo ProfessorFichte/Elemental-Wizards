@@ -2,7 +2,9 @@ package net.elemental_wizards_rpg;
 
 import net.elemental_wizards_rpg.compat.WizardsCompat;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
+import net.elemental_wizards_rpg.entity.EWizardsTeamMatcher;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.item.ElementalItems;
 import net.elemental_wizards_rpg.item.armor.Armors;
@@ -11,6 +13,8 @@ import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.elemental_wizards_rpg.config.TweaksConfig;
 import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.CustomSpellImpacts;
+import net.elemental_wizards_rpg.spell.ElementalSounds;
+import net.spell_engine.internals.target.EntityRelations;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -20,16 +24,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.more_rpg_classes.sounds.MRPGLibSounds;
 import net.spell_engine.api.config.ConfigFile;
 import net.tiny_config.ConfigManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
 
 public class ElementalMod {
 	public static final String MOD_ID = "elemental_wizards_rpg";
-    public static final Logger LOGGER = LoggerFactory.getLogger("elemental_wizards_rpg");
 
 	public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
 			("equipment_v1", Default.itemConfig)
@@ -59,6 +60,7 @@ public class ElementalMod {
 		}
 		CustomSpellImpacts.registerCustomImpacts();
 		WizardsCompat.registerCompat();
+		EWizardsTeamMatcher.register();
 	}
 	public static void registerItems() {
 		ElementalGroup.ELEMENTAL_WIZARD = FabricItemGroup.builder()
@@ -90,5 +92,8 @@ public class ElementalMod {
 	}
 	public static void registerParticles() {
 		ModParticles.register();
+	}
+	public static void registerSounds() {
+		ElementalSounds.register();
 	}
 }

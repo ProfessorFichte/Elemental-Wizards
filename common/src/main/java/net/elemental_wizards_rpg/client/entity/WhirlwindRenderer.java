@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity;
 
-import net.elemental_wizards_rpg.entity.WhirlwindEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.WhirlwindEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -17,7 +17,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 public class WhirlwindRenderer<T extends WhirlwindEntity> extends EntityRenderer<T> {
     private final ItemRenderer itemRenderer;
 
-    public static final Identifier modelId = Identifier.of(MOD_ID, "entity/whirlwind");
+    public static final Identifier modelId = Identifier.of(MOD_ID, "spell_projectile/whirlwind");
 
     private static final RenderLayer RENDER_LAYER = net.spell_engine.api.render.CustomLayers.spellEffect(LightEmission.RADIATE, true);
 

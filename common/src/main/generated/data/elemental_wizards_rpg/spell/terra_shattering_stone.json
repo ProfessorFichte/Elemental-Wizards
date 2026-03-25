@@ -1,18 +1,28 @@
 {
   "school": "spell_power:earth",
-  "range": 38.0,
-  "tier": 5,
+  "range": 30.0,
+  "tier": 3,
   "learn": {},
   "active": {
     "cast": {
-      "duration": 1.2,
+      "duration": 1.0,
       "animation": {
         "id": "more_rpg_classes:two_handed_ground_channeling"
       },
       "sound": {
         "id": "more_rpg_classes:earth_magic_impact1",
         "volume": 0.5
-      }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:stone_particle",
+          "origin": "FEET",
+          "shape": "PIPE",
+          "count": 1.0,
+          "min_speed": 0.01,
+          "max_speed": 0.02
+        }
+      ]
     }
   },
   "release": {
@@ -28,15 +38,12 @@
     "type": "PROJECTILE",
     "projectile": {
       "launch_properties": {
-        "velocity": 1.2,
-        "sound": {
-          "id": ""
-        }
+        "velocity": 1.2
       },
       "projectile": {
-        "divergence": 10.0,
         "perks": {
-          "chain_reaction_size": 10
+          "chain_reaction_size": 6,
+          "chain_reaction_triggers": 3
         },
         "client_data": {
           "model": {
@@ -77,6 +84,7 @@
         "status_effect": {
           "effect_id": "more_rpg_classes:bleeding",
           "duration": 5.0,
+          "amplifier": 1,
           "amplifier_power_multiplier": 0.2
         }
       },

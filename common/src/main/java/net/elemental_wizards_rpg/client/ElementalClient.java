@@ -15,15 +15,15 @@ import net.elemental_wizards_rpg.client.entity.HealingRainCloudEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.EarthquakeEntityRenderer;
 import net.elemental_wizards_rpg.client.particle.HealingRainParticle;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
-import net.elemental_wizards_rpg.entity.TornadoEntity;
-import net.elemental_wizards_rpg.entity.WhirlwindEntity;
-import net.elemental_wizards_rpg.entity.StormDraftEntity;
-import net.elemental_wizards_rpg.entity.TerraStoneEntity;
-import net.elemental_wizards_rpg.entity.EarthGolemEntity;
-import net.elemental_wizards_rpg.entity.EarthGolemSpikeEntity;
-import net.elemental_wizards_rpg.entity.TidalWaveEntity;
-import net.elemental_wizards_rpg.entity.HealingRainCloudEntity;
-import net.elemental_wizards_rpg.entity.EarthquakeEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.TornadoEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.WhirlwindEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.StormDraftEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.TerraStoneEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemSpikeEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.TidalWaveEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.HealingRainCloudEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthquakeEntity;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
@@ -68,6 +68,8 @@ public class ElementalClient{
         CustomParticleStatusEffect.register(ElementalEffects.CLEANSING_WATER.effect, new CleansingWaterParticleSpawner());
         CustomParticleStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamParticleSpawner());
         CustomParticleStatusEffect.register(ElementalEffects.STONE_FLESH.effect, new StoneFleshParticleSpawner());
+
+        CustomModelStatusEffect.register(ElementalEffects.IMPALED.effect, new ImpaledRenderer());
 
         // Register model layers
         EntityModelLayerRegistry.registerModelLayer(EarthGolemEntityModel.LAYER_LOCATION, EarthGolemEntityModel::createBodyLayer);

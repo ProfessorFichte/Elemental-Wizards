@@ -1,7 +1,9 @@
 package net.elemental_wizards_rpg.entity.goals;
 
-import net.elemental_wizards_rpg.entity.EarthGolemEntity;
-import net.elemental_wizards_rpg.entity.EarthGolemSpikeEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemSpikeEntity;
+import net.elemental_wizards_rpg.spell.ElementalSounds;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -30,16 +32,15 @@ public class SpikeAttackGoal extends Goal {
     private static final int SPIKE_FIRE_TICK = 8;
     private static final int COOLDOWN_TICKS = 5;
     private static final double SPIKE_SPACING = 1.0;
-    private static final double ATTACK_RANGE = 10.0;
-    private static final double MIN_ATTACK_RANGE = 6.0;
-    private static final Identifier SPIKE_SPELL_ID = Identifier.of(MOD_ID, "terra_earth_golem_spike_impact");
+    private static final double MIN_ATTACK_RANGE = 8.0;
+    private static final Identifier SPIKE_SPELL_ID = Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact");
     private final int spikeCount;
 
     public SpikeAttackGoal(EarthGolemEntity golem) {
         this.golem = golem;
         this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 
-        int count = 5;
+        int count = 8;
         try {
             RegistryEntry<Spell> spellEntry = SpellRegistry.from(golem.getWorld()).getEntry(SPIKE_SPELL_ID).get();
             count = (int) spellEntry.value().range;
@@ -73,6 +74,9 @@ public class SpikeAttackGoal extends Goal {
         this.spikesFired = false;
         golem.getNavigation().stop();
         golem.setAttacking(true);
+        golem.getWorld().playSound(null, golem.getX(), golem.getY(), golem.getZ(),
+                ElementalSounds.GOLEM_GROWL.soundEvent(), SoundCategory.NEUTRAL,
+                1.2F, 0.85F + golem.getRandom().nextFloat() * 0.15F);
     }
 
     @Override
@@ -91,6 +95,9 @@ public class SpikeAttackGoal extends Goal {
         int ticksElapsed = ATTACK_ANIMATION_LENGTH - animationTicksRemaining;
 
         if (!spikesFired && ticksElapsed >= SPIKE_FIRE_TICK) {
+            golem.getWorld().playSound(null, golem.getX(), golem.getY(), golem.getZ(),
+                    ElementalSounds.GOLEM_GROUND_SLAM.soundEvent(), SoundCategory.NEUTRAL,
+                    1.5F, 0.9F + golem.getRandom().nextFloat() * 0.2F);
             performSpikeAttack();
             spikesFired = true;
             this.attackCooldown = COOLDOWN_TICKS;

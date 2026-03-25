@@ -1,6 +1,6 @@
 {
   "school": "spell_power:water",
-  "range": 0.0,
+  "range": 5.0,
   "tier": 4,
   "learn": {},
   "active": {
@@ -11,7 +11,7 @@
       },
       "movement_speed": 0.0,
       "sound": {
-        "id": "spell_engine:generic_wind_charging"
+        "id": "weather.rain.above"
       },
       "particles": [
         {
@@ -34,6 +34,11 @@
           "color_rgba": 1250689023
         }
       ]
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "spell_engine:two_handed_channeling_release"
     }
   },
   "impacts": [

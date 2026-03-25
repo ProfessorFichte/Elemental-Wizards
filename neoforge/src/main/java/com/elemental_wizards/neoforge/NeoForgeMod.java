@@ -2,8 +2,8 @@ package com.elemental_wizards.neoforge;
 
 import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
+import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.minecraft.registry.RegistryKeys;
-import net.more_rpg_classes.client.particle.MoreParticles;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -29,6 +29,9 @@ public final class NeoForgeMod {
         });
         event.register(RegistryKeys.ENTITY_TYPE, reg -> {
             ElementalMod.registerEntities();
+        });
+        event.register(RegistryKeys.SOUND_EVENT, reg -> {
+            ElementalSounds.register();
         });
     }
 

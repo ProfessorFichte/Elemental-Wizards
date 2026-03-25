@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.Box;
+import net.more_rpg_classes.util.CustomMethods;
 
 public class BubbleFoamEffect extends StatusEffect {
     protected BubbleFoamEffect(StatusEffectCategory category, int color) {
@@ -24,7 +25,7 @@ public class BubbleFoamEffect extends StatusEffect {
 
         for(Entity entities : entity.getEntityWorld().getOtherEntities(entity, radius, EntityPredicates.VALID_LIVING_ENTITY)){
             if (entities != null) {
-                if(entities instanceof LivingEntity target){
+                if(entities instanceof LivingEntity target && !CustomMethods.isEntityProtectedCheck(target, entity)){
                     target.setVelocity((target.getX() - entity.getX()) /4,  (target.getY() - entity.getY()) /4, (target.getZ() - entity.getZ()) /4);
                 }
 

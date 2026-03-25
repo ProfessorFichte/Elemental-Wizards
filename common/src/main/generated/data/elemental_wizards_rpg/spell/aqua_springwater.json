@@ -21,6 +21,14 @@
           "min_speed": 0.01,
           "max_speed": 0.05,
           "extent": 0.5
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 0.1,
+          "min_speed": 0.002,
+          "max_speed": 0.003
         }
       ]
     }
@@ -106,7 +114,7 @@
       ],
       "sound": {
         "id": "more_rpg_classes:water_magic_impact1",
-        "volume": 0.4
+        "volume": 1.2
       }
     },
     {

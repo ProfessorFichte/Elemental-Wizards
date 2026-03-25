@@ -14,9 +14,9 @@
           "particle_id": "more_rpg_classes:stone_particle",
           "origin": "FEET",
           "shape": "PIPE",
-          "count": 3.0,
+          "count": 1.0,
           "min_speed": 0.01,
-          "max_speed": 0.05
+          "max_speed": 0.02
         }
       ]
     }
@@ -189,6 +189,10 @@
             }
           }
         ]
+      },
+      "sound": {
+        "id": "elemental_wizards_rpg:earth_summon",
+        "volume": 0.6
       }
     }
   ],

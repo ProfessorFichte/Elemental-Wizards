@@ -28,9 +28,15 @@
           "shape": "CIRCLE",
           "count": 3.0,
           "min_speed": 0.01,
-          "max_speed": 0.05
+          "max_speed": 0.05,
+          "extent": 1.0
         }
       ]
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "more_rpg_classes:two_handed_ground_release"
     }
   },
   "impacts": [

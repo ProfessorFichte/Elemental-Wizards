@@ -5,11 +5,23 @@
       "required": false
     },
     {
+      "id": "elemental_wizards_rpg:terra_impale",
+      "required": false
+    },
+    {
       "id": "elemental_wizards_rpg:terra_drip_circle",
       "required": false
     },
     {
+      "id": "elemental_wizards_rpg:terra_shattering_stone",
+      "required": false
+    },
+    {
       "id": "elemental_wizards_rpg:terra_earthquake",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:terra_earth_golem",
       "required": false
     }
   ]

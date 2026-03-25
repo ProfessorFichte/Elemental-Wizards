@@ -13,6 +13,7 @@ public final class FabricMod implements ModInitializer {
         ElementalMod.registerItems();
         ElementalMod.registerEntities();
         ElementalMod.registerParticles();
+        ElementalMod.registerSounds();
 
         registerEntityAttributes();
     }

@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity;
 
-import net.elemental_wizards_rpg.entity.TornadoEntity;
+import net.elemental_wizards_rpg.entity.spell_spawned.TornadoEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -40,7 +40,7 @@ public class TornadoRenderer<T extends TornadoEntity> extends EntityRenderer<T> 
         float rotation = (entity.age + tickDelta) * 25.0F;
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
 
-        matrixStack.translate(0, 2.0F, 0);
+        matrixStack.translate(0, 3.0F, 0);
 
         matrixStack.scale(3.5F, 3.5F, 3.5F);
 

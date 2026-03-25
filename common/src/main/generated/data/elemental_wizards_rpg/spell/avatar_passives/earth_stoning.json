@@ -29,7 +29,7 @@
           ],
           "model": {
             "model_id": "elemental_wizards_rpg:spell_projectile/spell_stone",
-            "scale": 0.7
+            "scale": 0.4
           }
         }
       }

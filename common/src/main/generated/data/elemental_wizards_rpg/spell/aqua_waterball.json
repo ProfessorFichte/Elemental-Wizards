@@ -1,0 +1,100 @@
+{
+  "school": "spell_power:water",
+  "range": 32.0,
+  "tier": 2,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 0.5,
+      "animation": {
+        "id": "spell_engine:one_handed_projectile_charge"
+      },
+      "sound": {
+        "id": "minecraft:block.bubble_column.whirlpool_ambient"
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:big_splash",
+          "origin": "FEET",
+          "shape": "PIPE",
+          "count": 1.0,
+          "min_speed": 0.01,
+          "max_speed": 0.05,
+          "extent": 0.5
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 0.1,
+          "min_speed": 0.002,
+          "max_speed": 0.003
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "spell_engine:one_handed_projectile_release"
+    },
+    "sound": {
+      "id": "more_rpg_classes:water_release_1"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {}
+  },
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "launch_properties": {
+        "extra_launch_count": 4,
+        "extra_launch_delay": 3
+      },
+      "projectile": {
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "more_rpg_classes:bubble",
+              "origin": "CENTER",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "count": 0.1,
+              "min_speed": 0.6,
+              "max_speed": 0.9
+            }
+          ],
+          "model": {
+            "model_id": "elemental_wizards_rpg:spell_projectile/big_bubble",
+            "light_emission": "NONE",
+            "scale": 0.7
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4,
+          "knockback": 0.5
+        }
+      },
+      "sound": {
+        "id": "more_rpg_classes:water_magic_impact1"
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.2,
+    "cooldown": {
+      "duration": 10.0
+    },
+    "item": {
+      "id": "more_rpg_classes:aqua_stone"
+    }
+  }
+}

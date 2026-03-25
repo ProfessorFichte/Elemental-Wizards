@@ -1,16 +1,16 @@
 {
 	"format_version": "1.9.0",
-	"credit": "Made with Blockbench",
+	"credit": "Slepykat",
 	"texture_size": [256, 256],
 	"textures": {
-		"0": "meteorite",
-		"particle": "meteorite"
+		"0": "elemental_wizards_rpg:spell_projectile/meteorite",
+		"particle": "elemental_wizards_rpg:spell_projectile/meteorite"
 	},
 	"elements": [
 		{
 			"from": [-5.5, 4, -5.5],
 			"to": [21.5, 27, 21.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 14, 8]},
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 14, 8]},
 			"faces": {
 				"north": {"uv": [1.6875, 1.6875, 3.375, 3.125], "texture": "#0"},
 				"east": {"uv": [0, 1.6875, 1.6875, 3.125], "texture": "#0"},
@@ -62,7 +62,7 @@
 		{
 			"from": [-15.5, -2, -3.5],
 			"to": [-0.5, 13, 15.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 5.5, 6]},
+			"rotation": {"angle": 0, "axis": "z", "origin": [-8, 5.5, 6]},
 			"faces": {
 				"north": {"uv": [7.625, 4.375, 8.5625, 5.3125], "texture": "#0"},
 				"east": {"uv": [6.4375, 4.375, 7.625, 5.3125], "texture": "#0"},

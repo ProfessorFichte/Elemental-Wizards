@@ -1,5 +1,6 @@
 package net.elemental_wizards_rpg.entity;
 
+import net.elemental_wizards_rpg.entity.spell_spawned.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.SpawnGroup;
@@ -81,7 +82,7 @@ public class ModEntitiesRegistry {
                 Registries.ENTITY_TYPE,
                 Identifier.of(MOD_ID, "storm_draft"),
                 FabricEntityTypeBuilder.<StormDraftEntity>create(SpawnGroup.MISC, StormDraftEntity::new)
-                        .dimensions(EntityDimensions.fixed(4.0F, 4.0F))
+                        .dimensions(EntityDimensions.fixed(0.75F, 0.75F))
                         .fireImmune()
                         .trackRangeBlocks(128)
                         .trackedUpdateRate(1)

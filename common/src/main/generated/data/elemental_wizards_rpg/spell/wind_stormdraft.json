@@ -1,0 +1,62 @@
+{
+  "school": "spell_power:air",
+  "range": 26.0,
+  "tier": 4,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 5.0,
+      "channel_ticks": 5,
+      "animation": {
+        "id": "spell_engine:two_handed_channeling"
+      },
+      "sound": {
+        "id": "elemental_wizards_rpg:wind_entity_loop"
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 1.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:small_gust",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 1.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "SPAWN",
+        "spawns": [
+          {
+            "entity_type_id": "elemental_wizards_rpg:storm_draft",
+            "time_to_live_seconds": 10,
+            "placement": {
+              "apply_yaw": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.3,
+    "cooldown": {
+      "duration": 36.0,
+      "proportional": true
+    },
+    "item": {
+      "id": "more_rpg_classes:storm_stone"
+    }
+  }
+}

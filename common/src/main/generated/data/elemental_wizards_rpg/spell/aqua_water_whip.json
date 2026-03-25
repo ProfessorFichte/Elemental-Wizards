@@ -47,7 +47,10 @@
         "min_speed": 0.05,
         "max_speed": 0.1
       }
-    ]
+    ],
+    "sound": {
+      "id": "elemental_wizards_rpg:water_whip_release"
+    }
   },
   "target": {
     "type": "AIM",
@@ -90,8 +93,7 @@
         }
       ],
       "sound": {
-        "id": "more_rpg_classes:water_magic_impact1",
-        "volume": 0.4
+        "id": "elemental_wizards_rpg:water_whip_impact"
       }
     },
     {

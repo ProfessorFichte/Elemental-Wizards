@@ -1,3 +1,26 @@
+# 2.6.2 - 1.21.1
+**Elemental Wizards Spell Expansion:**
+- New Spell Choices for the Spell Tier's 2-4 for every Elemental Wizard Spell Book!
+- **Earth:** T2: Impale T3: Shattering Stones (Old LNE Spell) T4: Stone Golem
+- Impale: Impales a target with a sharp stone, blocking its movement and dealing damage to it.
+- Shattering Stones: Launch a stone that shatters on impact, sending fragments in all directions that cause bleeding wounds.
+- Stone Golem: Summons a Earth Golem, that smashes the ground and summons damaging spikes that deal damage and knock up on contact.
+- **Water:** T2: Waterballs T4: Tidal Wave
+- Waterballs: Shoots multiple water balls that deal {damage} damage.
+- Tidal Wave: Tidal Wave that travels back and forth and deals damage and knocks targets back.
+- **Wind:** T2: Twister T3: Windfield T4: Storm Draft
+- Twister: Launch a circling-moving whirlwind, that knock's back targets it hits and damages them.
+- Windfield: Calls a field of strong wind that deals damage and reduces movement speed.
+- Storm Draft: Channel bursts of high pressure air that deal damage and shortly stun enemies.
+- **Huge thanks to Slepykat for the new Projectile- & Effect- and Entity Models <3**
+**Fixes and Changes**
+- Moved the LNE-Extra Spells to the LNE-Wizards Mod (Explosive Bubble & Aeroburst)
+- Improved the Tornado Model (by Slepykat) 
+- Fixed some Missing Weapon Recipes
+- Internal Changes for some Spell Spawned Entities to improve their behaviour
+- Improved the Spell Textures for some of the existing Earth Wizard Spell Icons
+- Cleaned up the Code
+
 # 2.6.1 - 1.21.1
 - Fix Neoforge not loading (Did not Register the Entity Attributes on NeoForge)
 - Fixed some model and particle renderer issues on NeoForge

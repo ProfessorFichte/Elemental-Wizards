@@ -5,6 +5,10 @@
       "required": false
     },
     {
+      "id": "elemental_wizards_rpg:aqua_waterball",
+      "required": false
+    },
+    {
       "id": "elemental_wizards_rpg:aqua_springwater",
       "required": false
     },
@@ -14,6 +18,10 @@
     },
     {
       "id": "elemental_wizards_rpg:aqua_healing_rain",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:aqua_tidal_wave",
       "required": false
     }
   ]

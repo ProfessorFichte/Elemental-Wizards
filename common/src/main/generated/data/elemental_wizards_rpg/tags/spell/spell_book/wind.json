@@ -5,11 +5,23 @@
       "required": false
     },
     {
+      "id": "elemental_wizards_rpg:wind_twister",
+      "required": false
+    },
+    {
       "id": "elemental_wizards_rpg:wind_updraft",
       "required": false
     },
     {
+      "id": "elemental_wizards_rpg:wind_windfield",
+      "required": false
+    },
+    {
       "id": "elemental_wizards_rpg:wind_tornado",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_stormdraft",
       "required": false
     }
   ]

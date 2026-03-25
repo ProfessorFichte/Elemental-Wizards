@@ -1,6 +1,6 @@
 {
   "school": "spell_power:earth",
-  "range": 0.0,
+  "range": 5.0,
   "tier": 2,
   "learn": {},
   "active": {
@@ -9,12 +9,15 @@
       "animation": {
         "id": "spell_engine:one_handed_area_charge"
       },
+      "sound": {
+        "id": "more_rpg_classes:earth_magic_cast1"
+      },
       "particles": [
         {
           "particle_id": "more_rpg_classes:stone_particle",
           "origin": "FEET",
           "shape": "PIPE",
-          "count": 2.0,
+          "count": 1.0,
           "min_speed": 0.01,
           "max_speed": 0.02
         }
@@ -34,11 +37,7 @@
         "min_speed": 0.01,
         "max_speed": 0.05
       }
-    ],
-    "sound": {
-      "id": "more_rpg_classes:earth_magic_cast1",
-      "volume": 0.5
-    }
+    ]
   },
   "target": {
     "type": "AREA",
@@ -52,15 +51,20 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "elemental_wizards_rpg:stone_flesh",
-          "amplifier_power_multiplier": 0.2
+          "amplifier_power_multiplier": 0.15
         }
+      },
+      "sound": {
+        "id": "elemental_wizards_rpg:stone_flesh",
+        "volume": 0.6
       }
     }
   ],
   "cost": {
     "exhaust": 0.3,
     "cooldown": {
-      "duration": 20.0
+      "duration": 22.0,
+      "haste_affected": false
     },
     "item": {
       "id": "more_rpg_classes:terra_stone"

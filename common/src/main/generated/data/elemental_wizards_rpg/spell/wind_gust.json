@@ -18,7 +18,7 @@
           "particle_id": "more_rpg_classes:small_gust",
           "origin": "FEET",
           "shape": "PILLAR",
-          "count": 2.0,
+          "count": 1.0,
           "min_speed": 0.05,
           "max_speed": 0.2
         },
@@ -26,7 +26,7 @@
           "particle_id": "more_rpg_classes:small_gust",
           "origin": "FEET",
           "shape": "CIRCLE",
-          "count": 5.0,
+          "count": 1.0,
           "min_speed": 0.05,
           "max_speed": 0.2
         }

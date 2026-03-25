@@ -1,0 +1,60 @@
+{
+  "earth_summon": {
+    "sounds": [
+      "elemental_wizards_rpg:earth_summon"
+    ]
+  },
+  "golem_ground_slam": {
+    "sounds": [
+      "elemental_wizards_rpg:golem_ground_slam"
+    ]
+  },
+  "golem_growl": {
+    "sounds": [
+      "elemental_wizards_rpg:golem_growl_1",
+      "elemental_wizards_rpg:golem_growl_2",
+      "elemental_wizards_rpg:golem_growl_3",
+      "elemental_wizards_rpg:golem_growl_4"
+    ]
+  },
+  "golem_spike_summon": {
+    "sounds": [
+      "elemental_wizards_rpg:golem_spike_summon"
+    ]
+  },
+  "stone_flesh": {
+    "sounds": [
+      "elemental_wizards_rpg:stone_flesh"
+    ]
+  },
+  "tidal_wave_impact": {
+    "sounds": [
+      "elemental_wizards_rpg:tidal_wave_impact"
+    ]
+  },
+  "tidal_wave_release": {
+    "sounds": [
+      "elemental_wizards_rpg:tidal_wave_release"
+    ]
+  },
+  "twister_launch": {
+    "sounds": [
+      "elemental_wizards_rpg:twister_launch"
+    ]
+  },
+  "water_whip_impact": {
+    "sounds": [
+      "elemental_wizards_rpg:water_whip_impact"
+    ]
+  },
+  "water_whip_release": {
+    "sounds": [
+      "elemental_wizards_rpg:water_whip_release"
+    ]
+  },
+  "wind_entity_loop": {
+    "sounds": [
+      "elemental_wizards_rpg:wind_entity_loop"
+    ]
+  }
+}

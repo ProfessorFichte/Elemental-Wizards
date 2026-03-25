@@ -31,24 +31,22 @@ public class ElementalEffects {
     public static final Effects.Entry CLEANSING_WATER = add(new Effects.Entry(
             Identifier.of(MOD_ID, "cleansing_water"),
             "Cleansing Water",
-            "Holy water, extinguishing fire and regenerating health. If the target is full health, cleansing negative effects on applying the effect.",
-            new CleansingWaterEffect(StatusEffectCategory.BENEFICIAL, 0x01d9cf),
+            "Holy water, extinguishing fire and regenerating health.",
+            new CleansingWaterEffect(StatusEffectCategory.BENEFICIAL, MoreSpellSchools.WATER.color),
             new EffectConfig(List.of())
     ));
-
     public static final Effects.Entry BUBBLE_FOAM = add(new Effects.Entry(
             Identifier.of(MOD_ID, "bubble_foam"),
             "Bubble Shield",
             "On contact protecting the player and pushing targets away.",
-            new BubbleFoamEffect(StatusEffectCategory.BENEFICIAL, 0x01d9cf),
+            new BubbleFoamEffect(StatusEffectCategory.BENEFICIAL, MoreSpellSchools.WATER.color),
             new EffectConfig(List.of())
     ));
-
     public static final Effects.Entry STONE_FLESH = add(new Effects.Entry(
             Identifier.of(MOD_ID, "stone_flesh"),
             "Stone Flesh",
             "Gives the user armor and armor toughness, if you have all hearts, the next attack will get reduced by 50%.",
-            new StoneFleshEffect(StatusEffectCategory.BENEFICIAL, 0xbd8b00),
+            new StoneFleshEffect(StatusEffectCategory.BENEFICIAL, MoreSpellSchools.EARTH.color),
             new EffectConfig(List.of(
                     new AttributeModifier(
                             EntityAttributes.GENERIC_ARMOR.getIdAsString(),
@@ -57,17 +55,16 @@ public class ElementalEffects {
                     ),
                     new AttributeModifier(
                             EntityAttributes.GENERIC_ARMOR_TOUGHNESS.getIdAsString(),
-                            0.5F,
+                            0.25F,
                             EntityAttributeModifier.Operation.ADD_VALUE
                     )
             ))
     ));
-
     public static final Effects.Entry UPDRAFT = add(new Effects.Entry(
             Identifier.of(MOD_ID, "updraft"),
             "Updraft",
             "Keeps the target in the air and makes the target more vulnerable to air spell damage, if its in the air.",
-            new UpdraftEffect(StatusEffectCategory.HARMFUL, 0xd5ebff),
+            new UpdraftEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.AIR.color),
             new EffectConfig(List.of(
                     new AttributeModifier(
                             EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(),
@@ -76,20 +73,40 @@ public class ElementalEffects {
                     )
             ))
     ));
-
-    public static final Effects.Entry TORNADO = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "tornado"),
-            "Tornado",
-            "Makes the target more vulnerable to fire spell damage, sucks it in the nearest tornado and knocks the target up.",
-            new TornadoEffect(StatusEffectCategory.HARMFUL, 0xd5ebff),
+    public static final Effects.Entry IMPALED = add(new Effects.Entry(
+            Identifier.of(MOD_ID, "impaled"),
+            "Impaled",
+            "The Target gets Impaled and trapped.",
+            new CustomStatusEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.EARTH.color),
+            new EffectConfig(
+                    List.of(
+                            new AttributeModifier(
+                                    EntityAttributes.GENERIC_MOVEMENT_SPEED.getIdAsString(),
+                                    -10,
+                                    EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            ),
+                            new AttributeModifier(
+                                    EntityAttributes.GENERIC_JUMP_STRENGTH.getIdAsString(),
+                                    -10,
+                                    EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            )
+                    )
+            )
+    ));
+    public static final Effects.Entry WINDFIELD = add(new Effects.Entry(
+            Identifier.of(MOD_ID, "windfield"),
+            "Windfield",
+            "Reduces the Movement Speed.",
+            new UpdraftEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.AIR.color),
             new EffectConfig(List.of(
                     new AttributeModifier(
                             EntityAttributes.GENERIC_MOVEMENT_SPEED.getIdAsString(),
-                            -0.99F,
+                            -0.7F,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                     )
             ))
     ));
+
 
     public static RegistryEntry<StatusEffect> getEntry(Effects.Entry entry) {
         return Registries.STATUS_EFFECT.getEntry(entry.id).orElseThrow();
@@ -104,14 +121,6 @@ public class ElementalEffects {
                         tweaksConfig.value.updraft_air_spell_crit_damage_vulnerability
                 )
         );
-
-        ((TornadoEffect) TORNADO.effect).setVulnerability(
-                SpellSchools.FIRE,
-                new SpellPower.Vulnerability(
-                        tweaksConfig.value.tornado_fire_spell_vulnerability, 0, 0
-                )
-        );
-
         for (var entry : entries) {
             Synchronized.configure(entry.effect, true);
         }

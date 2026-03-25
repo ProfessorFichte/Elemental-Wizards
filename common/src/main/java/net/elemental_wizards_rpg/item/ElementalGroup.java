@@ -19,7 +19,6 @@ public class ElementalGroup {
     }
 
     public static void registerItemGroups() {
-        ElementalMod.LOGGER.info("Registering Item Groups for " + ElementalMod.MOD_ID);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ElementalGroup::addItemsToIngredientItemGroup);
     }
 }

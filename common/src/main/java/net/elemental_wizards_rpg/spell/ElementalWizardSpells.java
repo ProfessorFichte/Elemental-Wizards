@@ -1,11 +1,13 @@
 package net.elemental_wizards_rpg.spell;
 
+import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.more_rpg_classes.effect.MRPGCEffects;
+import net.more_rpg_classes.sounds.MRPGLibSounds;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.Spell;
@@ -17,6 +19,7 @@ import net.spell_engine.api.util.TriState;
 import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
+import net.spell_engine.fx.SpellEngineSounds;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.target.SpellTarget;
 import net.spell_power.api.SpellSchools;
@@ -135,6 +138,35 @@ public class ElementalWizardSpells {
         buff.action.heal.spell_power_coefficient = coefficient;
         return buff;
     }
+    /// PARTICLE HELPERS
+    private static ParticleBatch[] aquaCastingParticles(Spell spell) {
+        return new ParticleBatch[] {
+                new ParticleBatch("more_rpg_classes:big_splash",
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                        1, 0.01F, 0.05F).extent(0.5F),
+                new ParticleBatch("more_rpg_classes:water_circle",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        0.1F, 0.002F, 0.003F)
+        };
+    }
+    private static ParticleBatch[] terraCastingParticles(Spell spell) {
+        return new ParticleBatch[] {
+                new ParticleBatch("more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                        1, 0.01F, 0.02F)
+        };
+    }
+    private static ParticleBatch[] windCastingParticles(Spell spell) {
+        return new ParticleBatch[] {
+                new ParticleBatch("more_rpg_classes:small_gust",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        1, 0.05F, 0.2F),
+                new ParticleBatch("more_rpg_classes:small_gust",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        1, 0.05F, 0.2F)
+        };
+    }
+    /// COLOR HELPERS
     public static final Color WATER_SPELL_COLOR = Color.from(0x4a8bff);
     ///MODIFIERS
     public static Entry improved_wind_updraft = add(improved_wind_updraft());
@@ -253,7 +285,7 @@ public class ElementalWizardSpells {
     private static Entry aqua_splash() {
         var id = Identifier.of(MOD_ID, "aqua_splash");
         var title = "Splash";
-        var description = "Release a splash of water that heals allies and damages enemies at the targeted location.";
+        var description = "Release a splash of water that heals allies by {heal} and deals {damage} damage to targets.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
@@ -265,14 +297,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.2F;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = new Sound("block.bubble_column.whirlpool_ambient");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:big_splash",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        1.0F, 0.01F, 0.05F).extent(0.5F),
-                new ParticleBatch("more_rpg_classes:water_circle",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        0.1F, 0.002F, 0.003F)
-        };
+        spell.active.cast.particles = aquaCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -323,7 +348,7 @@ public class ElementalWizardSpells {
     private static Entry aqua_water_whip() {
         var id = Identifier.of(MOD_ID, "aqua_water_whip");
         var title = "Water Whip";
-        var description = "Lash out with a tendril of water that strikes and soaks the target.";
+        var description = "Lash out with a tendril of water that deals {damage} damage and soaks the target.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
@@ -335,14 +360,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.0F;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withVolume(Identifier.of("block.bubble_column.whirlpool_ambient"), 1.0F);
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:big_splash",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        1.0F, 0.01F, 0.05F).extent(0.5F),
-                new ParticleBatch("more_rpg_classes:water_circle",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        0.1F, 0.002F, 0.003F)
-        };
+        spell.active.cast.particles = aquaCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -356,6 +374,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
                         10.0F, 0.05F, 0.1F)
         };
+        spell.release.sound = new Sound(ElementalSounds.WATER_WHIP_RELEASE.id().toString());
 
         var damage = damageImpact(0.75F, 0.5F);
         damage.particles = new ParticleBatch[]{
@@ -369,7 +388,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
                         0.1F, 0.2F, 1.0F)
         };
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = new Sound(ElementalSounds.WATER_WHIP_IMPACT.id().toString());
 
         var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 6);
         soaked.action.status_effect.amplifier = 0;
@@ -389,7 +408,7 @@ public class ElementalWizardSpells {
     private static Entry aqua_bubble_beam() {
         var id = Identifier.of(MOD_ID, "aqua_bubble_beam");
         var title = "Bubble Beam";
-        var description = "Channel a cone of healing bubbles that restore health to allies and deal damage to enemies.";
+        var description = "Channel a cone of bubble {damage} damage to enemies and heal allies by {heal}..";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
@@ -455,11 +474,66 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description).book(Book.AQUA);
     }
+    public static final Entry aqua_waterball = add(aqua_waterball());
+    private static Entry aqua_waterball() {
+        var id = Identifier.of(MOD_ID, "aqua_waterball");
+        var title = "Waterballs";
+        var description = "Shoots multiple water balls that deal {damage} damage.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.WATER;
+        spell.range = 32;
+        spell.tier = 2;
+
+        spell.active.cast.duration = 0.5F;
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("block.bubble_column.whirlpool_ambient"), 1.0F);
+        spell.active.cast.particles = aquaCastingParticles(spell);;
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
+        spell.release.sound = new Sound(MRPGLibSounds.WATER_RELEASE_1.id().toString());
+
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+
+        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
+        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
+        spell.deliver.projectile.launch_properties.velocity = 1.0F;
+        spell.deliver.projectile.launch_properties.extra_launch_count = 4;
+        spell.deliver.projectile.launch_properties.extra_launch_delay = 3;
+
+        var projectile = new Spell.ProjectileData();
+        projectile.client_data = new Spell.ProjectileData.Client();
+        projectile.client_data.travel_particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:bubble",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        ParticleBatch.Rotation.LOOK,
+                        0.1F, 0.6F, 0.9F, 0)
+        };
+        var model = new Spell.ProjectileModel();
+        model.model_id = "elemental_wizards_rpg:spell_projectile/big_bubble";
+        model.scale = 0.7F;
+        model.light_emission = LightEmission.NONE;
+        projectile.client_data.model = model;
+        spell.deliver.projectile.projectile = projectile;
+
+        var damage = damageImpact(0.4F, 0.5F);
+        damage.sound = new Sound(MRPGLibSounds.WATER_MAGIC_IMPACT_1.id().toString());
+
+        spell.impacts = List.of(damage);
+
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.exhaust(spell, 0.2F);
+        SpellBuilder.Cost.cooldown(spell, 10);
+
+        return new Entry(id, spell, title, description).book(Book.AQUA);
+    }
     public static final Entry aqua_springwater = add(aqua_springwater());
     private static Entry aqua_springwater() {
         var id = Identifier.of(MOD_ID, "aqua_springwater");
         var title = "Springwater";
-        var description = "Release a burst of cleansing water that heals allies and damages enemies in an area around you.";
+        var description = "Release a burst of cleansing water that heals allies by {heal} and damages targets by {damage} damage in an area around you.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
@@ -470,11 +544,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.5F;
         spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
         spell.active.cast.sound = new Sound("block.bubble_column.whirlpool_ambient");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:big_splash",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        1.0F, 0.01F, 0.05F).extent(0.5F)
-        };
+        spell.active.cast.particles = aquaCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
@@ -494,7 +564,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
                         0.1F, 0.2F, 1.0F)
         };
-        heal.sound = Sound.withVolume(Identifier.of("spell_engine:generic_healing_impact_2"), 1.2F);
+        heal.sound = Sound.withVolume(Identifier.of(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id().toString()), 1.2F);
 
         var damage = damageImpact(0.7F, 0.5F);
         damage.particles = new ParticleBatch[]{
@@ -508,7 +578,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
                         0.1F, 0.2F, 1.0F)
         };
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = Sound.withVolume(MRPGLibSounds.WATER_MAGIC_IMPACT_1.id(),1.2F);
 
         var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 6);
         soaked.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
@@ -535,7 +605,7 @@ public class ElementalWizardSpells {
     private static Entry aqua_hydro_beam() {
         var id = Identifier.of(MOD_ID, "aqua_hydro_beam");
         var title = "Hydro Beam";
-        var description = "Channel a powerful beam of pressurized water that damages and soaks enemies in its path.";
+        var description = "Channel a powerful beam of pressurized water that deals {damage} damage and soaks enemies in its path.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
@@ -610,14 +680,14 @@ public class ElementalWizardSpells {
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
-        spell.range = 0;
+        spell.range = 5;
         spell.tier = 4;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.5F;
         spell.active.cast.movement_speed = 0;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_sky_charge");
-        spell.active.cast.sound = new Sound("spell_engine:generic_wind_charging");
+        spell.active.cast.sound = new Sound("weather.rain.above");
         spell.active.cast.particles = new ParticleBatch[]{
                 new ParticleBatch("elemental_wizards_rpg:healing_rain",
                         ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.CENTER,
@@ -632,6 +702,7 @@ public class ElementalWizardSpells {
         };
 
         spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("spell_engine:two_handed_channeling_release");
 
         int delay = 0;
         int toLiveSeconds = 12;
@@ -657,7 +728,7 @@ public class ElementalWizardSpells {
         SpellTooltip.DescriptionMutator mutator = (args) -> {
             var world = args.player().getWorld();
             if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "aqua_healing_rain_impact"));
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact"));
             if (optional.isEmpty()) return args.description();
             var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
             var desc = args.description();
@@ -673,12 +744,68 @@ public class ElementalWizardSpells {
         };
         return new Entry(id, spell, title, description).book(Book.AQUA).mutator(mutator);
     }
+    public static final Entry aqua_tidal_wave = add(aqua_tidal_wave());
+    private static Entry aqua_tidal_wave() {
+        var id = Identifier.of(MOD_ID, "aqua_tidal_wave");
+        var title = "Tidal Wave";
+        var description = "Tidal Wave that travels back and forth and deals {wave_damage} damage and knocks targets back.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.WATER;
+        spell.range = 16;
+        spell.tier = 4;
+        spell.learn = new Spell.Learn();
+
+        spell.active.cast.duration = 1.0F;
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
+        spell.active.cast.sound = new Sound("block.bubble_column.upwards_inside");
+        spell.active.cast.particles = aquaCastingParticles(spell);
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("spell_engine:two_handed_channeling_release");
+        spell.release.sound = new Sound(ElementalSounds.TIDAL_WAVE_RELEASE.id().toString());
+
+        int delay = 0;
+        int toLiveSeconds = 20;
+        String entityId = "elemental_wizards_rpg:tidal_wave";
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        var wave = new Spell.Impact.Action.Spawn();
+        wave.entity_type_id = entityId;
+        wave.delay_ticks = delay;
+        wave.time_to_live_seconds = toLiveSeconds;
+        wave.placement.apply_yaw = true;
+        spawn.action.spawns = List.of(wave);
+
+        spell.impacts = List.of(spawn);
+
+        SpellBuilder.Cost.exhaust(spell, 0.3F);
+        SpellBuilder.Cost.cooldown(spell, 32);
+        spell.cost.cooldown.proportional = true;
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+
+        SpellTooltip.DescriptionMutator mutator = (args) -> {
+            var world = args.player().getWorld();
+            if (world == null) return args.description();
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact"));
+            if (optional.isEmpty()) return args.description();
+            var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
+            var desc = args.description();
+            if (!estimated.damage().isEmpty()) {
+                var dmg = estimated.damage().get(0);
+                desc = desc.replace("{wave_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
+            }
+            return desc;
+        };
+        return new Entry(id, spell, title, description).book(Book.AQUA).mutator(mutator);
+    }
     // ==================== TERRA (EARTH) SPELLS ====================
     public static final Entry terra_stone_throw = add(terra_stone_throw());
     private static Entry terra_stone_throw() {
         var id = Identifier.of(MOD_ID, "terra_stone_throw");
         var title = "Stone Throw";
-        var description = "Hurl a chunk of stone at an enemy, dealing damage in a small area on impact.";
+        var description = "Hurl a chunk of stone at an enemy, that deals {damage} damage in a small area on impact.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.EARTH;
@@ -690,11 +817,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.0F;
         spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
         spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_cast1"), 0.5F);
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:stone_particle",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        3.0F, 0.01F, 0.05F)
-        };
+        spell.active.cast.particles = terraCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -713,7 +836,7 @@ public class ElementalWizardSpells {
         };
         var model = new Spell.ProjectileModel();
         model.model_id = "elemental_wizards_rpg:spell_projectile/spell_stone";
-        model.scale = 1.5F;
+        model.scale = 0.75F;
         projectile.client_data.model = model;
         spell.deliver.projectile.projectile = projectile;
 
@@ -750,7 +873,7 @@ public class ElementalWizardSpells {
     private static Entry terra_stone_spear() {
         var id = Identifier.of(MOD_ID, "terra_stone_spear");
         var title = "Stone Spear";
-        var description = "Launch a sharp stone spear that pierces enemies, causing damage and bleeding wounds.";
+        var description = "Launch a sharp stone spear that pierces enemies, causing {damage} damage and bleeding wounds.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.EARTH;
@@ -762,11 +885,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.2F;
         spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
         spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_cast1"), 0.5F);
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:stone_particle",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        3.0F, 0.01F, 0.05F)
-        };
+        spell.active.cast.particles = terraCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -829,21 +948,29 @@ public class ElementalWizardSpells {
     private static Entry terra_stone_flesh() {
         var id = Identifier.of(MOD_ID, "terra_stone_flesh");
         var title = "Stone Flesh";
-        var description = "Encase yourself and nearby allies in protective stone armor, greatly increasing defense.";
+        var effect = ElementalEffects.STONE_FLESH;
+        var description = "Encase yourself and nearby allies in protective stone armor, with full health the next incoming damage will be reduced by 50%%. " +
+                " Also increases armor by {bonus} and armor toughness by {bonus2} per stack.";
+        SpellTooltip.DescriptionMutator mutator = (args) -> {
+            var modifier = effect.config().attributes().get(1);
+            var modifier2 = effect.config().attributes().get(0);
+            var bonus = SpellTooltip.bonus(modifier.value, modifier.operation);
+            var bonus2 = SpellTooltip.bonus(modifier2.value, modifier2.operation);
+            return args.description()
+                    .replace("{bonus}", bonus)
+                    .replace("{bonus2}", bonus2);
+        };
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.EARTH;
-        spell.range = 0;
+        spell.range = 5;
         spell.tier = 2;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 0.75F;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_area_charge");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:stone_particle",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        2.0F, 0.01F, 0.02F)
-        };
+        spell.active.cast.particles = terraCastingParticles(spell);
+        spell.active.cast.sound = new Sound(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString());
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
@@ -852,23 +979,77 @@ public class ElementalWizardSpells {
 
         spell.release = new Spell.Release();
         spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
-        spell.release.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_cast1"), 0.5F);
         spell.release.particles = new ParticleBatch[]{
                 new ParticleBatch("more_rpg_classes:stone_particle",
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
                         3.0F, 0.01F, 0.05F)
         };
 
-        var stoneFlesh = createEffectImpact(Identifier.of(MOD_ID, "stone_flesh"), 10);
+        var stoneFlesh = createEffectImpact(effect.id, 10);
         stoneFlesh.action.status_effect.amplifier = 0;
         stoneFlesh.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
-        stoneFlesh.action.status_effect.amplifier_power_multiplier = 0.2F;
+        stoneFlesh.action.status_effect.amplifier_power_multiplier = 0.15F;
         stoneFlesh.action.status_effect.show_particles = false;
+        stoneFlesh.sound = Sound.withVolume(ElementalSounds.STONE_FLESH.id(),0.6F);
 
         spell.impacts = List.of(stoneFlesh);
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
-        SpellBuilder.Cost.cooldown(spell, 20);
+        SpellBuilder.Cost.cooldown(spell, 22);
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        spell.cost.cooldown.haste_affected = false;
+
+        return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
+    }
+    public static final Entry terra_impale = add(terra_impale());
+    private static Entry terra_impale() {
+        var id = Identifier.of(MOD_ID, "terra_impale");
+        var title = "Impale";
+        var description = "Impales a target with a sharp stone, blocking its movement and dealing {damage} damage.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.EARTH;
+        spell.range = 16;
+        spell.tier = 2;
+        spell.learn = new Spell.Learn();
+
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+        spell.target.aim.required = true;
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString()), 0.5F);
+        spell.release.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
+                        3.0F, 0.01F, 0.05F)
+        };
+
+        var damage = SpellBuilder.Impacts.damage(0.7F,0);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        5.0F, 0.02F, 0.07F)
+        };
+
+        var impale = SpellBuilder.Impacts.effectSet(ElementalEffects.IMPALED.id.toString(),3,0);
+        impale.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
+        impale.action.status_effect.show_particles = false;
+        impale.action.status_effect.apply_limit.health_base = 50;
+        impale.action.status_effect.apply_limit.spell_power_multiplier = 2F;
+        impale.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        "campfire_cosy_smoke",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        10, 0.1F, 0.2F)
+        };
+        impale.sound = new Sound(MRPGLibSounds.EARTH_MAGIC_IMPACT_1.id().toString());
+
+        spell.impacts = List.of(damage,impale);
+
+        SpellBuilder.Cost.exhaust(spell, 0.3F);
+        SpellBuilder.Cost.cooldown(spell, 15);
         SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.TERRA);
@@ -888,12 +1069,8 @@ public class ElementalWizardSpells {
 
         SpellBuilder.Casting.cast(spell,0.7F);
         SpellBuilder.Casting.visuals(spell,"more_rpg_classes:two_handed_ground_channeling",
-                new ParticleBatch[] {
-                        new ParticleBatch("more_rpg_classes:stone_particle",
-                                ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                                3, 0.01F, 0.05F),
-                },
-                new Sound("more_rpg_classes:earth_magic_cast1"));
+                spell.active.cast.particles = terraCastingParticles(spell),
+                new Sound(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString()));
         SpellBuilder.Release.visuals(spell,
                 "more_rpg_classes:two_handed_ground_release",
                 new ParticleBatch[] {
@@ -917,6 +1094,7 @@ public class ElementalWizardSpells {
         String entityId = "elemental_wizards_rpg:terra_stone";
         var spawn = new Spell.Impact();
         spawn.action = new Spell.Impact.Action();
+        spawn.sound = Sound.withVolume(ElementalSounds.EARTH_SUMMON.id(),0.6F);
         spawn.action.type = Spell.Impact.Action.Type.SPAWN;
         var stone1 = new Spell.Impact.Action.Spawn();
         stone1.intent = SpellTarget.Intent.HARMFUL;
@@ -1033,7 +1211,7 @@ public class ElementalWizardSpells {
         SpellTooltip.DescriptionMutator mutator = (args) -> {
             var world = args.player().getWorld();
             if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "terra_drip_circle_impact"));
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact"));
             if (optional.isEmpty()) return args.description();
             var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
             var desc = args.description();
@@ -1044,6 +1222,78 @@ public class ElementalWizardSpells {
             return desc;
         };
         return new Entry(id, spell, name, description).book(Book.TERRA).mutator(mutator);
+    }
+    public static final Entry terra_shattering_stone = add(terra_shattering_stone());
+    private static Entry terra_shattering_stone() {
+        var id = Identifier.of(MOD_ID, "terra_shattering_stone");
+        var title = "Shattering Stone";
+        var description = "Launch a stone that shatters on impact, sending fragments in all directions that cause {damage} damage and bleeding wounds.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.EARTH;
+        spell.range = 30;
+        spell.tier = 3;
+
+        spell.active.cast.duration = 1.0F;
+        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
+        spell.active.cast.particles = terraCastingParticles(spell);
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.fall"), 1.5F);
+
+        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
+        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
+        spell.deliver.projectile.launch_properties.velocity = 1.2F;
+
+        var projectile = new Spell.ProjectileData();
+        projectile.divergence = 0;
+        projectile.perks = new Spell.ProjectileData.Perks();
+        projectile.perks.chain_reaction_size = 6;
+        projectile.perks.chain_reaction_increment = -1;
+        projectile.perks.chain_reaction_triggers = 3;
+        projectile.client_data = new Spell.ProjectileData.Client();
+        projectile.client_data.travel_particles = new ParticleBatch[]{};
+        var model = new Spell.ProjectileModel();
+        model.model_id = "elemental_wizards_rpg:spell_projectile/stone_shard";
+        model.scale = 0.5F;
+        projectile.client_data.model = model;
+
+        spell.deliver.projectile.projectile = projectile;
+
+        var damage = SpellBuilder.Impacts.damage(0.7F, 0);
+        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
+
+        var bleeding = SpellBuilder.Impacts.effectSet("more_rpg_classes:bleeding", 5,1);
+        bleeding.action.status_effect.amplifier_power_multiplier = 0.2F;
+        bleeding.action.status_effect.show_particles = false;
+        bleedImmuneDeny(bleeding);
+        bleeding.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        5.0F, 0.02F, 0.07F)
+        };
+
+        spell.impacts = List.of(damage, bleeding);
+
+        spell.area_impact = new Spell.AreaImpact();
+        spell.area_impact.radius = 1.5F;
+        spell.area_impact.area = new Spell.Target.Area();
+        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
+        spell.area_impact.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:stone_explosion",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        1.0F, 0.6F, 1.0F)
+        };
+        spell.area_impact.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.break"), 1.5F);
+
+        SpellBuilder.Cost.exhaust(spell, 0.4F);
+        SpellBuilder.Cost.cooldown(spell, 18);
+        spell.cost.cooldown.haste_affected = true;
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+
+        return new Entry(id, spell, title, description).book(Book.TERRA);
     }
     public static final Entry terra_earthquake = add(terra_earthquake());
     private static Entry terra_earthquake() {
@@ -1065,9 +1315,12 @@ public class ElementalWizardSpells {
                 new ParticleBatch(
                         "more_rpg_classes:stone_particle",
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        3, 0.01F, 0.05F)
+                        3, 0.01F, 0.05F).extent(1.0F)
         };
         spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact2"),0.5F);
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
 
         int delay = 0;
         int toLiveSeconds = 5;
@@ -1092,7 +1345,7 @@ public class ElementalWizardSpells {
         SpellTooltip.DescriptionMutator mutator = (args) -> {
             var world = args.player().getWorld();
             if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "terra_earthquake_impact"));
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/terra_earthquake_impact"));
             if (optional.isEmpty()) return args.description();
             var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
             var desc = args.description();
@@ -1104,12 +1357,67 @@ public class ElementalWizardSpells {
         };
         return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
     }
+    public static final Entry terra_earth_golem = add(terra_earth_golem());
+    private static Entry terra_earth_golem() {
+        var id = Identifier.of(MOD_ID, "terra_earth_golem");
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.EARTH;
+        spell.range = 3;
+        spell.tier = 4;
+        var title = "Earth Golem";
+        var description = "Summons a Earth Golem, that smashes the ground and summons damaging spikes that deal {golem_spike_damage} damage and knock up on contact.";
+
+        spell.active.cast.duration = 1.5F;
+        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
+        spell.active.cast.particles = terraCastingParticles(spell);
+        spell.active.cast.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString()),0.5F);
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+
+        int delay = 0;
+        int toLiveSeconds = 15;
+        String entityId = "elemental_wizards_rpg:earth_golem";
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        spawn.sound = new Sound(ElementalSounds.EARTH_SUMMON.id().toString());
+        var golem = new Spell.Impact.Action.Spawn();
+        golem.entity_type_id = entityId;
+        golem.delay_ticks = delay;
+        golem.time_to_live_seconds = toLiveSeconds;
+        golem.placement.apply_yaw = true;
+        golem.placement.location_offset_by_look = 2;
+        spawn.action.spawns = List.of(golem);
+
+        spell.impacts = List.of(spawn);
+
+
+        SpellBuilder.Cost.cooldown(spell, 45);
+        SpellBuilder.Cost.exhaust(spell, 0.5F);
+        SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
+
+        SpellTooltip.DescriptionMutator mutator = (args) -> {
+            var world = args.player().getWorld();
+            if (world == null) return args.description();
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact"));
+            if (optional.isEmpty()) return args.description();
+            var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
+            var desc = args.description();
+            if (!estimated.damage().isEmpty()) {
+                var dmg = estimated.damage().get(0);
+                desc = desc.replace("{golem_spike_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
+            }
+            return desc;
+        };
+        return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
+    }
     // ==================== WIND (AIR) SPELLS ====================
     public static final Entry wind_gust = add(wind_gust());
     private static Entry wind_gust() {
         var id = Identifier.of(MOD_ID, "wind_gust");
         var title = "Gust";
-        var description = "Conjure a quick gust of wind that pushes enemies back with moderate force.";
+        var description = "Conjure a quick gust of wind that pushes enemies back with moderate force and deals {damage} damage.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1121,14 +1429,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.0F;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = new Sound("spell_engine:generic_wind_charging");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        2, 0.05F, 0.2F),
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        5.0F, 0.05F, 0.2F)
-        };
+        spell.active.cast.particles = windCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -1155,7 +1456,7 @@ public class ElementalWizardSpells {
     private static Entry wind_air_cutter() {
         var id = Identifier.of(MOD_ID, "wind_air_cutter");
         var title = "Air Cutter";
-        var description = "Slash the air to create sharp wind blades that cut through enemies with considerable knockback.";
+        var description = "Slash the air to create sharp wind blades that cut through enemies with considerable knockback and deal {damage} damage.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1167,14 +1468,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.5F;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
         spell.active.cast.sound = new Sound("spell_engine:generic_wind_charging");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        2, 0.05F, 0.2F),
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        5.0F, 0.05F, 0.2F)
-        };
+        spell.active.cast.particles = windCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -1207,7 +1501,7 @@ public class ElementalWizardSpells {
     private static Entry wind_aeroblast() {
         var id = Identifier.of(MOD_ID, "wind_aeroblast");
         var title = "Aeroblast";
-        var description = "Unleash a powerful blast of concentrated air that damages and launches enemies skyward.";
+        var description = "Unleash a powerful blast of concentrated air that launches enemies skyward and deals {damage} damage.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1218,14 +1512,7 @@ public class ElementalWizardSpells {
         spell.active.cast.duration = 1.5F;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
         spell.active.cast.sound = new Sound("spell_engine:generic_wind_charging");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        2, 0.05F, 0.2F),
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        5.0F, 0.05F, 0.2F)
-        };
+        spell.active.cast.particles = windCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -1263,11 +1550,67 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
+    public static final Entry wind_twister = add(wind_twister());
+    private static Entry wind_twister() {
+        var id = Identifier.of(MOD_ID, "wind_twister");
+        var title = "Twister";
+        var description = "Launch a circling-moving whirlwind, that knock's back targets it hits and damages them by {twister_damage} damage.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.AIR;
+        spell.range = 22;
+        spell.tier = 2;
+        spell.learn = new Spell.Learn();
+
+        spell.active.cast.duration = 1.0F;
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        spell.active.cast.sound = new Sound(MRPGLibSounds.AIR_MAGIC_CAST_1.id().toString());
+        spell.active.cast.particles = windCastingParticles(spell);
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
+
+        int delay = 0;
+        int toLiveSeconds = 7;
+        String entityId = "elemental_wizards_rpg:whirlwind";
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        var twister = new Spell.Impact.Action.Spawn();
+        twister.entity_type_id = entityId;
+        twister.delay_ticks = delay;
+        twister.time_to_live_seconds = toLiveSeconds;
+        twister.placement.apply_yaw = true;
+        spawn.action.spawns = List.of(twister);
+
+        spell.impacts = List.of(spawn);
+
+        SpellBuilder.Cost.exhaust(spell, 0.3F);
+        SpellBuilder.Cost.cooldown(spell, 12);
+        spell.cost.cooldown.proportional = true;
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+
+        SpellTooltip.DescriptionMutator mutator = (args) -> {
+            var world = args.player().getWorld();
+            if (world == null) return args.description();
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/wind_twister_impact"));
+            if (optional.isEmpty()) return args.description();
+            var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
+            var desc = args.description();
+            if (!estimated.damage().isEmpty()) {
+                var dmg = estimated.damage().get(0);
+                desc = desc.replace("{twister_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
+            }
+            return desc;
+        };
+
+        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
+    }
     public static final Entry wind_updraft = add(wind_updraft());
     private static Entry wind_updraft() {
         var id = Identifier.of(MOD_ID, "wind_updraft");
         var title = "Updraft";
-        var description = "Create a powerful updraft that lifts enemies into the air, leaving them vulnerable while suspended.";
+        var description = "Create a powerful updraft that lifts enemies into the air, leaving them vulnerable while suspended and dealing {damage} damage.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1278,14 +1621,7 @@ public class ElementalWizardSpells {
 
         SpellBuilder.Casting.channel(spell, 2, 10);
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_sky_charge");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        2, 0.05F, 0.2F),
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        5.0F, 0.05F, 0.2F)
-        };
+        spell.active.cast.particles = windCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -1311,7 +1647,7 @@ public class ElementalWizardSpells {
         updraft.action.status_effect.show_particles = false;
         updraft.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
         updraft.action.status_effect.apply_limit.health_base = 50;
-        updraft.action.status_effect.apply_limit.spell_power_multiplier = 5.0F;
+        updraft.action.status_effect.apply_limit.spell_power_multiplier = 3.0F;
         bossImmuneDeny(updraft);
 
         spell.impacts = List.of(damage, updraft);
@@ -1322,6 +1658,75 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
+    }
+    public static final Entry wind_windfield = add(wind_windfield());
+    private static Entry wind_windfield() {
+        var id = Identifier.of(MOD_ID, "wind_windfield");
+        var title = "Windfield";
+        var description = "Calls a field of strong wind that deals {damage} damage and reduces movement speed by {bonus} for {effect_duration} sec.";
+        var effect = ElementalEffects.WINDFIELD;
+
+        SpellTooltip.DescriptionMutator mutator = (args) -> {
+            var modifier = effect.config().firstModifier();
+            var bonus = SpellTooltip.bonus(modifier.value, modifier.operation);
+            return args.description()
+                    .replace("{bonus}", bonus);
+        };
+
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.AIR;
+        spell.range = 16;
+        spell.tier = 3;
+        spell.learn = new Spell.Learn();
+
+        SpellBuilder.Casting.cast(spell,1,"spell_engine:one_handed_projectile_charge");
+        spell.active.cast.particles = windCastingParticles(spell);
+        spell.active.cast.sound = new Sound(MRPGLibSounds.AIR_MAGIC_CAST_1.id().toString());
+
+        spell.release = new Spell.Release();
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
+
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+        spell.target.aim.required = true;
+
+        var damage = damageImpact(0.8F, 0);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch(SpellEngineParticles.smoke_medium.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        ParticleBatch.Rotation.LOOK,
+                        25.0F, 0.4F, 0.8F, 0).color(Color.WHITE.toRGBA())
+        };
+        damage.sound = new Sound(MRPGLibSounds.AIR_MAGIC_IMPACT_3.id().toString());
+
+        var debuff = SpellBuilder.Impacts.effectSet(effect.id.toString(),5,0);
+        debuff.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
+        debuff.action.status_effect.apply_limit.health_base = 65;
+        debuff.action.status_effect.apply_limit.spell_power_multiplier = 2F;
+
+        spell.impacts = List.of(damage,debuff);
+
+        spell.area_impact = new Spell.AreaImpact();
+        spell.area_impact.radius = 3.0F;
+        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
+        spell.area_impact.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        SpellEngineParticles.smoke_large.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        25, 0.3F, 0.8F).color(Color.WHITE.toRGBA()),
+                new ParticleBatch(
+                        SpellEngineParticles.smoke_medium.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        25, 0.3F, 0.8F).extent(0.5F).color(Color.WHITE.toRGBA())
+        };
+
+        SpellBuilder.Cost.exhaust(spell, 0.3F);
+        SpellBuilder.Cost.cooldown(spell, 20);
+        spell.cost.cooldown.proportional = true;
+        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+
+        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
     }
     public static final Entry wind_tornado = add(wind_tornado());
     private static Entry wind_tornado() {
@@ -1339,14 +1744,7 @@ public class ElementalWizardSpells {
         spell.active.cast.movement_speed = 0;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_sky_charge");
         spell.active.cast.sound = new Sound("spell_engine:generic_wind_charging");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        2, 0.05F, 0.2F),
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        5.0F, 0.05F, 0.2F)
-        };
+        spell.active.cast.particles = windCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -1379,7 +1777,7 @@ public class ElementalWizardSpells {
         SpellTooltip.DescriptionMutator mutator = (args) -> {
             var world = args.player().getWorld();
             if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "wind_tornado_impact"));
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/wind_tornado_impact"));
             if (optional.isEmpty()) return args.description();
             var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
             var desc = args.description();
@@ -1391,260 +1789,66 @@ public class ElementalWizardSpells {
         };
         return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
     }
-    /// LNE SPELLS
-    public static final Entry aqua_explosive_bubbles = add(aqua_explosive_bubbles());
-    private static Entry aqua_explosive_bubbles() {
-        var id = Identifier.of(MOD_ID, "aqua_explosive_bubbles");
-        var title = "Explosive Bubbles";
-        var description = "Launch a barrage of volatile bubbles that bounce between enemies, exploding on impact to heal allies and damage foes.";
-
-        var spell = SpellBuilder.createSpellActive();
-        spell.school = MoreSpellSchools.WATER;
-        spell.range = 12;
-        spell.tier = 5;
-
-        spell.active.cast.duration = 1.25F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_healing_charge");
-        spell.active.cast.sound = Sound.withVolume(Identifier.of("block.bubble_column.whirlpool_ambient"), 2.0F);
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:bubble",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        3.0F, 0.001F, 0.1F)
-        };
-
-        spell.target.type = Spell.Target.Type.AIM;
-        spell.target.aim = new Spell.Target.Aim();
-
-        spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
-        spell.release.sound = Sound.withVolume(Identifier.of("block.bubble_column.whirlpool_ambient"), 1.5F);
-
-        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
-        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
-        spell.deliver.projectile.direction_offsets = new Spell.Delivery.ShootProjectile.DirectionOffset[] {
-                new Spell.Delivery.ShootProjectile.DirectionOffset(10, 0),
-                new Spell.Delivery.ShootProjectile.DirectionOffset(0, 10),
-                new Spell.Delivery.ShootProjectile.DirectionOffset(25, 0),
-                new Spell.Delivery.ShootProjectile.DirectionOffset(0, 25)
-        };
-        spell.deliver.projectile.launch_properties = new Spell.LaunchProperties();
-        spell.deliver.projectile.launch_properties.velocity = 0.4F;
-        spell.deliver.projectile.launch_properties.extra_launch_count = 3;
-        spell.deliver.projectile.launch_properties.extra_launch_delay = 7;
-
-        var projectile = new Spell.ProjectileData();
-        projectile.hitbox = new Spell.ProjectileData.HitBox(1.0F, 1.0F);
-        projectile.client_data = new Spell.ProjectileData.Client();
-        projectile.hitbox.width = 1.0F;
-        projectile.hitbox.height = 1.0F;
-        projectile.divergence = 15;
-        projectile.homing_angle = 2;
-        projectile.perks = new Spell.ProjectileData.Perks();
-        projectile.perks.bounce = 10;
-        projectile.client_data.light_level = 12;
-        projectile.client_data = new Spell.ProjectileData.Client();
-        projectile.client_data.travel_particles = new ParticleBatch[]{
-                new ParticleBatch("bubble_pop",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        ParticleBatch.Rotation.LOOK,
-                        3.0F, 0.1F, 0.2F, 0)
-        };
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/big_bubble";
-        model.scale = 3.5F;
-        model.rotate_degrees_per_tick = 10;
-        model.rotate_degrees_offset = 0;
-        projectile.client_data.model = model;
-        spell.deliver.projectile.projectile = projectile;
-
-        var damage = damageImpact(0.85F, 0);
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:bubble_pop",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        10.0F, 0.05F, 0.2F),
-                new ParticleBatch("more_rpg_classes:bubble",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        10.0F, 0.001F, 0.1F)
-        };
-        damage.sound = Sound.withVolume(Identifier.of("block.bubble_column.bubble_pop"), 2.0F);
-
-        var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 4);
-        soaked.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
-        soaked.action.status_effect.show_particles = false;
-        var soakedModifier = createImpactModifier("#more_rpg_classes:resistant_to_water");
-        soakedModifier.execute = TriState.DENY;
-        soaked.target_modifiers = List.of(soakedModifier);
-
-        var heal = createHeal(0.65F);
-        heal.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:water_heal",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        10, 0.05F, 0.1F)
-        };
-        heal.sound = new Sound("spell_engine:generic_healing_impact_1");
-
-        spell.impacts = List.of(damage, soaked, heal);
-
-        spell.area_impact = new Spell.AreaImpact();
-        spell.area_impact.radius = 3.0F;
-        spell.area_impact.area = new Spell.Target.Area();
-        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
-        spell.area_impact.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:bubble_pop",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        10.0F, 0.6F, 1.0F),
-                new ParticleBatch("more_rpg_classes:big_splash",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        10, 0.05F, 0.2F)
-        };
-        spell.area_impact.sound = Sound.withVolume(Identifier.of("entity.dragon_fireball.explode"), 0.15F);
-
-        SpellBuilder.Cost.exhaust(spell, 0.4F);
-        SpellBuilder.Cost.cooldown(spell, 20);
-        spell.cost.cooldown.haste_affected = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
-
-        return new Entry(id, spell, title, description);
-    }
-    public static final Entry terra_shattering_stone = add(terra_shattering_stone());
-    private static Entry terra_shattering_stone() {
-        var id = Identifier.of(MOD_ID, "terra_shattering_stone");
-        var title = "Shattering Stone";
-        var description = "Launch a stone that shatters on impact, sending fragments in all directions that cause bleeding wounds.";
-
-        var spell = SpellBuilder.createSpellActive();
-        spell.school = MoreSpellSchools.EARTH;
-        spell.range = 38;
-        spell.tier = 5;
-
-        spell.active.cast.duration = 1.2F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
-        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
-        spell.active.cast.particles = new ParticleBatch[]{};
-
-        spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
-        spell.release.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.fall"), 1.5F);
-
-        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
-        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
-        spell.deliver.projectile.launch_properties.velocity = 1.2F;
-        spell.deliver.projectile.launch_properties.sound = new Sound("");
-
-        var projectile = new Spell.ProjectileData();
-        projectile.divergence = 10;
-        projectile.perks = new Spell.ProjectileData.Perks();
-        projectile.perks.chain_reaction_size = 10;
-        projectile.perks.chain_reaction_increment = -1;
-        projectile.perks.chain_reaction_triggers = 1;
-        projectile.client_data = new Spell.ProjectileData.Client();
-        projectile.client_data.travel_particles = new ParticleBatch[]{};
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/stone_shard";
-        model.scale = 0.5F;
-        projectile.client_data.model = model;
-
-        spell.deliver.projectile.projectile = projectile;
-
-        var damage = damageImpact(0.7F, 0);
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
-
-        var bleeding = createEffectImpact(Identifier.of("more_rpg_classes:bleeding"), 5);
-        bleeding.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
-        bleeding.action.status_effect.amplifier_power_multiplier = 0.2F;
-        bleeding.action.status_effect.show_particles = false;
-        bleedImmuneDeny(bleeding);
-        bleeding.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:stone_particle",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        5.0F, 0.02F, 0.07F)
-        };
-
-        spell.impacts = List.of(damage, bleeding);
-
-        spell.area_impact = new Spell.AreaImpact();
-        spell.area_impact.radius = 1.5F;
-        spell.area_impact.area = new Spell.Target.Area();
-        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
-        spell.area_impact.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:stone_explosion",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        1.0F, 0.6F, 1.0F)
-        };
-        spell.area_impact.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.break"), 1.5F);
-
-        SpellBuilder.Cost.exhaust(spell, 0.4F);
-        SpellBuilder.Cost.cooldown(spell, 18);
-        spell.cost.cooldown.haste_affected = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
-
-        return new Entry(id, spell, title, description);
-    }
-    public static final Entry wind_aeroburst = add(wind_aeroburst());
-    private static Entry wind_aeroburst() {
-        var id = Identifier.of(MOD_ID, "wind_aeroburst");
-        var title = "Aeroburst";
-        var description = "Release an explosive burst of air in all directions, knocking back all nearby enemies with tremendous force.";
+    public static final Entry wind_stormdraft = add(wind_stormdraft());
+    private static Entry wind_stormdraft() {
+        var id = Identifier.of(MOD_ID, "wind_stormdraft");
+        var title = "Storm Draft";
+        var description = "Channel bursts of high pressure air that deal {stormdraft_damage} damage and shortly stun enemies.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
-        spell.range = 8;
-        spell.tier = 5;
+        spell.range = 26;
+        spell.tier = 4;
+        spell.learn = new Spell.Learn();
 
-        spell.active.cast.duration = 1.5F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_sky_channeling");
-        spell.active.cast.sound = new Sound("spell_engine:generic_wind_charging");
-        spell.active.cast.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
-                        20, 0.2F, 0.5F),
-                new ParticleBatch("more_rpg_classes:small_gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        5.0F, 0.05F, 0.2F)
-        };
-
-        spell.target.type = Spell.Target.Type.AREA;
-        spell.target.area = new Spell.Target.Area();
-        spell.target.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
-        spell.target.area.angle_degrees = 360.0F;
+        SpellBuilder.Casting.channel(spell,5,5);
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
+        spell.active.cast.particles = windCastingParticles(spell);
+        spell.active.cast.sound = new Sound(ElementalSounds.STORM_DRAFT_LAUNCH.id());
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
-        spell.release.sound = new Sound("more_rpg_classes:air_explosion");
-        spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch("spell_engine:smoke_medium",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        50.0F, 0.6F, 2.0F).extent(2).invert(),
-                new ParticleBatch("more_rpg_classes:water_mist",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        100.0F, 0.6F, 2.0F).extent(2).invert(),
-                new ParticleBatch("spell_engine:smoke_medium",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        50.0F, 1.0F, 2.4F).extent(4),
-                new ParticleBatch("spell_engine:smoke_medium",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        50.0F, 1.4F, 3.0F).extent(6)
-        };
 
-        var damage = damageImpact(0.8F, 10.0F);
-        damage.particles = new ParticleBatch[]{};
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:air_magic_impact2"), 0.4F);
+        int delay = 0;
+        int toLiveSeconds = 10;
+        String entityId = "elemental_wizards_rpg:storm_draft";
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        var stormdraft = new Spell.Impact.Action.Spawn();
+        stormdraft.entity_type_id = entityId;
+        stormdraft.delay_ticks = delay;
+        stormdraft.time_to_live_seconds = toLiveSeconds;
+        stormdraft.placement.apply_yaw = true;
+        spawn.action.spawns = List.of(stormdraft);
 
-        spell.impacts = List.of(damage);
+        spell.impacts = List.of(spawn);
 
-        SpellBuilder.Cost.exhaust(spell, 0.4F);
-        SpellBuilder.Cost.cooldown(spell, 28);
-        spell.cost.cooldown.haste_affected = true;
+        SpellBuilder.Cost.exhaust(spell, 0.3F);
+        SpellBuilder.Cost.cooldown(spell, 36);
+        spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
 
-        return new Entry(id, spell, title, description);
+        SpellTooltip.DescriptionMutator mutator = (args) -> {
+            var world = args.player().getWorld();
+            if (world == null) return args.description();
+            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/wind_stormdraft_impact"));
+            if (optional.isEmpty()) return args.description();
+            var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
+            var desc = args.description();
+            if (!estimated.damage().isEmpty()) {
+                var dmg = estimated.damage().get(0);
+                desc = desc.replace("{stormdraft_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
+            }
+            return desc;
+        };
+        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
     }
     /// HELPER SPELL IMPACTS
     public static final Entry aqua_healing_rain_impact = add(aqua_healing_rain_impact());
     private static Entry aqua_healing_rain_impact() {
-        var id = Identifier.of(MOD_ID, "aqua_healing_rain_impact");
+        var id = Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact");
         var title = "";
-        var description = "{damage} {heal}";
+        var description = "";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
@@ -1681,11 +1885,38 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description);
     }
+    public static final Entry aqua_tidal_wave_impact = add(aqua_tidal_wave_impact());
+    private static Entry aqua_tidal_wave_impact() {
+        var id = Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact");
+        var title = "";
+        var description = "";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.WATER;
+        spell.range = 6;
+        spell.tier = 3;
+        spell.learn = new Spell.Learn();
+
+        var damage = damageImpact(1.0F, 1.0F);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:big_splash",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        25, 0.3F, 0.7F).extent(0.75F),
+                new ParticleBatch("more_rpg_classes:splash",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        5.0F, 0.05F, 0.2F)
+        };
+        damage.sound = new Sound(ElementalSounds.TIDAL_WAVE_IMPACT.id().toString());
+
+        spell.impacts = List.of(damage);
+
+        return new Entry(id, spell, title, description);
+    }
     public static Entry terra_drip_circle_impact = add(terra_drip_circle_impact());
     private static Entry terra_drip_circle_impact() {
-        var id = Identifier.of(MOD_ID, "terra_drip_circle_impact");
+        var id = Identifier.of(MOD_ID, "helper/terra_drip_circle_impact");
         var name = "";
-        var description = "{damage}";
+        var description = "";
         var debuffEffect = MRPGCEffects.BLEEDING;
 
         var spell = SpellBuilder.createSpellActive();
@@ -1699,7 +1930,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
                         0.25F, 0.0001F, 0.0008F)
         };
-        damage.sound = new Sound("block.pointed_dripstone.break");
+        damage.sound = new Sound(MRPGLibSounds.EARTH_MAGIC_IMPACT_1.id().toString());
 
         var debuff = createEffectImpact(debuffEffect.id, 4);
         bleedImmuneDeny(debuff);
@@ -1721,9 +1952,9 @@ public class ElementalWizardSpells {
     }
     public static Entry terra_earth_golem_spike_impact = add(terra_earth_golem_spike_impact());
     private static Entry terra_earth_golem_spike_impact() {
-        var id = Identifier.of(MOD_ID, "terra_earth_golem_spike_impact");
+        var id = Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact");
         var name = "";
-        var description = "{damage}";
+        var description = "";
 
         var spell = SpellBuilder.createSpellActive();
         spell.range = 12;
@@ -1752,13 +1983,13 @@ public class ElementalWizardSpells {
     }
     public static final Entry terra_earthquake_impact = add(terra_earthquake_impact());
     private static Entry terra_earthquake_impact() {
-        var id = Identifier.of(MOD_ID, "terra_earthquake_impact");
+        var id = Identifier.of(MOD_ID, "helper/terra_earthquake_impact");
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.EARTH;
         spell.range = 16;
         spell.tier = 4;
         var title = "";
-        var description = "{damage}";
+        var description = "";
 
         var damage = damageImpact(0.8F,0);
         damage.particles = new ParticleBatch[]{
@@ -1780,11 +2011,40 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description);
     }
+    public static final Entry wind_twister_impact = add(wind_twister_impact());
+    private static Entry wind_twister_impact() {
+        var id = Identifier.of(MOD_ID, "helper/wind_twister_impact");
+        var title = "";
+        var description = "";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.AIR;
+        spell.range = 20;
+        spell.tier = 4;
+        spell.learn = new Spell.Learn();
+
+        var damage = damageImpact(0.7F, 1.2F);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:wind_vacuum",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.LAUNCH_POINT,
+                        ParticleBatch.Rotation.LOOK,
+                        1.0F, 0.1F, 1.0F, 0),
+                new ParticleBatch("gust",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        1.0F, 0.5F, 0.8F)
+        };
+        damage.sound = new Sound(MRPGLibSounds.AIR_MAGIC_IMPACT_1.id().toString());
+
+
+        spell.impacts = List.of(damage);
+
+        return new Entry(id, spell, title, description);
+    }
     public static final Entry wind_tornado_impact = add(wind_tornado_impact());
     private static Entry wind_tornado_impact() {
-        var id = Identifier.of(MOD_ID, "wind_tornado_impact");
+        var id = Identifier.of(MOD_ID, "helper/wind_tornado_impact");
         var title = "";
-        var description = "{damage}";
+        var description = "";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1803,9 +2063,38 @@ public class ElementalWizardSpells {
                         ParticleBatch.Rotation.LOOK,
                         1.5F, 0.5F, 1.0F, 0)
         };
-        damage.sound = Sound.withVolume(Identifier.of("spell_engine:generic_wind_charging"), 1.5F);
+        damage.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString()), 1.2F);
 
         spell.impacts = List.of(damage);
+
+        return new Entry(id, spell, title, description);
+    }
+    public static final Entry wind_stormdraft_impact = add(wind_stormdraft_impact());
+    private static Entry wind_stormdraft_impact() {
+        var id = Identifier.of(MOD_ID, "helper/wind_stormdraft_impact");
+        var title = "";
+        var description = "";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.AIR;
+        spell.range = 20;
+        spell.tier = 4;
+        spell.learn = new Spell.Learn();
+
+        var damage = damageImpact(1.1F, 1.0F);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:wind_vacuum",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.LAUNCH_POINT,
+                        ParticleBatch.Rotation.LOOK,
+                        1.0F, 0.1F, 1.0F, 0),
+                new ParticleBatch("gust",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        1.0F, 0.5F, 0.8F)
+        };
+        damage.sound = new Sound(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString());
+        var stun = SpellBuilder.Impacts.stun(1.5F);
+
+        spell.impacts = List.of(damage,stun);
 
         return new Entry(id, spell, title, description);
     }
@@ -1877,7 +2166,7 @@ public class ElementalWizardSpells {
         };
         var model = new Spell.ProjectileModel();
         model.model_id = "elemental_wizards_rpg:spell_projectile/spell_stone";
-        model.scale = 0.7F;
+        model.scale = 0.4F;
         projectile.client_data.model = model;
 
         meteor.projectile = projectile;
