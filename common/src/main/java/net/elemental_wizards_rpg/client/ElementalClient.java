@@ -32,6 +32,8 @@ import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityModel
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.rpg_series.item.Armor;
@@ -64,10 +66,17 @@ public class ElementalClient{
             registerArmorRenderer(Armors.oceanArmorSet.armorSet(), ElementalRobeRenderer::ocean);
         }
 
-        CustomModelStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamRenderer());
+        CustomModelStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamEffectRenderer());
+        CustomModelStatusEffect.register(ElementalEffects.STONE_FLESH.effect, new StoneFleshEffectRenderer());
         CustomParticleStatusEffect.register(ElementalEffects.CLEANSING_WATER.effect, new CleansingWaterParticleSpawner());
         CustomParticleStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamParticleSpawner());
         CustomParticleStatusEffect.register(ElementalEffects.STONE_FLESH.effect, new StoneFleshParticleSpawner());
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            if (entityRenderer instanceof PlayerEntityRenderer playerRenderer) {
+                registrationHelper.register(new StoneFleshPlayerRenderLayer(playerRenderer));
+            }
+        });
 
         CustomModelStatusEffect.register(ElementalEffects.IMPALED.effect, new ImpaledRenderer());
 

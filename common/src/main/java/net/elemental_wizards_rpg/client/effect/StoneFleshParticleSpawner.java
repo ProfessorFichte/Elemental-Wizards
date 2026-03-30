@@ -9,13 +9,13 @@ public class StoneFleshParticleSpawner implements CustomParticleStatusEffect.Spa
 
     public static final ParticleBatch particles = new ParticleBatch(
             "more_rpg_classes:stone_particle",
-            ParticleBatch.Shape.PILLAR,
+            ParticleBatch.Shape.WIDE_PIPE,
             ParticleBatch.Origin.FEET,
             null,
-            2,
+            0.5F,
             0.001F,
             0.1F,
-            0);
+            0).extent(0.5F);
 
     @Override
     public void spawnParticles(LivingEntity livingEntity, int amplifier) {
