@@ -1,0 +1,67 @@
+{
+  "school": "spell_power:earth",
+  "range": 3.0,
+  "tier": 3,
+  "learn": {},
+  "active": {},
+  "release": {
+    "particles": [
+      {
+        "particle_id": "spell_engine:smoke_medium",
+        "origin": "FEET",
+        "shape": "CIRCLE",
+        "count": 50.0,
+        "min_speed": 0.2,
+        "max_speed": 0.3
+      },
+      {
+        "particle_id": "spell_engine:smoke_medium",
+        "origin": "FEET",
+        "shape": "CIRCLE",
+        "count": 50.0,
+        "min_speed": 0.2,
+        "max_speed": 0.3,
+        "extent": 1.0
+      },
+      {
+        "particle_id": "spell_engine:smoke_medium",
+        "origin": "FEET",
+        "shape": "CIRCLE",
+        "count": 50.0,
+        "min_speed": 0.2,
+        "max_speed": 0.3,
+        "extent": 2.5
+      }
+    ]
+  },
+  "target": {
+    "type": "AREA",
+    "area": {
+      "vertical_range_multiplier": 0.5
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.5,
+          "knockback": 1.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "campfire_cosy_smoke",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 0.25,
+          "min_speed": 1.0E-4,
+          "max_speed": 8.0E-4
+        }
+      ],
+      "sound": {
+        "id": "block.pointed_dripstone.break"
+      }
+    }
+  ]
+}

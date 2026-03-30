@@ -3,6 +3,8 @@ package net.elemental_wizards_rpg.entity.goals;
 import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
 import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemSpikeEntity;
 import net.elemental_wizards_rpg.spell.ElementalSounds;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -17,6 +19,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.event.GameEvent;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
+import net.spell_engine.fx.ParticleHelper;
+import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.utils.TargetHelper;
+import net.spell_power.api.SpellPower;
 
 import java.util.EnumSet;
 
@@ -81,6 +87,8 @@ public class SpikeAttackGoal extends Goal {
 
     @Override
     public void tick() {
+        animationTicksRemaining--;
+
         if (cachedTarget == null || !cachedTarget.isAlive()) {
             return;
         }
@@ -102,8 +110,6 @@ public class SpikeAttackGoal extends Goal {
             spikesFired = true;
             this.attackCooldown = COOLDOWN_TICKS;
         }
-
-        animationTicksRemaining--;
     }
 
     @Override
@@ -121,10 +127,30 @@ public class SpikeAttackGoal extends Goal {
 
     private void performSpikeAttack() {
         if (golem.getWorld().isClient()) return;
+        LivingEntity owner = golem.getOwner();
 
         LivingEntity target = golem.getTarget();
         if (target == null || !target.isAlive()) {
             return;
+        }
+
+
+        //this spawns a small area impact around the golem, when he slams the ground
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(golem.getOwner().getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_earth_golem_slam_impact")).get();
+        ParticleHelper.sendBatches(golem, spellImpact.value().release.particles);
+        SpellHelper.ImpactContext ctx = new SpellHelper.ImpactContext()
+                .power(SpellPower.getSpellPower(spellImpact.value().school, owner))
+                .position(golem.getPos());
+        for (Entity entity : TargetHelper.targetsFromArea(owner.getWorld(), golem, golem.getPos(),
+                Vec3d.ZERO, spellImpact.value().range,
+                spellImpact.value().target != null ? spellImpact.value().target.area : new Spell.Target.Area(),
+                e -> e != golem.getOwner())) {
+            SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact, spellImpact.value().impacts, ctx, false, null);
+            ParticleHelper.sendBatches(entity, spellImpact.value().impacts.get(0).particles);
+            if(entity instanceof MobEntity mobEntity){
+                mobEntity.setTarget(golem);
+            }
+
         }
 
         float angleToTarget = (float) MathHelper.atan2(
@@ -184,6 +210,7 @@ public class SpikeAttackGoal extends Goal {
                 yaw,
                 warmup,
                 spikeOwner,
+                golem,
                 SPIKE_SPELL_ID
             );
 

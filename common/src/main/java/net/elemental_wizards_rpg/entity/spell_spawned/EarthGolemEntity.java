@@ -24,6 +24,10 @@ import java.util.UUID;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.entity.SpellEntity;
 import net.more_rpg_classes.util.CustomMethods;
+import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.fx.ParticleHelper;
+import net.spell_engine.fx.SpellEngineParticles;
 import net.spell_power.api.SpellPower;
 
 import java.util.EnumSet;
@@ -46,6 +50,11 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
 
     public EarthGolemEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Override
+    public float getStepHeight() {
+        return 1.1f;
     }
 
     public static DefaultAttributeContainer.Builder createEarthGolemAttributes() {
@@ -158,6 +167,18 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
         nbt.putInt("TimeToLive", this.timeToLive);
     }
 
+
+    private static ParticleBatch[] despawnParticle() {
+        return new ParticleBatch[] {
+                new ParticleBatch("more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        50, 0.2F, 0.5F).extent(0.2F),
+                new ParticleBatch(SpellEngineParticles.smoke_medium.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        10F, 0.2F, 0.3F)
+        };
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -165,11 +186,17 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
         if (!this.getWorld().isClient) {
             var owner = this.getOwner();
             if (owner == null || owner.isRemoved() || !owner.isAlive()) {
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
+                        ElementalSounds.STONE_FLESH.soundEvent(), SoundCategory.NEUTRAL,
+                        0.5F, 0.9F + this.getRandom().nextFloat() * 0.2F);
                 this.discard();
                 return;
             }
 
             if (this.age > this.timeToLive) {
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
+                        ElementalSounds.STONE_FLESH.soundEvent(), SoundCategory.NEUTRAL,
+                        0.5F, 0.9F + this.getRandom().nextFloat() * 0.2F);
                 this.discard();
                 return;
             }
@@ -191,6 +218,10 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
 
         if (this.getWorld().isClient) {
             setupAnimationStates();
+        }
+
+        if(this.getWorld().isClient && this.age > this.timeToLive){
+            ParticleHelper.play(this.getWorld(), this, despawnParticle());
         }
     }
 
@@ -411,6 +442,7 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
         @Override
         public void stop() {
             this.attacker = null;
+            golem.setTarget(null);
         }
     }
 
@@ -469,6 +501,7 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
         @Override
         public void stop() {
             this.ownerTarget = null;
+            golem.setTarget(null);
         }
     }
 
@@ -499,25 +532,19 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
         @Override
         public boolean shouldContinue() {
             if (targetEntity == null || !targetEntity.isAlive()) {
+                targetEntity = findNearestHostile();
+                if (targetEntity != null) {
+                    golem.setTarget(targetEntity);
+                    return true;
+                }
                 return false;
             }
 
             LivingEntity owner = golem.getOwner();
-            if (owner == null) {
-                return false;
-            }
-
-            if (golem.squaredDistanceTo(owner) > 1024.0) {
-                return false;
-            }
-
-            if (CustomMethods.isEntityProtectedCheck(targetEntity, owner)) {
-                return false;
-            }
-
-            if (golem.squaredDistanceTo(targetEntity) > 400.0) {
-                return false;
-            }
+            if (owner == null) return false;
+            if (golem.squaredDistanceTo(owner) > 1024.0) return false;
+            if (CustomMethods.isEntityProtectedCheck(targetEntity, owner)) return false;
+            if (golem.squaredDistanceTo(targetEntity) > 400.0) return false;
 
             return true;
         }
@@ -530,18 +557,42 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
         @Override
         public void stop() {
             targetEntity = null;
+            golem.setTarget(null);
+            scanCountdown = 0;
         }
 
         @Override
         public void tick() {
-            if (targetEntity != null && targetEntity.isAlive()) {
+            LivingEntity currentGolemTarget = golem.getTarget();
+
+            if (currentGolemTarget == null && targetEntity != null && targetEntity.isAlive()) {
                 golem.setTarget(targetEntity);
+                return;
+            }
+
+            if (currentGolemTarget == targetEntity) {
+                LivingEntity owner = golem.getOwner();
+                if (owner != null) {
+                    LivingEntity selfAttacker = golem.getAttacker();
+                    if (selfAttacker != null && selfAttacker.isAlive() && selfAttacker != owner
+                            && !CustomMethods.isEntityProtectedCheck(selfAttacker, owner)) {
+                        targetEntity = selfAttacker;
+                        golem.setTarget(targetEntity);
+                    }
+                }
             }
         }
 
         private LivingEntity findNearestHostile() {
             LivingEntity owner = golem.getOwner();
             if (owner == null) return null;
+
+            LivingEntity directAttacker = golem.getAttacker();
+            if (directAttacker != null && directAttacker.isAlive()
+                    && directAttacker != owner
+                    && !CustomMethods.isEntityProtectedCheck(directAttacker, owner)) {
+                return directAttacker;
+            }
 
             var nearbyEntities = golem.getWorld().getOtherEntities(
                 golem,
@@ -554,6 +605,7 @@ public class EarthGolemEntity extends PathAwareEntity implements SpellEntity.Spa
 
             for (Entity entity : nearbyEntities) {
                 if (!(entity instanceof LivingEntity livingEntity)) continue;
+                if (!livingEntity.isAlive()) continue;
                 if (entity == owner || entity == golem) continue;
 
                 boolean isValidTarget = false;

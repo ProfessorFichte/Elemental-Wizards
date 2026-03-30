@@ -18,7 +18,6 @@ public abstract class LivingEntityMixin {
     @Shadow public abstract float getMaxHealth();
 
     @Shadow public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
-
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
     public float modifyDamageTakenStoneFlesh(float amount) {
             if(this.hasStatusEffect(ElementalEffects.getEntry(ElementalEffects.STONE_FLESH)) && (this.getHealth() == this.getMaxHealth())){

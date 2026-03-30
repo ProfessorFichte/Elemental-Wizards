@@ -1981,6 +1981,45 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, name, description);
     }
+    public static Entry terra_earth_golem_slam_impact = add(terra_earth_golem_slam_impact());
+    private static Entry terra_earth_golem_slam_impact() {
+        var id = Identifier.of(MOD_ID, "helper/terra_earth_golem_slam_impact");
+        var name = "";
+        var description = "";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.range = 3;
+        spell.tier = 3;
+        spell.school = MoreSpellSchools.EARTH;
+
+        spell.release.particles = new ParticleBatch[]{
+                new ParticleBatch(SpellEngineParticles.smoke_medium.id().toString(),
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        50, 0.2F, 0.3F),
+                new ParticleBatch(SpellEngineParticles.smoke_medium.id().toString(),
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        50, 0.2F, 0.3F).extent(1.0F),
+                new ParticleBatch(SpellEngineParticles.smoke_medium.id().toString(),
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        50, 0.2F, 0.3F).extent(2.5F),
+        };
+
+        spell.target.type = Spell.Target.Type.AREA;
+        spell.target.area = new Spell.Target.Area();
+        spell.target.area.vertical_range_multiplier = 0.5F;
+
+        var damage = SpellBuilder.Impacts.damage(0.5F, 1.5F);
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch("campfire_cosy_smoke",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        0.25F, 0.0001F, 0.0008F)
+        };
+        damage.sound = new Sound("block.pointed_dripstone.break");
+
+        spell.impacts = List.of(damage);
+
+        return new Entry(id, spell, name, description);
+    }
     public static final Entry terra_earthquake_impact = add(terra_earthquake_impact());
     private static Entry terra_earthquake_impact() {
         var id = Identifier.of(MOD_ID, "helper/terra_earthquake_impact");

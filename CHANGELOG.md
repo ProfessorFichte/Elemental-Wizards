@@ -1,3 +1,14 @@
+# 2.6.3 - 1.21.1
+- Fixed that the Summoned Earth Golem stops attacking other entities after it killed one
+- Fixed that the Summoned Earth Golem Spikes deal to fast multiple damage to a target
+- The Earth Golem can now move up 1 Block high to not get stuck behind
+- Now when the Earth Golem de-spawns a sound is played and dust & stone particles are spawned
+- There is now a small damage and knockback area around the Earth Golem when he is smashing the ground 
+- Added a visual Status Effect Model renderer with an Animation for the Stone Flesh Status Effect
+- Also, if the player has 100% health, the player model is completely rendered with the dripstone-block texture
+- Also, I gave the BubbleFoam Status Effect a new visual animation and renderer!
+- Increased the Damage Window for the Stormdraft spell
+
 # 2.6.2 - 1.21.1
 **Elemental Wizards Spell Expansion:**
 - New Spell Choices for the Spell Tier's 2-4 for every Elemental Wizard Spell Book!
