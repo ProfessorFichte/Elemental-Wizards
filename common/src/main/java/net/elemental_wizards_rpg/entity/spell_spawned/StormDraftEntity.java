@@ -30,7 +30,7 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<StormDraftEntity> ENTITY_TYPE;
 
     private static final float MOVEMENT_SPEED = 1.5F;
-    private static final int DAMAGE_INTERVAL = 20;
+    private static final int DAMAGE_INTERVAL = 10;
 
     private static final TrackedData<String> SPELL_ID_TRACKER = DataTracker.registerData(StormDraftEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER = DataTracker.registerData(StormDraftEntity.class, TrackedDataHandlerRegistry.INTEGER);
