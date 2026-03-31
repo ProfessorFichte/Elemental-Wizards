@@ -1,3 +1,7 @@
+# 2.6.4 - 1.21.1
+- Fixed Stormdraft only damaging the first target it hit
+- Fixed the golems summoned stone spike renderer issue on neoforge
+
 # 2.6.3 - 1.21.1
 - Fixed that the Summoned Earth Golem stops attacking other entities after it killed one
 - Fixed that the Summoned Earth Golem Spikes deal to fast multiple damage to a target
