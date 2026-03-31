@@ -22,6 +22,8 @@ import net.spell_engine.internals.SpellHelper;
 import net.more_rpg_classes.util.CustomMethods;
 import net.spell_power.api.SpellPower;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
@@ -30,7 +32,6 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<StormDraftEntity> ENTITY_TYPE;
 
     private static final float MOVEMENT_SPEED = 1.5F;
-    private static final int DAMAGE_INTERVAL = 10;
 
     private static final TrackedData<String> SPELL_ID_TRACKER = DataTracker.registerData(StormDraftEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER = DataTracker.registerData(StormDraftEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -40,7 +41,7 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
     private int timeToLive;
     private LivingEntity cachedOwner = null;
     private boolean hasHit = false;
-    private int damageCooldown = 0;
+    private final Set<UUID> hitEntities = new HashSet<>();
 
     private Vec3d movementDirection;
     private Vec3d startPosition;
@@ -106,7 +107,6 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.containsUuid("Owner")) this.ownerUuid = nbt.getUuid("Owner");
         this.timeToLive = nbt.getInt("TimeToLive");
         this.hasHit = nbt.getBoolean("HasHit");
-        this.damageCooldown = nbt.getInt("DamageCooldown");
 
         if (nbt.contains("DirectionX")) {
             this.movementDirection = new Vec3d(
@@ -139,7 +139,6 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
         if (this.ownerUuid != null) nbt.putUuid("Owner", this.ownerUuid);
         nbt.putInt("TimeToLive", this.timeToLive);
         nbt.putBoolean("HasHit", this.hasHit);
-        nbt.putInt("DamageCooldown", this.damageCooldown);
 
         if (this.movementDirection != null) {
             nbt.putDouble("DirectionX", this.movementDirection.x);
@@ -190,11 +189,6 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
                 }
 
                 this.setPosition(nextPos);
-
-                if (damageCooldown > 0) {
-                    damageCooldown--;
-                }
-
                 checkCollision();
             }
         }
@@ -237,29 +231,21 @@ public class StormDraftEntity extends Entity implements SpellEntity.Spawned {
         var owner = this.getOwner();
         if (owner == null) return;
 
-        if (damageCooldown > 0) {
-            return;
-        }
-
         Box searchBox = this.getBoundingBox().expand(1.0);
         var entities = this.getWorld().getOtherEntities(this, searchBox);
 
         RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_stormdraft_impact")).orElse(null);
         if (spellImpact == null) return;
 
-        boolean hitEntity = false;
         for (Entity entity : entities) {
             if (!(entity instanceof LivingEntity)) continue;
             if (entity == owner) continue;
+            if (hitEntities.contains(entity.getUuid())) continue;
             if (CustomMethods.isEntityProtectedCheck(entity, owner)) continue;
             boolean damaged = SpellHelper.performImpacts(owner.getWorld(), owner, entity, this, spellImpact,
                     spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()),
                     false, null);
-            if (damaged) hitEntity = true;
-        }
-
-        if (hitEntity) {
-            damageCooldown = DAMAGE_INTERVAL;
+            if (damaged) hitEntities.add(entity.getUuid());
         }
     }
 
