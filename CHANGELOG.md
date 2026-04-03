@@ -1,3 +1,12 @@
+# 2.6.5 - 1.21.1
+- Added ja_jp.json - Thanks Anpan715
+- changed the tornado texture (a bit brighter and some transparent parts) - Ty Slepykat
+- Fixed the rendering issue where you could see clouds through the tornado model
+- Added a small Heal Impact to the Waterball spell
+- Fixed Bubble Foam's Pushback Mechanism not working on players if a mob has the effect
+- Fixed Stone Flesh Effect Renderer not working on Mob-Entities
+- Added a small emerge animation for the ImpaleEffect Renderer
+
 # 2.6.4 - 1.21.1
 - Fixed Stormdraft only damaging the first target it hit
 - Fixed the golems summoned stone spike renderer issue on neoforge
