@@ -86,6 +86,35 @@
       "sound": {
         "id": "more_rpg_classes:water_magic_impact1"
       }
+    },
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.1
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:water_heal",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 10.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "count": 1.0,
+          "min_speed": 0.2
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_2",
+        "volume": 1.2
+      }
     }
   ],
   "cost": {

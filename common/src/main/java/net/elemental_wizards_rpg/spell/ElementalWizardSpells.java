@@ -521,7 +521,18 @@ public class ElementalWizardSpells {
         var damage = damageImpact(0.4F, 0.5F);
         damage.sound = new Sound(MRPGLibSounds.WATER_MAGIC_IMPACT_1.id().toString());
 
-        spell.impacts = List.of(damage);
+        var heal = createHeal(0.1F);
+        heal.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:water_heal",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        10, 0.05F, 0.1F),
+                new ParticleBatch("more_rpg_classes:water_circle",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                        1.0F, 0.2F, 1.0F)
+        };
+        heal.sound = Sound.withVolume(Identifier.of("spell_engine:generic_healing_impact_2"), 1.2F);
+
+        spell.impacts = List.of(damage, heal);
 
         SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
         SpellBuilder.Cost.exhaust(spell, 0.2F);
