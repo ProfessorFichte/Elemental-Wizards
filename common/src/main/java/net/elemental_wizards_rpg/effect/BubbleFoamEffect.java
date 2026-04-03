@@ -27,6 +27,7 @@ public class BubbleFoamEffect extends StatusEffect {
             if (entities != null) {
                 if(entities instanceof LivingEntity target && !CustomMethods.isEntityProtectedCheck(target, entity)){
                     target.setVelocity((target.getX() - entity.getX()) /4,  (target.getY() - entity.getY()) /4, (target.getZ() - entity.getZ()) /4);
+                    target.velocityModified = true;
                 }
 
             }
