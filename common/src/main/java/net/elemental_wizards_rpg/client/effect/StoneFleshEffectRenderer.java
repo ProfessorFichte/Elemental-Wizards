@@ -9,8 +9,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
@@ -36,40 +34,31 @@ public class StoneFleshEffectRenderer implements CustomModelStatusEffect.Rendere
 
     private static final float ORBIT_DEGREES_PER_TICK = 0.9f;
 
-    // age at which the current application started
     private final Map<Integer, Float> startAgeMap = new HashMap<>();
-    //Effect duration from the previous frame — used to detect re-application
     private final Map<Integer, Integer> lastDurationMap = new HashMap<>();
-
-    private RegistryEntry<StatusEffect> effectEntry;
-
-    private RegistryEntry<StatusEffect> effectEntry() {
-        if (effectEntry == null) {
-            effectEntry = ElementalEffects.getEntry(ElementalEffects.STONE_FLESH);
-        }
-        return effectEntry;
-    }
 
     @Override
     public void renderEffect(int amplifier, LivingEntity entity, float delta, MatrixStack matrices,
                               VertexConsumerProvider vertexConsumers, int light) {
-        var instance = entity.getStatusEffect(effectEntry());
-        if (instance == null) return;
-
         int entityId = entity.getId();
         float currentAge = entity.age + delta;
-        int currentDuration = instance.getDuration();
+        float startAge = startAgeMap.computeIfAbsent(entityId, k -> currentAge);
 
-        Integer lastDuration = lastDurationMap.get(entityId);
-        if (lastDuration == null) {
-            startAgeMap.put(entityId, currentAge);
-        } else if (currentDuration > lastDuration + 5) {
-            // Effect was re-applied: duration jumped upward — restart the animation
-            startAgeMap.put(entityId, currentAge);
+        var effectEntry = ElementalEffects.STONE_FLESH.entry;
+        if (effectEntry != null) {
+            var instance = entity.getStatusEffect(effectEntry);
+            if (instance != null) {
+                int currentDuration = instance.getDuration();
+                Integer lastDuration = lastDurationMap.get(entityId);
+                if (lastDuration != null && currentDuration > lastDuration + 5) {
+                    startAgeMap.put(entityId, currentAge);
+                    startAge = currentAge;
+                }
+                lastDurationMap.put(entityId, currentDuration);
+            }
         }
-        lastDurationMap.put(entityId, currentDuration);
 
-        float elapsed = currentAge - startAgeMap.get(entityId);
+        float elapsed = currentAge - startAge;
         float progress = Math.min(1.0f, elapsed / GATHER_TICKS);
         float t = 1.0f - (1.0f - progress) * (1.0f - progress) * (1.0f - progress);
 
