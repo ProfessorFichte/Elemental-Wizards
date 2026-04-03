@@ -18,7 +18,7 @@ public class TornadoRenderer<T extends TornadoEntity> extends EntityRenderer<T> 
     private final ItemRenderer itemRenderer;
 
     public static final Identifier modelId = Identifier.of(MOD_ID, "spell_effect/tornado");
-    private static final RenderLayer RENDER_LAYER = net.spell_engine.api.render.CustomLayers.spellEffect(LightEmission.RADIATE, true);
+    private static final RenderLayer RENDER_LAYER = net.spell_engine.api.render.CustomLayers.spellEffect(LightEmission.RADIATE, false);
 
     public TornadoRenderer(EntityRendererFactory.Context context) {
         super(context);
