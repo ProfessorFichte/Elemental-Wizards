@@ -59,7 +59,7 @@ public class ElementalSounds {
     public static final Entry WATER_WHIP_RELEASE = add(new Entry("water_whip_release"));
     public static final Entry TWISTER_LAUNCH = add(new Entry("twister_launch"));
     public static final Entry WIND_ENTITY_LOOP = add(new Entry("wind_entity_loop"));
-    public static final Entry STORM_DRAFT_LAUNCH = add(new Entry("wind_entity_loop"));
+    public static final Entry STORM_DRAFT_LAUNCH = add(new Entry("storm_draft_launch"));
     public static final Entry EARTH_SUMMON = add(new Entry("earth_summon"));
     public static final Entry GOLEM_GROUND_SLAM = add(new Entry("golem_ground_slam"));
     public static final Entry GOLEM_SPIKE_SUMMON = add(new Entry("golem_spike_summon"));

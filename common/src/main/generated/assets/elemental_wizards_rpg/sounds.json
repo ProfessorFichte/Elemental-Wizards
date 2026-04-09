@@ -56,5 +56,10 @@
     "sounds": [
       "elemental_wizards_rpg:wind_entity_loop"
     ]
+  },
+  "storm_draft_launch": {
+    "sounds": [
+      "elemental_wizards_rpg:wind_entity_loop"
+    ]
   }
 }
