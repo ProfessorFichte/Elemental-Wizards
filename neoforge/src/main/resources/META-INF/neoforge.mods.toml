@@ -6,7 +6,7 @@ license = "ARR"
 [[mods]]
 modId = "elemental_wizards_rpg"
 version = "${version}"
-displayName = "Elemental Wizards"
+displayName = "Elemental Wizards (RPG Series Plus)"
 authors = "Fichte"
 description = '''
 Master the elements to overcome your foes! Spell Engine Add-On
