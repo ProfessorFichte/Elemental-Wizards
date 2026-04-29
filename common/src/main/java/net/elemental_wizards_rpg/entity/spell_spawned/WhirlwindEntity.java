@@ -224,17 +224,16 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         Box searchBox = this.getBoundingBox().expand(1.0);
         var entities = this.getWorld().getOtherEntities(this, searchBox);
 
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_twister_impact")).orElse(null);
+        if (spellImpact == null) return;
+
         for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity livingEntity)) continue;
-
+            if (!(entity instanceof LivingEntity)) continue;
             if (entity == owner) continue;
-
             if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
                 int entityId = entity.getId();
                 Integer lastTick = lastDamageTick.get(entityId);
-
                 if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
-                    RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_twister_impact")).get();
                     SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
                             spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()));
                     lastDamageTick.put(entityId, currentTick);

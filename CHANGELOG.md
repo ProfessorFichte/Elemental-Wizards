@@ -1,3 +1,6 @@
+# 2.6.7 - 1.21.1
+- Attempt to fix Neoforge Server Crash due to Entities Ticking
+
 # 2.6.6 - 1.21.1
 - Fixed a client crash when leaving a server due to a wrong registered sound id
 

@@ -89,13 +89,17 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.spellId = Identifier.of(nbt.getString("SpellId"));
+        if (nbt.contains("SpellId")) {
+            String spellIdStr = nbt.getString("SpellId");
+            if (!spellIdStr.isEmpty()) {
+                this.spellId = Identifier.of(spellIdStr);
+                this.getDataTracker().set(SPELL_ID_TRACKER, spellIdStr);
+            }
+        }
         if (nbt.containsUuid("Owner")) this.ownerUuid = nbt.getUuid("Owner");
         this.timeToLive = nbt.getInt("TimeToLive");
         this.warmup = nbt.getInt("Warmup");
         this.currentTick = nbt.getInt("CurrentTick");
-
-        this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
     }
 
@@ -154,25 +158,21 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
     }
 
     private void handleManualCollision() {
-
         List<LivingEntity> nearbyEntities = this.getWorld().getNonSpectatingEntities(
             LivingEntity.class,
             this.getBoundingBox().expand(0.5)
         );
 
         LivingEntity owner = this.getOwner();
-        if (owner == null) {
-            return;
-        }
+        if (owner == null) return;
+
+        RegistryEntry<Spell> spellImpact = isFullyEmerged()
+                ? SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact")).orElse(null)
+                : null;
 
         for (LivingEntity entity : nearbyEntities) {
-            if (entity == owner) {
-                continue;
-            }
-
-            if (CustomMethods.isEntityProtectedCheck(entity, owner)) {
-                continue;
-            }
+            if (entity == owner) continue;
+            if (CustomMethods.isEntityProtectedCheck(entity, owner)) continue;
 
             double deltaX = entity.getX() - this.getX();
             double deltaZ = entity.getZ() - this.getZ();
@@ -185,49 +185,51 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
             }
 
             double pushStrength = 0.3;
-            double pushX = (deltaX / distance) * pushStrength;
-            double pushZ = (deltaZ / distance) * pushStrength;
-
-            entity.setVelocity(entity.getVelocity().add(pushX, 0.0, pushZ));
+            entity.setVelocity(entity.getVelocity().add((deltaX / distance) * pushStrength, 0.0, (deltaZ / distance) * pushStrength));
             entity.velocityModified = true;
             if (entity instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayer));
             }
 
-            if (isFullyEmerged()) {
+            if (spellImpact != null) {
                 UUID targetId = entity.getUuid();
                 Integer lastTick = lastDamageTick.get(targetId);
                 if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
-                    RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact")).get();
                     SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
                             spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
                     lastDamageTick.put(targetId, currentTick);
-                    ParticleHelper.sendBatches(entity, spellImpact.value().impacts.get(0).particles);
+                    if (!spellImpact.value().impacts.isEmpty()) {
+                        ParticleHelper.sendBatches(entity, spellImpact.value().impacts.get(0).particles);
+                    }
                 }
             }
         }
     }
 
     private void dealDamage() {
-        if (!isFullyEmerged()) {
-            return;
-        }
+        if (!isFullyEmerged()) return;
+
+        LivingEntity owner = this.getOwner();
+        if (owner == null) return;
+
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact")).orElse(null);
+        if (spellImpact == null) return;
 
         List<LivingEntity> targets = this.getWorld().getNonSpectatingEntities(
             LivingEntity.class,
             this.getBoundingBox().expand(0.5)
         );
-        LivingEntity owner = this.getOwner();
 
         for (LivingEntity target : targets) {
-            RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact")).get();
             UUID targetId = target.getUuid();
             Integer lastTick = lastDamageTick.get(targetId);
             if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
                 SpellHelper.performImpacts(owner.getWorld(), owner, target, owner, spellImpact,
                         spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
                 lastDamageTick.put(targetId, currentTick);
-                ParticleHelper.sendBatches(target, spellImpact.value().impacts.get(0).particles);
+                if (!spellImpact.value().impacts.isEmpty()) {
+                    ParticleHelper.sendBatches(target, spellImpact.value().impacts.get(0).particles);
+                }
             }
         }
     }

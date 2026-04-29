@@ -185,14 +185,14 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
         Vec3d tornadoCenter = this.getPos().add(0, 1.0, 0);
         Box damageBox = Box.of(tornadoCenter, PULL_RADIUS * 2, PULL_RADIUS * 2, PULL_RADIUS * 2);
 
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_tornado_impact")).orElse(null);
+        if (spellImpact == null) return;
+
         var entities = this.getWorld().getOtherEntities(this, damageBox);
 
         for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity livingEntity)) continue;
-
+            if (!(entity instanceof LivingEntity)) continue;
             if (entity == owner) continue;
-
-            RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_tornado_impact")).get();
             if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
                 SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
                         spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);

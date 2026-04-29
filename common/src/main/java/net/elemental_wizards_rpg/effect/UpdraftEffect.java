@@ -11,33 +11,27 @@ public class UpdraftEffect extends SpellVulnerabilityStatusEffect {
     protected UpdraftEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
-    public boolean ground_on_apply = false;
 
+    @Override
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        if(!entity.isOnGround()){
+        if (!entity.isOnGround()) {
             Vec3d currentMovement = entity.getVelocity();
-            entity.setVelocity(currentMovement.x, currentMovement.y+0.075F, currentMovement.z);
+            entity.setVelocity(currentMovement.x, currentMovement.y + 0.075F, currentMovement.z);
             entity.velocityModified = true;
         }
         return true;
     }
 
-
+    @Override
     public void onApplied(LivingEntity entity, int amplifier) {
         super.onApplied(entity, amplifier);
-        if(!entity.isOnGround()){
-            ground_on_apply = true;
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING,15,0,false,false,false));
-        }else{
-            if(entity.hasStatusEffect(ElementalEffects.getEntry(ElementalEffects.UPDRAFT))){
-                entity.removeStatusEffect(ElementalEffects.getEntry(ElementalEffects.UPDRAFT));
-            }
+        if (!entity.isOnGround()) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 15, 0, false, false, false));
         }
-
     }
+
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return ground_on_apply;
+        return true;
     }
-
 }

@@ -1,6 +1,5 @@
 package net.elemental_wizards_rpg.entity.spell_spawned;
 
-import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -129,17 +128,16 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         super.tick();
 
         var world = this.getWorld();
-        if (idleSoundTick-- <= 0) {
-            world.playSound(null, this.getX(), this.getY(), this.getZ(),
-                    MRPGLibSounds.EARTH_MAGIC_CAST_1.soundEvent(), SoundCategory.PLAYERS, 0.5F, 0.85F);
-            idleSoundTick = 60;
-        }
 
-        if (!this.getWorld().isClient()) {
+        if (!world.isClient()) {
+            if (idleSoundTick-- <= 0) {
+                world.playSound(null, this.getX(), this.getY(), this.getZ(),
+                        MRPGLibSounds.EARTH_MAGIC_CAST_1.soundEvent(), SoundCategory.PLAYERS, 0.5F, 0.85F);
+                idleSoundTick = 60;
+            }
+
             currentTick++;
-        }
 
-        if (!this.getWorld().isClient()) {
             var owner = this.getOwner();
             if (owner == null || owner.isRemoved() || !owner.isAlive()) {
                 this.discard();
@@ -152,26 +150,18 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
             }
         }
 
-        if (!blocksInitialized && this.age >= 1) {
-            initializeShakingBlocks();
-            blocksInitialized = true;
-        }
-
-        if (!this.getWorld().isClient()) {
-            if (this.age % 5 == 0 && this.getWorld() instanceof ServerWorld serverWorld) {
+        if (world.isClient()) {
+            if (!blocksInitialized && this.age >= 1) {
+                initializeShakingBlocks();
+                blocksInitialized = true;
+            }
+        } else {
+            if (this.age % 5 == 0 && world instanceof ServerWorld serverWorld) {
                 Vec3d pos = this.getPos();
                 for (int i = 0; i < 8; i++) {
                     double offsetX = (random.nextDouble() - 0.5) * EARTHQUAKE_RADIUS * 2;
                     double offsetZ = (random.nextDouble() - 0.5) * EARTHQUAKE_RADIUS * 2;
-                    serverWorld.spawnParticles(
-                        ParticleTypes.ASH,
-                        pos.x + offsetX,
-                        pos.y,
-                        pos.z + offsetZ,
-                        3,
-                        0.2, 0.2, 0.2,
-                        0.01
-                    );
+                    serverWorld.spawnParticles(ParticleTypes.ASH, pos.x + offsetX, pos.y, pos.z + offsetZ, 3, 0.2, 0.2, 0.2, 0.01);
                 }
             }
 
@@ -273,15 +263,16 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
 
         Vec3d earthquakeCenter = this.getPos();
         Box damageBox = Box.of(earthquakeCenter, EARTHQUAKE_RADIUS * 2, VERTICAL_RANGE * 2, EARTHQUAKE_RADIUS * 2);
+
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_earthquake_impact")).orElse(null);
+        if (spellImpact == null) return;
+
         var entities = this.getWorld().getOtherEntities(this, damageBox);
 
         for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity livingEntity)) continue;
-
+            if (!(entity instanceof LivingEntity)) continue;
             if (entity == owner) continue;
-
             if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
-                RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_earthquake_impact")).get();
                 SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
                         spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(entity.getPos()), false, null);
             }
@@ -314,13 +305,12 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
 
     @Override
     public boolean shouldRender(double distance) {
-        // Always render within 128 blocks to ensure the effect is visible
         return distance < 128.0 * 128.0;
     }
 
     @Override
     public boolean isInvisible() {
-        return false; // Make sure it's not invisible
+        return false;
     }
 
     @Override
