@@ -51,7 +51,7 @@
             "light_level": 14,
             "model": {
               "model_id": "elemental_wizards_rpg:effect/tornado",
-              "scale": 3.5,
+              "scale": 4.0,
               "rotate_degrees_per_tick": -25,
               "light_emission": "NONE"
             },
@@ -90,10 +90,11 @@
             }
           },
           "placement": {
-            "force_onto_ground": true,
             "location_offset_by_look": 6,
             "location_yaw_offset": 0,
-            "apply_yaw": true
+            "location_offset_y": 2.0,
+            "apply_yaw": true,
+            "force_onto_ground": true
           }
         }
 

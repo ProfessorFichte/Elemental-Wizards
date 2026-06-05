@@ -1,3 +1,7 @@
+1.3.7 - 1.20.1
+- Fixed a crash because of the latest More RPG Library Update
+- Backport of some improved Projectile & Entity Models / Textures
+
 1.3.6 - 1.20.1
 - Add Amplifier Cap for Bubble Beam's Bubble Foam
 
