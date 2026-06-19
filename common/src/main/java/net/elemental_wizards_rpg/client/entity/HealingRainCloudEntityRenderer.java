@@ -40,7 +40,7 @@ public class HealingRainCloudEntityRenderer<T extends HealingRainCloudEntity> ex
         float rotation = (entity.age + tickDelta) * 0.5F;
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
 
-        matrixStack.scale(4.0F, 2.0F, 4.0F);
+        matrixStack.scale(4.0F, 4.0F, 4.0F);
 
         CustomModels.render(
             RENDER_LAYER,
