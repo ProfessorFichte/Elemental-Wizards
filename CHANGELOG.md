@@ -1,5 +1,10 @@
+# 2.6.8 - 1.21.1
+- Improved the Bubble Model (Thx Slepykat)
+- Fixed squished Healing Rain Entity Model
+
 # 2.6.7 - 1.21.1
 - Attempt to fix Neoforge Server Crash due to Entities Ticking
+- Change Project Suffix to RPG Series Plus
 
 # 2.6.6 - 1.21.1
 - Fixed a client crash when leaving a server due to a wrong registered sound id
