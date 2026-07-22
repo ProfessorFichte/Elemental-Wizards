@@ -1,3 +1,11 @@
+# 3.0.0 - 1.21.1
+- Adapt to Spell Engine 1.9.10+ API Changes
+**Balancing & Internal Changes:**
+- Earthquake: now is a channeled spell, increasing it's range the longer you channel them.
+- Earth Golem: Completely uses Spell Engine's Summoned Entity System now.  It can now also cast the Stone Throw Ability.
+- Improved the behaviour of many Custom Spell Entities.
+- The Earth Golem will receive some additional Animations soon
+
 # 2.6.8 - 1.21.1
 - Improved the Bubble Model (Thx Slepykat)
 - Fixed squished Healing Rain Entity Model

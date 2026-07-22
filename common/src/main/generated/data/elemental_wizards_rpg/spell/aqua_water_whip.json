@@ -1,8 +1,8 @@
 {
   "school": "spell_power:water",
   "range": 16.0,
-  "group": "primary",
   "tier": 1,
+  "group": "primary",
   "learn": {},
   "active": {
     "cast": {

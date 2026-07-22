@@ -2,6 +2,7 @@
   "school": "spell_power:air",
   "range": 16.0,
   "tier": 3,
+  "group": "wind_pressure",
   "learn": {},
   "active": {
     "cast": {

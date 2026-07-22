@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.HealingRainCloudEntity;
+import net.elemental_wizards_rpg.entity.HealingRainCloudEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -40,7 +40,8 @@ public class HealingRainCloudEntityRenderer<T extends HealingRainCloudEntity> ex
         float rotation = (entity.age + tickDelta) * 0.5F;
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
 
-        matrixStack.scale(4.0F, 4.0F, 4.0F);
+        float scale = 4.0F * entity.getScale();
+        matrixStack.scale(scale, scale, scale);
 
         CustomModels.render(
             RENDER_LAYER,

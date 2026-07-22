@@ -27,6 +27,11 @@
       "elemental_wizards_rpg:stone_flesh"
     ]
   },
+  "storm_draft_launch": {
+    "sounds": [
+      "elemental_wizards_rpg:storm_draft_launch"
+    ]
+  },
   "tidal_wave_impact": {
     "sounds": [
       "elemental_wizards_rpg:tidal_wave_impact"
@@ -53,11 +58,6 @@
     ]
   },
   "wind_entity_loop": {
-    "sounds": [
-      "elemental_wizards_rpg:wind_entity_loop"
-    ]
-  },
-  "storm_draft_launch": {
     "sounds": [
       "elemental_wizards_rpg:wind_entity_loop"
     ]

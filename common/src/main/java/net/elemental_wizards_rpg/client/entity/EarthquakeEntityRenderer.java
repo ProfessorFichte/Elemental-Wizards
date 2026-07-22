@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.EarthquakeEntity;
+import net.elemental_wizards_rpg.entity.EarthquakeEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;

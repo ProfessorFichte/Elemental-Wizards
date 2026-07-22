@@ -1,11 +1,19 @@
 {
   "school": "spell_power:earth",
-  "range": 0.0,
+  "range": 8.0,
   "tier": 4,
+  "group": "terra_geomancing",
   "learn": {},
   "active": {
     "cast": {
-      "duration": 1.0,
+      "duration": 2.0,
+      "type": "CHARGE",
+      "charge": {
+        "min_release_ratio": 0.25,
+        "bonus": {
+          "range_add": 16.0
+        }
+      },
       "animation": {
         "id": "more_rpg_classes:two_handed_ground_channeling"
       },

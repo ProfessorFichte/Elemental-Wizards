@@ -1,6 +1,5 @@
 package net.elemental_wizards_rpg.entity;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
 import net.spell_engine.internals.target.EntityRelations;
 
 public class EWizardsTeamMatcher {

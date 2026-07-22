@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.WhirlwindEntity;
+import net.elemental_wizards_rpg.entity.WhirlwindEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;

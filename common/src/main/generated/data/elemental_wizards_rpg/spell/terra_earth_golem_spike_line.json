@@ -1,0 +1,111 @@
+{
+  "school": "spell_power:earth",
+  "range": 8.0,
+  "tier": 4,
+  "learn": {},
+  "active": {},
+  "impacts": [
+    {
+      "action": {
+        "type": "SPAWN",
+        "spawns": [
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "placement": {
+              "location_offset_by_look": 1.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 2,
+            "placement": {
+              "location_offset_by_look": 2.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 4,
+            "placement": {
+              "location_offset_by_look": 3.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 6,
+            "placement": {
+              "location_offset_by_look": 4.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 8,
+            "placement": {
+              "location_offset_by_look": 5.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 10,
+            "placement": {
+              "location_offset_by_look": 6.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 12,
+            "placement": {
+              "location_offset_by_look": 7.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 14,
+            "placement": {
+              "location_offset_by_look": 8.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 16,
+            "placement": {
+              "location_offset_by_look": 9.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 18,
+            "placement": {
+              "location_offset_by_look": 10.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 20,
+            "placement": {
+              "location_offset_by_look": 11.0,
+              "apply_yaw": true
+            }
+          },
+          {
+            "entity_type_id": "elemental_wizards_rpg:earth_golem_spike",
+            "delay_ticks": 22,
+            "placement": {
+              "location_offset_by_look": 12.0,
+              "apply_yaw": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

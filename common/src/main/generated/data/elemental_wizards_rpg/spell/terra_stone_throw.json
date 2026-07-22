@@ -1,8 +1,8 @@
 {
   "school": "spell_power:earth",
   "range": 20.0,
-  "group": "primary",
   "tier": 0,
+  "group": "primary",
   "learn": {},
   "active": {
     "cast": {
@@ -58,9 +58,15 @@
               "max_speed": 0.2
             }
           ],
-          "model": {
-            "model_id": "elemental_wizards_rpg:spell_projectile/spell_stone",
-            "scale": 0.75
+          "composite_model": {
+            "models": [
+              {
+                "fx": {
+                  "model_id": "elemental_wizards_rpg:spell_projectile/spell_stone",
+                  "scale": 0.5
+                }
+              }
+            ]
           }
         }
       }

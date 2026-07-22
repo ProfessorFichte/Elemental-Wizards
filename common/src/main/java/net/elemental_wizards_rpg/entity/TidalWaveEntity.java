@@ -1,4 +1,4 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -17,12 +17,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellHelper;
 import net.more_rpg_classes.util.CustomMethods;
-import net.spell_power.api.SpellPower;
 
 import java.util.UUID;
 
@@ -307,26 +306,18 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         if (owner == null) return;
 
         Box damageBox = this.getBoundingBox().expand(3.0, 0, 3.0);
-        var entities = this.getWorld().getOtherEntities(this, damageBox);
-
-        for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity livingEntity)) continue;
-
-            if (entity == owner) continue;
-
-            if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
-                int entityId = entity.getId();
-                Integer lastTick = lastDamageTick.get(entityId);
-
-                if (lastTick == null || currentTick - lastTick >= 10) {
-                    RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact")).get();
-                    SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
-                            spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()));
-
+        PeriodicAreaImpact.apply(this.getWorld(), owner, this, damageBox,
+                Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact"),
+                entity -> {
+                    if (entity == owner) return false;
+                    if (CustomMethods.isEntityProtectedCheck(entity, owner)) return false;
+                    int entityId = entity.getId();
+                    Integer lastTick = lastDamageTick.get(entityId);
+                    if (lastTick != null && currentTick - lastTick < 10) return false;
                     lastDamageTick.put(entityId, currentTick);
-                }
-            }
-        }
+                    return true;
+                },
+                this.getPos(), true, null);
     }
 
     public int getWaveStateOrdinal() {

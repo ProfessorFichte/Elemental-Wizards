@@ -1,12 +1,14 @@
 package net.elemental_wizards_rpg.spell;
 
 import net.elemental_wizards_rpg.effect.ElementalEffects;
+import net.elemental_wizards_rpg.entity.ElementalSummons;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
-import net.more_rpg_classes.effect.MRPGCEffects;
+import net.spell_engine.api.effect.SpellEngineEffects;
 import net.more_rpg_classes.sounds.MRPGLibSounds;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
@@ -15,6 +17,8 @@ import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.api.spell.registry.SpellRegistry;
+import net.spell_engine.api.spell.summon.AttributeScaling;
+import net.spell_engine.api.spell.summon.SummonBehaviour;
 import net.spell_engine.api.util.TriState;
 import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
@@ -60,6 +64,12 @@ public class ElementalWizardSpells {
         return entry;
     }
 
+    public static final String CURING =  "aqua_curing";
+    public static final String CONTROL = "aqua_control";
+    public static final String STONESHAPING = "terra_stoneshaping";
+    public static final String GEOMANCING = "terra_geomancing";
+    public static final String COMBO = "wind_combo";
+    public static final String PRESSURE = "wind_pressure";
 
     private static Spell.Impact damageImpact(float coefficient, float knockback) {
         var damage = new Spell.Impact();
@@ -110,11 +120,6 @@ public class ElementalWizardSpells {
         var modifier = new Spell.Impact.TargetModifier();
         modifier.conditions = List.of(condition);
         return modifier;
-    }
-    private static void bleedImmuneDeny(Spell.Impact impact) {
-        var modifier = createImpactModifier("#minecraft:undead");
-        modifier.execute = TriState.DENY;
-        impact.target_modifiers = List.of(modifier);
     }
     private static void bossImmuneDeny(Spell.Impact impact) {
         var modifier = createImpactModifier("#c:bosses");
@@ -414,6 +419,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.WATER;
         spell.range = 7;
         spell.tier = 2;
+        spell.group = CURING;
         spell.learn = new Spell.Learn();
 
         SpellBuilder.Casting.channel(spell, 4, 22);
@@ -483,6 +489,7 @@ public class ElementalWizardSpells {
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.WATER;
         spell.range = 32;
+        spell.group = CONTROL;
         spell.tier = 2;
 
         spell.active.cast.duration = 0.5F;
@@ -511,11 +518,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Rotation.LOOK,
                         0.1F, 0.6F, 0.9F, 0)
         };
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/big_bubble";
-        model.scale = 0.7F;
-        model.light_emission = LightEmission.NONE;
-        projectile.client_data.model = model;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("elemental_wizards_rpg:spell_projectile/big_bubble", 0.7F, LightEmission.NONE);
         spell.deliver.projectile.projectile = projectile;
 
         var damage = damageImpact(0.4F, 0.5F);
@@ -550,6 +553,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.WATER;
         spell.range = 6;
         spell.tier = 3;
+        spell.group = CURING;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.5F;
@@ -622,6 +626,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.WATER;
         spell.range = 32;
         spell.tier = 3;
+        spell.group = CONTROL;
         spell.learn = new Spell.Learn();
 
 
@@ -693,6 +698,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.WATER;
         spell.range = 5;
         spell.tier = 4;
+        spell.group = CURING;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.5F;
@@ -765,6 +771,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.WATER;
         spell.range = 16;
         spell.tier = 4;
+        spell.group = CONTROL;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.0F;
@@ -845,10 +852,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Rotation.LOOK,
                         1.0F, 0.1F, 0.2F, 0)
         };
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/spell_stone";
-        model.scale = 0.75F;
-        projectile.client_data.model = model;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("elemental_wizards_rpg:spell_projectile/spell_stone", 0.5F);
         spell.deliver.projectile.projectile = projectile;
 
         spell.release = new Spell.Release();
@@ -913,12 +917,9 @@ public class ElementalWizardSpells {
                         ParticleBatch.Rotation.LOOK,
                         0.1F, 0.6F, 0.9F, 0)
         };
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/stone_spear";
-        model.scale = 1.1F;
-        model.light_emission = LightEmission.NONE;
-        model.rotate_degrees_per_tick = 1.3F;
-        projectile.client_data.model = model;
+        var stoneSpearModel = SpellBuilder.ProjectileModels.model("elemental_wizards_rpg:spell_projectile/stone_spear", 1.1F, LightEmission.NONE);
+        stoneSpearModel.rotate_degrees_per_tick = 1.3F;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.composite(stoneSpearModel);
         spell.deliver.projectile.projectile = projectile;
 
         spell.release = new Spell.Release();
@@ -928,12 +929,12 @@ public class ElementalWizardSpells {
         var damage = damageImpact(0.65F, 0);
         damage.sound = new Sound("block.pointed_dripstone.land");
 
-        var bleeding = createEffectImpact(Identifier.of("more_rpg_classes:bleeding"), 3);
+        var bleeding = createEffectImpact(SpellEngineEffects.BLEED.id, 3);
         bleeding.action.status_effect.amplifier = 0;
         bleeding.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         bleeding.action.status_effect.amplifier_power_multiplier = 0.2F;
+        bleeding.action.status_effect.amplifier_cap = 2;
         bleeding.action.status_effect.show_particles = false;
-        bleedImmuneDeny(bleeding);
         bleeding.particles = new ParticleBatch[]{
                 new ParticleBatch("more_rpg_classes:stone_particle",
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
@@ -976,6 +977,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.EARTH;
         spell.range = 5;
         spell.tier = 2;
+        spell.group = GEOMANCING;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 0.75F;
@@ -1022,6 +1024,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.EARTH;
         spell.range = 16;
         spell.tier = 2;
+        spell.group = STONESHAPING;
         spell.learn = new Spell.Learn();
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -1074,6 +1077,7 @@ public class ElementalWizardSpells {
         var spell = SpellBuilder.createSpellActive();
         spell.range = 15;
         spell.tier = 3;
+        spell.group = STONESHAPING;
         spell.school = MoreSpellSchools.EARTH;
 
         spell.learn = new Spell.Learn();
@@ -1244,6 +1248,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.EARTH;
         spell.range = 30;
         spell.tier = 3;
+        spell.group = GEOMANCING;
 
         spell.active.cast.duration = 1.0F;
         spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
@@ -1266,20 +1271,17 @@ public class ElementalWizardSpells {
         projectile.perks.chain_reaction_triggers = 3;
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.travel_particles = new ParticleBatch[]{};
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/stone_shard";
-        model.scale = 0.5F;
-        projectile.client_data.model = model;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("elemental_wizards_rpg:spell_projectile/stone_shard", 0.5F);
 
         spell.deliver.projectile.projectile = projectile;
 
         var damage = SpellBuilder.Impacts.damage(0.7F, 0);
         damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
 
-        var bleeding = SpellBuilder.Impacts.effectSet("more_rpg_classes:bleeding", 5,1);
+        var bleeding = SpellBuilder.Impacts.effectSet(SpellEngineEffects.BLEED.id.toString(), 5,1);
         bleeding.action.status_effect.amplifier_power_multiplier = 0.2F;
+        bleeding.action.status_effect.amplifier_cap = 2;
         bleeding.action.status_effect.show_particles = false;
-        bleedImmuneDeny(bleeding);
         bleeding.particles = new ParticleBatch[]{
                 new ParticleBatch("more_rpg_classes:stone_particle",
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
@@ -1311,12 +1313,15 @@ public class ElementalWizardSpells {
         var id = Identifier.of(MOD_ID, "terra_earthquake");
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.EARTH;
-        spell.range = 0;
+        spell.range = 8;
         spell.tier = 4;
+        spell.group = GEOMANCING;
         var title = "Earthquake";
-        var description = "Creates a powerful Earthquake that deals {eq_damage} damage to all targets on the ground.";
+        var description = "Charge a powerful Earthquake that deals {eq_damage} damage to all targets on the ground - the longer it's held, the bigger it gets.";
 
-        spell.active.cast.duration = 1.0F;
+        var charge = SpellBuilder.Casting.charge(spell, 2.0F);
+        charge.min_release_ratio = 0.25F;
+        charge.bonus.range_add = 16.0F;
         spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
         spell.active.cast.particles = new ParticleBatch[]{
                 new ParticleBatch(
@@ -1375,8 +1380,9 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.EARTH;
         spell.range = 3;
         spell.tier = 4;
+        spell.group = STONESHAPING;
         var title = "Earth Golem";
-        var description = "Summons a Earth Golem, that smashes the ground and summons damaging spikes that deal {golem_spike_damage} damage and knock up on contact.";
+        var description = "Summons an Earth Golem that smashes the ground around it, hurls stones at range, and calls damaging spikes that deal {golem_spike_damage} damage and knock up on contact.";
 
         spell.active.cast.duration = 1.5F;
         spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
@@ -1386,25 +1392,16 @@ public class ElementalWizardSpells {
         spell.release = new Spell.Release();
         spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
 
-        int delay = 0;
-        int toLiveSeconds = 15;
-        String entityId = "elemental_wizards_rpg:earth_golem";
-        var spawn = new Spell.Impact();
-        spawn.action = new Spell.Impact.Action();
-        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
-        spawn.sound = new Sound(ElementalSounds.EARTH_SUMMON.id().toString());
-        var golem = new Spell.Impact.Action.Spawn();
-        golem.entity_type_id = entityId;
-        golem.delay_ticks = delay;
-        golem.time_to_live_seconds = toLiveSeconds;
-        golem.placement.apply_yaw = true;
-        golem.placement.location_offset_by_look = 2;
-        spawn.action.spawns = List.of(golem);
+        var summonImpact = new Spell.Impact();
+        summonImpact.action = new Spell.Impact.Action();
+        summonImpact.action.type = Spell.Impact.Action.Type.SUMMON;
+        summonImpact.action.summon = ElementalSummons.earthGolem();
+        summonImpact.sound = new Sound(ElementalSounds.EARTH_SUMMON.id().toString());
 
-        spell.impacts = List.of(spawn);
+        spell.impacts = List.of(summonImpact);
 
-
-        SpellBuilder.Cost.cooldown(spell, 45);
+        SpellBuilder.Cost.cooldown(spell, 35);
+        spell.cost.cooldown.haste_affected = false;
         SpellBuilder.Cost.exhaust(spell, 0.5F);
         SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
 
@@ -1422,6 +1419,41 @@ public class ElementalWizardSpells {
             return desc;
         };
         return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
+    }
+    public static Entry terra_earth_golem_spike_line = add(terra_earth_golem_spike_line());
+    private static Entry terra_earth_golem_spike_line() {
+        var id = Identifier.of(MOD_ID, "terra_earth_golem_spike_line");
+        var title = "";
+        var description = "";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.EARTH;
+        // Also doubles as the golem's SPELL_CAST engagement distance for this action (see terra_earth_golem's behaviour).
+        spell.range = 8;
+        spell.tier = 4;
+        spell.target.type = Spell.Target.Type.CASTER;
+
+        int spikeCount = 12; // matches helper/terra_earth_golem_spike_impact's `range`
+        float spacing = 1.0F;
+        var spikes = new ArrayList<Spell.Impact.Action.Spawn>(spikeCount);
+        for (int i = 0; i < spikeCount; i++) {
+            var spike = new Spell.Impact.Action.Spawn();
+            spike.entity_type_id = "elemental_wizards_rpg:earth_golem_spike";
+            spike.delay_ticks = i * 2;
+            spike.placement.apply_yaw = true;
+            spike.placement.location_offset_by_look = spacing * (i + 1);
+            spike.placement.force_onto_ground = true;
+            spikes.add(spike);
+        }
+
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        spawn.action.spawns = spikes;
+
+        spell.impacts = List.of(spawn);
+
+        return new Entry(id, spell, title, description);
     }
     // ==================== WIND (AIR) SPELLS ====================
     public static final Entry wind_gust = add(wind_gust());
@@ -1518,6 +1550,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.AIR;
         spell.range = 20;
         spell.tier = 2;
+        spell.group = COMBO;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.5F;
@@ -1571,6 +1604,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.AIR;
         spell.range = 22;
         spell.tier = 2;
+        spell.group = PRESSURE;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.0F;
@@ -1627,6 +1661,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.AIR;
         spell.range = 20;
         spell.tier = 3;
+        spell.group = COMBO;
         spell.learn = new Spell.Learn();
 
 
@@ -1689,6 +1724,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.AIR;
         spell.range = 16;
         spell.tier = 3;
+        spell.group = PRESSURE;
         spell.learn = new Spell.Learn();
 
         SpellBuilder.Casting.cast(spell,1,"spell_engine:one_handed_projectile_charge");
@@ -1749,6 +1785,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.AIR;
         spell.range = 20;
         spell.tier = 4;
+        spell.group = COMBO;
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.5F;
@@ -1804,12 +1841,13 @@ public class ElementalWizardSpells {
     private static Entry wind_stormdraft() {
         var id = Identifier.of(MOD_ID, "wind_stormdraft");
         var title = "Storm Draft";
-        var description = "Channel bursts of high pressure air that deal {stormdraft_damage} damage and shortly stun enemies.";
+        var description = "Channel bursts of high pressure air that deal {damage} damage and shortly stun enemies.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
         spell.range = 26;
         spell.tier = 4;
+        spell.group = PRESSURE;
         spell.learn = new Spell.Learn();
 
         SpellBuilder.Casting.channel(spell,5,5);
@@ -1817,42 +1855,48 @@ public class ElementalWizardSpells {
         spell.active.cast.particles = windCastingParticles(spell);
         spell.active.cast.sound = new Sound(ElementalSounds.STORM_DRAFT_LAUNCH.id());
 
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+
         spell.release = new Spell.Release();
 
-        int delay = 0;
-        int toLiveSeconds = 10;
-        String entityId = "elemental_wizards_rpg:storm_draft";
-        var spawn = new Spell.Impact();
-        spawn.action = new Spell.Impact.Action();
-        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
-        var stormdraft = new Spell.Impact.Action.Spawn();
-        stormdraft.entity_type_id = entityId;
-        stormdraft.delay_ticks = delay;
-        stormdraft.time_to_live_seconds = toLiveSeconds;
-        stormdraft.placement.apply_yaw = true;
-        spawn.action.spawns = List.of(stormdraft);
+        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
+        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
+        spell.deliver.projectile.launch_properties.velocity = 2.2F;
 
-        spell.impacts = List.of(spawn);
+        var projectile = new Spell.ProjectileData();
+        projectile.client_data = new Spell.ProjectileData.Client();
+        projectile.client_data.travel_particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:wind_vacuum",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        3.0F, 0.1F, 0.1F),
+                new ParticleBatch("minecraft:small_gust",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        2.0F, 0.05F, 0.05F)
+        };
+        spell.deliver.projectile.projectile = projectile;
+
+        var damage = damageImpact(1.1F, 1.0F);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:wind_vacuum",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.LAUNCH_POINT,
+                        ParticleBatch.Rotation.LOOK,
+                        1.0F, 0.1F, 1.0F, 0),
+                new ParticleBatch("gust",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        1.0F, 0.5F, 0.8F)
+        };
+        damage.sound = new Sound(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString());
+        var stun = SpellBuilder.Impacts.stun(1.5F);
+
+        spell.impacts = List.of(damage, stun);
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 36);
         spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/wind_stormdraft_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{stormdraft_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.WIND);
     }
     /// HELPER SPELL IMPACTS
     public static final Entry aqua_healing_rain_impact = add(aqua_healing_rain_impact());
@@ -1928,7 +1972,7 @@ public class ElementalWizardSpells {
         var id = Identifier.of(MOD_ID, "helper/terra_drip_circle_impact");
         var name = "";
         var description = "";
-        var debuffEffect = MRPGCEffects.BLEEDING;
+        var debuffEffect = SpellEngineEffects.BLEED;
 
         var spell = SpellBuilder.createSpellActive();
         spell.range = 15;
@@ -1944,17 +1988,14 @@ public class ElementalWizardSpells {
         damage.sound = new Sound(MRPGLibSounds.EARTH_MAGIC_IMPACT_1.id().toString());
 
         var debuff = createEffectImpact(debuffEffect.id, 4);
-        bleedImmuneDeny(debuff);
         debuff.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         debuff.action.status_effect.show_particles = false;
         debuff.action.status_effect.amplifier_power_multiplier = 0.2F;
+        debuff.action.status_effect.amplifier_cap = 2;
         debuff.particles = new ParticleBatch[]{
                 new ParticleBatch(SpellEngineParticles.dripping_blood.id().toString(),
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        10, 0.05F, 0.3F),
-                new ParticleBatch("more_rpg_classes:blood_drop",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        10, 0.2F, 0.4F),
+                        10, 0.05F, 0.3F)
         };
 
         spell.impacts = List.of(damage, debuff);
@@ -2119,35 +2160,6 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description);
     }
-    public static final Entry wind_stormdraft_impact = add(wind_stormdraft_impact());
-    private static Entry wind_stormdraft_impact() {
-        var id = Identifier.of(MOD_ID, "helper/wind_stormdraft_impact");
-        var title = "";
-        var description = "";
-
-        var spell = SpellBuilder.createSpellActive();
-        spell.school = MoreSpellSchools.AIR;
-        spell.range = 20;
-        spell.tier = 4;
-        spell.learn = new Spell.Learn();
-
-        var damage = damageImpact(1.1F, 1.0F);
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:wind_vacuum",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.LAUNCH_POINT,
-                        ParticleBatch.Rotation.LOOK,
-                        1.0F, 0.1F, 1.0F, 0),
-                new ParticleBatch("gust",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        1.0F, 0.5F, 0.8F)
-        };
-        damage.sound = new Sound(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString());
-        var stun = SpellBuilder.Impacts.stun(1.5F);
-
-        spell.impacts = List.of(damage,stun);
-
-        return new Entry(id, spell, title, description);
-    }
     public static Entry avatar_passives_air_draft = add(avatar_passives_air_draft());
     private static Entry avatar_passives_air_draft() {
         var id = Identifier.of(MOD_ID, "avatar_passives/air_draft");
@@ -2214,10 +2226,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Rotation.LOOK,
                         2, 0.1F, 0.3F,0),
         };
-        var model = new Spell.ProjectileModel();
-        model.model_id = "elemental_wizards_rpg:spell_projectile/spell_stone";
-        model.scale = 0.4F;
-        projectile.client_data.model = model;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("elemental_wizards_rpg:spell_projectile/spell_stone", 0.4F);
 
         meteor.projectile = projectile;
         spell.deliver.meteor = meteor;

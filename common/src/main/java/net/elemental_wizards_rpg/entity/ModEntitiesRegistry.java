@@ -1,12 +1,13 @@
 package net.elemental_wizards_rpg.entity;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.spell_engine.api.spell.summon.SummonedEntityConfig;
+import net.spell_engine.api.spell.summon.SummonedEntities;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
@@ -77,17 +78,6 @@ public class ModEntitiesRegistry {
                         .trackedUpdateRate(1)
                         .build()
         );
-
-        StormDraftEntity.ENTITY_TYPE = Registry.register(
-                Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "storm_draft"),
-                FabricEntityTypeBuilder.<StormDraftEntity>create(SpawnGroup.MISC, StormDraftEntity::new)
-                        .dimensions(EntityDimensions.fixed(0.75F, 0.75F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(1)
-                        .build()
-        );
     }
 
     private static void registerWaterEntities() {
@@ -115,25 +105,32 @@ public class ModEntitiesRegistry {
     }
 
     private static void registerEarthEntities() {
+        Identifier golemId = Identifier.of(MOD_ID, "earth_golem");
         EarthGolemEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "earth_golem"),
-                FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, EarthGolemEntity::new)
-                        .dimensions(EntityDimensions.fixed(2.6F, 3.5F))
+                golemId,
+                FabricEntityTypeBuilder.<EarthGolemEntity>create(SpawnGroup.CREATURE, EarthGolemEntity::new)
+                        .dimensions(EntityDimensions.changing(2.6F, 3.5F))
                         .trackRangeBlocks(64)
                         .trackedUpdateRate(2)
                         .build()
         );
+
+        // spell_power:earth is a base stat so the golem's own melee/spells scale off itself, not
+        // the owner; owner-scaling lives on the SUMMON impact's attribute_scaling instead.
+        var defaults = new SummonedEntityConfig.Entry();
+        defaults.common = new SummonedEntityConfig.CommonAttributes(40.0, 0.3, 8.0);
+        defaults.common.follow_range = 16.0;
+        defaults.custom.add(new SummonedEntityConfig.CustomAttribute("spell_power:earth", 1));
+        defaults.custom.add(new SummonedEntityConfig.CustomAttribute("minecraft:generic.knockback_resistance", 0.8));
+        SummonedEntities.registerAttributes(golemId, EarthGolemEntity.ENTITY_TYPE, id -> defaults);
     }
 
     private static void registerLivingEntities() {
 
     }
     public static void registerEntityAttributes(AttributeRegistrar registrar) {
-        registrar.register(
-            EarthGolemEntity.ENTITY_TYPE,
-            EarthGolemEntity.createEarthGolemAttributes()
-        );
+        // Intentionally empty: SummonedEntities.registerAttributes (above) handles registration for all entities here.
     }
 
     @FunctionalInterface

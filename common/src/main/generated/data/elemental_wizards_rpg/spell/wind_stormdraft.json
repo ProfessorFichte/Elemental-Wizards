@@ -2,16 +2,20 @@
   "school": "spell_power:air",
   "range": 26.0,
   "tier": 4,
+  "group": "wind_pressure",
   "learn": {},
   "active": {
     "cast": {
       "duration": 5.0,
-      "channel_ticks": 5,
+      "type": "CHANNEL",
+      "channel": {
+        "ticks": 5
+      },
       "animation": {
         "id": "spell_engine:two_handed_channeling"
       },
       "sound": {
-        "id": "elemental_wizards_rpg:wind_entity_loop"
+        "id": "elemental_wizards_rpg:storm_draft_launch"
       },
       "particles": [
         {
@@ -33,19 +37,80 @@
       ]
     }
   },
+  "target": {
+    "type": "AIM",
+    "aim": {}
+  },
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "launch_properties": {
+        "velocity": 2.2
+      },
+      "projectile": {
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "more_rpg_classes:wind_vacuum",
+              "origin": "CENTER",
+              "shape": "SPHERE",
+              "count": 3.0,
+              "min_speed": 0.1,
+              "max_speed": 0.1
+            },
+            {
+              "particle_id": "minecraft:small_gust",
+              "origin": "CENTER",
+              "shape": "SPHERE",
+              "count": 2.0,
+              "min_speed": 0.05,
+              "max_speed": 0.05
+            }
+          ]
+        }
+      }
+    }
+  },
   "impacts": [
     {
       "action": {
-        "type": "SPAWN",
-        "spawns": [
-          {
-            "entity_type_id": "elemental_wizards_rpg:storm_draft",
-            "time_to_live_seconds": 10,
-            "placement": {
-              "apply_yaw": true
-            }
-          }
-        ]
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 1.1
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:wind_vacuum",
+          "origin": "LAUNCH_POINT",
+          "shape": "SPHERE",
+          "rotation": "LOOK",
+          "count": 1.0,
+          "min_speed": 0.1
+        },
+        {
+          "particle_id": "gust",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "count": 1.0,
+          "min_speed": 0.5,
+          "max_speed": 0.8
+        }
+      ],
+      "sound": {
+        "id": "more_rpg_classes:air_magic_impact2"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "spell_engine:stun",
+          "duration": 1.5
+        }
+      },
+      "sound": {
+        "id": "spell_engine:stun_generic"
       }
     }
   ],

@@ -38,7 +38,7 @@ public class StoneFleshEffectRenderer implements CustomModelStatusEffect.Rendere
     private final Map<Integer, Integer> lastDurationMap = new HashMap<>();
 
     @Override
-    public void renderEffect(int amplifier, LivingEntity entity, float delta, MatrixStack matrices,
+    public void renderEffect(long appliedAtWorldTime, int amplifier, LivingEntity entity, float delta, MatrixStack matrices,
                               VertexConsumerProvider vertexConsumers, int light) {
         int entityId = entity.getId();
         float currentAge = entity.age + delta;

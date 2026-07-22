@@ -2,6 +2,7 @@
   "school": "spell_power:earth",
   "range": 3.0,
   "tier": 4,
+  "group": "terra_stoneshaping",
   "learn": {},
   "active": {
     "cast": {
@@ -33,17 +34,138 @@
   "impacts": [
     {
       "action": {
-        "type": "SPAWN",
-        "spawns": [
-          {
-            "entity_type_id": "elemental_wizards_rpg:earth_golem",
-            "time_to_live_seconds": 15,
-            "placement": {
+        "type": "SUMMON",
+        "summon": {
+          "entity_type_id": "elemental_wizards_rpg:earth_golem",
+          "behaviour": {
+            "movement": {
+              "follow": {
+                "stop_distance": 3.0,
+                "teleport_after_distance": 24.0
+              },
+              "is_pushable": false
+            },
+            "targeting": {
+              "automatic_targeting": "HOSTILE"
+            },
+            "lifespan": {
+              "active_seconds": 15
+            },
+            "sounds": {
+              "ambient": {
+                "id": "elemental_wizards_rpg:golem_growl"
+              }
+            },
+            "actions": [
+              {
+                "type": "MELEE_ATTACK",
+                "melee_attack": {
+                  "max_range": 4.0,
+                  "speed": 0.55,
+                  "duration": 33,
+                  "windup": 0.24242425,
+                  "radius": 3.0,
+                  "swing_sound": {
+                    "id": "elemental_wizards_rpg:golem_growl"
+                  },
+                  "impact_sound": {
+                    "id": "elemental_wizards_rpg:golem_ground_slam"
+                  }
+                }
+              },
+              {
+                "type": "SPELL_CAST",
+                "spell_cast": {
+                  "spell_id": "elemental_wizards_rpg:terra_stone_throw",
+                  "cooldown": 40
+                }
+              },
+              {
+                "type": "SPELL_CAST",
+                "spell_cast": {
+                  "spell_id": "elemental_wizards_rpg:terra_earth_golem_spike_line",
+                  "cooldown": 60
+                }
+              }
+            ]
+          },
+          "attribute_scaling": {
+            "entries": [
+              {
+                "attribute_id": "minecraft:generic.max_health",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:earth",
+                    "operation": "ADD_VALUE",
+                    "base": 0.0,
+                    "coefficient": 1.2
+                  }
+                ]
+              },
+              {
+                "attribute_id": "minecraft:generic.armor",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:earth",
+                    "operation": "ADD_VALUE",
+                    "base": 5.0,
+                    "coefficient": 0.075
+                  }
+                ]
+              },
+              {
+                "attribute_id": "minecraft:generic.attack_damage",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:earth",
+                    "operation": "ADD_VALUE",
+                    "base": 0.0,
+                    "coefficient": 0.35
+                  }
+                ]
+              },
+              {
+                "attribute_id": "spell_power:earth",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:earth",
+                    "operation": "ADD_VALUE",
+                    "base": 2.0,
+                    "coefficient": 0.1
+                  }
+                ]
+              },
+              {
+                "attribute_id": "minecraft:generic.attack_knockback",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:earth",
+                    "operation": "ADD_VALUE",
+                    "base": 0.0,
+                    "coefficient": 0.1
+                  }
+                ]
+              },
+              {
+                "attribute_id": "minecraft:generic.knockback_resistance",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:earth",
+                    "operation": "ADD_VALUE",
+                    "base": 2.5,
+                    "coefficient": 0.025
+                  }
+                ]
+              }
+            ]
+          },
+          "placements": [
+            {
               "location_offset_by_look": 2.0,
               "apply_yaw": true
             }
-          }
-        ]
+          ]
+        }
       },
       "sound": {
         "id": "elemental_wizards_rpg:earth_summon"
@@ -53,7 +175,8 @@
   "cost": {
     "exhaust": 0.5,
     "cooldown": {
-      "duration": 45.0
+      "duration": 35.0,
+      "haste_affected": false
     },
     "item": {
       "id": "more_rpg_classes:terra_stone"

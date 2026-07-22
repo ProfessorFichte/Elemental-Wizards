@@ -2,6 +2,7 @@
   "school": "spell_power:earth",
   "range": 15.0,
   "tier": 3,
+  "group": "terra_stoneshaping",
   "learn": {},
   "active": {
     "cast": {

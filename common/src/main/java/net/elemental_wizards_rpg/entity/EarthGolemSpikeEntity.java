@@ -1,5 +1,6 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
+import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -10,28 +11,23 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.api.entity.SpellEntity;
 import net.more_rpg_classes.util.CustomMethods;
-import net.spell_power.api.SpellPower;
 
-import java.util.List;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
-public class EarthGolemSpikeEntity extends Entity implements Ownable {
+public class EarthGolemSpikeEntity extends Entity implements Ownable, SpellEntity.Spawned {
     public static EntityType<EarthGolemSpikeEntity> ENTITY_TYPE;
 
     public static final int ATTACK_TICK = 10;
     public static final int LIFETIME_TICKS = 20;
 
-    private int warmup;
     private boolean startedAttack;
     private int ticksLeft;
     private boolean playingAnimation;
@@ -45,14 +41,16 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable {
         this.ticksLeft = LIFETIME_TICKS;
     }
 
-    public EarthGolemSpikeEntity(World world, double x, double y, double z, float yaw, int warmup, LivingEntity owner, EarthGolemEntity golem, Identifier spellId) {
-        this(ENTITY_TYPE, world);
-        this.warmup = warmup;
-        this.setOwner(owner);
-        this.golem = golem;
-        this.spellId = spellId;
-        this.setYaw(yaw * 57.295776F);
-        this.setPosition(x, y, z);
+    @Override
+    public void onSpawnedBySpell(Args args) {
+        this.spellId = args.spell().getKey().get().getValue();
+
+        if (args.owner() instanceof EarthGolemEntity g) {
+            this.golem = g;
+            this.setOwner(g.getOwner());
+        } else {
+            this.setOwner(args.owner());
+        }
     }
 
     @Override
@@ -76,7 +74,6 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.warmup = nbt.getInt("Warmup");
         if (nbt.containsUuid("Owner")) {
             this.ownerUuid = nbt.getUuid("Owner");
         }
@@ -87,7 +84,6 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable {
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putInt("Warmup", this.warmup);
         if (this.ownerUuid != null) {
             nbt.putUuid("Owner", this.ownerUuid);
         }
@@ -113,60 +109,55 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable {
                 --this.ticksLeft;
             }
         } else {
-            if (--this.warmup < 0) {
-                if (this.warmup == -ATTACK_TICK) {
-                    this.dealDamage();
-                }
+            if (!this.startedAttack) {
+                this.getWorld().sendEntityStatus(this, (byte) 4);
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
+                        ElementalSounds.GOLEM_SPIKE_SUMMON.soundEvent(), SoundCategory.NEUTRAL,
+                        1.0F, 0.85F + this.getRandom().nextFloat() * 0.3F);
+                this.startedAttack = true;
+            }
 
-                if (!this.startedAttack) {
-                    this.getWorld().sendEntityStatus(this, (byte)4);
-                    this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
-                            ElementalSounds.GOLEM_SPIKE_SUMMON.soundEvent(), SoundCategory.NEUTRAL,
-                            1.0F, 0.85F + this.getRandom().nextFloat() * 0.3F);
-                    this.startedAttack = true;
-                }
+            if (this.age == ATTACK_TICK) {
+                this.dealDamage();
+            }
 
-                if (--this.ticksLeft < 0) {
-                    this.discard();
-                }
+            if (this.age > LIFETIME_TICKS) {
+                this.discard();
             }
         }
     }
 
     private void dealDamage() {
-        if (owner == null) return;
-        List<LivingEntity> targets = this.getWorld().getNonSpectatingEntities(
-            LivingEntity.class,
-            this.getBoundingBox().expand(1.2, 0.5, 1.2)
-        );
+        if (golem == null) return;
+        LivingEntity player = golem.getOwner();
+        if (player == null) return;
 
-        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact")).get();
-
-        for (LivingEntity target : targets) {
-            if (target == owner) continue;
-            if (golem != null && target == golem) continue;
-            if (CustomMethods.isEntityProtectedCheck(target, owner)) continue;
-            if (target instanceof EarthGolemEntity golemTarget) {
-                LivingEntity golemOwner = golemTarget.getOwner();
-                if (golemOwner != null && golemOwner == owner) continue;
-                if (golemOwner != owner && CustomMethods.isEntityProtectedCheck(golemOwner, owner)) continue;
-            }
-            if (target instanceof TameableEntity tameable && tameable.isTamed()) {
-                LivingEntity tameableOwner = tameable.getOwner();
-                if (tameableOwner != null && tameableOwner == owner) continue;
-                if (tameableOwner != owner && CustomMethods.isEntityProtectedCheck(tameableOwner, owner)) continue;
-            }
-
-            SpellHelper.performImpacts(owner.getWorld(), owner, target, owner, spellImpact,
-                    spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()));
-
-            if (golem != null && target instanceof MobEntity mobTarget) {
-                mobTarget.setTarget(golem);
-            }
-        }
+        Box box = this.getBoundingBox().expand(1.2, 0.5, 1.2);
+        PeriodicAreaImpact.apply(this.getWorld(), golem, this, box,
+                Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact"),
+                target -> {
+                    if (target == player) return false;
+                    if (target == golem) return false;
+                    if (CustomMethods.isEntityProtectedCheck(target, player)) return false;
+                    if (target instanceof EarthGolemEntity golemTarget) {
+                        LivingEntity golemOwner = golemTarget.getOwner();
+                        if (golemOwner != null && golemOwner == player) return false;
+                        if (golemOwner != null && golemOwner != player && CustomMethods.isEntityProtectedCheck(golemOwner, player)) return false;
+                    }
+                    if (target instanceof TameableEntity tameable && tameable.isTamed()) {
+                        LivingEntity tameableOwner = tameable.getOwner();
+                        if (tameableOwner != null && tameableOwner == player) return false;
+                        if (tameableOwner != null && tameableOwner != player && CustomMethods.isEntityProtectedCheck(tameableOwner, player)) return false;
+                    }
+                    return true;
+                },
+                this.getPos(), true,
+                target -> {
+                    if (target instanceof MobEntity mobTarget) {
+                        mobTarget.setTarget(golem);
+                    }
+                });
     }
-
-
 
     @Override
     public void handleStatus(byte status) {

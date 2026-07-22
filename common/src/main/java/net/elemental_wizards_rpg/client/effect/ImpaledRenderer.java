@@ -34,7 +34,7 @@ public class ImpaledRenderer implements CustomModelStatusEffect.Renderer {
     private final Map<Integer, Float> lastRenderAgeMap = new HashMap<>();
 
     @Override
-    public void renderEffect(int amplifier, LivingEntity entity, float delta, MatrixStack matrixStack,
+    public void renderEffect(long appliedAtWorldTime, int amplifier, LivingEntity entity, float delta, MatrixStack matrixStack,
                               VertexConsumerProvider vertexConsumers, int light) {
         int entityId = entity.getId();
         float currentAge = entity.age + delta;

@@ -27,9 +27,15 @@
               "max_speed": 0.3
             }
           ],
-          "model": {
-            "model_id": "elemental_wizards_rpg:spell_projectile/spell_stone",
-            "scale": 0.4
+          "composite_model": {
+            "models": [
+              {
+                "fx": {
+                  "model_id": "elemental_wizards_rpg:spell_projectile/spell_stone",
+                  "scale": 0.4
+                }
+              }
+            ]
           }
         }
       }

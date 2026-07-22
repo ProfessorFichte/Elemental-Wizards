@@ -1,4 +1,4 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -17,13 +17,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.more_rpg_classes.sounds.MRPGLibSounds;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellHelper;
 import net.more_rpg_classes.util.CustomMethods;
-import net.spell_power.api.SpellPower;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,20 +35,28 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<EarthquakeEntity> ENTITY_TYPE;
+    private static final Identifier EARTHQUAKE_SPELL_ID = Identifier.of(MOD_ID, "terra_earthquake");
 
-    private static final float EARTHQUAKE_RADIUS = 16.0F;
-    private static final int VERTICAL_RANGE = 5;
+    /// Radius/vertical range at a full charge release, kept in the same ratio (5/16) as the charge
+    /// grows the radius via `SpellHelper.getRange` (see onSpawnedBySpell).
+    private static final float BASE_EARTHQUAKE_RADIUS = 16.0F;
+    private static final float BASE_VERTICAL_RANGE = 5.0F;
     private static final int DAMAGE_INTERVAL = 10;
     private static final int MAX_SHAKING_BLOCKS = 300;
 
     private static final TrackedData<String> SPELL_ID_TRACKER = DataTracker.registerData(EarthquakeEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER = DataTracker.registerData(EarthquakeEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> RADIUS_TRACKER = DataTracker.registerData(EarthquakeEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> VERTICAL_RANGE_TRACKER = DataTracker.registerData(EarthquakeEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
     private Identifier spellId;
     private UUID ownerUuid;
     private int timeToLive;
     private LivingEntity cachedOwner = null;
     private int currentTick = 0;
+    private float earthquakeRadius = BASE_EARTHQUAKE_RADIUS;
+    private float verticalRange = BASE_VERTICAL_RANGE;
+    private RegistryEntry<Spell> spellEntry = null;
 
     private List<ShakingBlockData> shakingBlocks = new ArrayList<>();
     private boolean blocksInitialized = false;
@@ -72,6 +80,15 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         this.timeToLive = spawn.time_to_live_seconds * 20;
         this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
 
+        SpellRegistry.from(owner.getWorld()).getEntry(EARTHQUAKE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        float effectiveRange = this.spellEntry != null
+                ? SpellHelper.getRange(owner, this.spellEntry, args.context().chargeModifier())
+                : BASE_EARTHQUAKE_RADIUS;
+        this.earthquakeRadius = effectiveRange;
+        this.verticalRange = effectiveRange * (BASE_VERTICAL_RANGE / BASE_EARTHQUAKE_RADIUS);
+        this.getDataTracker().set(RADIUS_TRACKER, this.earthquakeRadius);
+        this.getDataTracker().set(VERTICAL_RANGE_TRACKER, this.verticalRange);
+
         this.setNoGravity(true);
 
         this.calculateDimensions();
@@ -81,6 +98,8 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     protected void initDataTracker(DataTracker.Builder builder) {
         builder.add(SPELL_ID_TRACKER, "");
         builder.add(TIME_TO_LIVE_TRACKER, 0);
+        builder.add(RADIUS_TRACKER, BASE_EARTHQUAKE_RADIUS);
+        builder.add(VERTICAL_RANGE_TRACKER, BASE_VERTICAL_RANGE);
     }
 
     @Override
@@ -91,6 +110,8 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
             this.spellId = Identifier.of(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
+        this.earthquakeRadius = this.getDataTracker().get(RADIUS_TRACKER);
+        this.verticalRange = this.getDataTracker().get(VERTICAL_RANGE_TRACKER);
     }
 
     @Override
@@ -105,11 +126,15 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.containsUuid("Owner")) this.ownerUuid = nbt.getUuid("Owner");
         this.timeToLive = nbt.getInt("TimeToLive");
         this.currentTick = nbt.getInt("CurrentTick");
+        this.earthquakeRadius = nbt.contains("Radius") ? nbt.getFloat("Radius") : BASE_EARTHQUAKE_RADIUS;
+        this.verticalRange = nbt.contains("VerticalRange") ? nbt.getFloat("VerticalRange") : BASE_VERTICAL_RANGE;
 
         if (this.spellId != null) {
             this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         }
         this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
+        this.getDataTracker().set(RADIUS_TRACKER, this.earthquakeRadius);
+        this.getDataTracker().set(VERTICAL_RANGE_TRACKER, this.verticalRange);
     }
 
     @Override
@@ -121,6 +146,8 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         if (this.ownerUuid != null) nbt.putUuid("Owner", this.ownerUuid);
         nbt.putInt("TimeToLive", this.timeToLive);
         nbt.putInt("CurrentTick", this.currentTick);
+        nbt.putFloat("Radius", this.earthquakeRadius);
+        nbt.putFloat("VerticalRange", this.verticalRange);
     }
     private int idleSoundTick = 0;
     @Override
@@ -159,8 +186,8 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
             if (this.age % 5 == 0 && world instanceof ServerWorld serverWorld) {
                 Vec3d pos = this.getPos();
                 for (int i = 0; i < 8; i++) {
-                    double offsetX = (random.nextDouble() - 0.5) * EARTHQUAKE_RADIUS * 2;
-                    double offsetZ = (random.nextDouble() - 0.5) * EARTHQUAKE_RADIUS * 2;
+                    double offsetX = (random.nextDouble() - 0.5) * earthquakeRadius * 2;
+                    double offsetZ = (random.nextDouble() - 0.5) * earthquakeRadius * 2;
                     serverWorld.spawnParticles(ParticleTypes.ASH, pos.x + offsetX, pos.y, pos.z + offsetZ, 3, 0.2, 0.2, 0.2, 0.01);
                 }
             }
@@ -189,7 +216,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
 
         List<BlockPos> candidateBlocks = new ArrayList<>();
 
-        int radiusInt = (int) Math.ceil(EARTHQUAKE_RADIUS);
+        int radiusInt = (int) Math.ceil(earthquakeRadius);
         for (int x = -radiusInt; x <= radiusInt; x++) {
             for (int z = -radiusInt; z <= radiusInt; z++) {
                 for (int y = -5; y <= 5; y++) {
@@ -199,7 +226,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
                     double dz = checkPos.getZ() - centerPos.getZ();
                     double distSq = dx * dx + dz * dz;
 
-                    if (distSq > EARTHQUAKE_RADIUS * EARTHQUAKE_RADIUS) {
+                    if (distSq > earthquakeRadius * earthquakeRadius) {
                         continue;
                     }
 
@@ -226,7 +253,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
             double dx = blockPos.getX() - centerPos.getX();
             double dz = blockPos.getZ() - centerPos.getZ();
             double distFromCenter = Math.sqrt(dx * dx + dz * dz);
-            float distanceFactor = (float) (1.0 - (distFromCenter / EARTHQUAKE_RADIUS) * 0.3);
+            float distanceFactor = (float) (1.0 - (distFromCenter / earthquakeRadius) * 0.3);
 
             float baseHeight = random.nextFloat();
             float shakeHeight;
@@ -262,21 +289,12 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         if (owner == null) return;
 
         Vec3d earthquakeCenter = this.getPos();
-        Box damageBox = Box.of(earthquakeCenter, EARTHQUAKE_RADIUS * 2, VERTICAL_RANGE * 2, EARTHQUAKE_RADIUS * 2);
+        Box damageBox = Box.of(earthquakeCenter, earthquakeRadius * 2, verticalRange * 2, earthquakeRadius * 2);
 
-        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_earthquake_impact")).orElse(null);
-        if (spellImpact == null) return;
-
-        var entities = this.getWorld().getOtherEntities(this, damageBox);
-
-        for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity)) continue;
-            if (entity == owner) continue;
-            if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
-                SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
-                        spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(entity.getPos()), false, null);
-            }
-        }
+        PeriodicAreaImpact.apply(this.getWorld(), owner, this, damageBox,
+                Identifier.of(MOD_ID, "helper/terra_earthquake_impact"),
+                entity -> entity != owner && !CustomMethods.isEntityProtectedCheck(entity, owner),
+                null, false, null);
     }
 
     public LivingEntity getOwner() {
@@ -315,7 +333,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
 
     @Override
     public net.minecraft.entity.EntityDimensions getDimensions(net.minecraft.entity.EntityPose pose) {
-        return net.minecraft.entity.EntityDimensions.changing(EARTHQUAKE_RADIUS * 2, VERTICAL_RANGE * 2);
+        return net.minecraft.entity.EntityDimensions.changing(earthquakeRadius * 2, verticalRange * 2);
     }
 
     public List<ShakingBlockData> getShakingBlocks() {

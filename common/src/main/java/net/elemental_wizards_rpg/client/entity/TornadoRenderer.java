@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.TornadoEntity;
+import net.elemental_wizards_rpg.entity.TornadoEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -42,7 +42,8 @@ public class TornadoRenderer<T extends TornadoEntity> extends EntityRenderer<T> 
 
         matrixStack.translate(0, 3.0F, 0);
 
-        matrixStack.scale(3.5F, 3.5F, 3.5F);
+        float scale = 3.5F * entity.getScale();
+        matrixStack.scale(scale, scale, scale);
 
         CustomModels.render(
             RENDER_LAYER,

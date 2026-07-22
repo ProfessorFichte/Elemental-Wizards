@@ -2,6 +2,7 @@
   "school": "spell_power:water",
   "range": 16.0,
   "tier": 4,
+  "group": "aqua_control",
   "learn": {},
   "active": {
     "cast": {

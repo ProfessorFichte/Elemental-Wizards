@@ -61,7 +61,7 @@ public class BubbleFoamEffectRenderer implements CustomModelStatusEffect.Rendere
     }
 
     @Override
-    public void renderEffect(int amplifier, LivingEntity entity, float delta, MatrixStack matrices,
+    public void renderEffect(long appliedAtWorldTime, int amplifier, LivingEntity entity, float delta, MatrixStack matrices,
                               VertexConsumerProvider vertexConsumers, int light) {
         float currentAge = entity.age + delta;
         float entityHeight = entity.getHeight();

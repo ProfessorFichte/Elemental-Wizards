@@ -2,11 +2,15 @@
   "school": "spell_power:air",
   "range": 20.0,
   "tier": 3,
+  "group": "wind_combo",
   "learn": {},
   "active": {
     "cast": {
       "duration": 2.0,
-      "channel_ticks": 10,
+      "type": "CHANNEL",
+      "channel": {
+        "ticks": 10
+      },
       "animation": {
         "id": "spell_engine:one_handed_sky_charge"
       },

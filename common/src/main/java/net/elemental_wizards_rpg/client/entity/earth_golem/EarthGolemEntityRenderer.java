@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity.earth_golem;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
+import net.elemental_wizards_rpg.entity.EarthGolemEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;

@@ -28,22 +28,13 @@
       }
     },
     {
-      "target_modifiers": [
-        {
-          "conditions": [
-            {
-              "entity_type": "#minecraft:undead"
-            }
-          ],
-          "execute": "DENY"
-        }
-      ],
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "more_rpg_classes:bleeding",
+          "effect_id": "spell_engine:bleed",
           "duration": 4.0,
-          "amplifier_power_multiplier": 0.2
+          "amplifier_power_multiplier": 0.2,
+          "amplifier_cap": 2
         }
       },
       "particles": [
@@ -54,14 +45,6 @@
           "count": 10.0,
           "min_speed": 0.05,
           "max_speed": 0.3
-        },
-        {
-          "particle_id": "more_rpg_classes:blood_drop",
-          "origin": "FEET",
-          "shape": "PIPE",
-          "count": 10.0,
-          "min_speed": 0.2,
-          "max_speed": 0.4
         }
       ]
     }

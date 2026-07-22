@@ -143,7 +143,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 			translationBuilder.add("entity.elemental_wizards_rpg.earthquake", "Earthquake");
 			translationBuilder.add("entity.elemental_wizards_rpg.tornado", "Tornado");
 			translationBuilder.add("entity.elemental_wizards_rpg.whirlwind", "Whirlwind");
-			translationBuilder.add("entity.elemental_wizards_rpg.storm_draft", "Storm Draft");
 			translationBuilder.add("entity.elemental_wizards_rpg.tidal_wave", "Tidal Wave");
 			translationBuilder.add("entity.elemental_wizards_rpg.healing_rain_cloud", "Healing Rain Cloud");
 			translationBuilder.add("entity.elemental_wizards_rpg.earth_golem", "Earth Golem");

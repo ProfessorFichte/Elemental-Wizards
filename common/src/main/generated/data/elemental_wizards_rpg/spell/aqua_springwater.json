@@ -2,6 +2,7 @@
   "school": "spell_power:water",
   "range": 6.0,
   "tier": 3,
+  "group": "aqua_curing",
   "learn": {},
   "active": {
     "cast": {

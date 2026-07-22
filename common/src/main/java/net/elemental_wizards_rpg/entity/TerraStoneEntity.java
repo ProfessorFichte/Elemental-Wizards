@@ -1,4 +1,4 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.minecraft.entity.Entity;

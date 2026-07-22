@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg.client.entity.earth_golem;
 
-import net.elemental_wizards_rpg.entity.spell_spawned.EarthGolemEntity;
+import net.elemental_wizards_rpg.entity.EarthGolemEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -134,6 +134,10 @@ public class EarthGolemEntityModel extends SinglePartEntityModel<EarthGolemEntit
 
         this.updateAnimation(entity.attackAnimationState, EarthGolemAnimations.attack, ageInTicks);
         this.updateAnimation(entity.idleAnimationState, EarthGolemAnimations.idle, ageInTicks);
+
+        // Placeholder until a dedicated throw/summon animation exists: reuse the melee swing.
+        this.updateAnimation(entity.spellCastAnimationState, EarthGolemAnimations.attack, ageInTicks);
+        this.updateAnimation(entity.spellReleaseAnimationState, EarthGolemAnimations.attack, ageInTicks);
     }
 
     @Override

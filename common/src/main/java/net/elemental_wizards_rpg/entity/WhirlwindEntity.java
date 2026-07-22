@@ -1,5 +1,6 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
+import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,15 +13,14 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellHelper;
 import net.more_rpg_classes.util.CustomMethods;
-import net.spell_power.api.SpellPower;
 
 import java.util.UUID;
 
@@ -28,6 +28,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<WhirlwindEntity> ENTITY_TYPE;
+    private static final Identifier TWISTER_SPELL_ID = Identifier.of(MOD_ID, "wind_twister");
 
     private static final float FORWARD_SPEED = 0.25F;
     private static final float MIN_RADIUS = 1.1F;
@@ -35,19 +36,24 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
     private static final float RADIUS_GROWTH = 0.15F;
     private static final float ANGULAR_SPEED = 0.28F;
     private static final int DAMAGE_INTERVAL = 20;
+    private static final float DEFAULT_MAX_TRAVEL_DISTANCE = 16.0F;
 
     private static final TrackedData<String> SPELL_ID_TRACKER = DataTracker.registerData(WhirlwindEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER = DataTracker.registerData(WhirlwindEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> START_X_TRACKER = DataTracker.registerData(WhirlwindEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> START_Y_TRACKER = DataTracker.registerData(WhirlwindEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> START_Z_TRACKER = DataTracker.registerData(WhirlwindEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> DIRECTION_YAW_TRACKER = DataTracker.registerData(WhirlwindEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
     private Identifier spellId;
     private UUID ownerUuid;
     private int timeToLive;
     private LivingEntity cachedOwner = null;
+    private RegistryEntry<Spell> spellEntry = null;
+    private float maxTravelDistance = DEFAULT_MAX_TRAVEL_DISTANCE;
     private Vec3d movementDirection;
     private Vec3d rightDirection;
     private Vec3d startPosition;
-    private float circleAngle = 0F;
-    private float forwardDistance = 0F;
     private java.util.Map<Integer, Integer> lastDamageTick = new java.util.HashMap<>();
     private int currentTick = 0;
 
@@ -78,12 +84,27 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
 
         Vec3d circleStart = startPosition.add(rightDirection.multiply(MIN_RADIUS));
         this.setPosition(circleStart.x, startPosition.y, circleStart.z);
+
+        this.getDataTracker().set(START_X_TRACKER, (float) startPosition.x);
+        this.getDataTracker().set(START_Y_TRACKER, (float) startPosition.y);
+        this.getDataTracker().set(START_Z_TRACKER, (float) startPosition.z);
+        float directionYaw = (float) Math.toDegrees(Math.atan2(-movementDirection.x, movementDirection.z));
+        this.getDataTracker().set(DIRECTION_YAW_TRACKER, directionYaw);
+
+        SpellRegistry.from(owner.getWorld()).getEntry(TWISTER_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        if (this.spellEntry != null) {
+            this.maxTravelDistance = this.spellEntry.value().range;
+        }
     }
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         builder.add(SPELL_ID_TRACKER, "");
         builder.add(TIME_TO_LIVE_TRACKER, 0);
+        builder.add(START_X_TRACKER, 0.0F);
+        builder.add(START_Y_TRACKER, 0.0F);
+        builder.add(START_Z_TRACKER, 0.0F);
+        builder.add(DIRECTION_YAW_TRACKER, 0.0F);
     }
 
     @Override
@@ -94,6 +115,18 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
             this.spellId = Identifier.of(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
+
+        if (this.movementDirection == null) {
+            this.startPosition = new Vec3d(
+                this.getDataTracker().get(START_X_TRACKER),
+                this.getDataTracker().get(START_Y_TRACKER),
+                this.getDataTracker().get(START_Z_TRACKER)
+            );
+            float directionYaw = this.getDataTracker().get(DIRECTION_YAW_TRACKER);
+            float yawRadians = (float) Math.toRadians(directionYaw);
+            this.movementDirection = new Vec3d(-Math.sin(yawRadians), 0, Math.cos(yawRadians));
+            this.rightDirection = new Vec3d(-movementDirection.z, 0, movementDirection.x);
+        }
     }
 
     @Override
@@ -126,13 +159,20 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
             );
         }
 
-        this.circleAngle = nbt.getFloat("CircleAngle");
-        this.forwardDistance = nbt.getFloat("ForwardDistance");
-
         if (this.spellId != null) {
             this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         }
         this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
+
+        if (this.startPosition != null) {
+            this.getDataTracker().set(START_X_TRACKER, (float) this.startPosition.x);
+            this.getDataTracker().set(START_Y_TRACKER, (float) this.startPosition.y);
+            this.getDataTracker().set(START_Z_TRACKER, (float) this.startPosition.z);
+        }
+        if (this.movementDirection != null) {
+            float directionYaw = (float) Math.toDegrees(Math.atan2(-this.movementDirection.x, this.movementDirection.z));
+            this.getDataTracker().set(DIRECTION_YAW_TRACKER, directionYaw);
+        }
     }
 
     @Override
@@ -156,9 +196,6 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
             nbt.putDouble("StartY", this.startPosition.y);
             nbt.putDouble("StartZ", this.startPosition.z);
         }
-
-        nbt.putFloat("CircleAngle", this.circleAngle);
-        nbt.putFloat("ForwardDistance", this.forwardDistance);
     }
 
     private boolean idleSoundFired = false;
@@ -167,42 +204,48 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         super.tick();
 
         var world = this.getWorld();
-        if (world.isClient) return;
+        if (world.isClient()) return;
+
         if (!idleSoundFired) {
             world.playSound(null, this.getX(), this.getY(), this.getZ(),
                     ElementalSounds.WIND_ENTITY_LOOP.soundEvent(), SoundCategory.PLAYERS, 0.25F, 0.85F);
             idleSoundFired = true;
         }
 
-        if (!this.getWorld().isClient()) {
-            currentTick++;
+        currentTick++;
 
-            var owner = this.getOwner();
-            if (owner == null || owner.isRemoved() || !owner.isAlive()) {
-                this.discard();
-                return;
-            }
-
-            if (this.age > this.timeToLive) {
-                this.discard();
-                return;
-            }
-
-            if (forwardDistance > 16.0F) {
-                this.discard();
-                return;
-            }
+        var owner = this.getOwner();
+        if (owner == null || owner.isRemoved() || !owner.isAlive()) {
+            this.discard();
+            return;
         }
 
-        if (!this.getWorld().isClient() && movementDirection != null && startPosition != null) {
-            forwardDistance += FORWARD_SPEED;
-            circleAngle += ANGULAR_SPEED;
+        if (this.age > this.timeToLive) {
+            this.discard();
+            return;
+        }
+
+        if (spellEntry == null) {
+            SpellRegistry.from(world).getEntry(TWISTER_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        }
+        if (spellEntry != null) {
+            maxTravelDistance = spellEntry.value().range;
+        }
+
+        if (movementDirection != null && startPosition != null) {
+            float forwardDistance = FORWARD_SPEED * this.age;
+            float circleAngle = ANGULAR_SPEED * this.age;
+
+            if (forwardDistance > maxTravelDistance) {
+                this.discard();
+                return;
+            }
 
             Vec3d center = startPosition.add(movementDirection.multiply(forwardDistance));
 
-            net.minecraft.util.math.BlockPos centerBlock = net.minecraft.util.math.BlockPos.ofFloored(center);
-            var blockState = this.getWorld().getBlockState(centerBlock);
-            if (!blockState.isAir() && blockState.isSolidBlock(this.getWorld(), centerBlock)) {
+            BlockPos centerBlock = BlockPos.ofFloored(center);
+            var blockState = world.getBlockState(centerBlock);
+            if (!blockState.isAir() && blockState.isSolidBlock(world, centerBlock)) {
                 this.discard();
                 return;
             }
@@ -222,24 +265,18 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         if (owner == null) return;
 
         Box searchBox = this.getBoundingBox().expand(1.0);
-        var entities = this.getWorld().getOtherEntities(this, searchBox);
-
-        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_twister_impact")).orElse(null);
-        if (spellImpact == null) return;
-
-        for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity)) continue;
-            if (entity == owner) continue;
-            if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
-                int entityId = entity.getId();
-                Integer lastTick = lastDamageTick.get(entityId);
-                if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
-                    SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
-                            spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()));
+        PeriodicAreaImpact.apply(this.getWorld(), owner, this, searchBox,
+                Identifier.of(MOD_ID, "helper/wind_twister_impact"),
+                entity -> {
+                    if (entity == owner) return false;
+                    if (CustomMethods.isEntityProtectedCheck(entity, owner)) return false;
+                    int entityId = entity.getId();
+                    Integer lastTick = lastDamageTick.get(entityId);
+                    if (lastTick != null && currentTick - lastTick < DAMAGE_INTERVAL) return false;
                     lastDamageTick.put(entityId, currentTick);
-                }
-            }
-        }
+                    return true;
+                },
+                this.getPos(), true, null);
     }
 
     public LivingEntity getOwner() {

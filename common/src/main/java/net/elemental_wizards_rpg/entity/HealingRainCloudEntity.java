@@ -1,5 +1,6 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
+import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.elemental_wizards_rpg.particle.ModParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,7 +22,6 @@ import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellHelper;
 import net.more_rpg_classes.util.CustomMethods;
-import net.spell_power.api.SpellPower;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +30,8 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<HealingRainCloudEntity> ENTITY_TYPE;
+    private static final Identifier HEALING_RAIN_SPELL_ID = Identifier.of(MOD_ID, "aqua_healing_rain");
+    private static final float BASE_RANGE = 5.0F;
 
     private static final float FOLLOW_SPEED = 0.13F;
     private static final float BOB_AMPLITUDE = 0.3F;
@@ -41,6 +43,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
 
     private static final TrackedData<String> SPELL_ID_TRACKER = DataTracker.registerData(HealingRainCloudEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER = DataTracker.registerData(HealingRainCloudEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> SCALE_TRACKER = DataTracker.registerData(HealingRainCloudEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
     private Identifier spellId;
     private UUID ownerUuid;
@@ -74,6 +77,10 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
 
         adjustHeightToGround();
 
+        RegistryEntry<Spell> spellEntry = SpellRegistry.from(owner.getWorld()).getEntry(HEALING_RAIN_SPELL_ID).orElse(null);
+        float scale = spellEntry != null ? SpellHelper.getRange(owner, spellEntry) / BASE_RANGE : 1.0F;
+        this.getDataTracker().set(SCALE_TRACKER, scale);
+
         this.calculateDimensions();
     }
 
@@ -81,6 +88,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
     protected void initDataTracker(DataTracker.Builder builder) {
         builder.add(SPELL_ID_TRACKER, "");
         builder.add(TIME_TO_LIVE_TRACKER, 0);
+        builder.add(SCALE_TRACKER, 1.0F);
     }
 
     @Override
@@ -91,6 +99,10 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
             this.spellId = Identifier.of(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
+    }
+
+    public float getScale() {
+        return this.getDataTracker().get(SCALE_TRACKER);
     }
 
     @Override
@@ -233,11 +245,12 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
     private void spawnRainParticles() {
         World world = this.getWorld();
         Vec3d pos = this.getPos();
+        float rainRadius = RAIN_RADIUS * getScale();
 
         if (world instanceof ServerWorld serverWorld) {
             for (int i = 0; i < 20; i++) {
-                double offsetX = (this.random.nextDouble() - 0.5) * RAIN_RADIUS * 2;
-                double offsetZ = (this.random.nextDouble() - 0.5) * RAIN_RADIUS * 2;
+                double offsetX = (this.random.nextDouble() - 0.5) * rainRadius * 2;
+                double offsetZ = (this.random.nextDouble() - 0.5) * rainRadius * 2;
 
                 serverWorld.spawnParticles(
                     ModParticles.HEALING_RAIN,
@@ -280,17 +293,13 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
         var owner = this.getOwner();
         if (owner == null) return;
 
+        float rainRadius = RAIN_RADIUS * getScale();
         Vec3d cloudPos = this.getPos();
-        Box effectBox = Box.of(cloudPos.add(0, -3, 0), RAIN_RADIUS * 2, 6, RAIN_RADIUS * 2);
-        var entities = this.getWorld().getOtherEntities(this, effectBox);
+        Box effectBox = Box.of(cloudPos.add(0, -3, 0), rainRadius * 2, 6, rainRadius * 2);
 
-        for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity livingEntity)) continue;
-
-            RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact")).get();
-            SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
-                    spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(entity.getPos()));
-        }
+        PeriodicAreaImpact.apply(this.getWorld(), owner, this, effectBox,
+                Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact"),
+                entity -> true, null, true, null);
     }
 
     public LivingEntity getOwner() {
@@ -319,6 +328,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
 
     @Override
     public net.minecraft.entity.EntityDimensions getDimensions(net.minecraft.entity.EntityPose pose) {
-        return net.minecraft.entity.EntityDimensions.changing(RAIN_RADIUS * 2, 2.0F);
+        float scale = getScale();
+        return net.minecraft.entity.EntityDimensions.changing(RAIN_RADIUS * 2 * scale, 2.0F * scale);
     }
 }

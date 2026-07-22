@@ -1,5 +1,6 @@
-package net.elemental_wizards_rpg.entity.spell_spawned;
+package net.elemental_wizards_rpg.entity;
 
+import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
@@ -21,7 +22,6 @@ import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellHelper;
 import net.more_rpg_classes.util.CustomMethods;
-import net.spell_power.api.SpellPower;
 
 import java.util.UUID;
 
@@ -29,6 +29,8 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class TornadoEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<TornadoEntity> ENTITY_TYPE;
+    private static final Identifier TORNADO_SPELL_ID = Identifier.of(MOD_ID, "wind_tornado");
+    private static final float BASE_RANGE = 20.0F;
 
     private static final float PULL_RADIUS = 5.0F;
     private static final float PULL_STRENGTH = 0.15F;
@@ -43,11 +45,13 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
 
     private static final TrackedData<String> SPELL_ID_TRACKER = DataTracker.registerData(TornadoEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER = DataTracker.registerData(TornadoEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> SCALE_TRACKER = DataTracker.registerData(TornadoEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
     private Identifier spellId;
     private UUID ownerUuid;
     private int timeToLive;
     private LivingEntity cachedOwner = null;
+    private RegistryEntry<Spell> spellEntry = null;
 
     public TornadoEntity(EntityType<? extends Entity> entityType, World world) {
         super(entityType, world);
@@ -65,12 +69,17 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
         this.cachedOwner = owner;
         this.timeToLive = spawn.time_to_live_seconds * 20;
         this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
+
+        SpellRegistry.from(owner.getWorld()).getEntry(TORNADO_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        float scale = this.spellEntry != null ? SpellHelper.getRange(owner, this.spellEntry) / BASE_RANGE : 1.0F;
+        this.getDataTracker().set(SCALE_TRACKER, scale);
     }
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         builder.add(SPELL_ID_TRACKER, "");
         builder.add(TIME_TO_LIVE_TRACKER, 0);
+        builder.add(SCALE_TRACKER, 1.0F);
     }
 
     @Override
@@ -81,6 +90,10 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
             this.spellId = Identifier.of(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
+    }
+
+    public float getScale() {
+        return this.getDataTracker().get(SCALE_TRACKER);
     }
 
     @Override
@@ -146,8 +159,9 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
         var owner = this.getOwner();
         if (owner == null) return;
 
+        float pullRadius = PULL_RADIUS * getScale();
         Vec3d tornadoCenter = this.getPos().add(0, 1.0, 0);
-        Box searchBox = Box.of(tornadoCenter, PULL_RADIUS * 2, PULL_RADIUS * 2, PULL_RADIUS * 2);
+        Box searchBox = Box.of(tornadoCenter, pullRadius * 2, pullRadius * 2, pullRadius * 2);
 
         var entities = this.getWorld().getOtherEntities(this, searchBox);
 
@@ -182,22 +196,14 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
         var owner = this.getOwner();
         if (owner == null) return;
 
+        float pullRadius = PULL_RADIUS * getScale();
         Vec3d tornadoCenter = this.getPos().add(0, 1.0, 0);
-        Box damageBox = Box.of(tornadoCenter, PULL_RADIUS * 2, PULL_RADIUS * 2, PULL_RADIUS * 2);
+        Box damageBox = Box.of(tornadoCenter, pullRadius * 2, pullRadius * 2, pullRadius * 2);
 
-        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/wind_tornado_impact")).orElse(null);
-        if (spellImpact == null) return;
-
-        var entities = this.getWorld().getOtherEntities(this, damageBox);
-
-        for (Entity entity : entities) {
-            if (!(entity instanceof LivingEntity)) continue;
-            if (entity == owner) continue;
-            if (!CustomMethods.isEntityProtectedCheck(entity, owner)) {
-                SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
-                        spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
-            }
-        }
+        PeriodicAreaImpact.apply(this.getWorld(), owner, this, damageBox,
+                Identifier.of(MOD_ID, "helper/wind_tornado_impact"),
+                entity -> entity != owner && !CustomMethods.isEntityProtectedCheck(entity, owner),
+                this.getPos(), false, null);
     }
 
     private boolean canLevitate(Entity entity) {
@@ -220,7 +226,7 @@ public class TornadoEntity extends Entity implements SpellEntity.Spawned {
 
     @Override
     public EntityDimensions getDimensions(EntityPose pose) {
-        return super.getDimensions(pose).scaled(3.0F);
+        return super.getDimensions(pose).scaled(3.0F * getScale());
     }
 
     @Override
