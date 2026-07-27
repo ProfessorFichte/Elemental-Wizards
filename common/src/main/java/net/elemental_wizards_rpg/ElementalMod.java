@@ -2,7 +2,6 @@ package net.elemental_wizards_rpg;
 
 import net.elemental_wizards_rpg.compat.WizardsCompat;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
-import net.elemental_wizards_rpg.entity.EWizardsTeamMatcher;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.item.ElementalItems;
@@ -57,7 +56,6 @@ public class ElementalMod {
 		}
 		CustomSpellImpacts.registerCustomImpacts();
 		WizardsCompat.registerCompat();
-		EWizardsTeamMatcher.register();
 	}
 	public static void registerItems() {
 		ElementalGroup.ELEMENTAL_WIZARD = FabricItemGroup.builder()

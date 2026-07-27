@@ -3,7 +3,6 @@ package net.elemental_wizards_rpg.spell;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.ElementalSummons;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -13,12 +12,12 @@ import net.more_rpg_classes.sounds.MRPGLibSounds;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.fx.ModelEffect;
+import net.spell_engine.api.spell.fx.ModelEffectBuilder;
 import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.api.spell.summon.AttributeScaling;
-import net.spell_engine.api.spell.summon.SummonBehaviour;
 import net.spell_engine.api.util.TriState;
 import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
@@ -28,6 +27,7 @@ import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.target.SpellTarget;
 import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1779,7 +1779,7 @@ public class ElementalWizardSpells {
     private static Entry wind_tornado() {
         var id = Identifier.of(MOD_ID, "wind_tornado");
         var title = "Tornado";
-        var description = "Summons a devastating tornado at the targets location, that traps enemies and deals {tornado_damage} damage to them.";
+        var description = "Summons a devastating tornado, pulling and lifting enemies while dealing {damage} damage to them.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1798,44 +1798,65 @@ public class ElementalWizardSpells {
         spell.target.aim = new Spell.Target.Aim();
         spell.target.aim.required = true;
         spell.target.aim.sticky = true;
+        spell.target.aim.use_caster_as_fallback = true;
 
         spell.release = new Spell.Release();
 
-        int delay = 0;
-        int toLiveSeconds = 7;
-        String entityId = "elemental_wizards_rpg:tornado";
-        var spawn = new Spell.Impact();
-        spawn.action = new Spell.Impact.Action();
-        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
-        var tornado = new Spell.Impact.Action.Spawn();
-        tornado.intent = SpellTarget.Intent.HARMFUL;
-        tornado.entity_type_id = entityId;
-        tornado.delay_ticks = delay;
-        tornado.time_to_live_seconds = toLiveSeconds;
-        tornado.placement.apply_yaw = true;
-        spawn.action.spawns = List.of(tornado);
+        spell.deliver.type = Spell.Delivery.Type.CLOUD;
+        var cloud = new Spell.Delivery.Cloud();
+        cloud.volume.radius = 5.0F;
+        cloud.volume.extra_radius.power_coefficient = 0.02F;
+        cloud.volume.extra_radius.power_cap = 50F;
+        cloud.volume.area.vertical_range_multiplier = 1.5F;
+        cloud.impact_tick_interval = 5;
+        cloud.time_to_live_seconds = 7;
+        cloud.spawn_ticks = 25;
+        cloud.despawn_ticks = 15;
+        var tornadoTotalTicks = cloud.spawn_ticks + Math.round(cloud.time_to_live_seconds * 20F) + cloud.despawn_ticks;
+        cloud.client_data = new Spell.Delivery.Cloud.ClientData();
+        cloud.client_data.model_fx = List.of(
+                ModelEffectBuilder.create("elemental_wizards_rpg:spell_effect/tornado")
+                        .scale(3.5F)
+                        .light(LightEmission.RADIATE)
+                        .duration(tornadoTotalTicks)
+                        .scaleIn(0, cloud.spawn_ticks, ModelEffect.Easing.EASE_OUT_CUBIC)
+                        .scaleOut(tornadoTotalTicks - cloud.despawn_ticks, tornadoTotalTicks, ModelEffect.Easing.EASE_IN_CUBIC)
+                        .rotate(0, 25F * tornadoTotalTicks, 0, 0, tornadoTotalTicks, ModelEffect.Easing.LINEAR)
+                        .build()
+        );
+        cloud.placement.apply_yaw = true;
+        spell.deliver.clouds = List.of(cloud);
 
-        spell.impacts = List.of(spawn);
+        var damage = damageImpact(0.2F, 0);
+        damage.particles = new ParticleBatch[]{
+                new ParticleBatch("more_rpg_classes:water_mist",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
+                        ParticleBatch.Rotation.LOOK,
+                        0.2F, 0.1F, 0.1F, 0),
+                new ParticleBatch("more_rpg_classes:stone_particle",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
+                        ParticleBatch.Rotation.LOOK,
+                        1.5F, 0.5F, 1.0F, 0)
+        };
+        damage.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString()), 1.2F);
+
+        var pull = new Spell.Impact();
+        pull.action = new Spell.Impact.Action();
+        pull.action.type = Spell.Impact.Action.Type.VELOCITY;
+        pull.action.velocity = new Spell.Impact.Action.Velocity();
+        pull.action.velocity.frame = Spell.Impact.Action.Velocity.Frame.ORIGIN;
+        pull.action.velocity.push = new Vector3f(0.08F, 0.28F, -0.35F);
+        pull.action.velocity.power_coefficient = 0.02F;
+        pull.action.velocity.intent = SpellTarget.Intent.HARMFUL;
+        bossImmuneDeny(pull);
+
+        spell.impacts = List.of(damage, pull);
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 30);
-        spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/wind_tornado_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellHelper.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{tornado_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.WIND);
     }
     public static final Entry wind_stormdraft = add(wind_stormdraft());
     private static Entry wind_stormdraft() {
@@ -2126,35 +2147,6 @@ public class ElementalWizardSpells {
         };
         damage.sound = new Sound(MRPGLibSounds.AIR_MAGIC_IMPACT_1.id().toString());
 
-
-        spell.impacts = List.of(damage);
-
-        return new Entry(id, spell, title, description);
-    }
-    public static final Entry wind_tornado_impact = add(wind_tornado_impact());
-    private static Entry wind_tornado_impact() {
-        var id = Identifier.of(MOD_ID, "helper/wind_tornado_impact");
-        var title = "";
-        var description = "";
-
-        var spell = SpellBuilder.createSpellActive();
-        spell.school = MoreSpellSchools.AIR;
-        spell.range = 20;
-        spell.tier = 4;
-        spell.learn = new Spell.Learn();
-
-        var damage = damageImpact(0.55F, 0);
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch("more_rpg_classes:water_mist",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
-                        ParticleBatch.Rotation.LOOK,
-                        0.2F, 0.1F, 0.1F, 0),
-                new ParticleBatch("more_rpg_classes:stone_particle",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.FEET,
-                        ParticleBatch.Rotation.LOOK,
-                        1.5F, 0.5F, 1.0F, 0)
-        };
-        damage.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString()), 1.2F);
 
         spell.impacts = List.of(damage);
 

@@ -4,7 +4,6 @@ import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
 import net.elemental_wizards_rpg.client.armor.ElementalRobeRenderer;
 import net.elemental_wizards_rpg.client.effect.*;
-import net.elemental_wizards_rpg.client.entity.TornadoRenderer;
 import net.elemental_wizards_rpg.client.entity.WhirlwindRenderer;
 import net.elemental_wizards_rpg.client.entity.TerraStoneRenderer;
 import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityRenderer;
@@ -14,7 +13,6 @@ import net.elemental_wizards_rpg.client.entity.HealingRainCloudEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.EarthquakeEntityRenderer;
 import net.elemental_wizards_rpg.client.particle.HealingRainParticle;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
-import net.elemental_wizards_rpg.entity.TornadoEntity;
 import net.elemental_wizards_rpg.entity.WhirlwindEntity;
 import net.elemental_wizards_rpg.entity.TerraStoneEntity;
 import net.elemental_wizards_rpg.entity.EarthGolemEntity;
@@ -81,7 +79,6 @@ public class ElementalClient{
         // Register model layers
         EntityModelLayerRegistry.registerModelLayer(EarthGolemEntityModel.LAYER_LOCATION, EarthGolemEntityModel::createBodyLayer);
 
-        EntityRendererRegistry.register(TornadoEntity.ENTITY_TYPE, TornadoRenderer::new);
         EntityRendererRegistry.register(WhirlwindEntity.ENTITY_TYPE, WhirlwindRenderer::new);
         EntityRendererRegistry.register(TerraStoneEntity.ENTITY_TYPE, TerraStoneRenderer::new);
         EntityRendererRegistry.register(EarthGolemEntity.ENTITY_TYPE, EarthGolemEntityRenderer::new);

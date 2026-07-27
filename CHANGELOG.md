@@ -1,3 +1,8 @@
+# 3.0.1 - 1.21.1
+-Converted the Tornado Spell to a Spell Cloud instead of an Entity
+-Also received a new Spawning & De-Spawning Animation
+-Attempt to fix a crash on Neoforge, caused by the TerraStoneEntity
+
 # 3.0.0 - 1.21.1
 - Adapt to Spell Engine 1.9.10+ API Changes
 **Balancing & Internal Changes:**

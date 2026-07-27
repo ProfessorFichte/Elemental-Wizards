@@ -38,31 +38,141 @@
     "type": "AIM",
     "aim": {
       "required": true,
-      "sticky": true
+      "sticky": true,
+      "use_caster_as_fallback": true
     }
+  },
+  "deliver": {
+    "type": "CLOUD",
+    "clouds": [
+      {
+        "spawn_ticks": 25,
+        "despawn_ticks": 15,
+        "volume": {
+          "radius": 5.0,
+          "extra_radius": {
+            "power_coefficient": 0.02,
+            "power_cap": 50.0
+          },
+          "area": {
+            "vertical_range_multiplier": 1.5
+          }
+        },
+        "time_to_live_seconds": 7.0,
+        "placement": {
+          "apply_yaw": true
+        },
+        "client_data": {
+          "model_fx": [
+            {
+              "model_id": "elemental_wizards_rpg:spell_effect/tornado",
+              "light_emission": "RADIATE",
+              "scale": 3.5,
+              "duration": 180,
+              "initial": [
+                {
+                  "operation": "scale",
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": -1.0
+                }
+              ],
+              "animations": [
+                {
+                  "start": 0,
+                  "end": 25,
+                  "easing": "EASE_OUT_CUBIC",
+                  "operation": "scale",
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+                },
+                {
+                  "start": 165,
+                  "end": 180,
+                  "easing": "EASE_IN_CUBIC",
+                  "operation": "scale",
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": -1.0
+                },
+                {
+                  "start": 0,
+                  "end": 180,
+                  "easing": "LINEAR",
+                  "operation": "rotate",
+                  "x": 0.0,
+                  "y": 4500.0,
+                  "z": 0.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
   },
   "impacts": [
     {
       "action": {
-        "type": "SPAWN",
-        "spawns": [
-          {
-            "intent": "HARMFUL",
-            "entity_type_id": "elemental_wizards_rpg:tornado",
-            "time_to_live_seconds": 7,
-            "placement": {
-              "apply_yaw": true
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.2,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:water_mist",
+          "origin": "FEET",
+          "shape": "SPHERE",
+          "rotation": "LOOK",
+          "count": 0.2,
+          "min_speed": 0.1,
+          "max_speed": 0.1
+        },
+        {
+          "particle_id": "more_rpg_classes:stone_particle",
+          "origin": "FEET",
+          "shape": "SPHERE",
+          "rotation": "LOOK",
+          "count": 1.5,
+          "min_speed": 0.5
+        }
+      ],
+      "sound": {
+        "id": "more_rpg_classes:air_magic_impact2",
+        "volume": 1.2
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#c:bosses"
             }
-          }
-        ]
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "VELOCITY",
+        "velocity": {
+          "push": {
+            "x": 0.08,
+            "y": 0.28,
+            "z": -0.35
+          },
+          "power_coefficient": 0.02
+        }
       }
     }
   ],
   "cost": {
     "exhaust": 0.3,
     "cooldown": {
-      "duration": 30.0,
-      "proportional": true
+      "duration": 30.0
     },
     "item": {
       "id": "more_rpg_classes:storm_stone"

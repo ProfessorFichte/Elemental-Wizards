@@ -57,16 +57,6 @@ public class ModEntitiesRegistry {
     }
 
     private static void registerWindEntities() {
-        TornadoEntity.ENTITY_TYPE = Registry.register(
-                Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "tornado"),
-                FabricEntityTypeBuilder.<TornadoEntity>create(SpawnGroup.MISC, TornadoEntity::new)
-                        .dimensions(EntityDimensions.changing(4.0F, 4.0F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(20)
-                        .build()
-        );
 
         WhirlwindEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,

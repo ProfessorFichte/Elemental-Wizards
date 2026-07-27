@@ -184,7 +184,7 @@
   "spell.elemental_wizards_rpg.wind_gust.name": "Gust",
   "spell.elemental_wizards_rpg.wind_stormdraft.description": "Channel bursts of high pressure air that deal {damage} damage and shortly stun enemies.",
   "spell.elemental_wizards_rpg.wind_stormdraft.name": "Storm Draft",
-  "spell.elemental_wizards_rpg.wind_tornado.description": "Summons a devastating tornado at the targets location, that traps enemies and deals {tornado_damage} damage to them.",
+  "spell.elemental_wizards_rpg.wind_tornado.description": "Summons a devastating tornado, pulling and lifting enemies while dealing {damage} damage to them.",
   "spell.elemental_wizards_rpg.wind_tornado.name": "Tornado",
   "spell.elemental_wizards_rpg.wind_twister.description": "Launch a circling-moving whirlwind, that knock's back targets it hits and damages them by {twister_damage} damage.",
   "spell.elemental_wizards_rpg.wind_twister.name": "Twister",
