@@ -188,7 +188,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
             entity.setVelocity(entity.getVelocity().add((deltaX / distance) * pushStrength, 0.0, (deltaZ / distance) * pushStrength));
             entity.velocityModified = true;
             if (entity instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayer));
+                serverPlayer.networkHandler.send(new EntityVelocityUpdateS2CPacket(serverPlayer), null);
             }
 
             if (spellImpact != null) {
