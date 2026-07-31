@@ -57,7 +57,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 		pack.addProvider(ElementalVanillaAdvancementProvider::new);
 		pack.addProvider(ElementalAdvancementDataGen::new);
 		pack.addProvider(SoundGen::new);
-		// Recipe Providers
 		pack.addProvider(net.elemental_wizards_rpg.datagen.ElementalRecipeProvider::new);
 		pack.addProvider(net.elemental_wizards_rpg.datagen.ElementalSmithingRecipeProvider::new);
 	}
@@ -81,13 +80,10 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 
 		@Override
 		public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-			// Item Group
 			translationBuilder.add("itemGroup.elemental_wizards_rpg.general", "Elemental Wizards");
 
-			// Misc Items
 			translationBuilder.add("item.elemental_wizards_rpg.elemental_essence", "Elemental Essence");
 
-			// Spell Books and Scrolls
 			translationBuilder.add("item.elemental_wizards_rpg.spell_book/aqua", "Tome of Water");
 			translationBuilder.add("item.elemental_wizards_rpg.spell_scroll/aqua", "Water Spell Scroll");
 			translationBuilder.add("item.elemental_wizards_rpg.spell_book/aqua.spell_binding.description",
@@ -102,12 +98,10 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 					"Spell Book of Wind Wizards, using wind magic to perform dangerous combos on enemies.\n- Strengths: Strong CC and damage on single targets.\n- Weaknesses: Low defense and no mobility\n- Equipment: Light Armor");
 
 
-			// Weapons (from Entry translatedName)
 			WeaponsRegister.entries.forEach(entry ->
 				translationBuilder.add(entry.item().getTranslationKey(), entry.translatedName())
 			);
 
-			// Armors (from Entry translatedName)
 			Armors.entries.forEach(entry -> {
 				var translations = new LinkedHashMap<String, String>();
 				translations.put(((Item)entry.armorSet().head).getTranslationKey(), entry.armorSet().headTranslation);
@@ -119,7 +113,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 				}
 			});
 
-			// Effects
 			ElementalEffects.entries.forEach(entry -> {
 				translationBuilder.add(entry.effect.getTranslationKey(), entry.title);
 				if (!entry.description.isEmpty()) {
@@ -127,15 +120,12 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 				}
 			});
 
-			// Spells
-
 			ElementalWizardSpells.entries.stream().filter(entry -> !entry.id().getPath().startsWith("helper/")).forEach(entry -> {
 				var id = entry.id();
 				translationBuilder.add("spell." + id.getNamespace() + "." + id.getPath() + ".name", entry.title());
 				translationBuilder.add("spell." + id.getNamespace() + "." + id.getPath() + ".description", entry.description());
 			});
 
-			// Entities
 			translationBuilder.add("entity.elemental_wizards_rpg.dripstone_big", "Dripstone");
 			translationBuilder.add("entity.elemental_wizards_rpg.dripstone_small", "Small Dripstone");
 			translationBuilder.add("entity.elemental_wizards_rpg.terra_stone", "Terra Stone");
@@ -147,11 +137,9 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 			translationBuilder.add("entity.elemental_wizards_rpg.healing_rain_cloud", "Healing Rain Cloud");
 			translationBuilder.add("entity.elemental_wizards_rpg.earth_golem", "Earth Golem");
 
-			// Equipment Sets
 			translationBuilder.add("equipment_set.elemental_wizards_rpg.hurricane", "Eye of the Hurricane");
 			translationBuilder.add("equipment_set.elemental_wizards_rpg.mountain", "Mountains Wrath");
 			translationBuilder.add("equipment_set.elemental_wizards_rpg.ocean", "Oceans Grace");
-			// Advancements
 			for (var entry : ElementalAdvancementDataGen.getEntries()) {
 				translationBuilder.add(entry.titleKey(), entry.title());
 				translationBuilder.add(entry.descriptionKey(), entry.description());

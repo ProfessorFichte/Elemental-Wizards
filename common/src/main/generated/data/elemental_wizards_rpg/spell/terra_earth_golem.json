@@ -41,15 +41,20 @@
             "movement": {
               "follow": {
                 "stop_distance": 3.0,
-                "teleport_after_distance": 24.0
+                "teleport_after_distance": 32.0
               },
               "is_pushable": false
             },
             "targeting": {
-              "automatic_targeting": "HOSTILE"
+              "automatic_targeting": "HOSTILE",
+              "detection_range": {
+                "mode": "MAXIMUM_ACTION_RANGE"
+              }
             },
             "lifespan": {
-              "active_seconds": 15
+              "spawn_ticks": 20,
+              "active_seconds": 30,
+              "despawn_ticks": 20
             },
             "sounds": {
               "ambient": {
@@ -57,6 +62,26 @@
               }
             },
             "actions": [
+              {
+                "type": "SPELL_CAST",
+                "spell_cast": {
+                  "spell_id": "elemental_wizards_rpg:terra_stone_throw",
+                  "range": {
+                    "min": 0.4
+                  }
+                }
+              },
+              {
+                "type": "SPELL_CAST",
+                "spell_cast": {
+                  "spell_id": "elemental_wizards_rpg:terra_earth_golem_spike_line",
+                  "cooldown": 60,
+                  "range": {
+                    "min": 0.5,
+                    "max": 1.125
+                  }
+                }
+              },
               {
                 "type": "MELEE_ATTACK",
                 "melee_attack": {
@@ -71,20 +96,6 @@
                   "impact_sound": {
                     "id": "elemental_wizards_rpg:golem_ground_slam"
                   }
-                }
-              },
-              {
-                "type": "SPELL_CAST",
-                "spell_cast": {
-                  "spell_id": "elemental_wizards_rpg:terra_stone_throw",
-                  "cooldown": 40
-                }
-              },
-              {
-                "type": "SPELL_CAST",
-                "spell_cast": {
-                  "spell_id": "elemental_wizards_rpg:terra_earth_golem_spike_line",
-                  "cooldown": 60
                 }
               }
             ]

@@ -18,11 +18,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
 
     @Override
     public void generate() {
-        // ==========================================
-        // NETHERITE UPGRADES (No mod dependencies)
-        // ==========================================
-
-        // Netherite Kelp Armor Set
         createSimpleArmorSetUpgrade(
                 "netherite",
                 Armors.kelpArmor.armorSet(),
@@ -31,7 +26,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                 Armors.netheriteKelpNetheriteArmor.armorSet()
         );
 
-        // Netherite Dripstone Armor Set
         createSimpleArmorSetUpgrade(
                 "netherite",
                 Armors.dripstoneArmor.armorSet(),
@@ -40,7 +34,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                 Armors.netheriteDripstoneArmor.armorSet()
         );
 
-        // Netherite Wind Armor Set
         createSimpleArmorSetUpgrade(
                 "netherite",
                 Armors.windArmor.armorSet(),
@@ -48,7 +41,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                 Items.NETHERITE_INGOT,
                 Armors.netheriteWindArmor.armorSet()
         );
-        // Netherite Weapons
         createSimpleSmithingRecipe(
                 "smithing_netherite_aqua_wand",
                 WeaponsRegister.aquaWand.item(),
@@ -92,14 +84,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                 WeaponsRegister.netheriteWindStaff.item()
         );
 
-
-        // ==========================================
-        // ARMORY RPG UPGRADES (With mod load conditions)
-        // ==========================================
-
-        // Only generate these recipes if armory_rpgs is loaded
         if (armoryLoadCheck()) {
-            // Hurricane Robe upgrades (from Wind armor)
             createArmorSetUpgrade(
                     "smithing_wind",
                     Armors.windArmor.armorSet(),
@@ -109,7 +94,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "armory_rpgs"
             );
 
-            // Hurricane Robe upgrades (from Netherite Wind armor)
             createArmorSetUpgrade(
                     "smithing_netherite_wind",
                     Armors.netheriteWindArmor.armorSet(),
@@ -119,7 +103,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "armory_rpgs"
             );
 
-            // Mountain Robe upgrades (from Dripstone armor)
             createArmorSetUpgrade(
                     "smithing_dripstone",
                     Armors.dripstoneArmor.armorSet(),
@@ -129,7 +112,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "armory_rpgs"
             );
 
-            // Mountain Robe upgrades (from Netherite Dripstone armor)
             createArmorSetUpgrade(
                     "smithing_netherite_dripstone",
                     Armors.netheriteDripstoneArmor.armorSet(),
@@ -139,7 +121,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "armory_rpgs"
             );
 
-            // Ocean Robe upgrades (from Kelp armor)
             createArmorSetUpgrade(
                     "smithing_kelp",
                     Armors.kelpArmor.armorSet(),
@@ -149,7 +130,6 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "armory_rpgs"
             );
 
-            // Ocean Robe upgrades (from Netherite Kelp armor)
             createArmorSetUpgrade(
                     "smithing_netherite_kelp",
                     Armors.netheriteKelpNetheriteArmor.armorSet(),

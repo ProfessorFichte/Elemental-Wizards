@@ -54,10 +54,8 @@ public class WeaponsRegister {
         }
     }
 
-    //WANDS
     private static final float wandAttackDamage = 2;
     private static final float wandAttackSpeed = -2.4F;
-    // Wand spell power bonuses
     private static final float T0_WAND_POWER = 3F;
     private static final float T1_WAND_POWER = 4F;
     private static final float T2_WAND_POWER = 5F;
@@ -128,7 +126,6 @@ public class WeaponsRegister {
             .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_gust.id()))
             .translatedName("Netherite Wind Wand");
 
-    //STAFFS
     private static final float staffAttackDamage = 4;
     private static final float staffAttackSpeed = -3F;
     private static Weapon.Entry staff(String name, Weapon.CustomMaterial material) {
@@ -188,7 +185,6 @@ public class WeaponsRegister {
     private static final String BETTER_NETHER = "betternether";
     private static final String AETHER = "aether";
     private static final String ARSENAL = "arsenal";
-    //Registration
     public static void register(Map<String,WeaponConfig> configs) {
         if(FabricLoader.getInstance().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);

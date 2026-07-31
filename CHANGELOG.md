@@ -1,7 +1,10 @@
 # 3.0.1 - 1.21.1
--Converted the Tornado Spell to a Spell Cloud instead of an Entity
--Also received a new Spawning & De-Spawning Animation
--Attempt to fix a crash on Neoforge, caused by the TerraStoneEntity
+- Converted the Tornado Spell to a Spell Cloud instead of an Entity
+- Also, the Tornado received a new Spawning & De-Spawning Animation
+- Attempt to fix a crash on Neoforge, caused by the TerraStoneEntity
+- removed the custom knock up spell impacts and use spell engines new velocity impact
+- improved the earth golem's spell casting behaviour
+- Added uk_ua localization- #11 - thx Ch1sho
 
 # 3.0.0 - 1.21.1
 - Adapt to Spell Engine 1.9.10+ API Changes

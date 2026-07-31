@@ -37,8 +37,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<EarthquakeEntity> ENTITY_TYPE;
     private static final Identifier EARTHQUAKE_SPELL_ID = Identifier.of(MOD_ID, "terra_earthquake");
 
-    /// Radius/vertical range at a full charge release, kept in the same ratio (5/16) as the charge
-    /// grows the radius via `SpellHelper.getRange` (see onSpawnedBySpell).
+    // Ratio (5/16) must stay in sync with onSpawnedBySpell, which scales radius via SpellHelper.getRange
     private static final float BASE_EARTHQUAKE_RADIUS = 16.0F;
     private static final float BASE_VERTICAL_RANGE = 5.0F;
     private static final int DAMAGE_INTERVAL = 10;
@@ -201,7 +200,6 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     private void initializeShakingBlocks() {
         shakingBlocks.clear();
 
-        Vec3d earthquakeCenter = this.getPos();
         BlockPos centerPos = this.getBlockPos();
 
         BlockPos groundPos = centerPos;

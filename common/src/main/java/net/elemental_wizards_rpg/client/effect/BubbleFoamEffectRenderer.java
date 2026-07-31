@@ -25,18 +25,18 @@ public class BubbleFoamEffectRenderer implements CustomModelStatusEffect.Rendere
     private static final float TWO_PI = (float) (2.0 * Math.PI);
 
     private final float[] orbitRadius       = new float[BUBBLE_COUNT];
-    private final float[] orbitHeightFactor = new float[BUBBLE_COUNT]; // fraction of entity height
-    private final float[] orbitSpeed        = new float[BUBBLE_COUNT]; // deg/tick, signed for direction
-    private final float[] orbitPhase        = new float[BUBBLE_COUNT]; // initial angle in degrees
-    private final float[] selfRotSpeedY     = new float[BUBBLE_COUNT]; // deg/tick, signed
-    private final float[] selfRotSpeedX     = new float[BUBBLE_COUNT]; // deg/tick, signed
-    private final float[] pulseFreq         = new float[BUBBLE_COUNT]; // rad/tick
-    private final float[] pulsePhase        = new float[BUBBLE_COUNT]; // rad
+    private final float[] orbitHeightFactor = new float[BUBBLE_COUNT];
+    private final float[] orbitSpeed        = new float[BUBBLE_COUNT];
+    private final float[] orbitPhase        = new float[BUBBLE_COUNT];
+    private final float[] selfRotSpeedY     = new float[BUBBLE_COUNT];
+    private final float[] selfRotSpeedX     = new float[BUBBLE_COUNT];
+    private final float[] pulseFreq         = new float[BUBBLE_COUNT];
+    private final float[] pulsePhase        = new float[BUBBLE_COUNT];
     private final float[] baseScale         = new float[BUBBLE_COUNT];
-    private final float[] pulseAmplitude    = new float[BUBBLE_COUNT]; // fraction of baseScale
-    private final float[] bobAmplitude      = new float[BUBBLE_COUNT]; // blocks
-    private final float[] bobFreq           = new float[BUBBLE_COUNT]; // rad/tick
-    private final float[] bobPhase          = new float[BUBBLE_COUNT]; // rad
+    private final float[] pulseAmplitude    = new float[BUBBLE_COUNT];
+    private final float[] bobAmplitude      = new float[BUBBLE_COUNT];
+    private final float[] bobFreq           = new float[BUBBLE_COUNT];
+    private final float[] bobPhase          = new float[BUBBLE_COUNT];
 
     public BubbleFoamEffectRenderer() {
         Random rng = new Random(7331L);

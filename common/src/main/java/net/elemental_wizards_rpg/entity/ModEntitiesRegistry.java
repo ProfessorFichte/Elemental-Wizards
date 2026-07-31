@@ -1,19 +1,20 @@
 package net.elemental_wizards_rpg.entity;
 
+import net.elemental_wizards_rpg.ElementalMod;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.spell_engine.api.spell.summon.SummonedEntityConfig;
 import net.spell_engine.api.spell.summon.SummonedEntities;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class ModEntitiesRegistry {
+    public static final Identifier EARTH_GOLEM_ID = Identifier.of(MOD_ID, "earth_golem");
+
     public static void registerEntities() {
-        // Spell Effect Entities
         registerDripstoneEntities();
         registerWindEntities();
         registerWaterEntities();
@@ -95,10 +96,9 @@ public class ModEntitiesRegistry {
     }
 
     private static void registerEarthEntities() {
-        Identifier golemId = Identifier.of(MOD_ID, "earth_golem");
         EarthGolemEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                golemId,
+                EARTH_GOLEM_ID,
                 FabricEntityTypeBuilder.<EarthGolemEntity>create(SpawnGroup.CREATURE, EarthGolemEntity::new)
                         .dimensions(EntityDimensions.changing(2.6F, 3.5F))
                         .trackRangeBlocks(64)
@@ -106,14 +106,7 @@ public class ModEntitiesRegistry {
                         .build()
         );
 
-        // spell_power:earth is a base stat so the golem's own melee/spells scale off itself, not
-        // the owner; owner-scaling lives on the SUMMON impact's attribute_scaling instead.
-        var defaults = new SummonedEntityConfig.Entry();
-        defaults.common = new SummonedEntityConfig.CommonAttributes(40.0, 0.3, 8.0);
-        defaults.common.follow_range = 16.0;
-        defaults.custom.add(new SummonedEntityConfig.CustomAttribute("spell_power:earth", 1));
-        defaults.custom.add(new SummonedEntityConfig.CustomAttribute("minecraft:generic.knockback_resistance", 0.8));
-        SummonedEntities.registerAttributes(golemId, EarthGolemEntity.ENTITY_TYPE, id -> defaults);
+        SummonedEntities.registerAttributes(EARTH_GOLEM_ID, EarthGolemEntity.ENTITY_TYPE, ElementalMod.summonConfig.value::entryFor);
     }
 
     private static void registerLivingEntities() {

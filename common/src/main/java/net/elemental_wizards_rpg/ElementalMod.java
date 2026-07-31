@@ -2,6 +2,7 @@ package net.elemental_wizards_rpg;
 
 import net.elemental_wizards_rpg.compat.WizardsCompat;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
+import net.elemental_wizards_rpg.entity.ElementalSummons;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.item.ElementalItems;
@@ -22,6 +23,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.spell_engine.api.config.ConfigFile;
+import net.spell_engine.api.spell.summon.SummonedEntityConfig;
 import net.tiny_config.ConfigManager;
 import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
 
@@ -46,11 +48,24 @@ public class ElementalMod {
 			.setDirectory(MOD_ID)
 			.sanitize(true)
 			.build();
+	public static ConfigManager<SummonedEntityConfig> summonConfig = new ConfigManager<>
+			("summoned_entities", seededSummonDefaults())
+			.builder()
+			.setDirectory(MOD_ID)
+			.sanitize(true)
+			.build();
+
+	private static SummonedEntityConfig seededSummonDefaults() {
+		var config = new SummonedEntityConfig();
+		config.entries.put(ModEntitiesRegistry.EARTH_GOLEM_ID.toString(), ElementalSummons.earthGolemDefaults());
+		return config;
+	}
 
 	public static void init() {
 		itemConfig.refresh();
 		effectsConfig.refresh();
 		tweaksConfig.refresh();
+		summonConfig.refresh();
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
 			tweaksConfig.value.ignore_items_required_mods = true;
 		}

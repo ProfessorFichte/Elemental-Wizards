@@ -19,10 +19,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
 
     @Override
     public void generate() {
-        // ==========================================
-        // MISC
-        // ==========================================
-
         createShapedRecipe("elemental_essence",
                 ElementalItems.ELEMENTAL_ESSENCE,
                 2,
@@ -33,10 +29,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "D", Items.COAL,
                 "E", Items.LAPIS_LAZULI
         );
-
-        // ==========================================
-        // ELEMENTAL ARMOR SET
-        // ==========================================
 
         createShapedRecipe("elemental_head",
                 Armors.elementalArmor.armorSet().head,
@@ -69,10 +61,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "A", ElementalItems.ELEMENTAL_ESSENCE,
                 "B", ItemTags.WOOL
         );
-
-        // ==========================================
-        // KELP ARMOR SET
-        // ==========================================
 
         createShapedRecipe("kelp_head",
                 Armors.kelpArmor.armorSet().head,
@@ -107,10 +95,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", ItemTags.WOOL
         );
 
-        // ==========================================
-        // DRIPSTONE ARMOR SET
-        // ==========================================
-
         createShapedRecipe("dripstone_head",
                 Armors.dripstoneArmor.armorSet().head,
                 1,
@@ -143,10 +127,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "A", Items.POINTED_DRIPSTONE,
                 "B", ItemTags.WOOL
         );
-
-        // ==========================================
-        // WIND ARMOR SET
-        // ==========================================
 
         createShapedRecipe("wind_head",
                 Armors.windArmor.armorSet().head,
@@ -181,10 +161,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", ItemTags.WOOL
         );
 
-        // ==========================================
-        // WANDS - TIER 0 (Basic)
-        // ==========================================
-
         createShapedRecipe("wand_kelp",
                 WeaponsRegister.kelpWand.item(),
                 1,
@@ -208,10 +184,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "A", Items.FEATHER,
                 "B", Items.STICK
         );
-
-        // ==========================================
-        // WANDS - TIER 2 (Advanced)
-        // ==========================================
 
         createShapedRecipe("wand_aqua",
                 WeaponsRegister.aquaWand.item(),
@@ -237,10 +209,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", new Item[]{Items.GOLD_INGOT}
         );
 
-        // ==========================================
-        // STAFFS - TIER 1 (Elemental)
-        // ==========================================
-
         createShapedRecipe("staff_elemental",
                 WeaponsRegister.elementalStaff.item(),
                 1,
@@ -249,10 +217,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", Items.STICK,
                 "C", ElementalItems.ELEMENTAL_ESSENCE
         );
-
-        // ==========================================
-        // STAFFS - TIER 2 (Specialized)
-        // ==========================================
 
         createShapedRecipe("staff_aqua",
                 WeaponsRegister.aquaStaff.item(),
@@ -283,9 +247,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", Items.GOLD_INGOT,
                 "C", Items.WIND_CHARGE
         );
-        // ==========================================
-        // STAFFS - TIER 4 (Better End)
-        // ==========================================
 
         createConditionalShapedRecipe("staff_crystal_aqua",
                 WeaponsRegister.entries.stream()
@@ -314,10 +275,6 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", Identifier.of("betterend", "crystal_shards"),
                 "C", Identifier.of("betterend", "aeternium_ingot")
         );
-
-        // ==========================================
-        // STAFFS - TIER 4 (Better Nether)
-        // ==========================================
 
         createConditionalShapedRecipe("staff_ruby_terra",
                 WeaponsRegister.entries.stream()

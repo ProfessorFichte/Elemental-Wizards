@@ -3,6 +3,7 @@ package net.elemental_wizards_rpg.spell;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.ElementalSummons;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -143,7 +144,6 @@ public class ElementalWizardSpells {
         buff.action.heal.spell_power_coefficient = coefficient;
         return buff;
     }
-    /// PARTICLE HELPERS
     private static ParticleBatch[] aquaCastingParticles(Spell spell) {
         return new ParticleBatch[] {
                 new ParticleBatch("more_rpg_classes:big_splash",
@@ -171,9 +171,7 @@ public class ElementalWizardSpells {
                         1, 0.05F, 0.2F)
         };
     }
-    /// COLOR HELPERS
     public static final Color WATER_SPELL_COLOR = Color.from(0x4a8bff);
-    ///MODIFIERS
     public static Entry improved_wind_updraft = add(improved_wind_updraft());
     private static Entry improved_wind_updraft() {
         var id = Identifier.of(MOD_ID, "improved_wind_updraft");
@@ -220,7 +218,6 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description);
     }
-    ///PASSIVES
     public static Entry elemental_avatar = add(elemental_avatar());
     private static Entry elemental_avatar() {
         var id = Identifier.of(MOD_ID, "elemental_avatar");
@@ -284,8 +281,6 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description).mutator(mutator);
     }
-    ///ACTIVE SPELLS
-    // ==================== AQUA (WATER) SPELLS ====================
     public static final Entry aqua_splash = add(aqua_splash());
     private static Entry aqua_splash() {
         var id = Identifier.of(MOD_ID, "aqua_splash");
@@ -818,7 +813,6 @@ public class ElementalWizardSpells {
         };
         return new Entry(id, spell, title, description).book(Book.AQUA).mutator(mutator);
     }
-    // ==================== TERRA (EARTH) SPELLS ====================
     public static final Entry terra_stone_throw = add(terra_stone_throw());
     private static Entry terra_stone_throw() {
         var id = Identifier.of(MOD_ID, "terra_stone_throw");
@@ -1373,6 +1367,40 @@ public class ElementalWizardSpells {
         };
         return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
     }
+    public static final Entry terra_earth_golem_spike_line = add(terra_earth_golem_spike_line());
+    private static Entry terra_earth_golem_spike_line() {
+        var id = Identifier.of(MOD_ID, "terra_earth_golem_spike_line");
+        var title = "";
+        var description = "";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = MoreSpellSchools.EARTH;
+        spell.range = 8;
+        spell.tier = 4;
+        spell.target.type = Spell.Target.Type.CASTER;
+
+        int spikeCount = 12;
+        float spacing = 1.0F;
+        var spikes = new ArrayList<Spell.Impact.Action.Spawn>(spikeCount);
+        for (int i = 0; i < spikeCount; i++) {
+            var spike = new Spell.Impact.Action.Spawn();
+            spike.entity_type_id = "elemental_wizards_rpg:earth_golem_spike";
+            spike.delay_ticks = i * 2;
+            spike.placement.apply_yaw = true;
+            spike.placement.location_offset_by_look = spacing * (i + 1);
+            spike.placement.force_onto_ground = true;
+            spikes.add(spike);
+        }
+
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        spawn.action.spawns = spikes;
+
+        spell.impacts = List.of(spawn);
+
+        return new Entry(id, spell, title, description);
+    }
     public static final Entry terra_earth_golem = add(terra_earth_golem());
     private static Entry terra_earth_golem() {
         var id = Identifier.of(MOD_ID, "terra_earth_golem");
@@ -1420,42 +1448,6 @@ public class ElementalWizardSpells {
         };
         return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
     }
-    public static Entry terra_earth_golem_spike_line = add(terra_earth_golem_spike_line());
-    private static Entry terra_earth_golem_spike_line() {
-        var id = Identifier.of(MOD_ID, "terra_earth_golem_spike_line");
-        var title = "";
-        var description = "";
-
-        var spell = SpellBuilder.createSpellActive();
-        spell.school = MoreSpellSchools.EARTH;
-        // Also doubles as the golem's SPELL_CAST engagement distance for this action (see terra_earth_golem's behaviour).
-        spell.range = 8;
-        spell.tier = 4;
-        spell.target.type = Spell.Target.Type.CASTER;
-
-        int spikeCount = 12; // matches helper/terra_earth_golem_spike_impact's `range`
-        float spacing = 1.0F;
-        var spikes = new ArrayList<Spell.Impact.Action.Spawn>(spikeCount);
-        for (int i = 0; i < spikeCount; i++) {
-            var spike = new Spell.Impact.Action.Spawn();
-            spike.entity_type_id = "elemental_wizards_rpg:earth_golem_spike";
-            spike.delay_ticks = i * 2;
-            spike.placement.apply_yaw = true;
-            spike.placement.location_offset_by_look = spacing * (i + 1);
-            spike.placement.force_onto_ground = true;
-            spikes.add(spike);
-        }
-
-        var spawn = new Spell.Impact();
-        spawn.action = new Spell.Impact.Action();
-        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
-        spawn.action.spawns = spikes;
-
-        spell.impacts = List.of(spawn);
-
-        return new Entry(id, spell, title, description);
-    }
-    // ==================== WIND (AIR) SPELLS ====================
     public static final Entry wind_gust = add(wind_gust());
     private static Entry wind_gust() {
         var id = Identifier.of(MOD_ID, "wind_gust");
@@ -1579,13 +1571,18 @@ public class ElementalWizardSpells {
 
         var knockUp = new Spell.Impact();
         knockUp.action = new Spell.Impact.Action();
-        knockUp.action.type = Spell.Impact.Action.Type.CUSTOM;
-        knockUp.action.custom = new Spell.Impact.Action.Custom();
-        knockUp.action.custom.handler = "more_rpg_classes:knock_up";
-        knockUp.action.custom.intent = SpellTarget.Intent.HARMFUL;
+        knockUp.action.type = Spell.Impact.Action.Type.VELOCITY;
+        knockUp.action.velocity = new Spell.Impact.Action.Velocity();
+        knockUp.action.velocity.frame = Spell.Impact.Action.Velocity.Frame.ORIGIN;
+        knockUp.action.velocity.push = new Vector3f(0F, 0.7F, 0F);
+        knockUp.action.velocity.power_coefficient = 0.075F;
+        knockUp.action.velocity.intent = SpellTarget.Intent.HARMFUL;
         bossImmuneDeny(knockUp);
 
-        spell.impacts = List.of(damage, knockUp);
+        var debuff = SpellBuilder.Impacts.effectSet(StatusEffects.SLOW_FALLING.getIdAsString(),1.0F,0);
+        debuff.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
+
+        spell.impacts = List.of(damage, knockUp, debuff);
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 8);
@@ -1919,7 +1916,6 @@ public class ElementalWizardSpells {
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
-    /// HELPER SPELL IMPACTS
     public static final Entry aqua_healing_rain_impact = add(aqua_healing_rain_impact());
     private static Entry aqua_healing_rain_impact() {
         var id = Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact");
@@ -2044,10 +2040,12 @@ public class ElementalWizardSpells {
 
         var knockUp = new Spell.Impact();
         knockUp.action = new Spell.Impact.Action();
-        knockUp.action.type = Spell.Impact.Action.Type.CUSTOM;
-        knockUp.action.custom = new Spell.Impact.Action.Custom();
-        knockUp.action.custom.handler = "more_rpg_classes:knock_up_fixed";
-        knockUp.action.custom.intent = SpellTarget.Intent.HARMFUL;
+        knockUp.action.type = Spell.Impact.Action.Type.VELOCITY;
+        knockUp.action.velocity = new Spell.Impact.Action.Velocity();
+        knockUp.action.velocity.frame = Spell.Impact.Action.Velocity.Frame.ORIGIN;
+        knockUp.action.velocity.push = new Vector3f(0F, 0.2F, 0F);
+        knockUp.action.velocity.power_coefficient = 0.05F;
+        knockUp.action.velocity.intent = SpellTarget.Intent.HARMFUL;
         bossImmuneDeny(knockUp);
 
         spell.impacts = List.of(damage, knockUp);

@@ -18,8 +18,7 @@ import java.util.function.Predicate;
 public final class PeriodicAreaImpact {
     private PeriodicAreaImpact() {}
 
-    /// Null `fixedPosition` positions each impact at its own target; otherwise every target in
-    /// this pass uses the same given position.
+    // Null fixedPosition positions each impact at its own target; otherwise all targets share the given position
     public static void apply(World world, LivingEntity owner, Entity source, Box area,
                               Identifier helperImpactId, Predicate<LivingEntity> filter,
                               Vec3d fixedPosition, boolean additionalTargetLookup,

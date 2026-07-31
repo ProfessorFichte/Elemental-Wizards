@@ -63,7 +63,6 @@ public class ElementalAdvancementDataGen implements DataProvider {
     }
 
     static {
-        /// WATER WIZARD
         addEntry(new Entry(
                 id("path_choose_aqua"),
                 "Path of the Water",
@@ -108,7 +107,6 @@ public class ElementalAdvancementDataGen implements DataProvider {
                 SpellEngineCriteriaType.ALL_SPELLS_BOUND,
                 MOD_ID + ":spell_book/aqua"
         ));
-        /// EARTH WIZARD
         addEntry(new Entry(
                 id("path_choose_terra"),
                 "Path of the Earth",
@@ -153,7 +151,6 @@ public class ElementalAdvancementDataGen implements DataProvider {
                 SpellEngineCriteriaType.ALL_SPELLS_BOUND,
                 MOD_ID + ":spell_book/terra"
         ));
-        /// WIND WIZARD
         addEntry(new Entry(
                 id("path_choose_wind"),
                 "Path of the Wind",
@@ -220,7 +217,6 @@ public class ElementalAdvancementDataGen implements DataProvider {
     private JsonObject createAdvancementJson(Entry entry) {
         JsonObject advancement = new JsonObject();
 
-        // Display
         JsonObject display = new JsonObject();
         JsonObject icon = new JsonObject();
         String iconName = entry.iconItemName().contains(":") ? entry.iconItemName() : MOD_ID + ":" + entry.iconItemName();
@@ -251,12 +247,10 @@ public class ElementalAdvancementDataGen implements DataProvider {
         }
         advancement.add("display", display);
 
-        // Parent
         if (entry.parent() != null) {
             advancement.addProperty("parent", entry.parent().toString());
         }
 
-        // Criteria
         JsonObject criteria = getCriteriaForType(entry.criteriaType(), entry.criteriaValue());
         advancement.add("criteria", criteria);
 

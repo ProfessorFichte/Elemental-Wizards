@@ -76,7 +76,6 @@ public class ElementalClient{
 
         CustomModelStatusEffect.register(ElementalEffects.IMPALED.effect, new ImpaledRenderer());
 
-        // Register model layers
         EntityModelLayerRegistry.registerModelLayer(EarthGolemEntityModel.LAYER_LOCATION, EarthGolemEntityModel::createBodyLayer);
 
         EntityRendererRegistry.register(WhirlwindEntity.ENTITY_TYPE, WhirlwindRenderer::new);
@@ -92,7 +91,6 @@ public class ElementalClient{
         AzArmorRendererRegistry.register(armorRendererSupplier, set.head, set.chest, set.legs, set.feet);
     }
     public static void registerParticleAppearances() {
-        ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
         ParticleFactoryRegistry.getInstance().register(ModParticles.HEALING_RAIN, HealingRainParticle.Factory::new);
     }
 }
