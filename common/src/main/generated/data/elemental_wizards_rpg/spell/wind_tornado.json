@@ -62,6 +62,9 @@
         "placement": {
           "apply_yaw": true
         },
+        "presence_sound": {
+          "id": "elemental_wizards_rpg:tornado_idle"
+        },
         "client_data": {
           "model_fx": [
             {
@@ -142,7 +145,7 @@
       ],
       "sound": {
         "id": "more_rpg_classes:air_magic_impact2",
-        "volume": 1.2
+        "volume": 0.25
       }
     },
     {

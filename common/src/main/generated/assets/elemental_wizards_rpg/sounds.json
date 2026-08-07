@@ -4,6 +4,11 @@
       "elemental_wizards_rpg:earth_summon"
     ]
   },
+  "golem_death": {
+    "sounds": [
+      "elemental_wizards_rpg:golem_death"
+    ]
+  },
   "golem_ground_slam": {
     "sounds": [
       "elemental_wizards_rpg:golem_ground_slam"
@@ -40,6 +45,11 @@
   "tidal_wave_release": {
     "sounds": [
       "elemental_wizards_rpg:tidal_wave_release"
+    ]
+  },
+  "tornado_idle": {
+    "sounds": [
+      "elemental_wizards_rpg:tornado_idle"
     ]
   },
   "twister_launch": {

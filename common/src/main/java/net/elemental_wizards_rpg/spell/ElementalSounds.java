@@ -63,8 +63,10 @@ public class ElementalSounds {
     public static final Entry EARTH_SUMMON = add(new Entry("earth_summon"));
     public static final Entry GOLEM_GROUND_SLAM = add(new Entry("golem_ground_slam"));
     public static final Entry GOLEM_SPIKE_SUMMON = add(new Entry("golem_spike_summon"));
+    public static final Entry GOLEM_DEATH = add(new Entry("golem_death"));
     public static final Entry GOLEM_GROWL = add(new Entry("golem_growl").variants(4));
     public static final Entry STONE_FLESH = add(new Entry("stone_flesh"));
+    public static final Entry TORNADO_IDLE = add(new Entry("tornado_idle"));
 
     public static void register() {
         for (var entry : entries) {

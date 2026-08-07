@@ -43,7 +43,7 @@
         "velocity": {
           "push": {
             "x": 0.0,
-            "y": 0.2,
+            "y": 0.15,
             "z": 0.0
           },
           "power_coefficient": 0.05

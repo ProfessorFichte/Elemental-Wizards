@@ -33,6 +33,7 @@ public class ElementalSummons {
         behaviour.lifespan.spawn_ticks = 20;
         behaviour.lifespan.despawn_ticks = 20;
 
+        behaviour.sounds.death = new Sound(ElementalSounds.GOLEM_DEATH.id());
         behaviour.movement.can_move = true;
         behaviour.movement.affected_by_gravity = true;
         behaviour.movement.is_pushable = false;

@@ -1801,6 +1801,7 @@ public class ElementalWizardSpells {
 
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
         var cloud = new Spell.Delivery.Cloud();
+        cloud.presence_sound = new Sound(ElementalSounds.TORNADO_IDLE.id().toString());
         cloud.volume.radius = 5.0F;
         cloud.volume.extra_radius.power_coefficient = 0.02F;
         cloud.volume.extra_radius.power_cap = 50F;
@@ -1835,7 +1836,7 @@ public class ElementalWizardSpells {
                         ParticleBatch.Rotation.LOOK,
                         1.5F, 0.5F, 1.0F, 0)
         };
-        damage.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString()), 1.2F);
+        damage.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.AIR_MAGIC_IMPACT_2.id().toString()), 0.25F);
 
         var pull = new Spell.Impact();
         pull.action = new Spell.Impact.Action();
@@ -2043,7 +2044,7 @@ public class ElementalWizardSpells {
         knockUp.action.type = Spell.Impact.Action.Type.VELOCITY;
         knockUp.action.velocity = new Spell.Impact.Action.Velocity();
         knockUp.action.velocity.frame = Spell.Impact.Action.Velocity.Frame.ORIGIN;
-        knockUp.action.velocity.push = new Vector3f(0F, 0.2F, 0F);
+        knockUp.action.velocity.push = new Vector3f(0F, 0.15F, 0F);
         knockUp.action.velocity.power_coefficient = 0.05F;
         knockUp.action.velocity.intent = SpellTarget.Intent.HARMFUL;
         bossImmuneDeny(knockUp);

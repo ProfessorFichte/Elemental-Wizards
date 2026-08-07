@@ -57,6 +57,9 @@
               "despawn_ticks": 20
             },
             "sounds": {
+              "death": {
+                "id": "elemental_wizards_rpg:golem_death"
+              },
               "ambient": {
                 "id": "elemental_wizards_rpg:golem_growl"
               }

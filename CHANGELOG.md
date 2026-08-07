@@ -1,3 +1,8 @@
+# 3.0.2 - 1.21.1
+- Armory & Arsenal Compat Equipment is now added to a separate Item Group
+- Remove old loot Tables causing an error message in the Logs - GH #12
+- Add some sound effects for the Earth Golem & the Tornado
+
 # 3.0.1 - 1.21.1
 - Converted the Tornado Spell to a Spell Cloud instead of an Entity
 - Also, the Tornado received a new Spawning & De-Spawning Animation
