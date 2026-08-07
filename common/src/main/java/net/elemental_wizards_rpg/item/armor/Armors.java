@@ -1,19 +1,23 @@
 package net.elemental_wizards_rpg.item.armor;
 
 import net.elemental_wizards_rpg.item.ElementalGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.more_rpg_classes.custom.MoreSpellSchools;
+import net.more_rpg_classes.item.MRPGCItemGroups;
 import net.spell_engine.api.config.ArmorSetConfig;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.rpg_series.item.Equipment;
@@ -24,6 +28,7 @@ import net.spell_power.api.SpellSchools;
 
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -129,6 +134,13 @@ public class Armors {
                 settings
         );
         entries.add(entry);
+        return entry;
+    }
+
+    private static final Map<Armor.Entry, RegistryKey<ItemGroup>> groupOverrides = new IdentityHashMap<>();
+
+    private static Armor.Entry groupKey(Armor.Entry entry, RegistryKey<ItemGroup> key) {
+        groupOverrides.put(entry, key);
         return entry;
     }
 
@@ -366,7 +378,7 @@ public class Armors {
 
     public static void register(Map<String, ArmorSetConfig> configs) {
         if (armoryLoadCheck()) {
-            hurricaneArmorSet = create(
+            hurricaneArmorSet  = groupKey(create(
                     epic_wizard_robe,
                     Identifier.of(MOD_ID, "hurricane_robe"),
                     40,
@@ -385,8 +397,8 @@ public class Armors {
                                     .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
                                     .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5))
                     ), 5,commonSettings(hurricane_passive))
-                    .translatedName("Hurricane Hat", "Hurricane Robe Top", "Hurricane Robe Bottom", "Hurricane Boots");
-            mountainArmorSet = create(
+                    .translatedName("Hurricane Hat", "Hurricane Robe Top", "Hurricane Robe Bottom", "Hurricane Boots"), MRPGCItemGroups.ARMORY_KEY);
+            mountainArmorSet = groupKey(create(
                     epic_wizard_robe,
                     Identifier.of(MOD_ID, "mountain_robe"),
                     40,
@@ -406,8 +418,8 @@ public class Armors {
                                     .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5))
                     ),5,
                     commonSettings(mountain_passive))
-                    .translatedName("Mountain Hat", "Mountain Robe Top", "Mountain Robe Bottom", "Mountain Boots");
-            oceanArmorSet = create(
+                    .translatedName("Mountain Hat", "Mountain Robe Top", "Mountain Robe Bottom", "Mountain Boots"), MRPGCItemGroups.ARMORY_KEY);
+            oceanArmorSet = groupKey(create(
                     epic_wizard_robe,
                     Identifier.of(MOD_ID, "ocean_robe"),
                     40,
@@ -427,8 +439,22 @@ public class Armors {
                                     .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5))
                     ),5,
                     commonSettings(ocean_passive))
-                    .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots");
+                    .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots"), MRPGCItemGroups.ARMORY_KEY);
         }
         Armor.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
+        for (var override : groupOverrides.entrySet()) {
+            var entry = override.getKey();
+            var key = override.getValue();
+            var pieces = entry.armorSet().pieces();
+            ItemGroupEvents.modifyEntriesEvent(ElementalGroup.ELEMENTAL_WIZARD_KEY).register(content -> {
+                content.getDisplayStacks().removeIf(stack -> pieces.stream().anyMatch(p -> stack.isOf((ArmorItem) p)));
+                content.getSearchTabStacks().removeIf(stack -> pieces.stream().anyMatch(p -> stack.isOf((ArmorItem) p)));
+            });
+            ItemGroupEvents.modifyEntriesEvent(key).register(content -> {
+                for (var piece : pieces) {
+                    content.add((ArmorItem) piece);
+                }
+            });
+        }
     }
 }

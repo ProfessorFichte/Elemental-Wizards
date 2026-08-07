@@ -3,15 +3,19 @@ package net.elemental_wizards_rpg.item.weapons;
 import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.more_rpg_classes.custom.MoreSpellSchools;
+import net.more_rpg_classes.item.MRPGCItemGroups;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.WeaponConfig;
 import net.spell_engine.api.item.weapon.StaffItem;
@@ -21,6 +25,8 @@ import net.spell_engine.rpg_series.item.Weapon;
 import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -29,6 +35,13 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class WeaponsRegister {
     public static final ArrayList<Weapon.Entry> entries = new ArrayList<>();
+
+    private static final Map<Weapon.Entry, RegistryKey<ItemGroup>> groupOverrides = new IdentityHashMap<>();
+
+    private static Weapon.Entry groupKey(Weapon.Entry entry, RegistryKey<ItemGroup> key) {
+        groupOverrides.put(entry, key);
+        return entry;
+    }
 
     private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType category) {
         var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, category);
@@ -223,7 +236,7 @@ public class WeaponsRegister {
                     .translatedName("Valkyrie Elementalist Staff");
         }
         if (FabricLoader.getInstance().isModLoaded(ARSENAL) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
-            staff( "unique_staff_1",
+            var uniqueStaff1 = groupKey(staff( "unique_staff_1",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.IRON_BLOCK)))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
@@ -232,10 +245,19 @@ public class WeaponsRegister {
                     .withSpellChoices("elemental_wizards_rpg:weapon/elemental_staff")
                     .withAdditionalSpell(ElementalWizardSpells.elemental_avatar.id().toString())
                     .loot(Equipment.LootProperties.of(5, "crystal"))
-                    .translatedName("Avatar's Staff")
-                    .rarity = Rarity.RARE;
+                    .translatedName("Avatar's Staff"), MRPGCItemGroups.ARSENAL_KEY);
+            uniqueStaff1.rarity = Rarity.RARE;
         }
 
         Weapon.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
+        for (var override : groupOverrides.entrySet()) {
+            var entry = override.getKey();
+            var key = override.getValue();
+            ItemGroupEvents.modifyEntriesEvent(ElementalGroup.ELEMENTAL_WIZARD_KEY).register(content -> {
+                content.getDisplayStacks().removeIf(stack -> stack.isOf(entry.item()));
+                content.getSearchTabStacks().removeIf(stack -> stack.isOf(entry.item()));
+            });
+            ItemGroupEvents.modifyEntriesEvent(key).register(content -> content.add(entry.item()));
+        }
     }
 }
