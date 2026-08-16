@@ -70,7 +70,7 @@ public class CleansingWaterEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity pLivingEntity, AttributeContainer attributes, int pAmplifier){
         if(pLivingEntity.isPlayer() && pLivingEntity.getMaxHealth() == pLivingEntity.getHealth()){
-            CustomMethods.clearNegativeEffects(pLivingEntity,true);
+            CustomMethods.removeEffects(pLivingEntity,false,false);
         }
     }
 }

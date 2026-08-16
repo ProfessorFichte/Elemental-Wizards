@@ -68,7 +68,7 @@
   "effect.elemental_wizards_rpg.soaked": "Soaked",
   "effect.elemental_wizards_rpg.soaked.description": "Soaking the target with water extinguishing fire, more vulnerable to frost, lightning and water spells.",
   "effect.elemental_wizards_rpg.cleansing_water": "Cleansing Water",
-  "effect.elemental_wizards_rpg.cleansing_water.description": "Holy water, extinguishing fire and regenerating health. If the target is full health, cleansing negative effects on applying the effect.",
+  "effect.elemental_wizards_rpg.cleansing_water.description": "Holy water, extinguishing fire and regenerating health. If the target is full health, cleansing one harmful effect on applying the effect.",
   "effect.elemental_wizards_rpg.bubble_foam": "Bubble Shield",
   "effect.elemental_wizards_rpg.bubble_foam.description": "On contact protecting the player and pushing targets away.",
   "effect.elemental_wizards_rpg.stone_flesh": "Stone Flesh",
@@ -89,7 +89,7 @@
   "spell.elemental_wizards_rpg.aqua_bubble_beam.name": "Bubble Beam",
   "spell.elemental_wizards_rpg.aqua_bubble_beam.description": "Spawning small bubbles, dealing {damage} water spell damage on targets, protecting yourself.",
   "spell.elemental_wizards_rpg.aqua_springwater.name": "Springwater",
-  "spell.elemental_wizards_rpg.aqua_springwater.description": "Summoning water springs, healing and cleansing friends by {heal}, and dealing {damage} water spell damage to targets.",
+  "spell.elemental_wizards_rpg.aqua_springwater.description": "Summoning water springs, healing {heal} hearts and cleansing one harmful effect from allies. Dealing {damage} water spell damage to targets.",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.name": "Hydro Beam",
   "spell.elemental_wizards_rpg.aqua_hydro_beam.description": "Channeling a high hydro-pressure beam, dealing {damage} water damage every second and soaking targets.",
 

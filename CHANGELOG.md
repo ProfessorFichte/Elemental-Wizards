@@ -1,3 +1,7 @@
+1.3.8 - 1.20.1
+- Attempt to Fix a crash with MRPG Lib when using Springwater
+- Springwater now only removes one harmful effect
+
 1.3.7 - 1.20.1
 - Fixed a crash because of the latest More RPG Library Update
 - Backport of some improved Projectile & Entity Models / Textures
