@@ -1,5 +1,5 @@
 {
-  "parent": "wizards:item/medium_staff",
+  "parent": "elemental_wizards_rpg:item/medium_staff",
   "textures": {
     "layer0": "elemental_wizards_rpg:item/weapons/staves/staff_ruby_terra"
   }
