@@ -170,7 +170,7 @@
   "spell.elemental_wizards_rpg.terra_impale.name": "Прохромлення",
   "spell.elemental_wizards_rpg.terra_shattering_stone.description": "Запускає камінь, що розлітається при зіткненні, розкидаючи осколки в усі боки, що завдають {damage} шкоди та викликають кровоточиві рани.",
   "spell.elemental_wizards_rpg.terra_shattering_stone.name": "Камінь, що розлітається",
-  "spell.elemental_wizards_rpg.terra_stone_flesh.description": "Огортає вас та найближчих союзників у захисну кам'яну броню. При повному здоров'ї наступна отримана шкода буде зменшена на 50%%. Також збільшує броню на {bonus} і твердість броні на {bonus2} за кожен заряд.",
+  "spell.elemental_wizards_rpg.terra_stone_flesh.description": "Огортає вас та найближчих союзників у захисну кам'яну броню. При повному здоров'ї наступна отримана шкода буде зменшена на 50%%. Також збільшує броню на {effect|elemental_wizards_rpg:stone_flesh|0|minecraft:generic.armor} і твердість броні на {effect|elemental_wizards_rpg:stone_flesh|0|minecraft:generic.armor_toughness} за кожен заряд.",
   "spell.elemental_wizards_rpg.terra_stone_flesh.name": "Кам'яна плоть",
   "spell.elemental_wizards_rpg.terra_stone_spear.description": "Запускає гострий кам'яний спис, який пронизує ворогів, завдаючи {damage} шкоди та викликаючи кровоточиві рани.",
   "spell.elemental_wizards_rpg.terra_stone_spear.name": "Кам'яний спис",
@@ -190,6 +190,6 @@
   "spell.elemental_wizards_rpg.wind_twister.name": "Смерч",
   "spell.elemental_wizards_rpg.wind_updraft.description": "Створює потужний висхідний потік, що піднімає ворогів у повітря, залишаючи їх вразливими в підвішеному стані та завдаючи {damage} шкоди.",
   "spell.elemental_wizards_rpg.wind_updraft.name": "Висхідний потік",
-  "spell.elemental_wizards_rpg.wind_windfield.description": "Викликає поле сильного вітру, що завдає {damage} шкоди і знижує швидкість руху на {bonus} протягом {effect_duration} сек.",
+  "spell.elemental_wizards_rpg.wind_windfield.description": "Викликає поле сильного вітру, що завдає {damage} шкоди і знижує швидкість руху на {effect|elemental_wizards_rpg:windfield} протягом {effect_duration} сек.",
   "spell.elemental_wizards_rpg.wind_windfield.name": "Поле вітру"
 }

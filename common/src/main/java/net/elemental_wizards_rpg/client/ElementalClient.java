@@ -22,7 +22,6 @@ import net.elemental_wizards_rpg.entity.EarthquakeEntity;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
-import net.spell_engine.client.gui.SpellTooltip;
 import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityModel;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -42,11 +41,11 @@ import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadChec
 public class ElementalClient{
 
     public static void init(){
-        for (var entry : ElementalWizardSpells.entries) {
-            if (entry.mutator() != null) {
-                SpellTooltip.addDescriptionMutator(entry.id(), entry.mutator());
-            }
-        }
+        // Description values that aren't expressible as declarative `{token}`s (sub-spell estimates).
+        // `TooltipTokens` is server-safe, but the handlers reach for client-only render helpers, so
+        // they are registered from here. `ElementalWizardSpells` is already runtime-reachable via
+        // `WeaponsRegister`/`ElementalSummons`; this call is explicit rather than relying on that.
+        ElementalWizardSpells.registerTooltipTokens();
 
         registerArmorRenderer(Armors.elementalArmor.armorSet(), ElementalRobeRenderer::elemental);
         registerArmorRenderer(Armors.kelpArmor.armorSet(), ElementalRobeRenderer::kelp);

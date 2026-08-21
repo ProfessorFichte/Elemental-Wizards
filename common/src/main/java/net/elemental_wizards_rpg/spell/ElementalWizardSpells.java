@@ -3,6 +3,7 @@ package net.elemental_wizards_rpg.spell;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.ElementalSummons;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
@@ -45,26 +46,26 @@ public class ElementalWizardSpells {
     public enum WeaponGroup { ELEMENTAL_STAFF, AQUA_STAFF, TERRA_STAFF, WIND_STAFF }
     public enum Book { AQUA, TERRA, WIND }
     public record Entry(Identifier id, Spell spell, String title, String description,
-                        @Nullable SpellTooltip.DescriptionMutator mutator,
                         @Nullable List<WeaponGroup> weaponGroups,
                         @Nullable Book book) {
         public Entry(Identifier id, Spell spell, String title, String description) {
-            this(id, spell, title, description, null,List.of(), null);
-        }
-        public Entry mutator(SpellTooltip.DescriptionMutator mutator) {
-            return new Entry(id, spell, title, description, mutator,weaponGroups ,book);
+            this(id, spell, title, description, List.of(), null);
         }
         public Entry weaponGroup(WeaponGroup weaponGroup) {
             var newGroups = new ArrayList<>(weaponGroups != null ? weaponGroups : List.of());
             newGroups.add(weaponGroup);
-            return new Entry(id, spell, title, description, mutator, newGroups, book);
+            return new Entry(id, spell, title, description, newGroups, book);
         }
         public Entry book(Book book) {
-            return new Entry(id, spell, title, description, mutator, weaponGroups,book);
+            return new Entry(id, spell, title, description, weaponGroups, book);
         }
     }
 
     public static final List<Entry> entries = new ArrayList<>();
+
+    // Attribute ids naming which modifier of a multi-modifier effect a `{effect|...}` token reads.
+    private static final Identifier ARMOR = Identifier.of(EntityAttributes.GENERIC_ARMOR.getIdAsString());
+    private static final Identifier ARMOR_TOUGHNESS = Identifier.of(EntityAttributes.GENERIC_ARMOR_TOUGHNESS.getIdAsString());
 
     private static Entry add(Entry entry) {
         entries.add(entry);
@@ -258,38 +259,7 @@ public class ElementalWizardSpells {
 
         configureCooldown(spell, 20);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            double air_power = args.player().getAttributeValue(MoreSpellSchools.AIR.attributeEntry);
-            double earth_power = args.player().getAttributeValue(MoreSpellSchools.EARTH.attributeEntry);
-            double water_power = args.player().getAttributeValue(MoreSpellSchools.WATER.attributeEntry);
-            String subSpellPath;
-            if (air_power >= earth_power && air_power >= water_power) {
-                subSpellPath = "avatar_passives/air_draft";
-            } else if (earth_power >= air_power && earth_power >= water_power) {
-                subSpellPath = "avatar_passives/earth_stoning";
-            } else {
-                subSpellPath = "avatar_passives/water_undercurrent";
-            }
-            var subSpellId = Identifier.of(MOD_ID, subSpellPath);
-            var optional = SpellRegistry.from(world).getEntry(subSpellId);
-            if (optional.isEmpty()) return args.description();
-            var subSpell = optional.get().value();
-            var subDesc = I18n.translate(SpellTooltip.spellDescriptionTranslationKey(subSpellId));
-            var estimated = SpellEstimation.estimate(subSpell, args.player(), ItemStack.EMPTY);
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                subDesc = subDesc.replace(SpellTooltip.placeholder(TooltipTokens.damageToken), SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            if (!estimated.heal().isEmpty()) {
-                var heal = estimated.heal().get(0);
-                subDesc = subDesc.replace(SpellTooltip.placeholder(TooltipTokens.healToken), SpellTooltip.formattedRange(heal.min(), heal.max()));
-            }
-            return args.description().replace("{avatar_impact}", subDesc);
-        };
-
-        return new Entry(id, spell, title, description).mutator(mutator);
+        return new Entry(id, spell, title, description);
     }
     public static final Entry aqua_splash = add(aqua_splash());
     private static Entry aqua_splash() {
@@ -749,24 +719,7 @@ public class ElementalWizardSpells {
         spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{rain_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            if (!estimated.heal().isEmpty()) {
-                var heal = estimated.heal().get(0);
-                desc = desc.replace("{rain_heal}", SpellTooltip.formattedRange(heal.min(), heal.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, title, description).book(Book.AQUA).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.AQUA);
     }
     public static final Entry aqua_tidal_wave = add(aqua_tidal_wave());
     private static Entry aqua_tidal_wave() {
@@ -810,20 +763,7 @@ public class ElementalWizardSpells {
         spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{wave_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, title, description).book(Book.AQUA).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.AQUA);
     }
     public static final Entry terra_stone_throw = add(terra_stone_throw());
     private static Entry terra_stone_throw() {
@@ -962,17 +902,13 @@ public class ElementalWizardSpells {
         var id = Identifier.of(MOD_ID, "terra_stone_flesh");
         var title = "Stone Flesh";
         var effect = ElementalEffects.STONE_FLESH;
+        // Two modifiers with different values, so each token names its attribute explicitly - the
+        // effect's modifier map is unordered. (The old mutator read `attributes().get(1)` for the
+        // "armor" phrase and `get(0)` for "armor toughness", i.e. the two values were swapped.)
         var description = "Encase yourself and nearby allies in protective stone armor, with full health the next incoming damage will be reduced by 50%%. " +
-                " Also increases armor by {bonus} and armor toughness by {bonus2} per stack.";
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var modifier = effect.config().attributes().get(1);
-            var modifier2 = effect.config().attributes().get(0);
-            var bonus = SpellTooltip.bonus(modifier.value, modifier.operation);
-            var bonus2 = SpellTooltip.bonus(modifier2.value, modifier2.operation);
-            return args.description()
-                    .replace("{bonus}", bonus)
-                    .replace("{bonus2}", bonus2);
-        };
+                " Also increases armor by " + TooltipTokens.effect(effect.id, 0, ARMOR)
+                + " and armor toughness by " + TooltipTokens.effect(effect.id, 0, ARMOR_TOUGHNESS)
+                + " per stack.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.EARTH;
@@ -1013,7 +949,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
         spell.cost.cooldown.haste_affected = false;
 
-        return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.TERRA);
     }
     public static final Entry terra_impale = add(terra_impale());
     private static Entry terra_impale() {
@@ -1223,20 +1159,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
         SpellBuilder.Cost.exhaust(spell, 0.4F);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{terra_circle_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, name, description).book(Book.TERRA).mutator(mutator);
+        return new Entry(id, spell, name, description).book(Book.TERRA);
     }
     public static final Entry terra_shattering_stone = add(terra_shattering_stone());
     private static Entry terra_shattering_stone() {
@@ -1356,20 +1279,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.5F);
         SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/terra_earthquake_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{eq_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.TERRA);
     }
     public static final Entry terra_earth_golem_spike_line = add(terra_earth_golem_spike_line());
     private static Entry terra_earth_golem_spike_line() {
@@ -1437,20 +1347,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.5F);
         SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{golem_spike_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-        return new Entry(id, spell, title, description).book(Book.TERRA).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.TERRA);
     }
     public static final Entry wind_gust = add(wind_gust());
     private static Entry wind_gust() {
@@ -1637,21 +1534,7 @@ public class ElementalWizardSpells {
         spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
 
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var world = args.player().getWorld();
-            if (world == null) return args.description();
-            var optional = SpellRegistry.from(world).getEntry(Identifier.of(MOD_ID, "helper/wind_twister_impact"));
-            if (optional.isEmpty()) return args.description();
-            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
-            var desc = args.description();
-            if (!estimated.damage().isEmpty()) {
-                var dmg = estimated.damage().get(0);
-                desc = desc.replace("{twister_damage}", SpellTooltip.formattedRange(dmg.min(), dmg.max()));
-            }
-            return desc;
-        };
-
-        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.WIND);
     }
     public static final Entry wind_updraft = add(wind_updraft());
     private static Entry wind_updraft() {
@@ -1711,16 +1594,17 @@ public class ElementalWizardSpells {
     private static Entry wind_windfield() {
         var id = Identifier.of(MOD_ID, "wind_windfield");
         var title = "Windfield";
-        var description = "Calls a field of strong wind that deals {damage} damage and reduces movement speed by {bonus} for {effect_duration} sec.";
         var effect = ElementalEffects.WINDFIELD;
-
-        SpellTooltip.DescriptionMutator mutator = (args) -> {
-            var modifier = effect.config().firstModifier();
-            var bonus = SpellTooltip.bonus(modifier.value, modifier.operation);
-            return args.description()
-                    .replace("{bonus}", bonus);
-        };
-
+        // Sole modifier (movement speed), read with the default signed format.
+        // FIXME (pre-existing): the modifier is `ADD_MULTIPLIED_TOTAL` with value -0.7, and
+        // `TooltipTokens.bonus` renders that operation as `percent(value - 1)` = "-170%", so the line
+        // reads "reduces movement speed by -170%" - wrong sign *and* magnitude (the effect is -70%).
+        // `Format.ABS` can't fix it either: it takes the absolute value *before* the -1 offset, giving
+        // "-30%". This token reproduces the shipped output byte-for-byte; fixing it means either
+        // storing the value as a multiplier (0.3) in `ElementalEffects`, or switching the operation to
+        // `ADD_MULTIPLIED_BASE` (same result for a lone modifier) and using `Format.ABS` -> "70%".
+        var description = "Calls a field of strong wind that deals {damage} damage and reduces movement speed by "
+                + TooltipTokens.effect(effect.id) + " for {effect_duration} sec.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = MoreSpellSchools.AIR;
@@ -1775,7 +1659,7 @@ public class ElementalWizardSpells {
         spell.cost.cooldown.proportional = true;
         SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
 
-        return new Entry(id, spell, title, description).book(Book.WIND).mutator(mutator);
+        return new Entry(id, spell, title, description).book(Book.WIND);
     }
     public static final Entry wind_tornado = add(wind_tornado());
     private static Entry wind_tornado() {
@@ -2318,5 +2202,86 @@ public class ElementalWizardSpells {
 
         configureCooldown(spell, 20);
         return new Entry(id, spell, title, description);
+    }
+
+    /// Registers the description values that no declarative `{token}` can express.
+    ///
+    /// These spells' own impacts only spawn an entity, so the engine's `{damage}` / `{heal}` estimate
+    /// is empty for them - the numbers live on a separate `helper/...` spell that the spawned entity
+    /// casts. Estimating a *different* spell is genuinely bespoke, hence `TooltipTokens.Custom`.
+    ///
+    /// `TooltipTokens.Custom` references only shared types, unlike the `SpellTooltip.DescriptionMutator`
+    /// it replaces, which put a client-only type into the `Entry` record - and this class *is* loaded on
+    /// a dedicated server (`WeaponsRegister` and `ElementalSummons` reference its spell ids).
+    ///
+    /// The handler bodies do still call the client-only `SpellTooltip.formattedRange` /
+    /// `spellDescriptionTranslationKey` (those render helpers stayed on `SpellTooltip` in 1.10) and
+    /// `I18n`. That is safe because this method is only ever called from `ElementalClient.init()`, so
+    /// the lambdas are never created - let alone run - on a server.
+    public static void registerTooltipTokens() {
+        subSpellEstimate(aqua_healing_rain.id(), aqua_healing_rain_impact.id(), "{rain_damage}", "{rain_heal}");
+        subSpellEstimate(aqua_tidal_wave.id(), aqua_tidal_wave_impact.id(), "{wave_damage}", null);
+        subSpellEstimate(terra_drip_circle.id(), terra_drip_circle_impact.id(), "{terra_circle_damage}", null);
+        subSpellEstimate(terra_earthquake.id(), terra_earthquake_impact.id(), "{eq_damage}", null);
+        subSpellEstimate(terra_earth_golem.id(), terra_earth_golem_spike_impact.id(), "{golem_spike_damage}", null);
+        subSpellEstimate(wind_twister.id(), wind_twister_impact.id(), "{twister_damage}", null);
+
+        // Elemental Avatar picks its impact from the caster's strongest elemental spell power, so the
+        // tooltip inlines the chosen sub-spell's own description (with that sub-spell's own estimate).
+        TooltipTokens.registerCustom(elemental_avatar.id(), args -> {
+            var world = args.player().getWorld();
+            if (world == null) return args.description();
+            double air_power = args.player().getAttributeValue(MoreSpellSchools.AIR.attributeEntry);
+            double earth_power = args.player().getAttributeValue(MoreSpellSchools.EARTH.attributeEntry);
+            double water_power = args.player().getAttributeValue(MoreSpellSchools.WATER.attributeEntry);
+            Identifier subSpellId;
+            if (air_power >= earth_power && air_power >= water_power) {
+                subSpellId = avatar_passives_air_draft.id();
+            } else if (earth_power >= air_power && earth_power >= water_power) {
+                subSpellId = avatar_passives_earth_stoning.id();
+            } else {
+                subSpellId = avatar_passives_water_undercurrent.id();
+            }
+            var optional = SpellRegistry.from(world).getEntry(subSpellId);
+            if (optional.isEmpty()) return args.description();
+            var subSpell = optional.get().value();
+            var subDesc = I18n.translate(SpellTooltip.spellDescriptionTranslationKey(subSpellId));
+            var estimated = SpellEstimation.estimate(subSpell, args.player(), ItemStack.EMPTY);
+            if (!estimated.damage().isEmpty()) {
+                var dmg = estimated.damage().get(0);
+                subDesc = subDesc.replace(TooltipTokens.placeholder(TooltipTokens.damageToken),
+                        SpellTooltip.formattedRange(dmg.min(), dmg.max()));
+            }
+            if (!estimated.heal().isEmpty()) {
+                var heal = estimated.heal().get(0);
+                subDesc = subDesc.replace(TooltipTokens.placeholder(TooltipTokens.healToken),
+                        SpellTooltip.formattedRange(heal.min(), heal.max()));
+            }
+            return args.description().replace("{avatar_impact}", subDesc);
+        });
+    }
+
+    /// Resolves `damageToken` / `healToken` in `spellId`'s description to the estimated output of
+    /// `subSpellId`, the helper spell that actually carries the damage/heal impacts. A null token is
+    /// skipped; a missing registry entry or empty estimate leaves the description untouched.
+    private static void subSpellEstimate(Identifier spellId, Identifier subSpellId,
+                                         @Nullable String damageToken, @Nullable String healToken) {
+        TooltipTokens.registerCustom(spellId, args -> {
+            var world = args.player().getWorld();
+            if (world == null) return args.description();
+            var optional = SpellRegistry.from(world).getEntry(subSpellId);
+            if (optional.isEmpty()) return args.description();
+            var estimated = SpellEstimation.estimate(optional.get().value(), args.player(), ItemStack.EMPTY);
+            var desc = args.description();
+            if (damageToken != null && !estimated.damage().isEmpty()) {
+                var dmg = estimated.damage().get(0);
+                desc = desc.replace(damageToken, SpellTooltip.formattedRange(dmg.min(), dmg.max()));
+            }
+            if (healToken != null && !estimated.heal().isEmpty()) {
+                var heal = estimated.heal().get(0);
+                desc = desc.replace(healToken, SpellTooltip.formattedRange(heal.min(), heal.max()));
+            }
+            return desc;
+        });
     }
 }
