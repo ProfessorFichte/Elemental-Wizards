@@ -22,23 +22,28 @@
         "client_data": {
           "particles": [
             {
-              "particle_id": "more_rpg_classes:splash",
-              "origin": "FEET",
-              "shape": "PILLAR",
-              "count": 20.0,
-              "max_speed": 0.0
+              "id": "more_rpg_classes:splash",
+              "appearance": {},
+              "batch": {
+                "count": 20.0,
+                "shape": "PILLAR",
+                "anchor": "ENTITY"
+              }
             }
           ],
           "particle_spawn_interval": 12,
           "interval_particles": [
             {
-              "particle_id": "spell_engine:area_effect_658",
-              "origin": "GROUND",
-              "shape": "SPHERE",
-              "count": 1.0,
-              "max_speed": 0.0,
-              "color_rgba": 1250688959,
-              "scale": 4.0
+              "id": "spell_engine:area_effect_658",
+              "appearance": {
+                "color": 1250688959,
+                "scale": 4.0
+              },
+              "batch": {
+                "count": 1.0,
+                "shape": "SPHERE",
+                "anchor": "GROUND"
+              }
             }
           ]
         }
@@ -54,15 +59,19 @@
           "knockback": 1.5
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:splash",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 20.0,
-          "max_speed": 0.0
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:splash",
+            "appearance": {},
+            "batch": {
+              "count": 20.0,
+              "shape": "PILLAR",
+              "anchor": "ENTITY"
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "more_rpg_classes:water_magic_impact1"
       }
@@ -74,26 +83,39 @@
           "spell_power_coefficient": 0.2
         }
       },
-      "particles": [
-        {
-          "particle_id": "spell_engine:magic_heal_ascend",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 15.0,
-          "min_speed": 0.02,
-          "max_speed": 0.15,
-          "color_rgba": 1250689023
-        },
-        {
-          "particle_id": "spell_engine:magic_holy_decelerate",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 15.0,
-          "min_speed": 0.2,
-          "max_speed": 0.25,
-          "color_rgba": 1250689023
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_heal",
+            "appearance": {
+              "color": 1250689023,
+              "motion": "ASCEND"
+            },
+            "batch": {
+              "count": 15.0,
+              "shape": "PILLAR",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.02,
+              "max_speed": 0.15
+            }
+          },
+          {
+            "id": "spell_engine:magic_holy",
+            "appearance": {
+              "color": 1250689023,
+              "motion": "DECELERATE"
+            },
+            "batch": {
+              "count": 15.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.25
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "spell_engine:generic_healing_impact_2"
       }

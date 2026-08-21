@@ -15,21 +15,30 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:big_splash",
-          "origin": "FEET",
-          "shape": "PIPE",
-          "count": 1.0,
-          "min_speed": 0.01,
-          "max_speed": 0.05,
-          "extent": 0.5
+          "id": "more_rpg_classes:big_splash",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.01,
+            "max_speed": 0.05,
+            "extent": 0.5
+          }
         },
         {
-          "particle_id": "more_rpg_classes:water_circle",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 0.1,
-          "min_speed": 0.002,
-          "max_speed": 0.003
+          "id": "more_rpg_classes:water_circle",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "chance": 0.1,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.002,
+            "max_speed": 0.003
+          }
         }
       ]
     }

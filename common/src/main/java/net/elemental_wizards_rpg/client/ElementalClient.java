@@ -11,7 +11,6 @@ import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemSpikeEntity
 import net.elemental_wizards_rpg.client.entity.TidalWaveEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.HealingRainCloudEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.EarthquakeEntityRenderer;
-import net.elemental_wizards_rpg.client.particle.HealingRainParticle;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.WhirlwindEntity;
 import net.elemental_wizards_rpg.entity.TerraStoneEntity;
@@ -32,6 +31,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRe
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
+import net.spell_engine.client.particle.SpellParticle;
 import net.spell_engine.rpg_series.item.Armor;
 
 import java.util.function.Supplier;
@@ -91,6 +91,12 @@ public class ElementalClient{
         AzArmorRendererRegistry.register(armorRendererSupplier, set.head, set.chest, set.legs, set.feet);
     }
     public static void registerParticleAppearances() {
-        ParticleFactoryRegistry.getInstance().register(ModParticles.HEALING_RAIN, HealingRainParticle.Factory::new);
+        ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
+
+        // One generic factory for every entry this mod owns: SpellParticle resolves the
+        // entry's defaults against the per-spawn ParticleGroup.Appearance payload.
+        for (var entry: ModParticles.entries()) {
+            registry.register(entry.type(), provider -> new SpellParticle.Factory(provider, entry));
+        }
     }
 }

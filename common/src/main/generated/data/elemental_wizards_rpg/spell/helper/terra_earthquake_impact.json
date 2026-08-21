@@ -13,16 +13,22 @@
           "knockback": 0.0
         }
       },
-      "particles": [
-        {
-          "particle_id": "campfire_cosy_smoke",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 5.0,
-          "min_speed": 0.005,
-          "max_speed": 0.01
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "campfire_cosy_smoke",
+            "appearance": {},
+            "batch": {
+              "count": 5.0,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.005,
+              "max_speed": 0.01
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "block.pointed_dripstone.break"
       }

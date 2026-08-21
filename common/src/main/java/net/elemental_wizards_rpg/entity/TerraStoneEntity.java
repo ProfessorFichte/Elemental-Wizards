@@ -18,7 +18,8 @@ import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.fx.ParticleHelper;
-import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.internals.SpellExecution;
+import net.spell_engine.internals.impact.SpellImpacts;
 import net.more_rpg_classes.util.CustomMethods;
 import net.spell_power.api.SpellPower;
 
@@ -195,11 +196,11 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
                 UUID targetId = entity.getUuid();
                 Integer lastTick = lastDamageTick.get(targetId);
                 if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
-                    SpellHelper.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
-                            spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
+                    SpellImpacts.performImpacts(owner.getWorld(), owner, entity, owner, spellImpact,
+                            spellImpact.value().impacts, new SpellExecution.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
                     lastDamageTick.put(targetId, currentTick);
                     if (!spellImpact.value().impacts.isEmpty()) {
-                        ParticleHelper.sendBatches(entity, spellImpact.value().impacts.get(0).particles);
+                        ParticleHelper.sendBatches(entity, spellImpact.value().impacts.get(0).visuals.particles);
                     }
                 }
             }
@@ -224,11 +225,11 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
             UUID targetId = target.getUuid();
             Integer lastTick = lastDamageTick.get(targetId);
             if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
-                SpellHelper.performImpacts(owner.getWorld(), owner, target, owner, spellImpact,
-                        spellImpact.value().impacts, new SpellHelper.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
+                SpellImpacts.performImpacts(owner.getWorld(), owner, target, owner, spellImpact,
+                        spellImpact.value().impacts, new SpellExecution.ImpactContext().power(SpellPower.getSpellPower(spellImpact.value().school, owner)).position(this.getPos()), false, null);
                 lastDamageTick.put(targetId, currentTick);
                 if (!spellImpact.value().impacts.isEmpty()) {
-                    ParticleHelper.sendBatches(target, spellImpact.value().impacts.get(0).particles);
+                    ParticleHelper.sendBatches(target, spellImpact.value().impacts.get(0).visuals.particles);
                 }
             }
         }

@@ -5,34 +5,48 @@
   "learn": {},
   "active": {},
   "release": {
-    "particles": [
-      {
-        "particle_id": "spell_engine:smoke_medium",
-        "origin": "FEET",
-        "shape": "CIRCLE",
-        "count": 50.0,
-        "min_speed": 0.2,
-        "max_speed": 0.3
-      },
-      {
-        "particle_id": "spell_engine:smoke_medium",
-        "origin": "FEET",
-        "shape": "CIRCLE",
-        "count": 50.0,
-        "min_speed": 0.2,
-        "max_speed": 0.3,
-        "extent": 1.0
-      },
-      {
-        "particle_id": "spell_engine:smoke_medium",
-        "origin": "FEET",
-        "shape": "CIRCLE",
-        "count": 50.0,
-        "min_speed": 0.2,
-        "max_speed": 0.3,
-        "extent": 2.5
-      }
-    ]
+    "visuals": {
+      "particles": [
+        {
+          "id": "spell_engine:smoke_medium",
+          "appearance": {},
+          "batch": {
+            "count": 50.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.2,
+            "max_speed": 0.3
+          }
+        },
+        {
+          "id": "spell_engine:smoke_medium",
+          "appearance": {},
+          "batch": {
+            "count": 50.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.2,
+            "max_speed": 0.3,
+            "extent": 1.0
+          }
+        },
+        {
+          "id": "spell_engine:smoke_medium",
+          "appearance": {},
+          "batch": {
+            "count": 50.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.2,
+            "max_speed": 0.3,
+            "extent": 2.5
+          }
+        }
+      ]
+    }
   },
   "target": {
     "type": "AREA",
@@ -49,16 +63,23 @@
           "knockback": 1.5
         }
       },
-      "particles": [
-        {
-          "particle_id": "campfire_cosy_smoke",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 0.25,
-          "min_speed": 1.0E-4,
-          "max_speed": 8.0E-4
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "campfire_cosy_smoke",
+            "appearance": {},
+            "batch": {
+              "count": 1.0,
+              "chance": 0.25,
+              "shape": "PILLAR",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 1.0E-4,
+              "max_speed": 8.0E-4
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "block.pointed_dripstone.break"
       }

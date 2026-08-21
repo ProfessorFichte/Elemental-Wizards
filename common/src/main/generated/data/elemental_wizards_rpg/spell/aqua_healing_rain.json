@@ -16,23 +16,32 @@
       },
       "particles": [
         {
-          "particle_id": "elemental_wizards_rpg:healing_rain",
-          "origin": "CENTER",
-          "shape": "WIDE_PIPE",
-          "count": 10.0,
-          "min_speed": 0.01,
-          "max_speed": 0.1,
-          "extent": 1.5
+          "id": "elemental_wizards_rpg:healing_rain",
+          "appearance": {},
+          "batch": {
+            "count": 10.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "min_speed": 0.01,
+            "max_speed": 0.1,
+            "extent": 1.5,
+            "width_factor": 2.0
+          }
         },
         {
-          "particle_id": "spell_engine:magic_holy_decelerate",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 5.0,
-          "min_speed": 0.2,
-          "max_speed": 0.25,
-          "extent": 1.5,
-          "color_rgba": 1250689023
+          "id": "spell_engine:magic_holy",
+          "appearance": {
+            "color": 1250689023,
+            "motion": "DECELERATE"
+          },
+          "batch": {
+            "count": 5.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.2,
+            "max_speed": 0.25,
+            "extent": 1.5
+          }
         }
       ]
     }

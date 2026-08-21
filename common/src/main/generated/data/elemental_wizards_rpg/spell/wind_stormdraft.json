@@ -19,20 +19,28 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "PILLAR",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.2
+          }
         },
         {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.2
+          }
         }
       ]
     }
@@ -51,20 +59,26 @@
         "client_data": {
           "travel_particles": [
             {
-              "particle_id": "more_rpg_classes:wind_vacuum",
-              "origin": "CENTER",
-              "shape": "SPHERE",
-              "count": 3.0,
-              "min_speed": 0.1,
-              "max_speed": 0.1
+              "id": "more_rpg_classes:wind_vacuum",
+              "appearance": {},
+              "batch": {
+                "count": 3.0,
+                "shape": "SPHERE",
+                "anchor": "ENTITY",
+                "min_speed": 0.1,
+                "max_speed": 0.1
+              }
             },
             {
-              "particle_id": "minecraft:small_gust",
-              "origin": "CENTER",
-              "shape": "SPHERE",
-              "count": 2.0,
-              "min_speed": 0.05,
-              "max_speed": 0.05
+              "id": "minecraft:small_gust",
+              "appearance": {},
+              "batch": {
+                "count": 2.0,
+                "shape": "SPHERE",
+                "anchor": "ENTITY",
+                "min_speed": 0.05,
+                "max_speed": 0.05
+              }
             }
           ]
         }
@@ -79,24 +93,33 @@
           "spell_power_coefficient": 1.1
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:wind_vacuum",
-          "origin": "LAUNCH_POINT",
-          "shape": "SPHERE",
-          "rotation": "LOOK",
-          "count": 1.0,
-          "min_speed": 0.1
-        },
-        {
-          "particle_id": "gust",
-          "origin": "CENTER",
-          "shape": "CIRCLE",
-          "count": 1.0,
-          "min_speed": 0.5,
-          "max_speed": 0.8
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:wind_vacuum",
+            "appearance": {},
+            "batch": {
+              "count": 1.0,
+              "shape": "SPHERE",
+              "anchor": "LAUNCH_POINT",
+              "alignment": "LOOK",
+              "min_speed": 0.1,
+              "max_speed": 1.0
+            }
+          },
+          {
+            "id": "gust",
+            "appearance": {},
+            "batch": {
+              "count": 1.0,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "min_speed": 0.5,
+              "max_speed": 0.8
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "more_rpg_classes:air_magic_impact2"
       }

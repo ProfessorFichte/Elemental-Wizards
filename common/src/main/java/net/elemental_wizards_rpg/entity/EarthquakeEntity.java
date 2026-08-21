@@ -22,7 +22,7 @@ import net.more_rpg_classes.sounds.MRPGLibSounds;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.internals.SpellParameters;
 import net.more_rpg_classes.util.CustomMethods;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<EarthquakeEntity> ENTITY_TYPE;
     private static final Identifier EARTHQUAKE_SPELL_ID = Identifier.of(MOD_ID, "terra_earthquake");
 
-    // Ratio (5/16) must stay in sync with onSpawnedBySpell, which scales radius via SpellHelper.getRange
+    // Ratio (5/16) must stay in sync with onSpawnedBySpell, which scales radius via SpellParameters.getRangeCurved
     private static final float BASE_EARTHQUAKE_RADIUS = 16.0F;
     private static final float BASE_VERTICAL_RANGE = 5.0F;
     private static final int DAMAGE_INTERVAL = 10;
@@ -81,7 +81,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
 
         SpellRegistry.from(owner.getWorld()).getEntry(EARTHQUAKE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
         float effectiveRange = this.spellEntry != null
-                ? SpellHelper.getRange(owner, this.spellEntry, args.context().chargeModifier())
+                ? SpellParameters.getRangeCurved(owner, this.spellEntry, args.context().charge())
                 : BASE_EARTHQUAKE_RADIUS;
         this.earthquakeRadius = effectiveRange;
         this.verticalRange = effectiveRange * (BASE_VERTICAL_RANGE / BASE_EARTHQUAKE_RADIUS);
