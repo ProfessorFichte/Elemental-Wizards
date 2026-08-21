@@ -153,9 +153,9 @@ if (System.getenv("CURSEFORGE_API_KEY")) {
         // Required dependencies
         mainFile.addRequirement('spell-engine')
         mainFile.addRequirement('more-rpg-library')
-        mainFile.addRequirement('wizards')
 
         // Optional dependencies
+        mainFile.addOptional('wizards')
         mainFile.addOptional('lne-wizards')
     }
     tasks.curseforge.dependsOn remapJar
@@ -175,10 +175,10 @@ if (System.getenv("MODRINTH_API_KEY")) {
         dependencies {
             // Required dependencies
             required.project 'spell-engine'
-            required.project 'wizards'
             required.project 'more-rpg-library'
 
             // Optional dependencies
+            optional.project 'wizards'
             optional.project 'lne-wizards'
         }
     }

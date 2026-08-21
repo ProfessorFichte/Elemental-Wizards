@@ -34,9 +34,13 @@ versionRange = "[${spell_engine_version},)"
 ordering = "NONE"
 side = "BOTH"
 
+# Wizards is NOT required: Elemental Wizards owns every asset it needs.
+# It stays declared as an OPTIONAL dependency purely to pin a floor for the
+# opt-in enrichment we ship for it (item tags + the village_wizard loot table),
+# which assumes the item ids present since Wizards 3.0.2.
 [[dependencies.elemental_wizards_rpg]]
 modId = "wizards"
-type = "required"
+type = "optional"
 versionRange = "[${wizards_version},)"
 ordering = "NONE"
 side = "BOTH"

@@ -26,6 +26,7 @@ import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.api.spell.summon.SummonedEntityConfig;
 import net.tiny_config.ConfigManager;
 import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
+import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.wizardsLoadCheck;
 
 public class ElementalMod {
 	public static final String MOD_ID = "elemental_wizards_rpg";
@@ -70,7 +71,9 @@ public class ElementalMod {
 			tweaksConfig.value.ignore_items_required_mods = true;
 		}
 		CustomSpellImpacts.registerCustomImpacts();
-		WizardsCompat.registerCompat();
+		if (wizardsLoadCheck()) {
+			WizardsCompat.registerCompat();
+		}
 	}
 	public static void registerItems() {
 		ElementalGroup.ELEMENTAL_WIZARD = FabricItemGroup.builder()
