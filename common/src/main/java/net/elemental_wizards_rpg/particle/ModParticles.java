@@ -91,9 +91,14 @@ public class ModParticles {
     ///   A batch supplies velocity; the appearance cannot bias it, so the drop starts at
     ///   whatever the emitter hands it. `HealingRainCloudEntity` already spawns these with
     ///   a downward velocity of its own.
-    /// - **Dying on contact.** V1 called `markDead()` on `onGround`. `collides(true)` is
-    ///   the closest available behaviour: the drop stops on the floor instead of
-    ///   disappearing at it, and lives out the rest of its (faded) life there.
+    /// - **Dying on contact.** V1 called `markDead()` on `onGround`, so a drop *popped* the
+    ///   instant it reached the floor. `Appearance` has no die-on-contact switch. The first
+    ///   port reached for `collides(true)`, which is the wrong half of the behaviour: the
+    ///   drop stops dead on the floor and then lies there for the rest of its ~30 tick life,
+    ///   reported in game as rain "lingering like a pebble". `collides(false)` is the closer
+    ///   match — the drop keeps falling through the floor, so it is occluded by the ground
+    ///   block and simply disappears at the surface, which is what popping looked like.
+    ///   (It is still alive underground, and would be visible from inside an open cave below.)
     /// - **Undamped fall.** V1's `0.98` damping was applied to x and z only; `drag` is a
     ///   scalar over all three axes, so the descent bleeds slightly more speed than V1's.
     ///   With gravity this steep the terminal velocity is still ~3 blocks/tick, well past
@@ -101,7 +106,7 @@ public class ModParticles {
     public static final Entry HEALING_RAIN = add("healing_rain", 3, p -> p
             .glow(false).color(Color.from(0x73dfff).toRGBA())
             .scale(0.2F, 0.25F).opacity(0.85F, Easing.Curve.fadeOut(Easing.LINEAR, 0.83F))
-            .gravity(1.5F).drag(0.98F).collides(true)
+            .gravity(1.5F).drag(0.98F)
             .playbackSpeed(0.102F).lifetimeVariance(0.32F));          // V1 maxAge 20..39
 
     public static void register() {

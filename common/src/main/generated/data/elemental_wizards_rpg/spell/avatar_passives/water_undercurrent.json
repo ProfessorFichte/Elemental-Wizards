@@ -27,7 +27,8 @@
               "batch": {
                 "count": 20.0,
                 "shape": "PILLAR",
-                "anchor": "ENTITY"
+                "anchor": "ENTITY",
+                "vertical_origin": 0.1
               }
             }
           ],
@@ -67,7 +68,8 @@
             "batch": {
               "count": 20.0,
               "shape": "PILLAR",
-              "anchor": "ENTITY"
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1
             }
           }
         ]

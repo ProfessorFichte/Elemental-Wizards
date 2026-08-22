@@ -15,8 +15,11 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:water_heal",
-            "appearance": {},
+            "id": "spell_engine:magic_heal",
+            "appearance": {
+              "color": 2063597567,
+              "motion": "FLOAT"
+            },
             "batch": {
               "count": 5.0,
               "shape": "SPHERE",

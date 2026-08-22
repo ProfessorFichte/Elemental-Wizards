@@ -1822,7 +1822,16 @@ public class ElementalWizardSpells {
 
         var heal = createHeal(0.5F);
         heal.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_HEAL)
+                // `more_rpg_classes:water_heal` renders as MISSING TEXTURE in 1.10: its particle
+                // json (`assets/more_rpg_classes/particles/water_heal.json`) names the sprite
+                // `spell_engine:healing`, and `textures/particle/healing.png` was dropped in the
+                // 1.10 texture reorganisation (it exists in 1.9.15, it does not in 1.10). The id
+                // still resolves, so nothing fails — only the sprite is gone.
+                // V1's look came from `AbstractParticle.WaterHealingFactory`: a `SpellFlameParticle`
+                // tinted `0x7affff` with random darkening, i.e. `Motion.FLOAT`'s 0.96 drag / no
+                // gravity plus a light blue. `magic_heal` reproduces that on a live texture.
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_heal,
+                                ParticleGroup.Motion.FLOAT, Color.from(0x7affff))
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.05F, 0.1F)),
                 ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
@@ -2166,7 +2175,8 @@ public class ElementalWizardSpells {
         cloud.client_data.particles = List.of(
                 ParticleGroupBuilder.of(MoreParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
-                                .count(20F).speed(0F, 0F)));
+                                .count(20F).speed(0F, 0F)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
         cloud.client_data.particle_spawn_interval = SpellEngineParticles.area_effect_480.texture().frames();
         cloud.client_data.interval_particles = List.of(
                 ParticleGroupBuilder.of(areaParticle)
@@ -2183,7 +2193,8 @@ public class ElementalWizardSpells {
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.of(MoreParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
-                                .count(20F).speed(0F, 0F)));
+                                .count(20F).speed(0F, 0F)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
 
         var heal = createHeal(0.2F);
         heal.visuals = Fx.Visuals.of(

@@ -1,3 +1,6 @@
+# 3.1.0 - 1.21.1
+- Adopt Spell Engine 1.10
+- Fixed Healing Rain, Stone Spear and Aeroblast particle behaviour
 # 3.0.2 - 1.21.1
 - Armory & Arsenal Compat Equipment is now added to a separate Item Group
 - Remove old loot Tables causing an error message in the Logs - GH #12
