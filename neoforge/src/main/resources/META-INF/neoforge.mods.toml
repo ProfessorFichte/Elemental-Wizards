@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.elemental_wizards_rpg]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "[${minecraft_compat_version},)"
 ordering = "NONE"
 side = "BOTH"
 
