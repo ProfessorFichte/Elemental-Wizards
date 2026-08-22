@@ -105,7 +105,7 @@ dependencies {
     forgeRuntimeLibrary("io.wispforest.endec:netty:0.1.2")
 
     modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
-    modImplementation("net.spell_engine:spell_engine-${platform}:${project.spell_engine_version}") { transitive = false }
+    modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
     //modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${project.more_rpg_library_version}")
     modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${project.more_rpg_library_version}") { transitive = false }
 
