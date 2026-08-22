@@ -23,13 +23,17 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:bubble",
-          "origin": "LAUNCH_POINT",
-          "shape": "CONE",
-          "rotation": "LOOK",
-          "count": 3.0,
-          "min_speed": 0.2,
-          "angle": 65.0
+          "id": "more_rpg_classes:bubble",
+          "appearance": {},
+          "batch": {
+            "count": 3.0,
+            "shape": "CONE",
+            "anchor": "LAUNCH_POINT",
+            "alignment": "LOOK",
+            "min_speed": 0.2,
+            "max_speed": 1.0,
+            "angle": 65.0
+          }
         }
       ]
     }
@@ -54,23 +58,33 @@
           "spell_power_coefficient": 0.3
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:water_heal",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.1
-        },
-        {
-          "particle_id": "more_rpg_classes:water_circle",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 1.0,
-          "min_speed": 0.2
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:water_heal",
+            "appearance": {},
+            "batch": {
+              "count": 10.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            }
+          },
+          {
+            "id": "more_rpg_classes:water_circle",
+            "appearance": {},
+            "batch": {
+              "count": 1.0,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.2,
+              "max_speed": 1.0
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "spell_engine:generic_healing_impact_2",
         "volume": 1.2
@@ -84,24 +98,32 @@
           "knockback": 0.0
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:bubble_pop",
-          "origin": "CENTER",
-          "shape": "CIRCLE",
-          "count": 10.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
-        },
-        {
-          "particle_id": "more_rpg_classes:bubble",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 5.0,
-          "min_speed": 0.001,
-          "max_speed": 0.1
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:bubble_pop",
+            "appearance": {},
+            "batch": {
+              "count": 10.0,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "min_speed": 0.05,
+              "max_speed": 0.2
+            }
+          },
+          {
+            "id": "more_rpg_classes:bubble",
+            "appearance": {},
+            "batch": {
+              "count": 5.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.001,
+              "max_speed": 0.1
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "block.bubble_column.bubble_pop"
       }

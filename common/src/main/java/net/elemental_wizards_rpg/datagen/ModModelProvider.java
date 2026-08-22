@@ -51,11 +51,16 @@ public class ModModelProvider extends FabricModelProvider {
         gen.writer.accept(modelId, () -> json);
     }
 
+    /// Held-staff display transforms. Kept in this mod's own namespace on purpose: parenting onto
+    /// `wizards:item/medium_staff` made every staff here render as the missing model whenever the
+    /// Wizards mod was absent (notably in the dev workspace, which does not ship it).
+    private static final String STAFF_BASE_MODEL = MOD_ID + ":item/medium_staff";
+
     private void generateStaffModel(ItemModelGenerator gen, Identifier itemId, String name) {
         Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + name);
 
         JsonObject json = new JsonObject();
-        json.addProperty("parent", "wizards:item/medium_staff");
+        json.addProperty("parent", STAFF_BASE_MODEL);
 
         JsonObject textures = new JsonObject();
         textures.addProperty("layer0", MOD_ID + ":item/weapons/staves/" + name);

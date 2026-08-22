@@ -28,14 +28,14 @@
 		"elemental_wizards_rpg.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.21",
+		"fabricloader": ">=${fabric_loader_compat_version}",
+		"minecraft": ">=${minecraft_compat_version}",
 		"java": ">=21",
 		"fabric-api": "*",
-		"azurelibarmor": "*",
-		"spell_engine": ">=1.5.0",
-		"spell_power": ">=1.2.0",
-		"more_rpg_classes": ">=2.2.0-1.21.1"
+		"azurelibarmor": ">=${azure_lib_version}",
+		"spell_engine": ">=${spell_engine_version}",
+		"spell_power": ">=${spell_power_version}",
+		"more_rpg_classes": ">=${more_rpg_library_version}"
 	},
 	"suggests": {
 		"better_combat": "*"

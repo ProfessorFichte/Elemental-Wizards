@@ -23,21 +23,29 @@
       },
       "particles": [
         {
-          "particle_id": "campfire_cosy_smoke",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 10.0,
-          "min_speed": 0.001,
-          "max_speed": 0.1
+          "id": "campfire_cosy_smoke",
+          "appearance": {},
+          "batch": {
+            "count": 10.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.001,
+            "max_speed": 0.1
+          }
         },
         {
-          "particle_id": "more_rpg_classes:stone_particle",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 3.0,
-          "min_speed": 0.01,
-          "max_speed": 0.05,
-          "extent": 1.0
+          "id": "more_rpg_classes:stone_particle",
+          "appearance": {},
+          "batch": {
+            "count": 3.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.01,
+            "max_speed": 0.05,
+            "extent": 1.0
+          }
         }
       ]
     }

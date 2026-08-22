@@ -25,11 +25,11 @@ public class CleansingWaterEffect extends StatusEffect {
         if(pLivingEntity.isOnFire()){
             pLivingEntity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH,2,1);
             if(world.isClient){
-                world.addParticle(MoreParticles.WATER_MIST,1,1,1,2,2,2);
+                world.addParticle(MoreParticles.WATER_MIST.type(),1,1,1,2,2,2);
                 world.addParticle(ParticleTypes.LARGE_SMOKE,1,1,1,2,2,2);
             }else{
                 if (world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(MoreParticles.WATER_MIST,1,1,1,4,2,2,2,2);
+                    serverWorld.spawnParticles(MoreParticles.WATER_MIST.type(),1,1,1,4,2,2,2,2);
                     serverWorld.spawnParticles(ParticleTypes.LARGE_SMOKE,1,1,1,4,2,2,2,2);
                 }
             }
@@ -37,11 +37,11 @@ public class CleansingWaterEffect extends StatusEffect {
         }
         if(pLivingEntity.isInLava()){
             if(world.isClient){
-                world.addParticle(MoreParticles.WATER_MIST,1,1,1,2,2,2);
+                world.addParticle(MoreParticles.WATER_MIST.type(),1,1,1,2,2,2);
                 world.addParticle(ParticleTypes.LARGE_SMOKE,1,1,1,2,2,2);
             }else{
                 if (world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(MoreParticles.WATER_MIST,1,1,1,4,2,2,2,2);
+                    serverWorld.spawnParticles(MoreParticles.WATER_MIST.type(),1,1,1,4,2,2,2,2);
                     serverWorld.spawnParticles(ParticleTypes.LARGE_SMOKE,1,1,1,4,2,2,2,2);
                 }
             }

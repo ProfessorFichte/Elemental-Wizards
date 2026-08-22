@@ -16,20 +16,28 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "PILLAR",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.2
+          }
         },
         {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.2
+          }
         }
       ]
     }
@@ -124,25 +132,37 @@
           "knockback": 0.0
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:water_mist",
-          "origin": "FEET",
-          "shape": "SPHERE",
-          "rotation": "LOOK",
-          "count": 0.2,
-          "min_speed": 0.1,
-          "max_speed": 0.1
-        },
-        {
-          "particle_id": "more_rpg_classes:stone_particle",
-          "origin": "FEET",
-          "shape": "SPHERE",
-          "rotation": "LOOK",
-          "count": 1.5,
-          "min_speed": 0.5
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:water_mist",
+            "appearance": {},
+            "batch": {
+              "count": 1.0,
+              "chance": 0.2,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "alignment": "LOOK",
+              "min_speed": 0.1,
+              "max_speed": 0.1
+            }
+          },
+          {
+            "id": "more_rpg_classes:stone_particle",
+            "appearance": {},
+            "batch": {
+              "count": 1.5,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "alignment": "LOOK",
+              "min_speed": 0.5,
+              "max_speed": 1.0
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "more_rpg_classes:air_magic_impact2",
         "volume": 0.25

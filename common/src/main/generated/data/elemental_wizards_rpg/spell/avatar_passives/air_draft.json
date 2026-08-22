@@ -24,32 +24,52 @@
           "amplifier_power_multiplier": 0.3
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "WIDE_PIPE",
-          "count": 25.0,
-          "min_speed": 0.2,
-          "extent": 1.0
-        },
-        {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "WIDE_PIPE",
-          "count": 25.0,
-          "min_speed": 0.2,
-          "extent": 3.0
-        },
-        {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "WIDE_PIPE",
-          "count": 25.0,
-          "min_speed": 0.2,
-          "extent": 5.0
-        }
-      ]
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:small_gust",
+            "appearance": {},
+            "batch": {
+              "count": 25.0,
+              "shape": "PIPE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.2,
+              "max_speed": 1.0,
+              "extent": 1.0,
+              "width_factor": 2.0
+            }
+          },
+          {
+            "id": "more_rpg_classes:small_gust",
+            "appearance": {},
+            "batch": {
+              "count": 25.0,
+              "shape": "PIPE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.2,
+              "max_speed": 1.0,
+              "extent": 3.0,
+              "width_factor": 2.0
+            }
+          },
+          {
+            "id": "more_rpg_classes:small_gust",
+            "appearance": {},
+            "batch": {
+              "count": 25.0,
+              "shape": "PIPE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.2,
+              "max_speed": 1.0,
+              "extent": 5.0,
+              "width_factor": 2.0
+            }
+          }
+        ]
+      }
     },
     {
       "action": {
@@ -69,15 +89,23 @@
     "area": {
       "distance_dropoff": "SQUARED"
     },
-    "particles": [
-      {
-        "particle_id": "more_rpg_classes:small_gust",
-        "origin": "FEET",
-        "shape": "WIDE_PIPE",
-        "count": 50.0,
-        "min_speed": 0.5
-      }
-    ]
+    "visuals": {
+      "particles": [
+        {
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 50.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.5,
+            "max_speed": 1.0,
+            "width_factor": 2.0
+          }
+        }
+      ]
+    }
   },
   "cost": {
     "cooldown": {

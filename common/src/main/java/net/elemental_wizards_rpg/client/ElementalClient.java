@@ -11,7 +11,6 @@ import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemSpikeEntity
 import net.elemental_wizards_rpg.client.entity.TidalWaveEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.HealingRainCloudEntityRenderer;
 import net.elemental_wizards_rpg.client.entity.EarthquakeEntityRenderer;
-import net.elemental_wizards_rpg.client.particle.HealingRainParticle;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.WhirlwindEntity;
 import net.elemental_wizards_rpg.entity.TerraStoneEntity;
@@ -23,7 +22,6 @@ import net.elemental_wizards_rpg.entity.EarthquakeEntity;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
-import net.spell_engine.client.gui.SpellTooltip;
 import net.elemental_wizards_rpg.client.entity.earth_golem.EarthGolemEntityModel;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -32,6 +30,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRe
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
+import net.spell_engine.client.particle.SpellParticle;
 import net.spell_engine.rpg_series.item.Armor;
 
 import java.util.function.Supplier;
@@ -42,11 +41,11 @@ import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadChec
 public class ElementalClient{
 
     public static void init(){
-        for (var entry : ElementalWizardSpells.entries) {
-            if (entry.mutator() != null) {
-                SpellTooltip.addDescriptionMutator(entry.id(), entry.mutator());
-            }
-        }
+        // Description values that aren't expressible as declarative `{token}`s (sub-spell estimates).
+        // `TooltipTokens` is server-safe, but the handlers reach for client-only render helpers, so
+        // they are registered from here. `ElementalWizardSpells` is already runtime-reachable via
+        // `WeaponsRegister`/`ElementalSummons`; this call is explicit rather than relying on that.
+        ElementalWizardSpells.registerTooltipTokens();
 
         registerArmorRenderer(Armors.elementalArmor.armorSet(), ElementalRobeRenderer::elemental);
         registerArmorRenderer(Armors.kelpArmor.armorSet(), ElementalRobeRenderer::kelp);
@@ -91,6 +90,12 @@ public class ElementalClient{
         AzArmorRendererRegistry.register(armorRendererSupplier, set.head, set.chest, set.legs, set.feet);
     }
     public static void registerParticleAppearances() {
-        ParticleFactoryRegistry.getInstance().register(ModParticles.HEALING_RAIN, HealingRainParticle.Factory::new);
+        ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
+
+        // One generic factory for every entry this mod owns: SpellParticle resolves the
+        // entry's defaults against the per-spawn ParticleGroup.Appearance payload.
+        for (var entry: ModParticles.entries()) {
+            registry.register(entry.type(), provider -> new SpellParticle.Factory(provider, entry));
+        }
     }
 }

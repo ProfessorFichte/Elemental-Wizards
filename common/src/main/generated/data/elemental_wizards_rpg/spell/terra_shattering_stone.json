@@ -16,12 +16,16 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:stone_particle",
-          "origin": "FEET",
-          "shape": "PIPE",
-          "count": 1.0,
-          "min_speed": 0.01,
-          "max_speed": 0.02
+          "id": "more_rpg_classes:stone_particle",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.01,
+            "max_speed": 0.02
+          }
         }
       ]
     }
@@ -86,29 +90,40 @@
           "amplifier_cap": 2
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:stone_particle",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 5.0,
-          "min_speed": 0.02,
-          "max_speed": 0.07
-        }
-      ]
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:stone_particle",
+            "appearance": {},
+            "batch": {
+              "count": 5.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.02,
+              "max_speed": 0.07
+            }
+          }
+        ]
+      }
     }
   ],
   "area_impact": {
     "radius": 1.5,
-    "particles": [
-      {
-        "particle_id": "more_rpg_classes:stone_explosion",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 1.0,
-        "min_speed": 0.6
-      }
-    ],
+    "visuals": {
+      "particles": [
+        {
+          "id": "more_rpg_classes:stone_explosion",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.6,
+            "max_speed": 1.0
+          }
+        }
+      ]
+    },
     "sound": {
       "id": "minecraft:block.pointed_dripstone.break",
       "volume": 1.5

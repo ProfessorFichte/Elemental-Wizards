@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.internals.SpellParameters;
 import net.more_rpg_classes.util.CustomMethods;
 
 import java.util.List;
@@ -78,7 +78,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
         adjustHeightToGround();
 
         RegistryEntry<Spell> spellEntry = SpellRegistry.from(owner.getWorld()).getEntry(HEALING_RAIN_SPELL_ID).orElse(null);
-        float scale = spellEntry != null ? SpellHelper.getRange(owner, spellEntry) / BASE_RANGE : 1.0F;
+        float scale = spellEntry != null ? SpellParameters.getRange(owner, spellEntry) / BASE_RANGE : 1.0F;
         this.getDataTracker().set(SCALE_TRACKER, scale);
 
         this.calculateDimensions();
@@ -253,7 +253,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
                 double offsetZ = (this.random.nextDouble() - 0.5) * rainRadius * 2;
 
                 serverWorld.spawnParticles(
-                    ModParticles.HEALING_RAIN,
+                    ModParticles.HEALING_RAIN.type(),
                     pos.x + offsetX,
                     pos.y - 0.3,
                     pos.z + offsetZ,
@@ -264,7 +264,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
 
                 if (i % 2 == 0) {
                     serverWorld.spawnParticles(
-                        ModParticles.HEALING_RAIN,
+                        ModParticles.HEALING_RAIN.type(),
                         pos.x + offsetX,
                         pos.y - 1.0,
                         pos.z + offsetZ,

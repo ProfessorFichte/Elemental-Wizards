@@ -15,20 +15,28 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "PILLAR",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.2
+          }
         },
         {
-          "particle_id": "more_rpg_classes:small_gust",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "id": "more_rpg_classes:small_gust",
+          "appearance": {},
+          "batch": {
+            "count": 1.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.2
+          }
         }
       ]
     }
@@ -53,16 +61,21 @@
           "knockback": 0.75
         }
       },
-      "particles": [
-        {
-          "particle_id": "gust",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 1.0,
-          "min_speed": 0.5,
-          "max_speed": 0.8
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "gust",
+            "appearance": {},
+            "batch": {
+              "count": 1.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.5,
+              "max_speed": 0.8
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "more_rpg_classes:air_magic_impact3"
       }

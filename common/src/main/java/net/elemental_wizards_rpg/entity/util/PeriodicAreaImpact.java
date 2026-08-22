@@ -9,7 +9,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.internals.SpellExecution;
+import net.spell_engine.internals.impact.SpellImpacts;
 import net.spell_power.api.SpellPower;
 
 import java.util.function.Consumer;
@@ -33,9 +34,9 @@ public final class PeriodicAreaImpact {
             if (!filter.test(living)) continue;
 
             var position = fixedPosition != null ? fixedPosition : living.getPos();
-            SpellHelper.performImpacts(world, owner, living, owner, spellImpact,
+            SpellImpacts.performImpacts(world, owner, living, owner, spellImpact,
                     spellImpact.value().impacts,
-                    new SpellHelper.ImpactContext().power(power).position(position),
+                    new SpellExecution.ImpactContext().power(power).position(position),
                     additionalTargetLookup, null);
 
             if (onApplied != null) onApplied.accept(living);

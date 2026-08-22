@@ -20,23 +20,30 @@
       },
       "particles": [
         {
-          "particle_id": "more_rpg_classes:big_splash",
-          "origin": "LAUNCH_POINT",
-          "shape": "CONE",
-          "rotation": "LOOK",
-          "count": 4.0,
-          "min_speed": 10.0,
-          "max_speed": 15.0,
-          "angle": 20.0
+          "id": "more_rpg_classes:big_splash",
+          "appearance": {},
+          "batch": {
+            "count": 4.0,
+            "shape": "CONE",
+            "anchor": "LAUNCH_POINT",
+            "alignment": "LOOK",
+            "min_speed": 10.0,
+            "max_speed": 15.0,
+            "angle": 20.0
+          }
         },
         {
-          "particle_id": "more_rpg_classes:water_mist",
-          "origin": "LAUNCH_POINT",
-          "shape": "CONE",
-          "rotation": "LOOK",
-          "count": 2.0,
-          "min_speed": 0.5,
-          "angle": 35.0
+          "id": "more_rpg_classes:water_mist",
+          "appearance": {},
+          "batch": {
+            "count": 2.0,
+            "shape": "CONE",
+            "anchor": "LAUNCH_POINT",
+            "alignment": "LOOK",
+            "min_speed": 0.5,
+            "max_speed": 1.0,
+            "angle": 35.0
+          }
         }
       ]
     }
@@ -52,17 +59,22 @@
       "texture_id": "elemental_wizards_rpg:textures/entity/hydro_beam.png",
       "width": 0.08,
       "flow": 2.0,
-      "block_hit_particles": [
-        {
-          "particle_id": "more_rpg_classes:water_mist",
-          "origin": "CENTER",
-          "shape": "CIRCLE",
-          "rotation": "LOOK",
-          "count": 1.5,
-          "min_speed": 0.1,
-          "max_speed": 0.2
-        }
-      ]
+      "block_hit": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:water_mist",
+            "appearance": {},
+            "batch": {
+              "count": 1.5,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "alignment": "LOOK",
+              "min_speed": 0.1,
+              "max_speed": 0.2
+            }
+          }
+        ]
+      }
     }
   },
   "impacts": [
@@ -74,24 +86,34 @@
           "knockback": 1.5
         }
       },
-      "particles": [
-        {
-          "particle_id": "more_rpg_classes:big_splash",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 20.0,
-          "min_speed": 0.1,
-          "max_speed": 0.4
-        },
-        {
-          "particle_id": "more_rpg_classes:water_mist",
-          "origin": "FEET",
-          "shape": "CIRCLE",
-          "count": 2.0,
-          "min_speed": 0.01,
-          "max_speed": 0.03
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "more_rpg_classes:big_splash",
+            "appearance": {},
+            "batch": {
+              "count": 20.0,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.1,
+              "max_speed": 0.4
+            }
+          },
+          {
+            "id": "more_rpg_classes:water_mist",
+            "appearance": {},
+            "batch": {
+              "count": 2.0,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.01,
+              "max_speed": 0.03
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "more_rpg_classes:water_magic_impact1",
         "volume": 0.4

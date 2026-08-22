@@ -170,7 +170,7 @@
   "spell.elemental_wizards_rpg.terra_impale.name": "Impale",
   "spell.elemental_wizards_rpg.terra_shattering_stone.description": "Launch a stone that shatters on impact, sending fragments in all directions that cause {damage} damage and bleeding wounds.",
   "spell.elemental_wizards_rpg.terra_shattering_stone.name": "Shattering Stone",
-  "spell.elemental_wizards_rpg.terra_stone_flesh.description": "Encase yourself and nearby allies in protective stone armor, with full health the next incoming damage will be reduced by 50%%.  Also increases armor by {bonus} and armor toughness by {bonus2} per stack.",
+  "spell.elemental_wizards_rpg.terra_stone_flesh.description": "Encase yourself and nearby allies in protective stone armor, with full health the next incoming damage will be reduced by 50%%.  Also increases armor by {effect|elemental_wizards_rpg:stone_flesh|0|minecraft:generic.armor} and armor toughness by {effect|elemental_wizards_rpg:stone_flesh|0|minecraft:generic.armor_toughness} per stack.",
   "spell.elemental_wizards_rpg.terra_stone_flesh.name": "Stone Flesh",
   "spell.elemental_wizards_rpg.terra_stone_spear.description": "Launch a sharp stone spear that pierces enemies, causing {damage} damage and bleeding wounds.",
   "spell.elemental_wizards_rpg.terra_stone_spear.name": "Stone Spear",
@@ -190,6 +190,6 @@
   "spell.elemental_wizards_rpg.wind_twister.name": "Twister",
   "spell.elemental_wizards_rpg.wind_updraft.description": "Create a powerful updraft that lifts enemies into the air, leaving them vulnerable while suspended and dealing {damage} damage.",
   "spell.elemental_wizards_rpg.wind_updraft.name": "Updraft",
-  "spell.elemental_wizards_rpg.wind_windfield.description": "Calls a field of strong wind that deals {damage} damage and reduces movement speed by {bonus} for {effect_duration} sec.",
+  "spell.elemental_wizards_rpg.wind_windfield.description": "Calls a field of strong wind that deals {damage} damage and reduces movement speed by {effect|elemental_wizards_rpg:windfield} for {effect_duration} sec.",
   "spell.elemental_wizards_rpg.wind_windfield.name": "Windfield"
 }

@@ -169,7 +169,7 @@
   "spell.elemental_wizards_rpg.terra_impale.name": "インペイル",
   "spell.elemental_wizards_rpg.terra_shattering_stone.description": "衝撃で砕ける石を投げ、四方に破片を飛ばして{damage}ダメージと出血ダメージを与える。",
   "spell.elemental_wizards_rpg.terra_shattering_stone.name": "シャッタリングストーン",
-  "spell.elemental_wizards_rpg.terra_stone_flesh.description": "自分と周囲の味方を防護石の鎧で包み、体力が満タンの場合、次の受けるダメージを50％軽減する。また、スタックごとに防御力を{bonus}、防具強度を{bonus2}増加させる。",
+  "spell.elemental_wizards_rpg.terra_stone_flesh.description": "自分と周囲の味方を防護石の鎧で包み、体力が満タンの場合、次の受けるダメージを50％軽減する。また、スタックごとに防御力を{effect|elemental_wizards_rpg:stone_flesh|0|minecraft:generic.armor}、防具強度を{effect|elemental_wizards_rpg:stone_flesh|0|minecraft:generic.armor_toughness}増加させる。",
   "spell.elemental_wizards_rpg.terra_stone_flesh.name": "ストーンフレッシュ",
   "spell.elemental_wizards_rpg.terra_stone_spear.description": "鋭い石の槍を放ち、敵を貫通させて{damage}ダメージと出血ダメージを与える。",
   "spell.elemental_wizards_rpg.terra_stone_spear.name": "ストーンスピア",
@@ -189,6 +189,6 @@
   "spell.elemental_wizards_rpg.wind_twister.name": "ツイスター",
   "spell.elemental_wizards_rpg.wind_updraft.description": "強力な上昇気流を作り出し、敵を空中に浮かせ、風スペルに対して弱体化させつつ{damage}ダメージを与える。",
   "spell.elemental_wizards_rpg.wind_updraft.name": "アップドラフト",
-  "spell.elemental_wizards_rpg.wind_windfield.description": "強風のフィールドを発生させ、{damage}ダメージを与え、{effect_duration}秒間の間、移動速度を{bonus}減少させる。",
+  "spell.elemental_wizards_rpg.wind_windfield.description": "強風のフィールドを発生させ、{damage}ダメージを与え、{effect_duration}秒間の間、移動速度を{effect|elemental_wizards_rpg:windfield}減少させる。",
   "spell.elemental_wizards_rpg.wind_windfield.name": "ウィンドフィールド"
 }
