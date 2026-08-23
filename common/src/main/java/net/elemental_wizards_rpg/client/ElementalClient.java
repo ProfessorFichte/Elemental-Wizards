@@ -41,10 +41,6 @@ import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadChec
 public class ElementalClient{
 
     public static void init(){
-        // Description values that aren't expressible as declarative `{token}`s (sub-spell estimates).
-        // `TooltipTokens` is server-safe, but the handlers reach for client-only render helpers, so
-        // they are registered from here. `ElementalWizardSpells` is already runtime-reachable via
-        // `WeaponsRegister`/`ElementalSummons`; this call is explicit rather than relying on that.
         ElementalWizardSpells.registerTooltipTokens();
 
         registerArmorRenderer(Armors.elementalArmor.armorSet(), ElementalRobeRenderer::elemental);
@@ -92,8 +88,6 @@ public class ElementalClient{
     public static void registerParticleAppearances() {
         ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
 
-        // One generic factory for every entry this mod owns: SpellParticle resolves the
-        // entry's defaults against the per-spawn ParticleGroup.Appearance payload.
         for (var entry: ModParticles.entries()) {
             registry.register(entry.type(), provider -> new SpellParticle.Factory(provider, entry));
         }

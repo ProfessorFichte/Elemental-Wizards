@@ -49,8 +49,7 @@ dependencies {
     modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
     modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
     modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
-    //modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${project.more_rpg_library_version}")
-    modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${project.more_rpg_library_version}") { transitive = false }
+    modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
 
     modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
     modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"

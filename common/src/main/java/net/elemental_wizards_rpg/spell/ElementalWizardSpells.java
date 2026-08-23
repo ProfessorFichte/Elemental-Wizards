@@ -63,7 +63,6 @@ public class ElementalWizardSpells {
 
     public static final List<Entry> entries = new ArrayList<>();
 
-    // Attribute ids naming which modifier of a multi-modifier effect a `{effect|...}` token reads.
     private static final Identifier ARMOR = Identifier.of(EntityAttributes.GENERIC_ARMOR.getIdAsString());
     private static final Identifier ARMOR_TOUGHNESS = Identifier.of(EntityAttributes.GENERIC_ARMOR_TOUGHNESS.getIdAsString());
 
@@ -158,7 +157,6 @@ public class ElementalWizardSpells {
                                 .count(1).speed(0.01F, 0.05F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(0.5F)),
-                // V1 count 0.1 was a per-tick spawn probability, not a period.
                 ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.002F, 0.003F)
@@ -303,7 +301,6 @@ public class ElementalWizardSpells {
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(10).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                // V1 count 0.1 on a one-shot impact was a 1-in-10 coin flip.
                 ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.2F, 1.0F)
@@ -367,7 +364,6 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of(MoreParticles.WATER_WHIP)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1).speed(0.1F, 0.1F)),
-                // V1 count 0.1 on a one-shot impact was a 1-in-10 coin flip.
                 ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.2F, 1.0F)
@@ -491,7 +487,6 @@ public class ElementalWizardSpells {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.travel_particles = List.of(
-                // V1 count 0.1 was a per-tick spawn probability, not a period.
                 ParticleGroupBuilder.of(MoreParticles.BUBBLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.6F, 0.9F)
@@ -855,7 +850,6 @@ public class ElementalWizardSpells {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.travel_particles = List.of(
-                // V1 count 0.1 was a per-tick spawn probability, not a period.
                 ParticleGroupBuilder.of("campfire_cosy_smoke")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .alignment(ParticleGroup.Alignment.LOOK)
@@ -902,9 +896,6 @@ public class ElementalWizardSpells {
         var id = Identifier.of(MOD_ID, "terra_stone_flesh");
         var title = "Stone Flesh";
         var effect = ElementalEffects.STONE_FLESH;
-        // Two modifiers with different values, so each token names its attribute explicitly - the
-        // effect's modifier map is unordered. (The old mutator read `attributes().get(1)` for the
-        // "armor" phrase and `get(0)` for "armor toughness", i.e. the two values were swapped.)
         var description = "Encase yourself and nearby allies in protective stone armor, with full health the next incoming damage will be reduced by 50%%. " +
                 " Also increases armor by " + TooltipTokens.effect(effect.id, 0, ARMOR)
                 + " and armor toughness by " + TooltipTokens.effect(effect.id, 0, ARMOR_TOUGHNESS)
@@ -1375,8 +1366,6 @@ public class ElementalWizardSpells {
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
 
         var damage = damageImpact(0.65F, 0.75F);
-        // "gust" is unqualified -> minecraft:gust (vanilla). more_rpg_classes:gust was
-        // never registered in V1, so this always was the vanilla wind-charge particle.
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.of("gust")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
@@ -1780,7 +1769,6 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of(MoreParticles.WIND_VACUUM)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(3.0F).speed(0.1F, 0.1F)),
-                // vanilla minecraft:small_gust, NOT more_rpg_classes:small_gust
                 ParticleGroupBuilder.of("minecraft:small_gust")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(2.0F).speed(0.05F, 0.05F)));
@@ -1822,14 +1810,6 @@ public class ElementalWizardSpells {
 
         var heal = createHeal(0.5F);
         heal.visuals = Fx.Visuals.of(
-                // `more_rpg_classes:water_heal` renders as MISSING TEXTURE in 1.10: its particle
-                // json (`assets/more_rpg_classes/particles/water_heal.json`) names the sprite
-                // `spell_engine:healing`, and `textures/particle/healing.png` was dropped in the
-                // 1.10 texture reorganisation (it exists in 1.9.15, it does not in 1.10). The id
-                // still resolves, so nothing fails — only the sprite is gone.
-                // V1's look came from `AbstractParticle.WaterHealingFactory`: a `SpellFlameParticle`
-                // tinted `0x7affff` with random darkening, i.e. `Motion.FLOAT`'s 0.96 drag / no
-                // gravity plus a light blue. `magic_heal` reproduces that on a live texture.
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_heal,
                                 ParticleGroup.Motion.FLOAT, Color.from(0x7affff))
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
@@ -2215,20 +2195,10 @@ public class ElementalWizardSpells {
         return new Entry(id, spell, title, description);
     }
 
-    /// Registers the description values that no declarative `{token}` can express.
-    ///
-    /// These spells' own impacts only spawn an entity, so the engine's `{damage}` / `{heal}` estimate
-    /// is empty for them - the numbers live on a separate `helper/...` spell that the spawned entity
-    /// casts. Estimating a *different* spell is genuinely bespoke, hence `TooltipTokens.Custom`.
-    ///
-    /// `TooltipTokens.Custom` references only shared types, unlike the `SpellTooltip.DescriptionMutator`
-    /// it replaces, which put a client-only type into the `Entry` record - and this class *is* loaded on
-    /// a dedicated server (`WeaponsRegister` and `ElementalSummons` reference its spell ids).
-    ///
-    /// The handler bodies do still call the client-only `SpellTooltip.formattedRange` /
-    /// `spellDescriptionTranslationKey` (those render helpers stayed on `SpellTooltip` in 1.10) and
-    /// `I18n`. That is safe because this method is only ever called from `ElementalClient.init()`, so
-    /// the lambdas are never created - let alone run - on a server.
+    /// This class is loaded on a dedicated server (`WeaponsRegister` / `ElementalSummons` reference
+    /// its spell ids), but the handler bodies below call client-only `SpellTooltip` / `I18n` helpers.
+    /// That's only safe because this method itself is called exclusively from `ElementalClient.init()`,
+    /// so the lambdas are never created - let alone run - on a server.
     public static void registerTooltipTokens() {
         subSpellEstimate(aqua_healing_rain.id(), aqua_healing_rain_impact.id(), "{rain_damage}", "{rain_heal}");
         subSpellEstimate(aqua_tidal_wave.id(), aqua_tidal_wave_impact.id(), "{wave_damage}", null);
@@ -2237,8 +2207,6 @@ public class ElementalWizardSpells {
         subSpellEstimate(terra_earth_golem.id(), terra_earth_golem_spike_impact.id(), "{golem_spike_damage}", null);
         subSpellEstimate(wind_twister.id(), wind_twister_impact.id(), "{twister_damage}", null);
 
-        // Elemental Avatar picks its impact from the caster's strongest elemental spell power, so the
-        // tooltip inlines the chosen sub-spell's own description (with that sub-spell's own estimate).
         TooltipTokens.registerCustom(elemental_avatar.id(), args -> {
             var world = args.player().getWorld();
             if (world == null) return args.description();
@@ -2272,9 +2240,6 @@ public class ElementalWizardSpells {
         });
     }
 
-    /// Resolves `damageToken` / `healToken` in `spellId`'s description to the estimated output of
-    /// `subSpellId`, the helper spell that actually carries the damage/heal impacts. A null token is
-    /// skipped; a missing registry entry or empty estimate leaves the description untouched.
     private static void subSpellEstimate(Identifier spellId, Identifier subSpellId,
                                          @Nullable String damageToken, @Nullable String healToken) {
         TooltipTokens.registerCustom(spellId, args -> {

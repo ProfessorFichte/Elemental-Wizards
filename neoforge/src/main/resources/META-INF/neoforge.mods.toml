@@ -28,6 +28,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.elemental_wizards_rpg]]
+modId = "forgified_fabric_api"
+type = "required"
+versionRange = "[${forgified_fabric_api_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
 modId = "spell_engine"
 type = "required"
 versionRange = "[${spell_engine_version},)"

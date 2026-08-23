@@ -8,18 +8,6 @@ import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder.Batches;
 import net.spell_engine.fx.ParticleHelper;
 
-/// Stone flaking off an entity under Stone Flesh.
-///
-/// V1: `ParticleBatch("more_rpg_classes:stone_particle", WIDE_PIPE, FEET, null,
-/// 0.5F, 0.001F, 0.1F, 0).extent(0.5F)`.
-/// - `WIDE_PIPE` was "`PIPE` at double the radius" — now `PIPE` plus `widthFactor(2)`.
-/// - `Origin.FEET` is `height * 0.1`, not `0` — [Batches#FEET] carries that exact value.
-/// - `extent` is well under V1's `EXTENT_TRESHOLD`, so the entity width still applies.
-/// - the id becomes the [MoreParticles#STONE_PARTICLE] entry constant so the appearance
-///   defaults registered with it apply.
-///
-/// The fractional count is the one place the two engines disagree, so it is resolved
-/// per spawn in [#spawnParticles] rather than baked into the batch.
 public class StoneFleshParticleSpawner implements CustomParticleStatusEffect.Spawner {
 
     public static final ParticleGroup particles = ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
@@ -45,7 +33,6 @@ public class StoneFleshParticleSpawner implements CustomParticleStatusEffect.Spa
                 // count of e.g. `1.5` emits two particles in either.
                 scaledParticles.batch.count(v1Count).chance(1F);
             }
-            // V1 scaled only the upper speed bound with the entity's size.
             scaledParticles.batch.max_speed *= livingEntity.getScaleFactor();
             ParticleHelper.play(world, livingEntity, scaledParticles);
         }

@@ -90,6 +90,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
       - name: Resolve Gradle tasks
         id: targets
         # `build` is explicit: the publish tasks depend on remapJar, not on build/check.
@@ -101,10 +103,10 @@ jobs:
           done
           echo "tasks=$tasks" >> "$GITHUB_OUTPUT"
           echo "Publishing ${{ matrix.loader }} via: $tasks"
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: ${{ steps.targets.outputs.tasks }} -Prelease_type=${{ inputs.release_type }}
+        run: ./gradlew ${{ steps.targets.outputs.tasks }} -Prelease_type=${{ inputs.release_type }}
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
           CURSEFORGE_PROJECT_ID: ${{ vars.CURSEFORGE_PROJECT_ID }}
