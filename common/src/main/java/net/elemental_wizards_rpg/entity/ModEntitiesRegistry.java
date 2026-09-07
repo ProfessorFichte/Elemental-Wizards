@@ -1,8 +1,7 @@
 package net.elemental_wizards_rpg.entity;
 
 import net.elemental_wizards_rpg.ElementalMod;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,75 +22,80 @@ public class ModEntitiesRegistry {
     }
 
     private static void registerDripstoneEntities() {
+        var terraStoneId = Identifier.of(MOD_ID, "terra_stone");
         TerraStoneEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "terra_stone"),
-                FabricEntityTypeBuilder.<TerraStoneEntity>create(SpawnGroup.MISC, TerraStoneEntity::new)
-                        .dimensions(EntityDimensions.fixed(1.25F, 2.0F))
-                        .fireImmune()
-                        .trackRangeBlocks(64)
-                        .trackedUpdateRate(20)
-                        .build()
+                terraStoneId,
+                EntityType.Builder.<TerraStoneEntity>create(TerraStoneEntity::new, SpawnGroup.MISC)
+                        .dimensions(1.25F, 2.0F)
+                        .makeFireImmune()
+                        .maxTrackingRange(64)
+                        .trackingTickInterval(20)
+                        .build(terraStoneId.toString())
         );
 
+        var earthGolemSpikeId = Identifier.of(MOD_ID, "earth_golem_spike");
         EarthGolemSpikeEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "earth_golem_spike"),
-                FabricEntityTypeBuilder.<EarthGolemSpikeEntity>create(SpawnGroup.MISC, EarthGolemSpikeEntity::new)
-                        .dimensions(EntityDimensions.fixed(1.25F, 1.5F))
-                        .fireImmune()
-                        .trackRangeBlocks(64)
-                        .trackedUpdateRate(20)
-                        .build()
+                earthGolemSpikeId,
+                EntityType.Builder.<EarthGolemSpikeEntity>create(EarthGolemSpikeEntity::new, SpawnGroup.MISC)
+                        .dimensions(1.25F, 1.5F)
+                        .makeFireImmune()
+                        .maxTrackingRange(64)
+                        .trackingTickInterval(20)
+                        .build(earthGolemSpikeId.toString())
         );
 
+        var earthquakeId = Identifier.of(MOD_ID, "earthquake");
         EarthquakeEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "earthquake"),
-                FabricEntityTypeBuilder.<EarthquakeEntity>create(SpawnGroup.MISC, EarthquakeEntity::new)
-                        .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(1)
-                        .build()
+                earthquakeId,
+                EntityType.Builder.<EarthquakeEntity>create(EarthquakeEntity::new, SpawnGroup.MISC)
+                        .dimensions(0.5F, 0.5F)
+                        .makeFireImmune()
+                        .maxTrackingRange(128)
+                        .trackingTickInterval(1)
+                        .build(earthquakeId.toString())
         );
     }
 
     private static void registerWindEntities() {
-
+        var whirlwindId = Identifier.of(MOD_ID, "whirlwind");
         WhirlwindEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "whirlwind"),
-                FabricEntityTypeBuilder.<WhirlwindEntity>create(SpawnGroup.MISC, WhirlwindEntity::new)
-                        .dimensions(EntityDimensions.changing(1.5F, 2F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(1)
-                        .build()
+                whirlwindId,
+                EntityType.Builder.<WhirlwindEntity>create(WhirlwindEntity::new, SpawnGroup.MISC)
+                        .dimensions(1.5F, 2F)
+                        .makeFireImmune()
+                        .maxTrackingRange(128)
+                        .trackingTickInterval(1)
+                        .build(whirlwindId.toString())
         );
     }
 
     private static void registerWaterEntities() {
+        var tidalWaveId = Identifier.of(MOD_ID, "tidal_wave");
         TidalWaveEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "tidal_wave"),
-                FabricEntityTypeBuilder.<TidalWaveEntity>create(SpawnGroup.MISC, TidalWaveEntity::new)
-                        .dimensions(EntityDimensions.changing(6.0F, 2.0F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(1)
-                        .build()
+                tidalWaveId,
+                EntityType.Builder.<TidalWaveEntity>create(TidalWaveEntity::new, SpawnGroup.MISC)
+                        .dimensions(6.0F, 2.0F)
+                        .makeFireImmune()
+                        .maxTrackingRange(128)
+                        .trackingTickInterval(1)
+                        .build(tidalWaveId.toString())
         );
 
+        var healingRainCloudId = Identifier.of(MOD_ID, "healing_rain_cloud");
         HealingRainCloudEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(MOD_ID, "healing_rain_cloud"),
-                FabricEntityTypeBuilder.<HealingRainCloudEntity>create(SpawnGroup.MISC, HealingRainCloudEntity::new)
-                        .dimensions(EntityDimensions.fixed(4.0F, 2.0F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(1)
-                        .build()
+                healingRainCloudId,
+                EntityType.Builder.<HealingRainCloudEntity>create(HealingRainCloudEntity::new, SpawnGroup.MISC)
+                        .dimensions(4.0F, 2.0F)
+                        .makeFireImmune()
+                        .maxTrackingRange(128)
+                        .trackingTickInterval(1)
+                        .build(healingRainCloudId.toString())
         );
     }
 
@@ -99,11 +103,11 @@ public class ModEntitiesRegistry {
         EarthGolemEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
                 EARTH_GOLEM_ID,
-                FabricEntityTypeBuilder.<EarthGolemEntity>create(SpawnGroup.CREATURE, EarthGolemEntity::new)
-                        .dimensions(EntityDimensions.changing(2.6F, 3.5F))
-                        .trackRangeBlocks(64)
-                        .trackedUpdateRate(2)
-                        .build()
+                EntityType.Builder.<EarthGolemEntity>create(EarthGolemEntity::new, SpawnGroup.CREATURE)
+                        .dimensions(2.6F, 3.5F)
+                        .maxTrackingRange(64)
+                        .trackingTickInterval(2)
+                        .build(EARTH_GOLEM_ID.toString())
         );
 
         SummonedEntities.registerAttributes(EARTH_GOLEM_ID, EarthGolemEntity.ENTITY_TYPE, ElementalMod.summonConfig.value::entryFor);

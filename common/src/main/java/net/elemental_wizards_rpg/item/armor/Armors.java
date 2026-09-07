@@ -1,7 +1,6 @@
 package net.elemental_wizards_rpg.item.armor;
 
 import net.elemental_wizards_rpg.item.ElementalGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -137,7 +136,7 @@ public class Armors {
         return entry;
     }
 
-    private static final Map<Armor.Entry, RegistryKey<ItemGroup>> groupOverrides = new IdentityHashMap<>();
+    public static final Map<Armor.Entry, RegistryKey<ItemGroup>> groupOverrides = new IdentityHashMap<>();
 
     private static Armor.Entry groupKey(Armor.Entry entry, RegistryKey<ItemGroup> key) {
         groupOverrides.put(entry, key);
@@ -442,19 +441,5 @@ public class Armors {
                     .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots"), MRPGCItemGroups.ARMORY_KEY);
         }
         Armor.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
-        for (var override : groupOverrides.entrySet()) {
-            var entry = override.getKey();
-            var key = override.getValue();
-            var pieces = entry.armorSet().pieces();
-            ItemGroupEvents.modifyEntriesEvent(ElementalGroup.ELEMENTAL_WIZARD_KEY).register(content -> {
-                content.getDisplayStacks().removeIf(stack -> pieces.stream().anyMatch(p -> stack.isOf((ArmorItem) p)));
-                content.getSearchTabStacks().removeIf(stack -> pieces.stream().anyMatch(p -> stack.isOf((ArmorItem) p)));
-            });
-            ItemGroupEvents.modifyEntriesEvent(key).register(content -> {
-                for (var piece : pieces) {
-                    content.add((ArmorItem) piece);
-                }
-            });
-        }
     }
 }

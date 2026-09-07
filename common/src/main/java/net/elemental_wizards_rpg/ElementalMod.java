@@ -1,6 +1,6 @@
 package net.elemental_wizards_rpg;
 
-import net.elemental_wizards_rpg.compat.WizardsCompat;
+import net.spell_engine.Platform;
 import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.ElementalSummons;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
@@ -13,20 +13,9 @@ import net.elemental_wizards_rpg.config.TweaksConfig;
 import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.CustomSpellImpacts;
 import net.elemental_wizards_rpg.spell.ElementalSounds;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.api.spell.summon.SummonedEntityConfig;
 import net.tiny_config.ConfigManager;
-import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
-import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.wizardsLoadCheck;
 
 public class ElementalMod {
 	public static final String MOD_ID = "elemental_wizards_rpg";
@@ -67,33 +56,15 @@ public class ElementalMod {
 		effectsConfig.refresh();
 		tweaksConfig.refresh();
 		summonConfig.refresh();
-		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+		if (Platform.util().isDevelopmentEnvironment()) {
 			tweaksConfig.value.ignore_items_required_mods = true;
 		}
 		CustomSpellImpacts.registerCustomImpacts();
-		if (wizardsLoadCheck()) {
-			WizardsCompat.registerCompat();
-		}
 	}
 	public static void registerItems() {
-		ElementalGroup.ELEMENTAL_WIZARD = FabricItemGroup.builder()
-				.icon(() -> new ItemStack(Armors.kelpArmor.armorSet().head))
-				.displayName(Text.translatable("itemGroup." + MOD_ID + ".general"))
-				.build();
-		Registry.register(Registries.ITEM_GROUP, ElementalGroup.ELEMENTAL_WIZARD_KEY, ElementalGroup.ELEMENTAL_WIZARD);
 		ElementalItems.registerModItems();
-		ElementalGroup.registerItemGroups();
 		WeaponsRegister.register(itemConfig.value.weapons);
 		Armors.register(itemConfig.value.armor_sets);
-		if (armoryLoadCheck()) {
-			FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer -> {
-				ResourceManagerHelper.registerBuiltinResourcePack(
-						Identifier.of(MOD_ID, "elemental_wizards_armory_compat"),
-						modContainer,
-						ResourcePackActivationType.ALWAYS_ENABLED
-				);
-			});
-		}
 		itemConfig.save();
 	}
 	public static void registerEffects() {

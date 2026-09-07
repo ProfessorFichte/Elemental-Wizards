@@ -1,10 +1,9 @@
 package net.elemental_wizards_rpg.item.weapons;
 
 import net.elemental_wizards_rpg.ElementalMod;
+import net.spell_engine.Platform;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
@@ -36,7 +35,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 public class WeaponsRegister {
     public static final ArrayList<Weapon.Entry> entries = new ArrayList<>();
 
-    private static final Map<Weapon.Entry, RegistryKey<ItemGroup>> groupOverrides = new IdentityHashMap<>();
+    public static final Map<Weapon.Entry, RegistryKey<ItemGroup>> groupOverrides = new IdentityHashMap<>();
 
     private static Weapon.Entry groupKey(Weapon.Entry entry, RegistryKey<ItemGroup> key) {
         groupOverrides.put(entry, key);
@@ -199,8 +198,8 @@ public class WeaponsRegister {
     private static final String AETHER = "aether";
     private static final String ARSENAL = "arsenal";
     public static void register(Map<String,WeaponConfig> configs) {
-        if(FabricLoader.getInstance().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
-            var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
+        if(Platform.util().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+            var repair = ingredient("betternether:nether_ruby", Platform.util().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             staff( "staff_ruby_terra",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
@@ -208,8 +207,8 @@ public class WeaponsRegister {
                     .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.terra_stone_spear.id()))
                     .translatedName("Ruby Terra Staff");
         }
-        if(FabricLoader.getInstance().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
-            var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
+        if(Platform.util().isModLoaded(BETTER_END) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+            var repair = ingredient("betterend:aeternium_ingot", Platform.util().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
             staff( "staff_crystal_aqua",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, T4_STAFF_POWER))
@@ -223,8 +222,8 @@ public class WeaponsRegister {
                     .spellContainer(SpellContainers.forMagicWeapon().withSpellId(ElementalWizardSpells.wind_air_cutter.id()))
                     .translatedName("Aeternium Wind Staff");
         }
-        if(FabricLoader.getInstance().isModLoaded(AETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
-            var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
+        if(Platform.util().isModLoaded(AETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+            var repair = ingredient("aether:ambrosium_shard", Platform.util().isModLoaded(AETHER), Items.NETHERITE_INGOT);
             staff( "staff_aether",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
@@ -235,7 +234,7 @@ public class WeaponsRegister {
                     .withSpellChoices("elemental_wizards_rpg:weapon/elemental_staff")
                     .translatedName("Valkyrie Elementalist Staff");
         }
-        if (FabricLoader.getInstance().isModLoaded(ARSENAL) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
+        if (Platform.util().isModLoaded(ARSENAL) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var uniqueStaff1 = groupKey(staff( "unique_staff_1",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.IRON_BLOCK)))
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.EARTH.id, T4_STAFF_POWER))
@@ -250,14 +249,5 @@ public class WeaponsRegister {
         }
 
         Weapon.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
-        for (var override : groupOverrides.entrySet()) {
-            var entry = override.getKey();
-            var key = override.getValue();
-            ItemGroupEvents.modifyEntriesEvent(ElementalGroup.ELEMENTAL_WIZARD_KEY).register(content -> {
-                content.getDisplayStacks().removeIf(stack -> stack.isOf(entry.item()));
-                content.getSearchTabStacks().removeIf(stack -> stack.isOf(entry.item()));
-            });
-            ItemGroupEvents.modifyEntriesEvent(key).register(content -> content.add(entry.item()));
-        }
     }
 }

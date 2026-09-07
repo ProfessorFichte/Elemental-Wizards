@@ -42,3 +42,5 @@ replay_*.log
 src/main/generated/.cache
 common/src/main/generated/.cache
 common/src/main/resources/_backup
+.architectury-transformer
+/.architectury-transformer

@@ -55,7 +55,6 @@ repositories {
     maven { url 'https://maven.fabricmc.net' }
     maven { url 'https://maven.kosmx.dev/' }
     maven { url 'https://maven.shedaniel.me/' }
-    maven { url 'https://maven.azuredoom.com/mods' }
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -84,7 +83,7 @@ dependencies {
 
     modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${project.player_anim_version}")
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
-    modImplementation("mod.azure.azurelibarmor:azurelibarmor-fabric-${project.azure_mc_version}:${project.azure_lib_version}")
+    modImplementation("maven.modrinth:armor-model-api:${project.armor_model_api_version}-${platform}")
     modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
     modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
     modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
@@ -92,6 +91,9 @@ dependencies {
 
     modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
     modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
+    modImplementation("maven.modrinth:wizards:${project.wizards_version}-${platform}")
+    modImplementation("maven.modrinth:runes:${project.runes_version}-${platform}")
+
 
     // Trinkets
     modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
@@ -143,17 +145,17 @@ publishMods {
         client = true
         server = true
         changelogType = "markdown"
-        requires("spell-engine", "more-rpg-library")
+        requires("spell-engine", "more-rpg-library", "wizards")
     }
 
     modrinth {
         environment = me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment.CLIENT_AND_SERVER
-        projectId = providers.environmentVariable("MODRINTH_PROJECT_ID")
+        projectId = providers.environmentVariable("MODRINTH_PROJECT_ID").orElse(providers.environmentVariable("MODRINTH_PROJECT_RAW_ID"))
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
         requires { slug = "spell-engine" }
         requires { slug = "more-rpg-library" }
-        optional { slug = "wizards" }
+        requires { slug = "wizards" }
         optional { slug = "lne-wizards" }
     }
 

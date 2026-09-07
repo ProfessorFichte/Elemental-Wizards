@@ -58,7 +58,6 @@ repositories {
     }
     maven { url 'https://maven.kosmx.dev/' }
     maven { url 'https://maven.shedaniel.me/' }
-    maven { url 'https://maven.azuredoom.com/mods' }
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -87,11 +86,10 @@ dependencies {
     neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
-    modImplementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:${project.forgified_fabric_api_version}"
 
     modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${project.player_anim_version}")
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
-    modImplementation("mod.azure.azurelibarmor:azurelibarmor-neo-${project.azure_mc_version}:${project.azure_lib_version}")
+    modImplementation("maven.modrinth:armor-model-api:${project.armor_model_api_version}-${platform}")
     modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
 
     // Accessories - https://docs.wispforest.io/accessories/developer/dev_setup
@@ -105,10 +103,13 @@ dependencies {
 
     modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
     modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
+    modImplementation("maven.modrinth:wizards:${project.wizards_version}-${platform}")
+    modImplementation("maven.modrinth:runes:${project.runes_version}-${platform}")
     modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
 
     modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
     modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"
+
 }
 
 processResources {
@@ -158,17 +159,17 @@ publishMods {
         client = true
         server = true
         changelogType = "markdown"
-        requires("spell-engine", "more-rpg-library")
+        requires("spell-engine", "more-rpg-library", "wizards")
     }
 
     modrinth {
         environment = me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment.CLIENT_AND_SERVER
-        projectId = providers.environmentVariable("MODRINTH_PROJECT_ID")
+        projectId = providers.environmentVariable("MODRINTH_PROJECT_ID").orElse(providers.environmentVariable("MODRINTH_PROJECT_RAW_ID"))
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
         requires { slug = "spell-engine" }
         requires { slug = "more-rpg-library" }
-        optional { slug = "wizards" }
+        requires { slug = "wizards" }
         optional { slug = "lne-wizards" }
     }
 
