@@ -1,0 +1,27 @@
+{
+  "parent": "elemental_wizards_rpg:spell_novice_aqua",
+  "criteria": {
+    "cast": {
+      "conditions": {
+        "spell": "#elemental_wizards_rpg:spell_book/aqua"
+      },
+      "trigger": "spell_engine:spell_cast"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.spell_cast_aqua_book.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "spell_engine:spell_book",
+      "nbt": "{spell_engine:{item_model:\"elemental_wizards_rpg:item/spell_book/aqua\"}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.spell_cast_aqua_book.title"
+    }
+  }
+}

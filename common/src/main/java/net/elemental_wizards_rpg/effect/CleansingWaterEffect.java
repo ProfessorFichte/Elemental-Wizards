@@ -16,7 +16,7 @@ public class CleansingWaterEffect extends StatusEffect {
     }
 
 
-    public boolean applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
+    public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
         World world = pLivingEntity.getEntityWorld();
 
         if (pLivingEntity.getHealth() < pLivingEntity.getMaxHealth()) {
@@ -48,7 +48,6 @@ public class CleansingWaterEffect extends StatusEffect {
             pLivingEntity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH,2,1);
             pLivingEntity.removeStatusEffect(ElementalEffects.getEntry(ElementalEffects.CLEANSING_WATER));
         }
-        return true;
     }
 
     @Override

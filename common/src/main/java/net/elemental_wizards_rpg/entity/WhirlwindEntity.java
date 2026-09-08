@@ -25,10 +25,11 @@ import net.more_rpg_classes.util.CustomMethods;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import net.minecraft.registry.RegistryKey;
 
 public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<WhirlwindEntity> ENTITY_TYPE;
-    private static final Identifier TWISTER_SPELL_ID = Identifier.of(MOD_ID, "wind_twister");
+    private static final Identifier TWISTER_SPELL_ID = new Identifier(MOD_ID, "wind_twister");
 
     private static final float FORWARD_SPEED = 0.25F;
     private static final float MIN_RADIUS = 1.1F;
@@ -91,20 +92,20 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         float directionYaw = (float) Math.toDegrees(Math.atan2(-movementDirection.x, movementDirection.z));
         this.getDataTracker().set(DIRECTION_YAW_TRACKER, directionYaw);
 
-        SpellRegistry.from(owner.getWorld()).getEntry(TWISTER_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        SpellRegistry.from(owner.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, TWISTER_SPELL_ID)).ifPresent(e -> this.spellEntry = e);
         if (this.spellEntry != null) {
             this.maxTravelDistance = this.spellEntry.value().range;
         }
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(SPELL_ID_TRACKER, "");
-        builder.add(TIME_TO_LIVE_TRACKER, 0);
-        builder.add(START_X_TRACKER, 0.0F);
-        builder.add(START_Y_TRACKER, 0.0F);
-        builder.add(START_Z_TRACKER, 0.0F);
-        builder.add(DIRECTION_YAW_TRACKER, 0.0F);
+    protected void initDataTracker() {
+        this.dataTracker.startTracking(SPELL_ID_TRACKER, "");
+        this.dataTracker.startTracking(TIME_TO_LIVE_TRACKER, 0);
+        this.dataTracker.startTracking(START_X_TRACKER, 0.0F);
+        this.dataTracker.startTracking(START_Y_TRACKER, 0.0F);
+        this.dataTracker.startTracking(START_Z_TRACKER, 0.0F);
+        this.dataTracker.startTracking(DIRECTION_YAW_TRACKER, 0.0F);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
-            this.spellId = Identifier.of(rawSpellId);
+            this.spellId = new Identifier(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
 
@@ -134,7 +135,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.contains("SpellId")) {
             String spellIdStr = nbt.getString("SpellId");
             if (!spellIdStr.isEmpty()) {
-                this.spellId = Identifier.of(spellIdStr);
+                this.spellId = new Identifier(spellIdStr);
             }
         }
 
@@ -226,7 +227,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         }
 
         if (spellEntry == null) {
-            SpellRegistry.from(world).getEntry(TWISTER_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+            SpellRegistry.from(world).getEntry(RegistryKey.of(SpellRegistry.KEY, TWISTER_SPELL_ID)).ifPresent(e -> this.spellEntry = e);
         }
         if (spellEntry != null) {
             maxTravelDistance = spellEntry.value().range;
@@ -266,7 +267,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
 
         Box searchBox = this.getBoundingBox().expand(1.0);
         PeriodicAreaImpact.apply(this.getWorld(), owner, this, searchBox,
-                Identifier.of(MOD_ID, "helper/wind_twister_impact"),
+                new Identifier(MOD_ID, "helper/wind_twister_impact"),
                 entity -> {
                     if (entity == owner) return false;
                     if (CustomMethods.isEntityProtectedCheck(entity, owner)) return false;

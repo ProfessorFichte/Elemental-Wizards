@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:staff_ruby_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_crystal_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_aeternium_wind",
+      "required": false
+    }
+  ]
+}

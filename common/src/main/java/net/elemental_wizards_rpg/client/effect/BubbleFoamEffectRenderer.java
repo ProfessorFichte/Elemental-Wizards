@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class BubbleFoamEffectRenderer implements CustomModelStatusEffect.Renderer {
 
-    public static final Identifier MODEL_ID = Identifier.of(ElementalMod.MOD_ID, "spell_effect/bubble_foam");
+    public static final Identifier MODEL_ID = new Identifier(ElementalMod.MOD_ID, "spell_effect/bubble_foam");
     private static final RenderLayer RENDER_LAYER =
             RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 

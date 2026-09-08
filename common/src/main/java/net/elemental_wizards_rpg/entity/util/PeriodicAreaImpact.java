@@ -15,6 +15,7 @@ import net.spell_power.api.SpellPower;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import net.minecraft.registry.RegistryKey;
 
 public final class PeriodicAreaImpact {
     private PeriodicAreaImpact() {}
@@ -24,7 +25,7 @@ public final class PeriodicAreaImpact {
                               Identifier helperImpactId, Predicate<LivingEntity> filter,
                               Vec3d fixedPosition, boolean additionalTargetLookup,
                               Consumer<LivingEntity> onApplied) {
-        RegistryEntry<Spell> spellImpact = SpellRegistry.from(world).getEntry(helperImpactId).orElse(null);
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(world).getEntry(RegistryKey.of(SpellRegistry.KEY, helperImpactId)).orElse(null);
         if (spellImpact == null) return;
 
         var power = SpellPower.getSpellPower(spellImpact.value().school, owner);

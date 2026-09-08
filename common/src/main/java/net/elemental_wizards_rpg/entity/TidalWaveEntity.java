@@ -26,10 +26,11 @@ import net.more_rpg_classes.util.CustomMethods;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import net.minecraft.registry.RegistryKey;
 
 public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<TidalWaveEntity> ENTITY_TYPE;
-    private static final Identifier WAVE_SPELL_ID = Identifier.of(MOD_ID, "aqua_tidal_wave");
+    private static final Identifier WAVE_SPELL_ID = new Identifier(MOD_ID, "aqua_tidal_wave");
     RegistryEntry<Spell> spellEntry = null;
     private static float MAX_DISTANCE = 16.0F;
     private static final float MOVEMENT_SPEED = 0.4F;
@@ -97,7 +98,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         this.prevYaw = ownerYaw;
         this.getDataTracker().set(DIRECTION_YAW_TRACKER, ownerYaw);
 
-        SpellRegistry.from(owner.getWorld()).getEntry(WAVE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        SpellRegistry.from(owner.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, WAVE_SPELL_ID)).ifPresent(e -> this.spellEntry = e);
 
         this.waveState = WaveState.MOVING_FORWARD;
         this.stateTick = 0;
@@ -108,12 +109,12 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(SPELL_ID_TRACKER, "");
-        builder.add(TIME_TO_LIVE_TRACKER, 0);
-        builder.add(WAVE_STATE_TRACKER, 0);
-        builder.add(DIRECTION_YAW_TRACKER, 0.0F);
-        builder.add(STATE_TICK_TRACKER, 0);
+    protected void initDataTracker() {
+        this.dataTracker.startTracking(SPELL_ID_TRACKER, "");
+        this.dataTracker.startTracking(TIME_TO_LIVE_TRACKER, 0);
+        this.dataTracker.startTracking(WAVE_STATE_TRACKER, 0);
+        this.dataTracker.startTracking(DIRECTION_YAW_TRACKER, 0.0F);
+        this.dataTracker.startTracking(STATE_TICK_TRACKER, 0);
     }
 
     @Override
@@ -121,7 +122,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
-            this.spellId = Identifier.of(rawSpellId);
+            this.spellId = new Identifier(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
         int stateOrdinal = this.getDataTracker().get(WAVE_STATE_TRACKER);
@@ -145,7 +146,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.contains("SpellId")) {
             String spellIdStr = nbt.getString("SpellId");
             if (!spellIdStr.isEmpty()) {
-                this.spellId = Identifier.of(spellIdStr);
+                this.spellId = new Identifier(spellIdStr);
             }
         }
 
@@ -246,7 +247,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
 
         if (!this.getWorld().isClient() && movementDirection != null && startPosition != null) {
             if (spellEntry == null) {
-                SpellRegistry.from(this.getWorld()).getEntry(WAVE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+                SpellRegistry.from(this.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, WAVE_SPELL_ID)).ifPresent(e -> this.spellEntry = e);
             }
             if (spellEntry != null) {
                 MAX_DISTANCE = spellEntry.value().range;
@@ -307,7 +308,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
 
         Box damageBox = this.getBoundingBox().expand(3.0, 0, 3.0);
         PeriodicAreaImpact.apply(this.getWorld(), owner, this, damageBox,
-                Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact"),
+                new Identifier(MOD_ID, "helper/aqua_tidal_wave_impact"),
                 entity -> {
                     if (entity == owner) return false;
                     if (CustomMethods.isEntityProtectedCheck(entity, owner)) return false;

@@ -17,7 +17,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 public class WhirlwindRenderer<T extends WhirlwindEntity> extends EntityRenderer<T> {
     private final ItemRenderer itemRenderer;
 
-    public static final Identifier modelId = Identifier.of(MOD_ID, "spell_projectile/whirlwind");
+    public static final Identifier modelId = new Identifier(MOD_ID, "spell_projectile/whirlwind");
 
     private static final RenderLayer RENDER_LAYER = net.spell_engine.api.render.CustomLayers.spellEffect(LightEmission.RADIATE, true);
 

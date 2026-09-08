@@ -1,0 +1,54 @@
+{
+  "parent": "more_rpg_content:root",
+  "criteria": {
+    "has_all_items": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "elemental_wizards_rpg:elemental_head"
+            ]
+          },
+          {
+            "items": [
+              "elemental_wizards_rpg:elemental_chest"
+            ]
+          },
+          {
+            "items": [
+              "elemental_wizards_rpg:elemental_legs"
+            ]
+          },
+          {
+            "items": [
+              "elemental_wizards_rpg:elemental_feet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.equipment.elemental_robe_set.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "elemental_wizards_rpg:elemental_chest",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.equipment.elemental_robe_set.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_all_items"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

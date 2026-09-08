@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "B": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "tag": "more_rpg_classes:coral_plants"
+    }
+  },
+  "pattern": [
+    " CA",
+    " BC",
+    "A  "
+  ],
+  "result": {
+    "item": "elemental_wizards_rpg:staff_aqua"
+  }
+}

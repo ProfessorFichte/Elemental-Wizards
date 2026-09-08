@@ -1,3 +1,9 @@
+# 3.1.1.001 - 1.20.1
+- Minecraft 1.20.1 backport (Fabric + Forge 47, no Forgified Fabric API)
+- Forge 47 replaces NeoForge: new entrypoint, `mods.toml`, manifest mixin config, built-in data pack finder
+- Rebuilt against the 1.20.1 ecosystem line (Spell Engine 1.10.5, Spell Power 1.6.0, More RPG Library 2.7.2, Armor Model API 1.0.0, Wizards 3.1.2)
+- 1.20.1 substitutions: `minecraft:wind_charge` recipes/unsmelt use `minecraft:feather`; Impaled loses its jump-strength modifier; Impaled spikes no longer scale with entity size
+
 # 3.1.1 - 1.21.1
 - Drop Forgified Fabric API (FFAPI) as a required dependency
 - Replace AzurelibArmor with Armor Model API

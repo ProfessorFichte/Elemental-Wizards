@@ -24,8 +24,8 @@ public class ModParticles {
     }
 
     private static Entry add(String name, int frames, Consumer<Appearance> defaults) {
-        var entry = new Entry(Identifier.of(MOD_ID, name),
-                new Texture(Identifier.of(MOD_ID, name), frames))
+        var entry = new Entry(new Identifier(MOD_ID, name),
+                new Texture(new Identifier(MOD_ID, name), frames))
                 .defaults(defaults);
         entries.add(entry);
         return entry;

@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class StoneFleshPlayerRenderLayer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
-    private static final Identifier DRIPSTONE_TEXTURE = Identifier.of("minecraft", "textures/block/dripstone_block.png");
+    private static final Identifier DRIPSTONE_TEXTURE = new Identifier("minecraft", "textures/block/dripstone_block.png");
     private static final float TILE_SCALE = 4.0f;
 
     public StoneFleshPlayerRenderLayer(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context) {
@@ -24,11 +24,12 @@ public class StoneFleshPlayerRenderLayer extends FeatureRenderer<AbstractClientP
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        if (!player.hasStatusEffect(ElementalEffects.STONE_FLESH.entry)) return;
+        if (!player.hasStatusEffect(ElementalEffects.STONE_FLESH.effect)) return;
         float maxHealth = (float) player.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
         if (player.getHealth() < maxHealth) return;
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(DRIPSTONE_TEXTURE));
-        getContextModel().render(matrices, new TilingVertexConsumer(vertexConsumer, TILE_SCALE), light, OverlayTexture.DEFAULT_UV);
+        getContextModel().render(matrices, new TilingVertexConsumer(vertexConsumer, TILE_SCALE), light,
+                OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
     }
 
     private static class TilingVertexConsumer implements VertexConsumer {
@@ -41,7 +42,7 @@ public class StoneFleshPlayerRenderLayer extends FeatureRenderer<AbstractClientP
         }
 
         @Override
-        public VertexConsumer vertex(float x, float y, float z) {
+        public VertexConsumer vertex(double x, double y, double z) {
             delegate.vertex(x, y, z);
             return this;
         }
@@ -74,6 +75,23 @@ public class StoneFleshPlayerRenderLayer extends FeatureRenderer<AbstractClientP
         public VertexConsumer normal(float x, float y, float z) {
             delegate.normal(x, y, z);
             return this;
+        }
+
+        // 1.20.1's VertexConsumer is a push-style builder: `next()` closes a vertex, and the
+        // fixed-colour overrides are part of the interface.
+        @Override
+        public void next() {
+            delegate.next();
+        }
+
+        @Override
+        public void fixedColor(int red, int green, int blue, int alpha) {
+            delegate.fixedColor(red, green, blue, alpha);
+        }
+
+        @Override
+        public void unfixColor() {
+            delegate.unfixColor();
         }
     }
 }

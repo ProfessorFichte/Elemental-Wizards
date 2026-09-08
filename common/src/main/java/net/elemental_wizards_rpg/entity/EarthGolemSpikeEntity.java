@@ -54,7 +54,7 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable, SpellEntit
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
+    protected void initDataTracker() {
     }
 
     public void setOwner(LivingEntity owner) {
@@ -78,7 +78,7 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable, SpellEntit
             this.ownerUuid = nbt.getUuid("Owner");
         }
         if (nbt.contains("SpellId")) {
-            this.spellId = Identifier.of(nbt.getString("SpellId"));
+            this.spellId = new Identifier(nbt.getString("SpellId"));
         }
     }
 
@@ -113,7 +113,7 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable, SpellEntit
                 this.getWorld().sendEntityStatus(this, (byte) 4);
                 this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
                         ElementalSounds.GOLEM_SPIKE_SUMMON.soundEvent(), SoundCategory.NEUTRAL,
-                        1.0F, 0.85F + this.getRandom().nextFloat() * 0.3F);
+                        1.0F, 0.85F + this.random.nextFloat() * 0.3F);
                 this.startedAttack = true;
             }
 
@@ -134,7 +134,7 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable, SpellEntit
 
         Box box = this.getBoundingBox().expand(1.2, 0.5, 1.2);
         PeriodicAreaImpact.apply(this.getWorld(), golem, this, box,
-                Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact"),
+                new Identifier(MOD_ID, "helper/terra_earth_golem_spike_impact"),
                 target -> {
                     if (target == player) return false;
                     if (target == golem) return false;

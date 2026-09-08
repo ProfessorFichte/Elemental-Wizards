@@ -14,7 +14,7 @@ public class BubbleFoamEffect extends StatusEffect {
     }
 
 
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         float range = 1.5F;
         Box radius = new Box(entity.getX() + range,
                 entity.getY() + (float) range / 3,
@@ -32,7 +32,6 @@ public class BubbleFoamEffect extends StatusEffect {
 
             }
         }
-        return true;
     }
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {

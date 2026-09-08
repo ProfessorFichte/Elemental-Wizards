@@ -17,7 +17,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 public class HealingRainCloudEntityRenderer<T extends HealingRainCloudEntity> extends EntityRenderer<T> {
     private final ItemRenderer itemRenderer;
 
-    public static final Identifier modelId = Identifier.of(MOD_ID, "spell_effect/healing_rain_cloud");
+    public static final Identifier modelId = new Identifier(MOD_ID, "spell_effect/healing_rain_cloud");
     private static final RenderLayer RENDER_LAYER = RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 
     public HealingRainCloudEntityRenderer(EntityRendererFactory.Context context) {
