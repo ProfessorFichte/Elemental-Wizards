@@ -6,6 +6,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.rpg_series.config.AttributeModifier;
@@ -17,6 +18,7 @@ import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 import static net.elemental_wizards_rpg.ElementalMod.tweaksConfig;
@@ -116,6 +118,16 @@ public class ElementalEffects {
     }
 
     public static void register(ConfigFile.Effects config) {
+        effectsToRegister(config).forEach((id, effect) ->
+                Registry.register(Registries.STATUS_EFFECT, id, effect));
+        Effects.linkEntries(entries);
+    }
+
+    /// Creation only — applies the tweaks-config vulnerability, marks every effect synchronized and returns
+    /// the effects that still need registering, keyed by the id they register under. A loader that registers
+    /// status effects itself (Forge) iterates this instead of calling {@link #register}, then calls
+    /// `Effects.linkEntries(entries)`.
+    public static Map<Identifier, StatusEffect> effectsToRegister(ConfigFile.Effects config) {
         ((UpdraftEffect) UPDRAFT.effect).setVulnerability(
                 MoreSpellSchools.AIR,
                 new SpellPower.Vulnerability(
@@ -127,6 +139,6 @@ public class ElementalEffects {
         for (var entry : entries) {
             Synchronized.configure(entry.effect, true);
         }
-        Effects.register(entries, config.effects);
+        return Effects.effectsToRegister(entries, config.effects);
     }
 }

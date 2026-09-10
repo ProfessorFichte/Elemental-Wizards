@@ -7,7 +7,10 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
@@ -27,16 +30,25 @@ public class ElementalItems {
         }
     }
 
+    public static final Identifier ELEMENTAL_ESSENCE_ID = new Identifier(MOD_ID, "elemental_essence");
 
+    /// Constructed, not registered. `Item`'s constructor creates an intrusive registry holder, so this
+    /// class must not be initialized before the registration phase has begun (on Forge: inside the
+    /// `RegisterEvent` sequence).
+    public static final Item ELEMENTAL_ESSENCE = new Item(new Item.Settings());
 
-    public static final Item ELEMENTAL_ESSENCE = registerItem("elemental_essence", new Item(new Item.Settings()));
-
-    private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(MOD_ID, name), item);
+    /// Creation only — the items this mod owns outright, keyed by the id they register under. A loader
+    /// that registers items itself (Forge) iterates this instead of calling {@link #registerModItems()}.
+    public static Map<Identifier, Item> itemsToRegister() {
+        var items = new LinkedHashMap<Identifier, Item>();
+        if (!Registries.ITEM.containsId(ELEMENTAL_ESSENCE_ID)) {
+            items.put(ELEMENTAL_ESSENCE_ID, ELEMENTAL_ESSENCE);
+        }
+        return items;
     }
 
     public static void registerModItems(){
-
+        itemsToRegister().forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
     }
 
 }

@@ -3,6 +3,7 @@ package net.elemental_wizards_rpg.item.armor;
 import net.elemental_wizards_rpg.item.ElementalGroup;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -376,7 +377,29 @@ public class Armors {
     public static Identifier mountain_passive = new Identifier(MOD_ID, "mountain");
     public static Identifier ocean_passive = new Identifier(MOD_ID, "ocean");
 
+    /// Whether the `armoryLoadCheck()`-gated entries below have already been appended to {@link #entries}.
+    /// {@link #itemsToRegister} is idempotent, so the conditional half must be too.
+    private static boolean conditionalEntriesAdded = false;
+
     public static void register(Map<String, ArmorSetConfig> configs) {
+        itemsToRegister(configs)
+                .forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
+    }
+
+    /// Creation only — appends the Armory-gated epic sets and returns every armor piece keyed by the id it
+    /// registers under. A loader that registers items itself (Forge) iterates this instead of calling
+    /// {@link #register}. **Must run inside the ITEM registration window.**
+    ///
+    /// Calling `Armor.itemsToRegister(...)` directly from a loader entrypoint would silently drop the three
+    /// epic sets — they are not in {@link #entries} until this method has run.
+    public static Map<Identifier, Item> itemsToRegister(Map<String, ArmorSetConfig> configs) {
+        addConditionalEntries();
+        return Armor.itemsToRegister(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
+    }
+
+    private static void addConditionalEntries() {
+        if (conditionalEntriesAdded) { return; }
+        conditionalEntriesAdded = true;
         if (armoryLoadCheck()) {
             hurricaneArmorSet  = groupKey(create(
                     epic_wizard_robe,
@@ -441,6 +464,5 @@ public class Armors {
                     commonSettings(ocean_passive))
                     .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots"), MRPGCItemGroups.ARMORY_KEY);
         }
-        Armor.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
     }
 }

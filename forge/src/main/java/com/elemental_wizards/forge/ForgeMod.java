@@ -3,18 +3,19 @@ package com.elemental_wizards.forge;
 import com.elemental_wizards.forge.client.ForgeClient;
 import net.elemental_wizards_rpg.ElementalMod;
 import net.elemental_wizards_rpg.compat.wizards.WizardMerchantTrades;
+import net.elemental_wizards_rpg.effect.ElementalEffects;
 import net.elemental_wizards_rpg.entity.ModEntitiesRegistry;
 import net.elemental_wizards_rpg.item.ElementalGroup;
+import net.elemental_wizards_rpg.item.ElementalItems;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
+import net.elemental_wizards_rpg.particle.ModParticles;
 import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.resource.ResourcePackSource;
@@ -33,14 +34,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.resource.PathPackResources;
+import net.spell_engine.api.effect.Effects;
 import net.wizards.villager.WizardVillagers;
 
 import java.util.ArrayList;
 
 /// Forge 47 entrypoint (1.20.1 port of the NeoForge entrypoint).
 ///
-/// Forge locks every vanilla registry outside its own `RegisterEvent` window, so each `registerX()`
-/// call sits inside the window of the registry it writes to.
+/// Forge locks every vanilla registry outside its own `RegisterEvent` window, and on Forge 47.0-47.3 the
+/// vanilla wrapper stays locked *inside* the window too, so every registration here goes through the
+/// `RegisterHelper` the event hands out. See `register(RegisterEvent)`.
 @Mod(ElementalMod.MOD_ID)
 public final class ForgeMod {
     // FMLJavaModLoadingContext.get() is flagged for removal by late 47.x builds, but the
@@ -103,21 +106,56 @@ public final class ForgeMod {
         });
     }
 
+    /// Forge clears the *vanilla* registry's own lock only from 47.4.0 onward, so on Forge 47.0-47.3 a
+    /// plain `Registry.register` throws `Can not register to a locked registry` even inside the correct
+    /// `RegisterEvent` window. Everything here therefore goes through the `RegisterHelper` the event hands
+    /// out, iterating the same content `common` exposes to Fabric. The loops duplicate `common`'s
+    /// `registerX()` on purpose — the workaround stays inside `forge/`.
+    ///
+    /// Every block is declared unconditionally: `event.register` is a no-op unless its key matches the
+    /// event's registry, and Forge posts one event per registry.
     public static void register(RegisterEvent event) {
-        // ITEM_GROUP is a vanilla-only registry (not Forge-wrapped) and stays unfrozen for the whole
-        // RegisterEvent phase, so registering the group from its own window is fine.
-        event.register(RegistryKeys.ITEM_GROUP, reg -> {
+        event.register(RegistryKeys.SOUND_EVENT, helper ->
+                ElementalSounds.soundsToRegister().forEach(helper::register));
+
+        event.register(RegistryKeys.STATUS_EFFECT, helper -> {
+            ElementalEffects.effectsToRegister(ElementalMod.effectsConfig.value).forEach(helper::register);
+            Effects.linkEntries(ElementalEffects.entries);
+            // Trailing side effect of ElementalMod.registerEffects() - the config write-back.
+            ElementalMod.effectsConfig.save();
+        });
+
+        event.register(RegistryKeys.PARTICLE_TYPE, helper ->
+                ModParticles.particlesToRegister().forEach(helper::register));
+
+        event.register(RegistryKeys.ITEM, helper -> {
+            ElementalItems.itemsToRegister().forEach(helper::register);
+            // WeaponsRegister/Armors own the `isModLoaded` gating that appends entries before the Spell
+            // Engine helper runs; calling Weapon.itemsToRegister/Armor.itemsToRegister here directly would
+            // silently drop those entries.
+            WeaponsRegister.itemsToRegister(ElementalMod.itemConfig.value.weapons).forEach(helper::register);
+            Armors.itemsToRegister(ElementalMod.itemConfig.value.armor_sets).forEach(helper::register);
+            // Trailing side effect of ElementalMod.registerItems() - the config write-back.
+            ElementalMod.itemConfig.save();
+        });
+
+        // ENTITY_TYPE is event 8, ITEM is event 7. Building an EntityType needs an unfrozen registry
+        // (Forge-patched `EntityType.<init>` creates an intrusive holder), so the types are built here.
+        event.register(RegistryKeys.ENTITY_TYPE, helper -> {
+            ModEntitiesRegistry.entitiesToRegister().forEach(helper::register);
+            // Trailing side effect of ModEntitiesRegistry.registerEntities().
+            ModEntitiesRegistry.registerSummonAttributes();
+        });
+
+        // The item group gets its own block: `creative_mode_tab` is event 65, `item` is event 7, so a group
+        // registered from the ITEM pass would vanish with no error.
+        event.register(RegistryKeys.ITEM_GROUP, helper -> {
             ElementalGroup.ELEMENTAL_WIZARD = ItemGroup.builder()
                     .icon(ElementalGroup::icon)
                     .displayName(ElementalGroup.displayName())
                     .build();
-            Registry.register(Registries.ITEM_GROUP, ElementalGroup.ELEMENTAL_WIZARD_KEY, ElementalGroup.ELEMENTAL_WIZARD);
+            helper.register(ElementalGroup.ELEMENTAL_WIZARD_KEY, ElementalGroup.ELEMENTAL_WIZARD);
         });
-        event.register(RegistryKeys.ITEM, reg -> ElementalMod.registerItems());
-        event.register(RegistryKeys.STATUS_EFFECT, reg -> ElementalMod.registerEffects());
-        event.register(RegistryKeys.PARTICLE_TYPE, reg -> ElementalMod.registerParticles());
-        event.register(RegistryKeys.ENTITY_TYPE, reg -> ElementalMod.registerEntities());
-        event.register(RegistryKeys.SOUND_EVENT, reg -> ElementalSounds.register());
     }
 
     public static void registerAttributes(EntityAttributeCreationEvent event) {

@@ -10,6 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -197,7 +198,30 @@ public class WeaponsRegister {
     private static final String BETTER_NETHER = "betternether";
     private static final String AETHER = "aether";
     private static final String ARSENAL = "arsenal";
+    /// Whether the `isModLoaded`-gated entries below have already been appended to {@link #entries}.
+    /// {@link #itemsToRegister} is idempotent, so the conditional half must be too.
+    private static boolean conditionalEntriesAdded = false;
+
     public static void register(Map<String,WeaponConfig> configs) {
+        itemsToRegister(configs)
+                .forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
+    }
+
+    /// Creation only — appends the `isModLoaded`-gated entries and returns every weapon item keyed by the
+    /// id it registers under. A loader that registers items itself (Forge) iterates this instead of calling
+    /// {@link #register}. **Must run inside the ITEM registration window** (item constructors create
+    /// intrusive registry holders).
+    ///
+    /// Calling `Weapon.itemsToRegister(...)` directly from a loader entrypoint would silently drop the
+    /// conditional entries — they are not in {@link #entries} until this method has run.
+    public static Map<Identifier, Item> itemsToRegister(Map<String,WeaponConfig> configs) {
+        addConditionalEntries();
+        return Weapon.itemsToRegister(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
+    }
+
+    private static void addConditionalEntries() {
+        if (conditionalEntriesAdded) { return; }
+        conditionalEntriesAdded = true;
         if(Platform.util().isModLoaded(BETTER_NETHER) || ElementalMod.tweaksConfig.value.ignore_items_required_mods) {
             var repair = ingredient("betternether:nether_ruby", Platform.util().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             staff( "staff_ruby_terra",
@@ -247,7 +271,5 @@ public class WeaponsRegister {
                     .translatedName("Avatar's Staff"), MRPGCItemGroups.ARSENAL_KEY);
             uniqueStaff1.rarity = Rarity.RARE;
         }
-
-        Weapon.register(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);
     }
 }

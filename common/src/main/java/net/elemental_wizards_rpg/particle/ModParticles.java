@@ -1,5 +1,6 @@
 package net.elemental_wizards_rpg.particle;
 
+import net.minecraft.particle.ParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -10,7 +11,9 @@ import net.spell_engine.fx.SpellEngineParticles.Entry;
 import net.spell_engine.fx.SpellEngineParticles.Texture;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
@@ -38,8 +41,17 @@ public class ModParticles {
             .playbackSpeed(0.102F).lifetimeVariance(0.32F));
 
     public static void register() {
+        particlesToRegister().forEach((id, type) -> Registry.register(Registries.PARTICLE_TYPE, id, type));
+    }
+
+    /// Creation only — every particle type that still needs registering, keyed by the id it registers under.
+    /// A loader that registers particles itself (Forge) iterates this instead of calling {@link #register}.
+    public static Map<Identifier, ParticleType<?>> particlesToRegister() {
+        var types = new LinkedHashMap<Identifier, ParticleType<?>>();
         for (var entry: entries) {
-            Registry.register(Registries.PARTICLE_TYPE, entry.id(), entry.type());
+            if (Registries.PARTICLE_TYPE.containsId(entry.id())) { continue; }
+            types.put(entry.id(), entry.type());
         }
+        return types;
     }
 }
