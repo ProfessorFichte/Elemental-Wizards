@@ -85,13 +85,17 @@ dependencies {
     modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${rootProject.cloth_config_version}")
 
-    // Ecosystem libraries from mavenLocal (published by their 1.20.1-modern ports).
-    modImplementation("net.rpg_foundation:armor_model_api-${platform}:${rootProject.armor_model_api_version}") { transitive = false }
-    modImplementation("net.tiny_config:tiny_config-${platform}:${rootProject.tiny_config_version}") { transitive = false }
-    modImplementation("net.spell_power:spell_power-${platform}:${rootProject.spell_power_version}") { transitive = false }
-    modImplementation("net.spell_engine:spell_engine-${platform}:${rootProject.spell_engine_version}") { transitive = false }
+    // Ecosystem libraries: released ones from the Modrinth maven. Modrinth serves only the per-loader
+    // jars, so `common` keeps compiling against the `-fabric` flavour (this module's dummy platform).
+    modImplementation("maven.modrinth:armor-model-api:${rootProject.armor_model_api_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:tiny-config:${rootProject.tiny_config_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:spell-power:${rootProject.spell_power_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:spell-engine:${rootProject.spell_engine_version}-${platform}") { transitive = false }
+    // More RPG Library stays on mavenLocal: this 1.20.1 port is not published on its Modrinth project
+    // (see gradle.properties). It becomes maven.modrinth:more-rpg-library:<version>-<platform> once it is.
     modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${rootProject.more_rpg_library_version}") { transitive = false }
     modImplementation("net.foundation:structure_pool_api-${platform}:${rootProject.structure_pool_api_version}") { transitive = false }
+    // Wizards has no 1.20.1 release on its Modrinth project, so it too stays on mavenLocal.
     modImplementation("net.rpg_series:wizards-${platform}:${rootProject.wizards_version}") { transitive = false }
 
     // Curios 5.x (1.20.1) - SpellEngine's Forge trinket-slot backend.
@@ -104,7 +108,7 @@ dependencies {
 
     // Runes: dev runtime ONLY - the bundled `wizard_changes` resource pack names `runes:*` items.
     // Use the *production* jar (Loom remaps it); the `dev-shadow` classifier still carries SRG references.
-    modLocalRuntime("net.rpg_series:runes-${platform}:${rootProject.runes_version}")
+    modLocalRuntime("maven.modrinth:runes:${rootProject.runes_version}-${platform}") { transitive = false }
 }
 
 processResources {
@@ -142,7 +146,10 @@ publishMods {
             : me.modmuss50.mpp.ReleaseType.BETA
     version = "${project.version}-${platform}"
     displayName = "${project.version}-${platform}"
+    // NeoForge 1.20.1 is a fork of Forge 47.1 that kept the Forge packages and FML,
+    // so the same jar loads there; both loaders are tagged.
     modLoaders.add("forge")
+    modLoaders.add("neoforge")
 
     curseforge {
         projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")
