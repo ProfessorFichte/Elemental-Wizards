@@ -94,9 +94,8 @@ dependencies {
     // More RPG Library stays on mavenLocal: this 1.20.1 port is not published on its Modrinth project
     // (see gradle.properties). It becomes maven.modrinth:more-rpg-library:<version>-<platform> once it is.
     modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${rootProject.more_rpg_library_version}") { transitive = false }
-    modImplementation("net.foundation:structure_pool_api-${platform}:${rootProject.structure_pool_api_version}") { transitive = false }
-    // Wizards has no 1.20.1 release on its Modrinth project, so it too stays on mavenLocal.
-    modImplementation("net.rpg_series:wizards-${platform}:${rootProject.wizards_version}") { transitive = false }
+    modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:wizards:${rootProject.wizards_version}-${platform}") { transitive = false }
 
     // Curios 5.x (1.20.1) - SpellEngine's Forge trinket-slot backend.
     modLocalRuntime("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}")
