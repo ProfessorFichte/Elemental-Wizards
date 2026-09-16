@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
-import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
 
 public class Armors {
     private static final Supplier<Ingredient> WOOL_INGREDIENTS = () -> { return Ingredient.ofItems(
@@ -377,7 +376,7 @@ public class Armors {
     public static Identifier mountain_passive = new Identifier(MOD_ID, "mountain");
     public static Identifier ocean_passive = new Identifier(MOD_ID, "ocean");
 
-    /// Whether the `armoryLoadCheck()`-gated entries below have already been appended to {@link #entries}.
+    /// Whether the Armory-flavoured epic sets below have already been appended to {@link #entries}.
     /// {@link #itemsToRegister} is idempotent, so the conditional half must be too.
     private static boolean conditionalEntriesAdded = false;
 
@@ -386,7 +385,7 @@ public class Armors {
                 .forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
     }
 
-    /// Creation only — appends the Armory-gated epic sets and returns every armor piece keyed by the id it
+    /// Creation only — appends the Armory-flavoured epic sets and returns every armor piece keyed by the id it
     /// registers under. A loader that registers items itself (Forge) iterates this instead of calling
     /// {@link #register}. **Must run inside the ITEM registration window.**
     ///
@@ -400,69 +399,67 @@ public class Armors {
     private static void addConditionalEntries() {
         if (conditionalEntriesAdded) { return; }
         conditionalEntriesAdded = true;
-        if (armoryLoadCheck()) {
-            hurricaneArmorSet  = groupKey(create(
-                    epic_wizard_robe,
-                    new Identifier(MOD_ID, "hurricane_robe"),
-                    40,
-                    Armor.CustomItem::new,
-                    ArmorSetConfig.with(
-                            new ArmorSetConfig.Piece(1)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
-                            new ArmorSetConfig.Piece(3)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
-                            new ArmorSetConfig.Piece(2)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
-                            new ArmorSetConfig.Piece(1)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5))
-                    ), 5,commonSettings(hurricane_passive))
-                    .translatedName("Hurricane Hat", "Hurricane Robe Top", "Hurricane Robe Bottom", "Hurricane Boots"), MRPGCItemGroups.ARMORY_KEY);
-            mountainArmorSet = groupKey(create(
-                    epic_wizard_robe,
-                    new Identifier(MOD_ID, "mountain_robe"),
-                    40,
-                    Armor.CustomItem::new,
-                    ArmorSetConfig.with(
-                            new ArmorSetConfig.Piece(1)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
-                            new ArmorSetConfig.Piece(3)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
-                            new ArmorSetConfig.Piece(2)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
-                            new ArmorSetConfig.Piece(1)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5))
-                    ),5,
-                    commonSettings(mountain_passive))
-                    .translatedName("Mountain Hat", "Mountain Robe Top", "Mountain Robe Bottom", "Mountain Boots"), MRPGCItemGroups.ARMORY_KEY);
-            oceanArmorSet = groupKey(create(
-                    epic_wizard_robe,
-                    new Identifier(MOD_ID, "ocean_robe"),
-                    40,
-                    Armor.CustomItem::new,
-                    ArmorSetConfig.with(
-                            new ArmorSetConfig.Piece(1)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
-                            new ArmorSetConfig.Piece(3)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
-                            new ArmorSetConfig.Piece(2)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
-                            new ArmorSetConfig.Piece(1)
-                                    .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
-                                    .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5))
-                    ),5,
-                    commonSettings(ocean_passive))
-                    .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots"), MRPGCItemGroups.ARMORY_KEY);
-        }
+        hurricaneArmorSet  = groupKey(create(
+                epic_wizard_robe,
+                new Identifier(MOD_ID, "hurricane_robe"),
+                40,
+                Armor.CustomItem::new,
+                ArmorSetConfig.with(
+                        new ArmorSetConfig.Piece(1)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
+                        new ArmorSetConfig.Piece(3)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
+                        new ArmorSetConfig.Piece(2)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5)),
+                        new ArmorSetConfig.Piece(1)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.AIR.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_DAMAGE.id, crit_damage_t5))
+                ), 5,commonSettings(hurricane_passive))
+                .translatedName("Hurricane Hat", "Hurricane Robe Top", "Hurricane Robe Bottom", "Hurricane Boots"), MRPGCItemGroups.ARMORY_KEY);
+        mountainArmorSet = groupKey(create(
+                epic_wizard_robe,
+                new Identifier(MOD_ID, "mountain_robe"),
+                40,
+                Armor.CustomItem::new,
+                ArmorSetConfig.with(
+                        new ArmorSetConfig.Piece(1)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
+                        new ArmorSetConfig.Piece(3)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
+                        new ArmorSetConfig.Piece(2)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5)),
+                        new ArmorSetConfig.Piece(1)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.EARTH.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_chance_t5))
+                ),5,
+                commonSettings(mountain_passive))
+                .translatedName("Mountain Hat", "Mountain Robe Top", "Mountain Robe Bottom", "Mountain Boots"), MRPGCItemGroups.ARMORY_KEY);
+        oceanArmorSet = groupKey(create(
+                epic_wizard_robe,
+                new Identifier(MOD_ID, "ocean_robe"),
+                40,
+                Armor.CustomItem::new,
+                ArmorSetConfig.with(
+                        new ArmorSetConfig.Piece(1)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
+                        new ArmorSetConfig.Piece(3)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
+                        new ArmorSetConfig.Piece(2)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5)),
+                        new ArmorSetConfig.Piece(1)
+                                .add(AttributeModifier.multiply(MoreSpellSchools.WATER.id, spell_power_t5))
+                                .add(AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, haste_t5))
+                ),5,
+                commonSettings(ocean_passive))
+                .translatedName("Ocean Hat", "Ocean Robe Top", "Ocean Robe Bottom", "Ocean Boots"), MRPGCItemGroups.ARMORY_KEY);
     }
 }

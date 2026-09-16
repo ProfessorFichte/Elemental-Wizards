@@ -8,6 +8,9 @@
   finder for the built-in `wizard_changes` data pack (Forge 47 has no `addPackFinders(Identifier, ...)`).
 - Every registry write goes through Forge's `RegisterEvent` window, so the mod also boots on Forge
   47.0-47.3 and on NeoForge 1.20.1, which never unlock the vanilla registries.
+- The Hurricane, Mountain and Ocean robes are now always registered, so a server without Armory RPGs
+  starts (their set bonuses used to fail to load and abort the startup). Crafting these sets still
+  requires Armory RPGs.
 - Wizard-merchant trades are built on the public trade constructor instead of the package-private vanilla
   trade factories; prices, counts, uses, XP and enchant rolls are unchanged.
 
