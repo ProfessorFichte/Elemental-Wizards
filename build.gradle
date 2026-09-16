@@ -63,9 +63,6 @@ subprojects {
             }
         }
 
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-        repositories {
-            mavenLocal()
-        }
+        // No publishing repositories: `publishToMavenLocal` (built into maven-publish) still serves the dev workspace.
     }
 }

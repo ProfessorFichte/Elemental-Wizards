@@ -17,8 +17,6 @@ repositories {
         }
     }
     maven { url 'https://maven.fabricmc.net' }
-
-    mavenLocal()
 }
 
 dependencies {
@@ -38,9 +36,8 @@ dependencies {
     modImplementation("maven.modrinth:tiny-config:${rootProject.tiny_config_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-power:${rootProject.spell_power_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-engine:${rootProject.spell_engine_version}-${platform}") { transitive = false }
-    // More RPG Library stays on mavenLocal: this 1.20.1 port is not published on its Modrinth project
-    // (see gradle.properties). It becomes maven.modrinth:more-rpg-library:<version>-<platform> once it is.
-    modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${rootProject.more_rpg_library_version}") { transitive = false }
+    // More RPG Library resolves once its 1.20.1 release is published (Fichte release tier 1).
+    modImplementation("maven.modrinth:more-rpg-library:${rootProject.more_rpg_library_version}-${platform}") { transitive = false }
 
     modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}") { transitive = false }
     modCompileOnly("maven.modrinth:wizards:${rootProject.wizards_version}-${platform}") { transitive = false }
