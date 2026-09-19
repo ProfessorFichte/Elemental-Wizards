@@ -15,7 +15,7 @@ import net.spell_engine.api.render.CustomModels;
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class TerraStoneRenderer extends EntityRenderer<TerraStoneEntity> {
-    public static final Identifier modelId = Identifier.of(MOD_ID, "spell_effect/dripstone_straight");
+    public static final Identifier modelId = new Identifier(MOD_ID, "spell_effect/dripstone_straight");
     private static final RenderLayer RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
     private static final float MODEL_HEIGHT = 3.0F;
     private final ItemRenderer itemRenderer;

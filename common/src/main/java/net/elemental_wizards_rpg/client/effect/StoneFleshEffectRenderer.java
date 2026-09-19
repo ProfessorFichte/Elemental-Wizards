@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class StoneFleshEffectRenderer implements CustomModelStatusEffect.Renderer {
 
-    public static final Identifier MODEL_ID = Identifier.of(ElementalMod.MOD_ID, "spell_effect/stone_flesh");
+    public static final Identifier MODEL_ID = new Identifier(ElementalMod.MOD_ID, "spell_effect/stone_flesh");
     private static final RenderLayer RENDER_LAYER =
             RenderLayer.getEntityCutoutNoCull(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 
@@ -44,7 +44,7 @@ public class StoneFleshEffectRenderer implements CustomModelStatusEffect.Rendere
         float currentAge = entity.age + delta;
         float startAge = startAgeMap.computeIfAbsent(entityId, k -> currentAge);
 
-        var effectEntry = ElementalEffects.STONE_FLESH.entry;
+        var effectEntry = ElementalEffects.STONE_FLESH.effect;
         if (effectEntry != null) {
             var instance = entity.getStatusEffect(effectEntry);
             if (instance != null) {

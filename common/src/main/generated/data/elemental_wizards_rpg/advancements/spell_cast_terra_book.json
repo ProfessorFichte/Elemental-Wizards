@@ -1,0 +1,27 @@
+{
+  "parent": "elemental_wizards_rpg:spell_novice_terra",
+  "criteria": {
+    "cast": {
+      "conditions": {
+        "spell": "#elemental_wizards_rpg:spell_book/terra"
+      },
+      "trigger": "spell_engine:spell_cast"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.elemental_wizards_rpg.spell_cast_terra_book.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "spell_engine:spell_book",
+      "nbt": "{spell_engine:{item_model:\"elemental_wizards_rpg:item/spell_book/terra\"}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.elemental_wizards_rpg.spell_cast_terra_book.title"
+    }
+  }
+}

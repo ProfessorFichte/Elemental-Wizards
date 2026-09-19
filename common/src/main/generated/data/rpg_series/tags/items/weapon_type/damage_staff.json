@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:staff_elemental",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_netherite_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_netherite_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_wind",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_netherite_wind",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_ruby_terra",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_crystal_aqua",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_aeternium_wind",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:staff_aether",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:unique_staff_1",
+      "required": false
+    }
+  ]
+}

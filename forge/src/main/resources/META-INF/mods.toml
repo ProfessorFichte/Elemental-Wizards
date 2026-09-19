@@ -1,0 +1,56 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+#issueTrackerURL = "https://github.com/ProfessorFichte/Elemental-Wizards/issues"
+license = "ARR"
+
+[[mods]]
+modId = "elemental_wizards_rpg"
+version = "${version}"
+displayName = "Elemental Wizards (RPG Series Plus)"
+authors = "Fichte"
+description = '''
+Master the elements to overcome your foes! Spell Engine Add-On
+'''
+logoFile = "icon.png"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "armor_model_api"
+mandatory = true
+versionRange = "[1.0.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "spell_engine"
+mandatory = true
+versionRange = "[1.10.5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "more_rpg_classes"
+mandatory = true
+versionRange = "[2.7.2,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "wizards"
+mandatory = true
+versionRange = "[3.1.2,)"
+ordering = "AFTER"
+side = "BOTH"

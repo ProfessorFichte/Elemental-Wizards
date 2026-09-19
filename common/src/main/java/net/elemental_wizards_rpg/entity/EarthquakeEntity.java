@@ -32,10 +32,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import net.minecraft.registry.RegistryKey;
 
 public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<EarthquakeEntity> ENTITY_TYPE;
-    private static final Identifier EARTHQUAKE_SPELL_ID = Identifier.of(MOD_ID, "terra_earthquake");
+    private static final Identifier EARTHQUAKE_SPELL_ID = new Identifier(MOD_ID, "terra_earthquake");
 
     // Ratio (5/16) must stay in sync with onSpawnedBySpell, which scales radius via SpellParameters.getRangeCurved
     private static final float BASE_EARTHQUAKE_RADIUS = 16.0F;
@@ -79,7 +80,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         this.timeToLive = spawn.time_to_live_seconds * 20;
         this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
 
-        SpellRegistry.from(owner.getWorld()).getEntry(EARTHQUAKE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        SpellRegistry.from(owner.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, EARTHQUAKE_SPELL_ID)).ifPresent(e -> this.spellEntry = e);
         float effectiveRange = this.spellEntry != null
                 ? SpellParameters.getRangeCurved(owner, this.spellEntry, args.context().charge())
                 : BASE_EARTHQUAKE_RADIUS;
@@ -94,11 +95,11 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(SPELL_ID_TRACKER, "");
-        builder.add(TIME_TO_LIVE_TRACKER, 0);
-        builder.add(RADIUS_TRACKER, BASE_EARTHQUAKE_RADIUS);
-        builder.add(VERTICAL_RANGE_TRACKER, BASE_VERTICAL_RANGE);
+    protected void initDataTracker() {
+        this.dataTracker.startTracking(SPELL_ID_TRACKER, "");
+        this.dataTracker.startTracking(TIME_TO_LIVE_TRACKER, 0);
+        this.dataTracker.startTracking(RADIUS_TRACKER, BASE_EARTHQUAKE_RADIUS);
+        this.dataTracker.startTracking(VERTICAL_RANGE_TRACKER, BASE_VERTICAL_RANGE);
     }
 
     @Override
@@ -106,7 +107,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
-            this.spellId = Identifier.of(rawSpellId);
+            this.spellId = new Identifier(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
         this.earthquakeRadius = this.getDataTracker().get(RADIUS_TRACKER);
@@ -118,7 +119,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.contains("SpellId")) {
             String spellIdStr = nbt.getString("SpellId");
             if (!spellIdStr.isEmpty()) {
-                this.spellId = Identifier.of(spellIdStr);
+                this.spellId = new Identifier(spellIdStr);
             }
         }
 
@@ -290,7 +291,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
         Box damageBox = Box.of(earthquakeCenter, earthquakeRadius * 2, verticalRange * 2, earthquakeRadius * 2);
 
         PeriodicAreaImpact.apply(this.getWorld(), owner, this, damageBox,
-                Identifier.of(MOD_ID, "helper/terra_earthquake_impact"),
+                new Identifier(MOD_ID, "helper/terra_earthquake_impact"),
                 entity -> entity != owner && !CustomMethods.isEntityProtectedCheck(entity, owner),
                 null, false, null);
     }

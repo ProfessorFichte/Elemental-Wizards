@@ -21,7 +21,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 public class ImpaledRenderer implements CustomModelStatusEffect.Renderer {
 
     private static final RenderLayer RENDER_LAYER = CustomLayers.spellEffect(LightEmission.RADIATE, false);
-    public static final Identifier modelId = Identifier.of(MOD_ID, "spell_effect/dripstone_straight");
+    public static final Identifier modelId = new Identifier(MOD_ID, "spell_effect/dripstone_straight");
 
     private static final int SPIKE_COUNT = 3;
     private static final float EMERGE_TICKS = 10.0f;
@@ -52,7 +52,9 @@ public class ImpaledRenderer implements CustomModelStatusEffect.Renderer {
         float progress = Math.min(1.0f, elapsed / EMERGE_TICKS);
         float t = 1.0f - (1.0f - progress) * (1.0f - progress) * (1.0f - progress);
 
-        float scale = entity.getScale();
+        // 1.20.1 has no entity-scale attribute (`LivingEntity#getScale()` is 1.21+); the ecosystem
+        // treats scale as a fixed 1.0 on this line.
+        float scale = 1.0F;
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
         for (int i = 0; i < SPIKE_COUNT; i++) {

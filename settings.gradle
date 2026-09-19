@@ -11,4 +11,4 @@ rootProject.name = 'elemental_wizards_rpg'
 
 include 'common'
 include 'fabric'
-include 'neoforge'
+include 'forge'

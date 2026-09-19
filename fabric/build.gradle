@@ -63,16 +63,9 @@ repositories {
         }
     }
     maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-    maven {
         name = "Ladysnake Libs"
         url = 'https://maven.ladysnake.org/releases'
     }
-    maven { url 'https://maven.wispforest.io/releases' }
-
-    mavenLocal()
 }
 
 dependencies {
@@ -81,32 +74,39 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${project.player_anim_version}")
-    modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
-    modImplementation("maven.modrinth:armor-model-api:${project.armor_model_api_version}-${platform}")
-    modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
-    modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
-    modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
-    modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"
+    modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${rootProject.player_anim_version}")
+    modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${rootProject.cloth_config_version}")
 
-    modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
-    modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
-    modImplementation("maven.modrinth:wizards:${project.wizards_version}-${platform}")
-    modImplementation("maven.modrinth:runes:${project.runes_version}-${platform}")
+    // Ecosystem libraries: released ones from the Modrinth maven. Modrinth serves only the per-loader
+    // jars, so `common` keeps compiling against the `-fabric` flavour (this module's dummy platform).
+    modImplementation("maven.modrinth:armor-model-api:${rootProject.armor_model_api_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:tiny-config:${rootProject.tiny_config_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:spell-power:${rootProject.spell_power_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:spell-engine:${rootProject.spell_engine_version}-${platform}") { transitive = false }
+    // More RPG Library resolves once its 1.20.1 release is published (Fichte release tier 1).
+    modImplementation("maven.modrinth:more-rpg-library:${rootProject.more_rpg_library_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}") { transitive = false }
+    modImplementation("maven.modrinth:wizards:${rootProject.wizards_version}-${platform}") { transitive = false }
 
+    // Trinkets 3.7.2 comes in with SpellEngine on Fabric; it nests Cardinal Components, but Loom does not
+    // load nested jars of classpath mods, so the dev runtime needs explicit pins.
+    // `modLocalRuntime` keeps them out of the published POM.
+    modLocalRuntime("maven.modrinth:trinkets:${rootProject.trinkets_version}")
+    modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}")
+    modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}")
 
-    // Trinkets
-    modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
-    // Cardinal Components API (required by Trinkets)
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.3"
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.3"
+    // PlayerAnimator: no code uses it, but SpellEngine hard-depends on it, so the dev runtime needs it.
+    // (the `modImplementation` above already supplies it)
+
+    // Runes: dev runtime ONLY - the bundled `wizard_changes` resource pack names `runes:*` items.
+    modLocalRuntime("maven.modrinth:runes:${rootProject.runes_version}-${platform}") { transitive = false }
 }
 
 processResources {
     inputs.property 'version', project.version
 
     filesMatching("fabric.mod.json") {
-        expand(project.properties)
+        expand version: inputs.properties.version
     }
 }
 

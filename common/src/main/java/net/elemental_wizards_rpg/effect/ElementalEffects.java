@@ -1,11 +1,12 @@
 package net.elemental_wizards_rpg.effect;
 
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.rpg_series.config.AttributeModifier;
@@ -17,6 +18,7 @@ import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 import static net.elemental_wizards_rpg.ElementalMod.tweaksConfig;
@@ -29,90 +31,103 @@ public class ElementalEffects {
     }
 
     public static final Effects.Entry CLEANSING_WATER = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "cleansing_water"),
+            new Identifier(MOD_ID, "cleansing_water"),
             "Cleansing Water",
             "Holy water, extinguishing fire and regenerating health.",
             new CleansingWaterEffect(StatusEffectCategory.BENEFICIAL, MoreSpellSchools.WATER.color),
             new EffectConfig(List.of())
     ));
     public static final Effects.Entry BUBBLE_FOAM = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "bubble_foam"),
+            new Identifier(MOD_ID, "bubble_foam"),
             "Bubble Shield",
             "On contact protecting the player and pushing targets away.",
             new BubbleFoamEffect(StatusEffectCategory.BENEFICIAL, MoreSpellSchools.WATER.color),
             new EffectConfig(List.of())
     ));
     public static final Effects.Entry STONE_FLESH = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "stone_flesh"),
+            new Identifier(MOD_ID, "stone_flesh"),
             "Stone Flesh",
             "Gives the user armor and armor toughness, if you have all hearts, the next attack will get reduced by 50%.",
             new StoneFleshEffect(StatusEffectCategory.BENEFICIAL, MoreSpellSchools.EARTH.color),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_ARMOR.getIdAsString(),
+                            attributeId(EntityAttributes.GENERIC_ARMOR),
                             1.0F,
-                            EntityAttributeModifier.Operation.ADD_VALUE
+                            EntityAttributeModifier.Operation.ADDITION
                     ),
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_ARMOR_TOUGHNESS.getIdAsString(),
+                            attributeId(EntityAttributes.GENERIC_ARMOR_TOUGHNESS),
                             0.25F,
-                            EntityAttributeModifier.Operation.ADD_VALUE
+                            EntityAttributeModifier.Operation.ADDITION
                     )
             ))
     ));
     public static final Effects.Entry UPDRAFT = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "updraft"),
+            new Identifier(MOD_ID, "updraft"),
             "Updraft",
             "Keeps the target in the air and makes the target more vulnerable to air spell damage, if its in the air.",
             new UpdraftEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.AIR.color),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(),
+                            attributeId(EntityAttributes.GENERIC_ATTACK_SPEED),
                             -0.25F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL
                     )
             ))
     ));
     public static final Effects.Entry IMPALED = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "impaled"),
+            new Identifier(MOD_ID, "impaled"),
             "Impaled",
             "The Target gets Impaled and trapped.",
             new CustomStatusEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.EARTH.color),
             new EffectConfig(
                     List.of(
+                            // 1.20.1 has no living-entity jump-strength attribute (only HORSE_JUMP_STRENGTH),
+                            // so Impaled keeps only the movement-speed lock.
                             new AttributeModifier(
-                                    EntityAttributes.GENERIC_MOVEMENT_SPEED.getIdAsString(),
+                                    attributeId(EntityAttributes.GENERIC_MOVEMENT_SPEED),
                                     -10,
-                                    EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
-                            ),
-                            new AttributeModifier(
-                                    EntityAttributes.GENERIC_JUMP_STRENGTH.getIdAsString(),
-                                    -10,
-                                    EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                                    EntityAttributeModifier.Operation.MULTIPLY_BASE
                             )
                     )
             )
     ));
     public static final Effects.Entry WINDFIELD = add(new Effects.Entry(
-            Identifier.of(MOD_ID, "windfield"),
+            new Identifier(MOD_ID, "windfield"),
             "Windfield",
             "Reduces the Movement Speed.",
             new UpdraftEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.AIR.color),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_MOVEMENT_SPEED.getIdAsString(),
+                            attributeId(EntityAttributes.GENERIC_MOVEMENT_SPEED),
                             -0.7F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL
                     )
             ))
     ));
 
 
-    public static RegistryEntry<StatusEffect> getEntry(Effects.Entry entry) {
-        return Registries.STATUS_EFFECT.getEntry(entry.id).orElseThrow();
+    /// 1.20.1 has no id accessor on `EntityAttribute`; resolve it through the registry instead.
+    private static String attributeId(EntityAttribute attribute) {
+        return Registries.ATTRIBUTE.getId(attribute).toString();
+    }
+
+    /// 1.20.1 status-effect APIs are keyed by the raw `StatusEffect`, not a `RegistryEntry`.
+    public static StatusEffect getEntry(Effects.Entry entry) {
+        return entry.effect;
     }
 
     public static void register(ConfigFile.Effects config) {
+        effectsToRegister(config).forEach((id, effect) ->
+                Registry.register(Registries.STATUS_EFFECT, id, effect));
+        Effects.linkEntries(entries);
+    }
+
+    /// Creation only — applies the tweaks-config vulnerability, marks every effect synchronized and returns
+    /// the effects that still need registering, keyed by the id they register under. A loader that registers
+    /// status effects itself (Forge) iterates this instead of calling {@link #register}, then calls
+    /// `Effects.linkEntries(entries)`.
+    public static Map<Identifier, StatusEffect> effectsToRegister(ConfigFile.Effects config) {
         ((UpdraftEffect) UPDRAFT.effect).setVulnerability(
                 MoreSpellSchools.AIR,
                 new SpellPower.Vulnerability(
@@ -124,6 +139,6 @@ public class ElementalEffects {
         for (var entry : entries) {
             Synchronized.configure(entry.effect, true);
         }
-        Effects.register(entries, config.effects);
+        return Effects.effectsToRegister(entries, config.effects);
     }
 }

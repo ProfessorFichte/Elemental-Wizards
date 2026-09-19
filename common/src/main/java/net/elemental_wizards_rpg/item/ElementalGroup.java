@@ -10,8 +10,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ElementalGroup {
-    public static Identifier ID = Identifier.of(ElementalMod.MOD_ID, "generic");
-    public static RegistryKey<ItemGroup> ELEMENTAL_WIZARD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(ElementalMod.MOD_ID,"generic"));
+    public static Identifier ID = new Identifier(ElementalMod.MOD_ID, "generic");
+    public static RegistryKey<ItemGroup> ELEMENTAL_WIZARD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),new Identifier(ElementalMod.MOD_ID,"generic"));
     public static ItemGroup ELEMENTAL_WIZARD;
 
     public static void addItemsToIngredientItemGroup(ItemGroup.Entries entries){

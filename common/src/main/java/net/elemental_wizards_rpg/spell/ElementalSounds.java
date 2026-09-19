@@ -7,7 +7,9 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
@@ -24,7 +26,7 @@ public class ElementalSounds {
         }
 
         public Entry(String name) {
-            this(Identifier.of(MOD_ID, name));
+            this(new Identifier(MOD_ID, name));
         }
 
         public Entry(Identifier id) {
@@ -72,6 +74,21 @@ public class ElementalSounds {
         for (var entry : entries) {
             entry.entry = Registry.registerReference(Registries.SOUND_EVENT, entry.id(), entry.soundEvent());
         }
+    }
+
+    /// Creation only — every sound that still needs registering, keyed by the id it registers under. A
+    /// loader that registers sounds itself (Forge) iterates this instead of calling {@link #register}.
+    ///
+    /// There is deliberately no `linkEntries()` companion: nothing outside this class reads
+    /// {@link Entry#entry()}, so the `RegistryEntry` the Fabric path gets for free is not reproduced.
+    /// (Grep `.entry()` before adding one — Paladins needs it, Wizards does not, and neither does this mod.)
+    public static Map<Identifier, SoundEvent> soundsToRegister() {
+        var sounds = new LinkedHashMap<Identifier, SoundEvent>();
+        for (var entry : entries) {
+            if (entry.entry != null || Registries.SOUND_EVENT.containsId(entry.id())) { continue; }
+            sounds.put(entry.id(), entry.soundEvent());
+        }
+        return sounds;
     }
     
 }

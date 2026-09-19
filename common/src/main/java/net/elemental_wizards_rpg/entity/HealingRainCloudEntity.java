@@ -27,10 +27,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import net.minecraft.registry.RegistryKey;
 
 public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<HealingRainCloudEntity> ENTITY_TYPE;
-    private static final Identifier HEALING_RAIN_SPELL_ID = Identifier.of(MOD_ID, "aqua_healing_rain");
+    private static final Identifier HEALING_RAIN_SPELL_ID = new Identifier(MOD_ID, "aqua_healing_rain");
     private static final float BASE_RANGE = 5.0F;
 
     private static final float FOLLOW_SPEED = 0.13F;
@@ -77,7 +78,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
 
         adjustHeightToGround();
 
-        RegistryEntry<Spell> spellEntry = SpellRegistry.from(owner.getWorld()).getEntry(HEALING_RAIN_SPELL_ID).orElse(null);
+        RegistryEntry<Spell> spellEntry = SpellRegistry.from(owner.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, HEALING_RAIN_SPELL_ID)).orElse(null);
         float scale = spellEntry != null ? SpellParameters.getRange(owner, spellEntry) / BASE_RANGE : 1.0F;
         this.getDataTracker().set(SCALE_TRACKER, scale);
 
@@ -85,10 +86,10 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(SPELL_ID_TRACKER, "");
-        builder.add(TIME_TO_LIVE_TRACKER, 0);
-        builder.add(SCALE_TRACKER, 1.0F);
+    protected void initDataTracker() {
+        this.dataTracker.startTracking(SPELL_ID_TRACKER, "");
+        this.dataTracker.startTracking(TIME_TO_LIVE_TRACKER, 0);
+        this.dataTracker.startTracking(SCALE_TRACKER, 1.0F);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
-            this.spellId = Identifier.of(rawSpellId);
+            this.spellId = new Identifier(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
     }
@@ -110,7 +111,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
         if (nbt.contains("SpellId")) {
             String spellIdStr = nbt.getString("SpellId");
             if (!spellIdStr.isEmpty()) {
-                this.spellId = Identifier.of(spellIdStr);
+                this.spellId = new Identifier(spellIdStr);
             }
         }
 
@@ -298,7 +299,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
         Box effectBox = Box.of(cloudPos.add(0, -3, 0), rainRadius * 2, 6, rainRadius * 2);
 
         PeriodicAreaImpact.apply(this.getWorld(), owner, this, effectBox,
-                Identifier.of(MOD_ID, "helper/aqua_healing_rain_impact"),
+                new Identifier(MOD_ID, "helper/aqua_healing_rain_impact"),
                 entity -> true, null, true, null);
     }
 

@@ -1,0 +1,38 @@
+{
+  "parent": "more_rpg_content:root",
+  "criteria": {
+    "has_all_items": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "more_rpg_classes:terra_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.rpg_classes.earth_rune.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "more_rpg_classes:terra_stone"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rpg_classes.earth_rune.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_all_items"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

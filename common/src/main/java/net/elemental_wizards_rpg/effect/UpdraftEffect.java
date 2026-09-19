@@ -1,6 +1,7 @@
 package net.elemental_wizards_rpg.effect;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -13,18 +14,17 @@ public class UpdraftEffect extends SpellVulnerabilityStatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if (!entity.isOnGround()) {
             Vec3d currentMovement = entity.getVelocity();
             entity.setVelocity(currentMovement.x, currentMovement.y + 0.075F, currentMovement.z);
             entity.velocityModified = true;
         }
-        return true;
     }
 
     @Override
-    public void onApplied(LivingEntity entity, int amplifier) {
-        super.onApplied(entity, amplifier);
+    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+        super.onApplied(entity, attributes, amplifier);
         if (!entity.isOnGround()) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 15, 0, false, false, false));
         }

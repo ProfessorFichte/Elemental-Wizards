@@ -15,6 +15,7 @@ import net.spell_engine.internals.impact.SpellImpacts;
 import net.spell_power.api.SpellPower;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import net.minecraft.registry.RegistryKey;
 
 public class AvatarImpact implements SpellHandlers.CustomImpact {
     @Override
@@ -28,9 +29,9 @@ public class AvatarImpact implements SpellHandlers.CustomImpact {
         double air_power = caster.getAttributeValue(MoreSpellSchools.AIR.attributeEntry);
         double earth_power = caster.getAttributeValue(MoreSpellSchools.EARTH.attributeEntry);
         double water_power = caster.getAttributeValue(MoreSpellSchools.WATER.attributeEntry);
-        RegistryEntry<Spell> air_spell = SpellRegistry.from(caster.getWorld()).getEntry(Identifier.of(MOD_ID, "avatar_passives/air_draft")).get();
-        RegistryEntry<Spell> earth_spell = SpellRegistry.from(caster.getWorld()).getEntry(Identifier.of(MOD_ID, "avatar_passives/earth_stoning")).get();
-        RegistryEntry<Spell> water_spell = SpellRegistry.from(caster.getWorld()).getEntry(Identifier.of(MOD_ID, "avatar_passives/water_undercurrent")).get();
+        RegistryEntry<Spell> air_spell = SpellRegistry.from(caster.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, new Identifier(MOD_ID, "avatar_passives/air_draft"))).get();
+        RegistryEntry<Spell> earth_spell = SpellRegistry.from(caster.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, new Identifier(MOD_ID, "avatar_passives/earth_stoning"))).get();
+        RegistryEntry<Spell> water_spell = SpellRegistry.from(caster.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, new Identifier(MOD_ID, "avatar_passives/water_undercurrent"))).get();
         if(target instanceof LivingEntity){
             if (air_power >= earth_power && air_power >= water_power) {
                 SpellImpacts.performImpacts(caster.getWorld(), caster, target, target, air_spell,

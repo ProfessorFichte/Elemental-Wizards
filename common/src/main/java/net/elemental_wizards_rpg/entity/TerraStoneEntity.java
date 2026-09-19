@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
+import net.minecraft.registry.RegistryKey;
 
 public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<TerraStoneEntity> ENTITY_TYPE;
@@ -73,9 +74,9 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(SPELL_ID_TRACKER, "");
-        builder.add(TIME_TO_LIVE_TRACKER, 0);
+    protected void initDataTracker() {
+        this.dataTracker.startTracking(SPELL_ID_TRACKER, "");
+        this.dataTracker.startTracking(TIME_TO_LIVE_TRACKER, 0);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
-            this.spellId = Identifier.of(rawSpellId);
+            this.spellId = new Identifier(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
     }
@@ -93,7 +94,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.contains("SpellId")) {
             String spellIdStr = nbt.getString("SpellId");
             if (!spellIdStr.isEmpty()) {
-                this.spellId = Identifier.of(spellIdStr);
+                this.spellId = new Identifier(spellIdStr);
                 this.getDataTracker().set(SPELL_ID_TRACKER, spellIdStr);
             }
         }
@@ -168,7 +169,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
         if (owner == null) return;
 
         RegistryEntry<Spell> spellImpact = isFullyEmerged()
-                ? SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact")).orElse(null)
+                ? SpellRegistry.from(owner.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, new Identifier(MOD_ID, "helper/terra_drip_circle_impact"))).orElse(null)
                 : null;
 
         for (LivingEntity entity : nearbyEntities) {
@@ -189,7 +190,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
             entity.setVelocity(entity.getVelocity().add((deltaX / distance) * pushStrength, 0.0, (deltaZ / distance) * pushStrength));
             entity.velocityModified = true;
             if (entity instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.send(new EntityVelocityUpdateS2CPacket(serverPlayer), null);
+                serverPlayer.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayer));
             }
 
             if (spellImpact != null) {
@@ -213,7 +214,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
         LivingEntity owner = this.getOwner();
         if (owner == null) return;
 
-        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(Identifier.of(MOD_ID, "helper/terra_drip_circle_impact")).orElse(null);
+        RegistryEntry<Spell> spellImpact = SpellRegistry.from(owner.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, new Identifier(MOD_ID, "helper/terra_drip_circle_impact"))).orElse(null);
         if (spellImpact == null) return;
 
         List<LivingEntity> targets = this.getWorld().getNonSpectatingEntities(

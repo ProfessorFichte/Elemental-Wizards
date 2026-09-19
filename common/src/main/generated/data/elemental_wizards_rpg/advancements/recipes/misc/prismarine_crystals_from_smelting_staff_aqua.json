@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_staff_aqua": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "elemental_wizards_rpg:staff_aqua"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:prismarine_crystals_from_smelting_staff_aqua"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_staff_aqua",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:prismarine_crystals_from_smelting_staff_aqua"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -96,23 +96,28 @@ public class ElementalSummons {
 
         var school = MoreSpellSchools.EARTH.id.toString();
         var scaling = new ArrayList<AttributeScaling.Entry>();
-        scaling.add(scalingEntry(EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString(), school, 0, 1.2));
-        scaling.add(scalingEntry(EntityAttributes.GENERIC_ARMOR.getIdAsString(), school, 5, 0.075));
-        scaling.add(scalingEntry(EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString(), school, 0, 0.35));
+        scaling.add(scalingEntry(attributeId(EntityAttributes.GENERIC_MAX_HEALTH), school, 0, 1.2));
+        scaling.add(scalingEntry(attributeId(EntityAttributes.GENERIC_ARMOR), school, 5, 0.075));
+        scaling.add(scalingEntry(attributeId(EntityAttributes.GENERIC_ATTACK_DAMAGE), school, 0, 0.35));
         scaling.add(scalingEntry(school, school, 2, 0.1));
-        scaling.add(scalingEntry(EntityAttributes.GENERIC_ATTACK_KNOCKBACK.getIdAsString(), school, 0, 0.1));
-        scaling.add(scalingEntry(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.getIdAsString(), school, 2.5, 0.025));
+        scaling.add(scalingEntry(attributeId(EntityAttributes.GENERIC_ATTACK_KNOCKBACK), school, 0, 0.1));
+        scaling.add(scalingEntry(attributeId(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE), school, 2.5, 0.025));
         summon.attribute_scaling.entries = scaling;
 
         return summon;
     }
+
+/// 1.20.1 has no id accessor on `EntityAttribute`; resolve it through the registry instead.
+private static String attributeId(net.minecraft.entity.attribute.EntityAttribute attribute) {
+    return net.minecraft.registry.Registries.ATTRIBUTE.getId(attribute).toString();
+}
 
 private static AttributeScaling.Entry scalingEntry(String targetAttribute, String ownerAttribute,
                                                    double base, double coefficient) {
     var entry = new AttributeScaling.Entry();
     entry.attribute_id = targetAttribute;
     entry.modifiers = List.of(new AttributeScaling.Entry.OwnerModifier(
-            ownerAttribute, EntityAttributeModifier.Operation.ADD_VALUE, base, coefficient));
+            ownerAttribute, EntityAttributeModifier.Operation.ADDITION, base, coefficient));
     return entry;
 }
 }

@@ -18,9 +18,6 @@ import net.spell_engine.rpg_series.item.Armor;
 
 import java.util.function.Function;
 
-import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
-
-
 public class ElementalClient{
 
     public static void init(){
@@ -34,11 +31,9 @@ public class ElementalClient{
         registerArmorRenderer(Armors.netheriteDripstoneArmor.armorSet(), ElementalRobeRenderer.netherite_dripstone());
         registerArmorRenderer(Armors.netheriteWindArmor.armorSet(), ElementalRobeRenderer.netherite_wind());
 
-        if (armoryLoadCheck()) {
-            registerArmorRenderer(Armors.hurricaneArmorSet.armorSet(), ElementalRobeRenderer.hurricane());
-            registerArmorRenderer(Armors.mountainArmorSet.armorSet(), ElementalRobeRenderer.mountain());
-            registerArmorRenderer(Armors.oceanArmorSet.armorSet(), ElementalRobeRenderer.ocean());
-        }
+        registerArmorRenderer(Armors.hurricaneArmorSet.armorSet(), ElementalRobeRenderer.hurricane());
+        registerArmorRenderer(Armors.mountainArmorSet.armorSet(), ElementalRobeRenderer.mountain());
+        registerArmorRenderer(Armors.oceanArmorSet.armorSet(), ElementalRobeRenderer.ocean());
 
         CustomModelStatusEffect.register(ElementalEffects.BUBBLE_FOAM.effect, new BubbleFoamEffectRenderer());
         CustomModelStatusEffect.register(ElementalEffects.STONE_FLESH.effect, new StoneFleshEffectRenderer());

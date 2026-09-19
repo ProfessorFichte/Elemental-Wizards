@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class EarthGolemEntityModel extends SinglePartEntityModel<EarthGolemEntity> {
-    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Identifier.of(MOD_ID, "stone_golem"), "main");
+    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(MOD_ID, "stone_golem"), "main");
     private final ModelPart root;
     private final ModelPart golem;
     private final ModelPart waist;
@@ -141,9 +141,10 @@ public class EarthGolemEntityModel extends SinglePartEntityModel<EarthGolemEntit
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        golem.render(matrices, vertices, light, overlay, color);
-        left_leg.render(matrices, vertices, light, overlay, color);
-        right_leg.render(matrices, vertices, light, overlay, color);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay,
+                       float red, float green, float blue, float alpha) {
+        golem.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+        left_leg.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+        right_leg.render(matrices, vertices, light, overlay, red, green, blue, alpha);
     }
 }
