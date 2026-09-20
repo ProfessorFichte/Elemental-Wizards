@@ -198,8 +198,6 @@ public class WeaponsRegister {
     private static final String BETTER_NETHER = "betternether";
     private static final String AETHER = "aether";
     private static final String ARSENAL = "arsenal";
-    /// Whether the `isModLoaded`-gated entries below have already been appended to {@link #entries}.
-    /// {@link #itemsToRegister} is idempotent, so the conditional half must be too.
     private static boolean conditionalEntriesAdded = false;
 
     public static void register(Map<String,WeaponConfig> configs) {
@@ -207,13 +205,6 @@ public class WeaponsRegister {
                 .forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
     }
 
-    /// Creation only — appends the `isModLoaded`-gated entries and returns every weapon item keyed by the
-    /// id it registers under. A loader that registers items itself (Forge) iterates this instead of calling
-    /// {@link #register}. **Must run inside the ITEM registration window** (item constructors create
-    /// intrusive registry holders).
-    ///
-    /// Calling `Weapon.itemsToRegister(...)` directly from a loader entrypoint would silently drop the
-    /// conditional entries — they are not in {@link #entries} until this method has run.
     public static Map<Identifier, Item> itemsToRegister(Map<String,WeaponConfig> configs) {
         addConditionalEntries();
         return Weapon.itemsToRegister(configs, entries, ElementalGroup.ELEMENTAL_WIZARD_KEY);

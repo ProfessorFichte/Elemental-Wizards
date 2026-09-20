@@ -62,9 +62,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 		pack.addProvider(net.elemental_wizards_rpg.datagen.ElementalSmithingRecipeProvider::new);
 	}
 
-	/// Without this, `FabricTagProvider<Spell>` dies with `Registry minecraft:spell not found`:
-	/// the datagen `WrapperLookup` is assembled per data-generator entrypoint, not from the runtime
-	/// `RegistryLoader`. See `RPGSeriesDataGen.buildRegistry`'s javadoc.
 	@Override
 	public void buildRegistry(net.minecraft.registry.RegistryBuilder registryBuilder) {
 		RPGSeriesDataGen.buildRegistry(registryBuilder);
@@ -83,8 +80,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 	}
 
 	public static class LangGenerator extends FabricLanguageProvider {
-		/// 1.20.1 Fabric API: `FabricLanguageProvider(FabricDataOutput, String)` and
-		/// `generateTranslations(TranslationBuilder)` (no registry lookup).
 		protected LangGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
 			super(dataOutput, "en_us");
 		}
@@ -180,8 +175,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 
 			while(var3.hasNext()) {
 				Armor.Entry armor = (Armor.Entry)var3.next();
-				// `#minecraft:{head,chest,leg,foot}_armor` are 1.21 additions and do not exist on 1.20.1,
-				// so only the RPG Series loot-theme / armor-type tags are emitted here.
 				Iterator var12;
 
 				String lootTheme = armor.lootProperties().theme();
@@ -230,8 +223,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 	}
 
 	public static class UnsmeltGenerator extends FabricRecipeProvider {
-		/// 1.20.1 Fabric API: `FabricRecipeProvider(FabricDataOutput)` and
-		/// `generate(Consumer<RecipeJsonProvider>)` (there is no `RecipeExporter` before 1.21).
 		public UnsmeltGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 			super(output);
 		}
@@ -245,7 +236,6 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 			disassembleArmor(exporter, Armors.netheriteKelpNetheriteArmor.armorSet(), Items.NETHERITE_SCRAP);
 			disassembleArmor(exporter, Armors.dripstoneArmor.armorSet(), Items.POINTED_DRIPSTONE);
 			disassembleArmor(exporter, Armors.netheriteDripstoneArmor.armorSet(), Items.NETHERITE_SCRAP);
-			// `Items.WIND_CHARGE` is 1.20.5+; the wind set unsmelts to its 1.20.1 crafting material.
 			disassembleArmor(exporter, Armors.windArmor.armorSet(), Items.FEATHER);
 			disassembleArmor(exporter, Armors.netheriteWindArmor.armorSet(), Items.NETHERITE_SCRAP);
 

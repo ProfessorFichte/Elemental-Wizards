@@ -77,28 +77,18 @@ dependencies {
     modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${rootProject.player_anim_version}")
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${rootProject.cloth_config_version}")
 
-    // Ecosystem libraries: released ones from the Modrinth maven. Modrinth serves only the per-loader
-    // jars, so `common` keeps compiling against the `-fabric` flavour (this module's dummy platform).
     modImplementation("maven.modrinth:armor-model-api:${rootProject.armor_model_api_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:tiny-config:${rootProject.tiny_config_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-power:${rootProject.spell_power_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-engine:${rootProject.spell_engine_version}-${platform}") { transitive = false }
-    // More RPG Library resolves once its 1.20.1 release is published (Fichte release tier 1).
     modImplementation("maven.modrinth:more-rpg-library:${rootProject.more_rpg_library_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:wizards:${rootProject.wizards_version}-${platform}") { transitive = false }
 
-    // Trinkets 3.7.2 comes in with SpellEngine on Fabric; it nests Cardinal Components, but Loom does not
-    // load nested jars of classpath mods, so the dev runtime needs explicit pins.
-    // `modLocalRuntime` keeps them out of the published POM.
     modLocalRuntime("maven.modrinth:trinkets:${rootProject.trinkets_version}")
     modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}")
     modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}")
 
-    // PlayerAnimator: no code uses it, but SpellEngine hard-depends on it, so the dev runtime needs it.
-    // (the `modImplementation` above already supplies it)
-
-    // Runes: dev runtime ONLY - the bundled `wizard_changes` resource pack names `runes:*` items.
     modLocalRuntime("maven.modrinth:runes:${rootProject.runes_version}-${platform}") { transitive = false }
 }
 

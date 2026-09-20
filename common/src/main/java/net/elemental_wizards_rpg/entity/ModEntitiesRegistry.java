@@ -21,21 +21,10 @@ public class ModEntitiesRegistry {
         registerSummonAttributes();
     }
 
-    /// Trailing side effect of {@link #registerEntities}, kept out of {@link #entitiesToRegister} so a
-    /// failure here cannot abort entity registration. Not a registry write: Spell Engine buffers it until
-    /// the platform's attribute registration point (Fabric: immediate; Forge: `EntityAttributeCreationEvent`).
-    /// Run it right after the registration loop on whichever loader registered the types.
     public static void registerSummonAttributes() {
         SummonedEntities.registerAttributes(EARTH_GOLEM_ID, EarthGolemEntity.ENTITY_TYPE, ElementalMod.summonConfig.value::entryFor);
     }
 
-    /// Creation only — builds every entity type, stores it in its `ENTITY_TYPE` field and returns the types
-    /// keyed by the id they register under. A loader that registers entity types itself (Forge) iterates
-    /// this instead of calling {@link #registerEntities}.
-    ///
-    /// **Must run inside the registration phase**: Forge-patched `EntityType.<init>` asks the ENTITY_TYPE
-    /// registry for an intrusive holder, so merely *building* a type outside the `RegisterEvent` sequence
-    /// throws `Registry is already frozen`.
     public static Map<Identifier, EntityType<?>> entitiesToRegister() {
         var types = new LinkedHashMap<Identifier, EntityType<?>>();
         buildDripstoneEntities(types);

@@ -52,8 +52,6 @@ public class ImpaledRenderer implements CustomModelStatusEffect.Renderer {
         float progress = Math.min(1.0f, elapsed / EMERGE_TICKS);
         float t = 1.0f - (1.0f - progress) * (1.0f - progress) * (1.0f - progress);
 
-        // 1.20.1 has no entity-scale attribute (`LivingEntity#getScale()` is 1.21+); the ecosystem
-        // treats scale as a fixed 1.0 on this line.
         float scale = 1.0F;
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 

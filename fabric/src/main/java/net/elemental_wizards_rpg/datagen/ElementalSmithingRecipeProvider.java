@@ -9,9 +9,6 @@ import net.minecraft.util.Identifier;
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
 
-/// Uses the local {@link SmithingRecipeProvider} rather than More RPG Library's
-/// `SmithingRecipeGenerator`: the library's copy still writes the 1.21 shapes
-/// (`data/<ns>/recipe/`, `"result": {"id": ...}`, `neoforge:conditions`), which 1.20.1 cannot read.
 public class ElementalSmithingRecipeProvider extends SmithingRecipeProvider {
 
     public ElementalSmithingRecipeProvider(FabricDataOutput output) {

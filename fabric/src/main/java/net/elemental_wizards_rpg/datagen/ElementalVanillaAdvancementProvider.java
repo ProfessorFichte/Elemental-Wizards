@@ -126,8 +126,6 @@ public class ElementalVanillaAdvancementProvider extends FabricAdvancementProvid
         ));
     }
 
-    /// 1.20.1 Fabric API: `FabricAdvancementProvider(FabricDataOutput)` and
-    /// `generateAdvancement(Consumer<Advancement>)` (no registry lookup, no `AdvancementEntry`).
     public ElementalVanillaAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(output);
     }
@@ -139,10 +137,6 @@ public class ElementalVanillaAdvancementProvider extends FabricAdvancementProvid
         }
     }
 
-    /// `Advancement.Builder#build` resolves the parent eagerly and throws
-    /// "Tried to build incomplete advancement!" when it is defined in another mod, so cross-mod parents
-    /// are fed as a stub. `createTask()` only serialises the stub's id, so the emitted JSON is identical
-    /// to a hand-written `"parent": "<ns>:<path>"`.
     private static Advancement parentStub(Identifier parentId) {
         return new Advancement(parentId, null, null, AdvancementRewards.NONE, Map.of(), new String[0][], false);
     }

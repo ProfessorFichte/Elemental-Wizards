@@ -82,8 +82,6 @@ public class ElementalEffects {
             new CustomStatusEffect(StatusEffectCategory.HARMFUL, MoreSpellSchools.EARTH.color),
             new EffectConfig(
                     List.of(
-                            // 1.20.1 has no living-entity jump-strength attribute (only HORSE_JUMP_STRENGTH),
-                            // so Impaled keeps only the movement-speed lock.
                             new AttributeModifier(
                                     attributeId(EntityAttributes.GENERIC_MOVEMENT_SPEED),
                                     -10,
@@ -107,12 +105,10 @@ public class ElementalEffects {
     ));
 
 
-    /// 1.20.1 has no id accessor on `EntityAttribute`; resolve it through the registry instead.
     private static String attributeId(EntityAttribute attribute) {
         return Registries.ATTRIBUTE.getId(attribute).toString();
     }
 
-    /// 1.20.1 status-effect APIs are keyed by the raw `StatusEffect`, not a `RegistryEntry`.
     public static StatusEffect getEntry(Effects.Entry entry) {
         return entry.effect;
     }
@@ -123,10 +119,6 @@ public class ElementalEffects {
         Effects.linkEntries(entries);
     }
 
-    /// Creation only — applies the tweaks-config vulnerability, marks every effect synchronized and returns
-    /// the effects that still need registering, keyed by the id they register under. A loader that registers
-    /// status effects itself (Forge) iterates this instead of calling {@link #register}, then calls
-    /// `Effects.linkEntries(entries)`.
     public static Map<Identifier, StatusEffect> effectsToRegister(ConfigFile.Effects config) {
         ((UpdraftEffect) UPDRAFT.effect).setVulnerability(
                 MoreSpellSchools.AIR,

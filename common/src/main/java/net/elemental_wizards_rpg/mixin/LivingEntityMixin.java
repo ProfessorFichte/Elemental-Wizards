@@ -16,7 +16,6 @@ public abstract class LivingEntityMixin {
 
     @Shadow public abstract float getMaxHealth();
 
-    /// 1.20.1 keys status-effect lookups by the raw `StatusEffect`, not a `RegistryEntry`.
     @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
     public float modifyDamageTakenStoneFlesh(float amount) {

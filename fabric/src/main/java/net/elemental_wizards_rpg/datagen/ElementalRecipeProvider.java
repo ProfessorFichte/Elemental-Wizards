@@ -11,8 +11,6 @@ import net.minecraft.util.Identifier;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
-/// 1.20.1 substitution: `Items.WIND_CHARGE` is a 1.20.5+ item, so every wind-themed recipe that
-/// used it takes `Items.FEATHER` instead (see elemental-wizards-port-notes.md).
 public class ElementalRecipeProvider extends RecipeProvider {
 
     public ElementalRecipeProvider(FabricDataOutput output) {

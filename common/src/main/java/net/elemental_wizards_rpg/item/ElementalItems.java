@@ -32,13 +32,8 @@ public class ElementalItems {
 
     public static final Identifier ELEMENTAL_ESSENCE_ID = new Identifier(MOD_ID, "elemental_essence");
 
-    /// Constructed, not registered. `Item`'s constructor creates an intrusive registry holder, so this
-    /// class must not be initialized before the registration phase has begun (on Forge: inside the
-    /// `RegisterEvent` sequence).
     public static final Item ELEMENTAL_ESSENCE = new Item(new Item.Settings());
 
-    /// Creation only — the items this mod owns outright, keyed by the id they register under. A loader
-    /// that registers items itself (Forge) iterates this instead of calling {@link #registerModItems()}.
     public static Map<Identifier, Item> itemsToRegister() {
         var items = new LinkedHashMap<Identifier, Item>();
         if (!Registries.ITEM.containsId(ELEMENTAL_ESSENCE_ID)) {

@@ -77,8 +77,6 @@ public class StoneFleshPlayerRenderLayer extends FeatureRenderer<AbstractClientP
             return this;
         }
 
-        // 1.20.1's VertexConsumer is a push-style builder: `next()` closes a vertex, and the
-        // fixed-colour overrides are part of the interface.
         @Override
         public void next() {
             delegate.next();

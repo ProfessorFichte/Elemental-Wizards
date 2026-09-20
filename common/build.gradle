@@ -24,19 +24,16 @@ dependencies {
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    // No Fabric API in common: there is no Forgified Fabric API on the 1.20.1 line, so loader API
-    // usage stays in the platform modules. The datagen providers moved to `fabric/` for that reason.
 
     modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${rootProject.player_anim_version}")
+// Don't add transitive = false here, cloth-config is what puts Fabric API on the remap classpath.
+// Without it runDatagen crashes with a NoSuchMethodError.
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${rootProject.cloth_config_version}")
 
-    // Ecosystem libraries: released ones from the Modrinth maven. Modrinth serves only the per-loader
-    // jars, so `common` keeps compiling against the `-fabric` flavour (this module's dummy platform).
     modImplementation("maven.modrinth:armor-model-api:${rootProject.armor_model_api_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:tiny-config:${rootProject.tiny_config_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-power:${rootProject.spell_power_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-engine:${rootProject.spell_engine_version}-${platform}") { transitive = false }
-    // More RPG Library resolves once its 1.20.1 release is published (Fichte release tier 1).
     modImplementation("maven.modrinth:more-rpg-library:${rootProject.more_rpg_library_version}-${platform}") { transitive = false }
 
     modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}") { transitive = false }

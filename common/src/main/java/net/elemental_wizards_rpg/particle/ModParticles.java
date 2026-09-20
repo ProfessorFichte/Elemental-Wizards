@@ -44,8 +44,6 @@ public class ModParticles {
         particlesToRegister().forEach((id, type) -> Registry.register(Registries.PARTICLE_TYPE, id, type));
     }
 
-    /// Creation only — every particle type that still needs registering, keyed by the id it registers under.
-    /// A loader that registers particles itself (Forge) iterates this instead of calling {@link #register}.
     public static Map<Identifier, ParticleType<?>> particlesToRegister() {
         var types = new LinkedHashMap<Identifier, ParticleType<?>>();
         for (var entry: entries) {

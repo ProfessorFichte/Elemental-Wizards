@@ -220,8 +220,6 @@ public class ElementalAdvancementDataGen implements DataProvider {
         JsonObject display = new JsonObject();
         JsonObject icon = new JsonObject();
         String iconName = entry.iconItemName().contains(":") ? entry.iconItemName() : MOD_ID + ":" + entry.iconItemName();
-        // 1.20.1 advancement icons are `{"item": ..., "nbt": "<SNBT>"}`; SpellEngine's item-model override
-        // rides the `spell_engine` NBT sub-compound instead of a data component.
         if (iconName.contains("item/spell_book/")) {
             icon.addProperty("item", "spell_engine:spell_book");
             icon.addProperty("nbt", itemModelNbt(iconName));

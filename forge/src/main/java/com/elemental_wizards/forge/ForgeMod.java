@@ -39,22 +39,13 @@ import net.wizards.villager.WizardVillagers;
 
 import java.util.ArrayList;
 
-/// Forge 47 entrypoint (1.20.1 port of the NeoForge entrypoint).
-///
-/// Forge locks every vanilla registry outside its own `RegisterEvent` window, and on Forge 47.0-47.3 the
-/// vanilla wrapper stays locked *inside* the window too, so every registration here goes through the
-/// `RegisterHelper` the event hands out. See `register(RegisterEvent)`.
 @Mod(ElementalMod.MOD_ID)
 public final class ForgeMod {
-    // FMLJavaModLoadingContext.get() is flagged for removal by late 47.x builds, but the
-    // constructor-injected replacement doesn't exist on early 47.x; get() works on all of [47,).
     @SuppressWarnings("removal")
     public ForgeMod() {
         ElementalMod.init();
 
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        // Explicit event classes: Forge 47's plain addListener(Consumer) infers the event type from the
-        // lambda via TypeTools, which is fragile; the 4-arg overload takes it directly.
         modBus.addListener(EventPriority.NORMAL, false, RegisterEvent.class, ForgeMod::register);
         modBus.addListener(EventPriority.NORMAL, false, EntityAttributeCreationEvent.class, ForgeMod::registerAttributes);
         modBus.addListener(EventPriority.NORMAL, false, BuildCreativeModeTabContentsEvent.class, ForgeMod::buildTabContents);
@@ -78,9 +69,6 @@ public final class ForgeMod {
         });
     }
 
-    /// Forge 47's `AddPackFindersEvent` only takes a `ResourcePackProvider`; the NeoForge
-    /// `addPackFinders(Identifier, ...)` convenience does not exist, so the built-in pack profile is
-    /// assembled by hand from the mod file's own `resourcepacks/wizard_changes` directory.
     private static void addPackFinders(AddPackFindersEvent event) {
         if (event.getPackType() != ResourceType.SERVER_DATA) {
             return;
@@ -106,14 +94,7 @@ public final class ForgeMod {
         });
     }
 
-    /// Forge clears the *vanilla* registry's own lock only from 47.4.0 onward, so on Forge 47.0-47.3 a
-    /// plain `Registry.register` throws `Can not register to a locked registry` even inside the correct
-    /// `RegisterEvent` window. Everything here therefore goes through the `RegisterHelper` the event hands
-    /// out, iterating the same content `common` exposes to Fabric. The loops duplicate `common`'s
-    /// `registerX()` on purpose — the workaround stays inside `forge/`.
-    ///
-    /// Every block is declared unconditionally: `event.register` is a no-op unless its key matches the
-    /// event's registry, and Forge posts one event per registry.
+    // Goes through the helper on purpose, on Forge 47.0-47.3 a plain Registry.register throws "Can not register to a locked registry".
     public static void register(RegisterEvent event) {
         event.register(RegistryKeys.SOUND_EVENT, helper ->
                 ElementalSounds.soundsToRegister().forEach(helper::register));
@@ -121,7 +102,6 @@ public final class ForgeMod {
         event.register(RegistryKeys.STATUS_EFFECT, helper -> {
             ElementalEffects.effectsToRegister(ElementalMod.effectsConfig.value).forEach(helper::register);
             Effects.linkEntries(ElementalEffects.entries);
-            // Trailing side effect of ElementalMod.registerEffects() - the config write-back.
             ElementalMod.effectsConfig.save();
         });
 
@@ -130,25 +110,16 @@ public final class ForgeMod {
 
         event.register(RegistryKeys.ITEM, helper -> {
             ElementalItems.itemsToRegister().forEach(helper::register);
-            // WeaponsRegister/Armors own the `isModLoaded` gating that appends entries before the Spell
-            // Engine helper runs; calling Weapon.itemsToRegister/Armor.itemsToRegister here directly would
-            // silently drop those entries.
             WeaponsRegister.itemsToRegister(ElementalMod.itemConfig.value.weapons).forEach(helper::register);
             Armors.itemsToRegister(ElementalMod.itemConfig.value.armor_sets).forEach(helper::register);
-            // Trailing side effect of ElementalMod.registerItems() - the config write-back.
             ElementalMod.itemConfig.save();
         });
 
-        // ENTITY_TYPE is event 8, ITEM is event 7. Building an EntityType needs an unfrozen registry
-        // (Forge-patched `EntityType.<init>` creates an intrusive holder), so the types are built here.
         event.register(RegistryKeys.ENTITY_TYPE, helper -> {
             ModEntitiesRegistry.entitiesToRegister().forEach(helper::register);
-            // Trailing side effect of ModEntitiesRegistry.registerEntities().
             ModEntitiesRegistry.registerSummonAttributes();
         });
 
-        // The item group gets its own block: `creative_mode_tab` is event 65, `item` is event 7, so a group
-        // registered from the ITEM pass would vanish with no error.
         event.register(RegistryKeys.ITEM_GROUP, helper -> {
             ElementalGroup.ELEMENTAL_WIZARD = ItemGroup.builder()
                     .icon(ElementalGroup::icon)
@@ -193,8 +164,6 @@ public final class ForgeMod {
         }
     }
 
-    /// Forge 47's `BuildCreativeModeTabContentsEvent` has no `remove(...)`/`getParentEntries()`
-    /// (those are NeoForge); the backing `MutableHashedLinkedMap` is the removal seam.
     private static void removeFromTab(BuildCreativeModeTabContentsEvent event, Item item) {
         var toRemove = new ArrayList<ItemStack>();
         for (var entry : event.getEntries()) {

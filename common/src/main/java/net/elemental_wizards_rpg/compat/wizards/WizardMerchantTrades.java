@@ -18,11 +18,6 @@ public final class WizardMerchantTrades {
     private WizardMerchantTrades() {
     }
 
-    /// 1.20.1's `TradeOffers.SellItemFactory` and `SellEnchantedToolFactory` are **package-private** and stay
-    /// so after Forge's access transformer; they only compile because some mod on `common`'s classpath
-    /// contributes an access widener the production runtime lacks, so calling them throws
-    /// `IllegalAccessError` at runtime. Both are rebuilt here on the public `TradeOffer` constructor,
-    /// reproducing vanilla's argument order and price multipliers exactly.
     private static TradeOffers.Factory sell(Supplier<Item> item, int price, int count,
                                             int maxUses, int experience, float multiplier) {
         return (entity, random) -> new TradeOffer(
@@ -31,13 +26,11 @@ public final class WizardMerchantTrades {
                 maxUses, experience, multiplier);
     }
 
-    /// Vanilla's default multiplier for `SellItemFactory` is `0.05F`.
     private static TradeOffers.Factory sell(Supplier<Item> item, int price, int count,
                                             int maxUses, int experience) {
         return sell(item, price, count, maxUses, experience, 0.05F);
     }
 
-    /// Reproduces `SellEnchantedToolFactory#create`: a 5-19 level enchant, price capped at 64 emeralds.
     private static TradeOffers.Factory sellEnchanted(Supplier<Item> item, int basePrice,
                                                      int maxUses, int experience, float multiplier) {
         return (entity, random) -> {

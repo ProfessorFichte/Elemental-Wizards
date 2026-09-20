@@ -83,8 +83,6 @@ public abstract class RecipeProvider implements DataProvider {
             fabricLoadConditions.add(fabricCondition);
             recipe.add("fabric:load_conditions", fabricLoadConditions);
 
-            // Forge 47 reads a plain top-level `conditions` array (`forge:conditions` is not a key it knows,
-            // and the recipe would then parse and fail on the unknown modded item).
             JsonArray forgeConditions = new JsonArray();
             if (data.requiredMods.length == 1) {
                 JsonObject forgeCondition = new JsonObject();

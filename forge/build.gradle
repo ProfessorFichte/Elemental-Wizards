@@ -24,8 +24,6 @@ def changelog_last_section() {
 
 loom {
     forge {
-        // Forge 47 reads mixin configs from the jar MANIFEST (`MixinConfigs: ...`), which Loom writes from
-        // this list (the NeoForge `[[mixins]]` table in mods.toml does not exist on Forge 47).
         mixinConfig "elemental_wizards_rpg.mixins.json"
     }
 }
@@ -71,7 +69,6 @@ repositories {
     }
     maven { url 'https://maven.fabricmc.net' }
 
-    // For Curios
     maven { url 'https://maven.theillusivec4.top/' }
 }
 
@@ -83,27 +80,18 @@ dependencies {
     modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${rootProject.cloth_config_version}")
 
-    // Ecosystem libraries: released ones from the Modrinth maven. Modrinth serves only the per-loader
-    // jars, so `common` keeps compiling against the `-fabric` flavour (this module's dummy platform).
     modImplementation("maven.modrinth:armor-model-api:${rootProject.armor_model_api_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:tiny-config:${rootProject.tiny_config_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-power:${rootProject.spell_power_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:spell-engine:${rootProject.spell_engine_version}-${platform}") { transitive = false }
-    // More RPG Library resolves once its 1.20.1 release is published (Fichte release tier 1).
     modImplementation("maven.modrinth:more-rpg-library:${rootProject.more_rpg_library_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}") { transitive = false }
     modImplementation("maven.modrinth:wizards:${rootProject.wizards_version}-${platform}") { transitive = false }
 
-    // Curios 5.x (1.20.1) - SpellEngine's Forge trinket-slot backend.
     modLocalRuntime("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}")
 
-    // Forge 47 ships plain Mixin 0.8.5; SpellEngine's mixins need MixinExtras. It is JiJ'd in SpellEngine's
-    // production jar, but Loom does not load nested jars of classpath mods, so the dev runtime needs a pin.
-    // `localRuntime` keeps it out of the published POM. Never 0.4.1 (see toolchain recipe).
     localRuntime("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}")
 
-    // Runes: dev runtime ONLY - the bundled `wizard_changes` resource pack names `runes:*` items.
-    // Use the *production* jar (Loom remaps it); the `dev-shadow` classifier still carries SRG references.
     modLocalRuntime("maven.modrinth:runes:${rootProject.runes_version}-${platform}") { transitive = false }
 }
 
@@ -111,7 +99,6 @@ processResources {
     inputs.property 'version', project.version
 
     filesMatching('META-INF/mods.toml') {
-        // Forge rejects the `+<mc>` build metadata in a Maven version range, so publish the bare mod version.
         expand version: inputs.properties.version.toString().split('\\+')[0]
     }
 }
@@ -142,8 +129,6 @@ publishMods {
             : me.modmuss50.mpp.ReleaseType.BETA
     version = "${project.version}-${platform}"
     displayName = "${project.version}-${platform}"
-    // NeoForge 1.20.1 is a fork of Forge 47.1 that kept the Forge packages and FML,
-    // so the same jar loads there; both loaders are tagged.
     modLoaders.add("forge")
     modLoaders.add("neoforge")
 

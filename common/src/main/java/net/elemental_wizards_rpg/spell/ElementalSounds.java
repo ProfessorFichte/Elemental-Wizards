@@ -76,12 +76,6 @@ public class ElementalSounds {
         }
     }
 
-    /// Creation only — every sound that still needs registering, keyed by the id it registers under. A
-    /// loader that registers sounds itself (Forge) iterates this instead of calling {@link #register}.
-    ///
-    /// There is deliberately no `linkEntries()` companion: nothing outside this class reads
-    /// {@link Entry#entry()}, so the `RegistryEntry` the Fabric path gets for free is not reproduced.
-    /// (Grep `.entry()` before adding one — Paladins needs it, Wizards does not, and neither does this mod.)
     public static Map<Identifier, SoundEvent> soundsToRegister() {
         var sounds = new LinkedHashMap<Identifier, SoundEvent>();
         for (var entry : entries) {

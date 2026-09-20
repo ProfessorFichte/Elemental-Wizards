@@ -27,13 +27,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.spell_engine.client.gui.ConfigMenuScreen;
 
-/// Client-only wiring for Forge 47; only touched from {@link com.elemental_wizards.forge.ForgeMod}
-/// behind a `Dist.CLIENT` check. Mod-bus listeners are registered explicitly (no
-/// `@EventBusSubscriber` scanning), so the class is never loaded on a dedicated server.
-///
-/// 1.20.1 port of the NeoForge client entrypoint: `IConfigScreenFactory` becomes
-/// `ConfigScreenHandler.ConfigScreenFactory`, and particle providers are registered with
-/// `RegisterParticleProvidersEvent#registerSpriteSet`.
 public final class ForgeClient {
     public static void register(IEventBus modBus) {
         modBus.addListener(EventPriority.NORMAL, false, FMLClientSetupEvent.class, ForgeClient::onClientSetup);

@@ -107,7 +107,6 @@ public class ElementalSummons {
         return summon;
     }
 
-/// 1.20.1 has no id accessor on `EntityAttribute`; resolve it through the registry instead.
 private static String attributeId(net.minecraft.entity.attribute.EntityAttribute attribute) {
     return net.minecraft.registry.Registries.ATTRIBUTE.getId(attribute).toString();
 }
