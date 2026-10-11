@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#rpg_series:weapon_type/damage_staff",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/damage_wand",
+      "required": false
+    },
+    {
+      "id": "#elemental_wizards_rpg:armor_type/wind",
+      "required": false
+    }
+  ]
+}

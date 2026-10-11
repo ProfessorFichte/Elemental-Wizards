@@ -1,0 +1,52 @@
+{
+  "values": [
+    {
+      "id": "elemental_wizards_rpg:elemental_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:elemental_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:wind_feet",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_head",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_chest",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_legs",
+      "required": false
+    },
+    {
+      "id": "elemental_wizards_rpg:netherite_wind_feet",
+      "required": false
+    }
+  ]
+}
