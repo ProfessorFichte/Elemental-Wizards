@@ -15,7 +15,7 @@
       },
       "particles": [
         {
-          "id": "more_rpg_classes:big_splash",
+          "id": "mrpg_lib:big_splash",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -28,7 +28,7 @@
           }
         },
         {
-          "id": "more_rpg_classes:water_circle",
+          "id": "mrpg_lib:water_circle",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -65,7 +65,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:water_heal",
+            "id": "mrpg_lib:water_heal",
             "appearance": {},
             "batch": {
               "count": 5.0,
@@ -76,7 +76,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:water_circle",
+            "id": "mrpg_lib:water_circle",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -104,7 +104,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:big_splash",
+            "id": "mrpg_lib:big_splash",
             "appearance": {},
             "batch": {
               "count": 10.0,
@@ -116,7 +116,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:water_circle",
+            "id": "mrpg_lib:water_circle",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -129,7 +129,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:water_splash",
+            "id": "mrpg_lib:water_splash",
             "appearance": {},
             "batch": {
               "count": 2.0,
@@ -142,7 +142,7 @@
         ]
       },
       "sound": {
-        "id": "more_rpg_classes:water_magic_impact1",
+        "id": "mrpg_lib:water_magic_impact1",
         "volume": 0.4
       }
     },
@@ -151,7 +151,7 @@
         {
           "conditions": [
             {
-              "entity_type": "#more_rpg_classes:resistant_to_water"
+              "entity_type": "#mrpg_lib:resistant_to_water"
             }
           ],
           "execute": "DENY"
@@ -160,7 +160,7 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "more_rpg_classes:soaked",
+          "effect_id": "mrpg_lib:soaked",
           "duration": 4.0
         }
       }
@@ -168,7 +168,7 @@
   ],
   "cost": {
     "item": {
-      "id": "more_rpg_classes:aqua_stone"
+      "id": "mrpg_lib:aqua_stone"
     }
   }
 }

@@ -8,7 +8,7 @@
       "item": "minecraft:gold_ingot"
     },
     "C": {
-      "tag": "more_rpg_classes:coral_plants"
+      "tag": "mrpg_lib:coral_plants"
     }
   },
   "pattern": [

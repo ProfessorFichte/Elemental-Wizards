@@ -8,15 +8,15 @@
     "cast": {
       "duration": 1.0,
       "animation": {
-        "id": "more_rpg_classes:two_handed_ground_channeling"
+        "id": "mrpg_lib:two_handed_ground_channeling"
       },
       "sound": {
-        "id": "more_rpg_classes:earth_magic_impact1",
+        "id": "mrpg_lib:earth_magic_impact1",
         "volume": 0.5
       },
       "particles": [
         {
-          "id": "more_rpg_classes:stone_particle",
+          "id": "mrpg_lib:stone_particle",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -32,7 +32,7 @@
   },
   "release": {
     "animation": {
-      "id": "more_rpg_classes:two_handed_ground_release"
+      "id": "mrpg_lib:two_handed_ground_release"
     },
     "sound": {
       "id": "minecraft:block.pointed_dripstone.fall",
@@ -75,7 +75,7 @@
         }
       },
       "sound": {
-        "id": "more_rpg_classes:earth_magic_impact1",
+        "id": "mrpg_lib:earth_magic_impact1",
         "volume": 0.5
       }
     },
@@ -93,7 +93,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:stone_particle",
+            "id": "mrpg_lib:stone_particle",
             "appearance": {},
             "batch": {
               "count": 5.0,
@@ -112,7 +112,7 @@
     "visuals": {
       "particles": [
         {
-          "id": "more_rpg_classes:stone_explosion",
+          "id": "mrpg_lib:stone_explosion",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -135,7 +135,7 @@
       "duration": 18.0
     },
     "item": {
-      "id": "more_rpg_classes:terra_stone"
+      "id": "mrpg_lib:terra_stone"
     }
   }
 }

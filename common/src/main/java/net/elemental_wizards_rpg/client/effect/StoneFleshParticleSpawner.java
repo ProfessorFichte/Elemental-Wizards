@@ -1,7 +1,7 @@
 package net.elemental_wizards_rpg.client.effect;
 
 import net.minecraft.entity.LivingEntity;
-import net.more_rpg_classes.client.particle.MoreParticles;
+import com.mrpg_lib.compat.spell_engine.particle.MoreSpellParticles;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.spell.fx.ParticleGroup;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
@@ -10,7 +10,7 @@ import net.spell_engine.fx.ParticleHelper;
 
 public class StoneFleshParticleSpawner implements CustomParticleStatusEffect.Spawner {
 
-    public static final ParticleGroup particles = ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+    public static final ParticleGroup particles = ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
             .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
                     .count(1F).chance(0.5F).speed(0.001F, 0.1F)
                     .verticalOrigin(Batches.FEET).extent(0.5F));

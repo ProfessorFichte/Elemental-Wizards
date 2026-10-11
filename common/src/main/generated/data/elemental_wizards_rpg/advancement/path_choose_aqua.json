@@ -1,5 +1,5 @@
 {
-  "parent": "more_rpg_content:root",
+  "parent": "mrpg_lib:root",
   "criteria": {
     "book": {
       "conditions": {

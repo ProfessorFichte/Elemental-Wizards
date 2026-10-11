@@ -1,11 +1,11 @@
 {
-  "parent": "more_rpg_content:root",
+  "parent": "mrpg_lib:root",
   "criteria": {
     "has_all_items": {
       "conditions": {
         "items": [
           {
-            "items": "more_rpg_classes:storm_stone"
+            "items": "mrpg_lib:aqua_stone"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.rpg_classes.air_rune.description"
+      "translate": "advancements.rpg_classes.water_rune.description"
     },
     "icon": {
       "count": 1,
-      "id": "more_rpg_classes:storm_stone"
+      "id": "mrpg_lib:aqua_stone"
     },
     "title": {
-      "translate": "advancements.rpg_classes.air_rune.title"
+      "translate": "advancements.rpg_classes.water_rune.title"
     }
   },
   "requirements": [

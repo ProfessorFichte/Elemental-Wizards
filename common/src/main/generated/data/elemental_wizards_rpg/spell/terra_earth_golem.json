@@ -8,15 +8,15 @@
     "cast": {
       "duration": 1.5,
       "animation": {
-        "id": "more_rpg_classes:two_handed_ground_channeling"
+        "id": "mrpg_lib:two_handed_ground_channeling"
       },
       "sound": {
-        "id": "more_rpg_classes:earth_magic_cast1",
+        "id": "mrpg_lib:earth_magic_cast1",
         "volume": 0.5
       },
       "particles": [
         {
-          "id": "more_rpg_classes:stone_particle",
+          "id": "mrpg_lib:stone_particle",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -32,7 +32,7 @@
   },
   "release": {
     "animation": {
-      "id": "more_rpg_classes:two_handed_ground_release"
+      "id": "mrpg_lib:two_handed_ground_release"
     }
   },
   "impacts": [
@@ -197,7 +197,7 @@
       "haste_affected": false
     },
     "item": {
-      "id": "more_rpg_classes:terra_stone"
+      "id": "mrpg_lib:terra_stone"
     }
   }
 }

@@ -16,7 +16,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:wind_vacuum",
+            "id": "mrpg_lib:wind_vacuum",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -41,7 +41,7 @@
         ]
       },
       "sound": {
-        "id": "more_rpg_classes:air_magic_impact1"
+        "id": "mrpg_lib:air_magic_impact1"
       }
     }
   ]

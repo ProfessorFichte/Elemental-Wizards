@@ -21,7 +21,7 @@ import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellParameters;
-import net.more_rpg_classes.util.CustomMethods;
+import com.mrpg_lib.util.AllyHelper;
 
 import java.util.List;
 import java.util.UUID;
@@ -192,7 +192,7 @@ public class HealingRainCloudEntity extends Entity implements SpellEntity.Spawne
         float lowestHealthPercent = 1.0F;
 
         for (PlayerEntity player : nearbyPlayers) {
-            if (player == owner || !CustomMethods.isEntityProtectedCheck(player, owner)) {
+            if (AllyHelper.canHelp(owner, player)) {
                 float healthPercent = player.getHealth() / player.getMaxHealth();
                 if (healthPercent < lowestHealthPercent) {
                     lowestHealthPercent = healthPercent;

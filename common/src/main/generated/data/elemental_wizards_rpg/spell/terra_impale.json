@@ -7,12 +7,12 @@
   "active": {},
   "release": {
     "animation": {
-      "id": "more_rpg_classes:two_handed_ground_release"
+      "id": "mrpg_lib:two_handed_ground_release"
     },
     "visuals": {
       "particles": [
         {
-          "id": "more_rpg_classes:stone_particle",
+          "id": "mrpg_lib:stone_particle",
           "appearance": {},
           "batch": {
             "count": 3.0,
@@ -26,7 +26,7 @@
       ]
     },
     "sound": {
-      "id": "more_rpg_classes:earth_magic_cast1",
+      "id": "mrpg_lib:earth_magic_cast1",
       "volume": 0.5
     }
   },
@@ -48,7 +48,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:stone_particle",
+            "id": "mrpg_lib:stone_particle",
             "appearance": {},
             "batch": {
               "count": 5.0,
@@ -90,7 +90,7 @@
         ]
       },
       "sound": {
-        "id": "more_rpg_classes:earth_magic_impact1"
+        "id": "mrpg_lib:earth_magic_impact1"
       }
     }
   ],
@@ -100,7 +100,7 @@
       "duration": 15.0
     },
     "item": {
-      "id": "more_rpg_classes:terra_stone"
+      "id": "mrpg_lib:terra_stone"
     }
   }
 }

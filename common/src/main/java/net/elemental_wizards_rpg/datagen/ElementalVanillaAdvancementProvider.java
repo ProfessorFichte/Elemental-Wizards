@@ -76,7 +76,7 @@ public class ElementalVanillaAdvancementProvider extends FabricAdvancementProvid
                 id("equipment/elemental_robe_set"),
                 "Elemental Apprentice",
                 "Obtain all Elemental Apprentice Armor Set Parts",
-                Identifier.of("more_rpg_content", "root"),
+                Identifier.of("mrpg_lib", "root"),
                 elemental.chest,
                 AdvancementFrame.GOAL,
                 true, true, false, null,
@@ -89,38 +89,38 @@ public class ElementalVanillaAdvancementProvider extends FabricAdvancementProvid
                 null
         ));
         addEntry(new Entry(
-                Identifier.of("more_rpg_content", "air_rune"),
+                Identifier.of("mrpg_lib", "air_rune"),
                 "Path of Wind",
                 "Obtain a Air Rune",
-                Identifier.of("more_rpg_content", "root"),
-                Registries.ITEM.get(Identifier.of("more_rpg_classes", "storm_stone")),
+                Identifier.of("mrpg_lib", "root"),
+                Registries.ITEM.get(Identifier.of("mrpg_lib", "storm_stone")),
                 AdvancementFrame.TASK,
                 true, true, false, null,
-                new Item[]{ Registries.ITEM.get(Identifier.of("more_rpg_classes", "storm_stone")) },
+                new Item[]{ Registries.ITEM.get(Identifier.of("mrpg_lib", "storm_stone")) },
                 null,
                 "rpg_classes"
         ));
         addEntry(new Entry(
-                Identifier.of("more_rpg_content", "earth_rune"),
+                Identifier.of("mrpg_lib", "earth_rune"),
                 "Path of Earth",
                 "Obtain a Earth Rune",
-                Identifier.of("more_rpg_content", "root"),
-                Registries.ITEM.get(Identifier.of("more_rpg_classes", "terra_stone")),
+                Identifier.of("mrpg_lib", "root"),
+                Registries.ITEM.get(Identifier.of("mrpg_lib", "terra_stone")),
                 AdvancementFrame.TASK,
                 true, true, false, null,
-                new Item[]{ Registries.ITEM.get(Identifier.of("more_rpg_classes", "terra_stone")) },
+                new Item[]{ Registries.ITEM.get(Identifier.of("mrpg_lib", "terra_stone")) },
                 null,
                 "rpg_classes"
         ));
         addEntry(new Entry(
-                Identifier.of("more_rpg_content", "water_rune"),
+                Identifier.of("mrpg_lib", "water_rune"),
                 "Path of Water",
                 "Obtain a Water Rune",
-                Identifier.of("more_rpg_content", "root"),
-                Registries.ITEM.get(Identifier.of("more_rpg_classes", "aqua_stone")),
+                Identifier.of("mrpg_lib", "root"),
+                Registries.ITEM.get(Identifier.of("mrpg_lib", "aqua_stone")),
                 AdvancementFrame.TASK,
                 true, true, false, null,
-                new Item[]{ Registries.ITEM.get(Identifier.of("more_rpg_classes", "aqua_stone")) },
+                new Item[]{ Registries.ITEM.get(Identifier.of("mrpg_lib", "aqua_stone")) },
                 null,
                 "rpg_classes"
         ));

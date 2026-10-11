@@ -20,7 +20,7 @@ import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.fx.ParticleHelper;
 import net.spell_engine.internals.SpellExecution;
 import net.spell_engine.internals.impact.SpellImpacts;
-import net.more_rpg_classes.util.CustomMethods;
+import com.mrpg_lib.util.AllyHelper;
 import net.spell_power.api.SpellPower;
 
 import java.util.HashMap;
@@ -173,7 +173,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
 
         for (LivingEntity entity : nearbyEntities) {
             if (entity == owner) continue;
-            if (CustomMethods.isEntityProtectedCheck(entity, owner)) continue;
+            if (!AllyHelper.canHurt(owner, entity)) continue;
 
             double deltaX = entity.getX() - this.getX();
             double deltaZ = entity.getZ() - this.getZ();
@@ -222,6 +222,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
         );
 
         for (LivingEntity target : targets) {
+            if (!AllyHelper.canHurt(owner, target)) continue;
             UUID targetId = target.getUuid();
             Integer lastTick = lastDamageTick.get(targetId);
             if (lastTick == null || currentTick - lastTick >= DAMAGE_INTERVAL) {
@@ -306,7 +307,7 @@ public class TerraStoneEntity extends Entity implements SpellEntity.Spawned {
             return false;
         }
         if (other instanceof LivingEntity) {
-            return !CustomMethods.isEntityProtectedCheck(other, owner);
+            return AllyHelper.canHurt(owner, other);
         }
         return super.collidesWith(other);
     }

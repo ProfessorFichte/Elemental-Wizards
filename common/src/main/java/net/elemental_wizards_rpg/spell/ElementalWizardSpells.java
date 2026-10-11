@@ -8,15 +8,15 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.custom.MoreSpellSchools;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
 import net.spell_engine.api.effect.SpellEngineEffects;
-import net.more_rpg_classes.sounds.MRPGLibSounds;
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.fx.ModelEffect;
 import net.spell_engine.api.spell.fx.ModelEffectBuilder;
-import net.more_rpg_classes.client.particle.MoreParticles;
+import com.mrpg_lib.compat.spell_engine.particle.MoreSpellParticles;
 import net.spell_engine.api.spell.fx.Fx;
 import net.spell_engine.api.spell.fx.ParticleGroup;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
@@ -152,30 +152,30 @@ public class ElementalWizardSpells {
     }
     private static List<ParticleGroup> aquaCastingParticles(Spell spell) {
         return List.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE)
                                 .count(1).speed(0.01F, 0.05F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(0.5F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.002F, 0.003F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
     }
     private static List<ParticleGroup> terraCastingParticles(Spell spell) {
         return List.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE)
                                 .count(1).speed(0.01F, 0.02F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
     }
     private static List<ParticleGroup> windCastingParticles(Spell spell) {
         return List.of(
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(1).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -286,10 +286,10 @@ public class ElementalWizardSpells {
 
         var heal = createHeal(0.5F);
         heal.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_HEAL)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_HEAL)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5).speed(0.05F, 0.1F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -297,29 +297,29 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.6F, 0);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(10).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(2).speed(0.2F, 0.5F)));
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = Sound.withVolume(Identifier.of("mrpg_lib:water_magic_impact1"), 0.4F);
 
-        var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 4);
+        var soaked = createEffectImpact(Identifier.of("mrpg_lib:soaked"), 4);
         soaked.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         soaked.action.status_effect.show_particles = false;
-        var soakedModifier = createImpactModifier("#more_rpg_classes:resistant_to_water");
+        var soakedModifier = createImpactModifier("#mrpg_lib:resistant_to_water");
         soakedModifier.execute = TriState.DENY;
         soaked.target_modifiers = List.of(soakedModifier);
 
         spell.impacts = List.of(heal, damage, soaked);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description);
     }
@@ -349,7 +349,7 @@ public class ElementalWizardSpells {
         spell.release = new Spell.Release();
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
         spell.release.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(10).speed(0.05F, 0.1F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -357,30 +357,30 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.75F, 0.5F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(20).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_WHIP)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_WHIP)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1).speed(0.1F, 0.1F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
         damage.sound = new Sound(ElementalSounds.WATER_WHIP_IMPACT.id().toString());
 
-        var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 6);
+        var soaked = createEffectImpact(Identifier.of("mrpg_lib:soaked"), 6);
         soaked.action.status_effect.amplifier = 0;
         soaked.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         soaked.action.status_effect.show_particles = false;
-        var soakedModifier = createImpactModifier("#more_rpg_classes:resistant_to_water");
+        var soakedModifier = createImpactModifier("#mrpg_lib:resistant_to_water");
         soakedModifier.execute = TriState.DENY;
         soaked.target_modifiers = List.of(soakedModifier);
 
         spell.impacts = List.of(damage, soaked);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description).weaponGroup(WeaponGroup.AQUA_STAFF).weaponGroup(WeaponGroup.ELEMENTAL_STAFF);
     }
@@ -402,7 +402,7 @@ public class ElementalWizardSpells {
         spell.active.cast.sound = Sound.withVolume(Identifier.of("block.bubble_column.upwards_ambient"), 2.5F);
         spell.active.cast.start_sound = new Sound("block.bubble_column.whirlpool_ambient");
         spell.active.cast.particles = List.of(
-                ParticleGroupBuilder.of(MoreParticles.BUBBLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.BUBBLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CONE)
                                 .count(3).speed(0.2F, 1.0F).angle(65)
                                 .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
@@ -418,10 +418,10 @@ public class ElementalWizardSpells {
 
         var heal = createHeal(0.3F);
         heal.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_HEAL)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_HEAL)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(10).speed(0.05F, 0.1F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -429,10 +429,10 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.85F, 0);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BUBBLE_POP)
+                ParticleGroupBuilder.of(MoreSpellParticles.BUBBLE_POP)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(10).speed(0.05F, 0.2F)),
-                ParticleGroupBuilder.of(MoreParticles.BUBBLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.BUBBLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5).speed(0.001F, 0.1F)));
         damage.sound = new Sound("block.bubble_column.bubble_pop");
@@ -450,7 +450,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.cooldown(spell, 15);
         spell.cost.cooldown.haste_affected = true;
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.AQUA);
     }
@@ -487,7 +487,7 @@ public class ElementalWizardSpells {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.travel_particles = List.of(
-                ParticleGroupBuilder.of(MoreParticles.BUBBLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.BUBBLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.6F, 0.9F)
                                 .alignment(ParticleGroup.Alignment.LOOK)));
@@ -499,10 +499,10 @@ public class ElementalWizardSpells {
 
         var heal = createHeal(0.1F);
         heal.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_HEAL)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_HEAL)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(10).speed(0.05F, 0.1F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -510,7 +510,7 @@ public class ElementalWizardSpells {
 
         spell.impacts = List.of(damage, heal);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
         SpellBuilder.Cost.exhaust(spell, 0.2F);
         SpellBuilder.Cost.cooldown(spell, 10);
 
@@ -530,7 +530,7 @@ public class ElementalWizardSpells {
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.5F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
+        spell.active.cast.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_channeling");
         spell.active.cast.sound = new Sound("block.bubble_column.whirlpool_ambient");
         spell.active.cast.particles = aquaCastingParticles(spell);
 
@@ -540,15 +540,15 @@ public class ElementalWizardSpells {
         spell.target.area.angle_degrees = 360.0F;
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
         spell.release.sound = new Sound("");
 
         var heal = createHeal(0.2F);
         heal.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_HEAL)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_HEAL)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.05F, 0.1F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -556,24 +556,24 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.7F, 0.5F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(25F).speed(0.3F, 0.7F).extent(0.75F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(5F).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
         damage.sound = Sound.withVolume(MRPGLibSounds.WATER_MAGIC_IMPACT_1.id(),1.2F);
 
-        var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 6);
+        var soaked = createEffectImpact(Identifier.of("mrpg_lib:soaked"), 6);
         soaked.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         soaked.action.status_effect.show_particles = false;
-        var soakedModifier = createImpactModifier("#more_rpg_classes:resistant_to_water");
+        var soakedModifier = createImpactModifier("#mrpg_lib:resistant_to_water");
         soakedModifier.execute = TriState.DENY;
         soaked.target_modifiers = List.of(soakedModifier);
 
@@ -587,7 +587,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.4F);
         SpellBuilder.Cost.cooldown(spell, 20);
         spell.cost.cooldown.haste_affected = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.AQUA);
     }
@@ -609,12 +609,12 @@ public class ElementalWizardSpells {
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
         spell.active.cast.sound = Sound.withVolume(Identifier.of("entity.boat.paddle_water"), 3.0F);
         spell.active.cast.particles = List.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.CONE)
                                 .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
                                 .alignment(ParticleGroup.Alignment.LOOK)
                                 .count(4F).speed(10.0F, 15.0F).angle(20F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_MIST)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_MIST)
                         .batch(b -> b.shape(ParticleGroup.Shape.CONE)
                                 .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
                                 .alignment(ParticleGroup.Alignment.LOOK)
@@ -626,7 +626,7 @@ public class ElementalWizardSpells {
         spell.target.beam.width = 0.08F;
         spell.target.beam.flow = 2.0F;
         spell.target.beam.block_hit = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_MIST)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_MIST)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .alignment(ParticleGroup.Alignment.LOOK)
                                 .count(1.5F).speed(0.1F, 0.2F)));
@@ -636,21 +636,21 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.8F, 1.5F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(20F).speed(0.1F, 0.4F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_MIST)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_MIST)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(2F).speed(0.01F, 0.03F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = Sound.withVolume(Identifier.of("mrpg_lib:water_magic_impact1"), 0.4F);
 
-        var soaked = createEffectImpact(Identifier.of("more_rpg_classes:soaked"), 10);
+        var soaked = createEffectImpact(Identifier.of("mrpg_lib:soaked"), 10);
         soaked.action.status_effect.amplifier = 0;
         soaked.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         soaked.action.status_effect.show_particles = false;
-        var soakedModifier = createImpactModifier("#more_rpg_classes:resistant_to_water");
+        var soakedModifier = createImpactModifier("#mrpg_lib:resistant_to_water");
         soakedModifier.execute = TriState.DENY;
         soaked.target_modifiers = List.of(soakedModifier);
 
@@ -660,7 +660,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.cooldown(spell, 22);
         spell.cost.cooldown.haste_affected = true;
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.AQUA);
     }
@@ -712,7 +712,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 40);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.AQUA);
     }
@@ -756,7 +756,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 32);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:aqua_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:aqua_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.AQUA);
     }
@@ -774,8 +774,8 @@ public class ElementalWizardSpells {
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.0F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
-        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_cast1"), 0.5F);
+        spell.active.cast.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_channeling");
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_cast1"), 0.5F);
         spell.active.cast.particles = terraCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -788,7 +788,7 @@ public class ElementalWizardSpells {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.travel_particles = List.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .alignment(ParticleGroup.Alignment.LOOK)
                                 .count(1F).speed(0.1F, 0.2F)));
@@ -804,7 +804,7 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of("campfire_cosy_smoke")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(3F).speed(0.005F, 0.008F)),
-                ParticleGroupBuilder.of(MoreParticles.STONE_EXPLOSION)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_EXPLOSION)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1F).speed(0.6F, 1.0F)));
 
@@ -816,9 +816,9 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of("campfire_cosy_smoke")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1F).speed(0.6F, 1.0F)));
-        spell.area_impact.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
+        spell.area_impact.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_impact1"), 0.5F);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:terra_stone", 1);
 
         return new Entry(id, spell, title, description);
     }
@@ -836,8 +836,8 @@ public class ElementalWizardSpells {
         spell.learn = new Spell.Learn();
 
         spell.active.cast.duration = 1.2F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
-        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_cast1"), 0.5F);
+        spell.active.cast.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_channeling");
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_cast1"), 0.5F);
         spell.active.cast.particles = terraCastingParticles(spell);
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -860,7 +860,7 @@ public class ElementalWizardSpells {
         spell.deliver.projectile.projectile = projectile;
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
         spell.release.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.fall"), 1.5F);
 
         var damage = damageImpact(0.65F, 0);
@@ -873,7 +873,7 @@ public class ElementalWizardSpells {
         bleeding.action.status_effect.amplifier_cap = 2;
         bleeding.action.status_effect.show_particles = false;
         bleeding.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.02F, 0.07F)));
 
@@ -882,12 +882,12 @@ public class ElementalWizardSpells {
         spell.area_impact = new Spell.AreaImpact();
         spell.area_impact.radius = 2.5F;
         spell.area_impact.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_EXPLOSION)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_EXPLOSION)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1F).speed(0.6F, 1.0F)));
         spell.area_impact.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.break"), 1.5F);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:terra_stone", 1);
 
         return new Entry(id, spell, title, description).weaponGroup(WeaponGroup.TERRA_STAFF).weaponGroup(WeaponGroup.ELEMENTAL_STAFF);
     }
@@ -919,9 +919,9 @@ public class ElementalWizardSpells {
         spell.target.area.include_caster = true;
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
         spell.release.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(3F).speed(0.01F, 0.05F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -937,7 +937,7 @@ public class ElementalWizardSpells {
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 22);
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:terra_stone", 1);
         spell.cost.cooldown.haste_affected = false;
 
         return new Entry(id, spell, title, description).book(Book.TERRA);
@@ -960,17 +960,17 @@ public class ElementalWizardSpells {
         spell.target.aim.required = true;
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
         spell.release.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString()), 0.5F);
         spell.release.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(3F).speed(0.01F, 0.05F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
 
         var damage = SpellBuilder.Impacts.damage(0.7F,0);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.02F, 0.07F)));
 
@@ -990,7 +990,7 @@ public class ElementalWizardSpells {
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 15);
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:terra_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.TERRA);
     }
@@ -1009,13 +1009,13 @@ public class ElementalWizardSpells {
         spell.learn = new Spell.Learn();
 
         SpellBuilder.Casting.cast(spell,0.7F);
-        SpellBuilder.Casting.visuals(spell,"more_rpg_classes:two_handed_ground_channeling",
+        SpellBuilder.Casting.visuals(spell,"mrpg_lib:two_handed_ground_channeling",
                 spell.active.cast.particles = terraCastingParticles(spell),
                 new Sound(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString()));
         SpellBuilder.Release.visuals(spell,
-                "more_rpg_classes:two_handed_ground_release",
+                "mrpg_lib:two_handed_ground_release",
                 List.of(
-                        ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                        ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                                 .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
                                         .count(3F).speed(0.01F, 0.05F)
                                         .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
@@ -1023,7 +1023,7 @@ public class ElementalWizardSpells {
                                 .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                         .count(3F).speed(0.001F, 0.001F)
                                         .verticalOrigin(ParticleGroupBuilder.Batches.FEET))),
-                new Sound("more_rpg_classes:earth_magic_impact1"));
+                new Sound("mrpg_lib:earth_magic_impact1"));
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -1147,7 +1147,7 @@ public class ElementalWizardSpells {
         spell.impacts = List.of(spawn);
 
         SpellBuilder.Cost.cooldown(spell, 22);
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:terra_stone", 1);
         SpellBuilder.Cost.exhaust(spell, 0.4F);
 
         return new Entry(id, spell, name, description).book(Book.TERRA);
@@ -1165,12 +1165,12 @@ public class ElementalWizardSpells {
         spell.group = GEOMANCING;
 
         spell.active.cast.duration = 1.0F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
-        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
+        spell.active.cast.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_channeling");
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_impact1"), 0.5F);
         spell.active.cast.particles = terraCastingParticles(spell);
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
         spell.release.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.fall"), 1.5F);
 
         spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
@@ -1190,14 +1190,14 @@ public class ElementalWizardSpells {
         spell.deliver.projectile.projectile = projectile;
 
         var damage = SpellBuilder.Impacts.damage(0.7F, 0);
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"), 0.5F);
+        damage.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_impact1"), 0.5F);
 
         var bleeding = SpellBuilder.Impacts.effectSet(SpellEngineEffects.BLEED.id.toString(), 5,1);
         bleeding.action.status_effect.amplifier_power_multiplier = 0.2F;
         bleeding.action.status_effect.amplifier_cap = 2;
         bleeding.action.status_effect.show_particles = false;
         bleeding.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.02F, 0.07F)));
 
@@ -1208,7 +1208,7 @@ public class ElementalWizardSpells {
         spell.area_impact.area = new Spell.Target.Area();
         spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
         spell.area_impact.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.STONE_EXPLOSION)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_EXPLOSION)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1F).speed(0.6F, 1.0F)));
         spell.area_impact.sound = Sound.withVolume(Identifier.of("block.pointed_dripstone.break"), 1.5F);
@@ -1216,7 +1216,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.4F);
         SpellBuilder.Cost.cooldown(spell, 18);
         spell.cost.cooldown.haste_affected = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:terra_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:terra_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.TERRA);
     }
@@ -1234,21 +1234,21 @@ public class ElementalWizardSpells {
         var charge = SpellBuilder.Casting.charge(spell, 2.0F);
         charge.min_release_ratio = 0.25F;
         charge.bonus.range_add = 16.0F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
+        spell.active.cast.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_channeling");
         spell.active.cast.particles = List.of(
                 ParticleGroupBuilder.of("campfire_cosy_smoke")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(10F).speed(0.001F, 0.1F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(3F).speed(0.01F, 0.05F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(1.0F)));
-        spell.active.cast.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact2"),0.5F);
+        spell.active.cast.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_impact2"),0.5F);
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
 
         int delay = 0;
         int toLiveSeconds = 5;
@@ -1268,7 +1268,7 @@ public class ElementalWizardSpells {
 
         SpellBuilder.Cost.cooldown(spell, 35);
         SpellBuilder.Cost.exhaust(spell, 0.5F);
-        SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
+        SpellBuilder.Cost.item(spell,"mrpg_lib:terra_stone",1);
 
         return new Entry(id, spell, title, description).book(Book.TERRA);
     }
@@ -1318,12 +1318,12 @@ public class ElementalWizardSpells {
         var description = "Summons an Earth Golem that smashes the ground around it, hurls stones at range, and calls damaging spikes that deal {golem_spike_damage} damage and knock up on contact.";
 
         spell.active.cast.duration = 1.5F;
-        spell.active.cast.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_channeling");
+        spell.active.cast.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_channeling");
         spell.active.cast.particles = terraCastingParticles(spell);
         spell.active.cast.sound = Sound.withVolume(Identifier.of(MRPGLibSounds.EARTH_MAGIC_CAST_1.id().toString()),0.5F);
 
         spell.release = new Spell.Release();
-        spell.release.animation = PlayerAnimation.of("more_rpg_classes:two_handed_ground_release");
+        spell.release.animation = PlayerAnimation.of("mrpg_lib:two_handed_ground_release");
 
         var summonImpact = new Spell.Impact();
         summonImpact.action = new Spell.Impact.Action();
@@ -1336,7 +1336,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.cooldown(spell, 35);
         spell.cost.cooldown.haste_affected = false;
         SpellBuilder.Cost.exhaust(spell, 0.5F);
-        SpellBuilder.Cost.item(spell,"more_rpg_classes:terra_stone",1);
+        SpellBuilder.Cost.item(spell,"mrpg_lib:terra_stone",1);
 
         return new Entry(id, spell, title, description).book(Book.TERRA);
     }
@@ -1370,11 +1370,11 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of("gust")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(1F).speed(0.5F, 0.8F)));
-        damage.sound = new Sound("more_rpg_classes:air_magic_impact3");
+        damage.sound = new Sound("mrpg_lib:air_magic_impact3");
 
         spell.impacts = List.of(damage);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description);
     }
@@ -1405,21 +1405,21 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.75F, 1.25F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(25F).speed(0.05F, 0.2F)),
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(15F).speed(0.05F, 0.2F)),
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE)
                                 .count(5F).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
-        damage.sound = new Sound("more_rpg_classes:air_magic_impact3");
+        damage.sound = new Sound("mrpg_lib:air_magic_impact3");
 
         spell.impacts = List.of(damage);
 
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).weaponGroup(WeaponGroup.WIND_STAFF).weaponGroup(WeaponGroup.ELEMENTAL_STAFF);
     }
@@ -1450,7 +1450,7 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.8F, 0);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WIND_VACUUM)
+                ParticleGroupBuilder.of(MoreSpellParticles.WIND_VACUUM)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
                                 .alignment(ParticleGroup.Alignment.LOOK)
@@ -1458,7 +1458,7 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of("gust")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).speed(0.5F, 0.8F)));
-        damage.sound = new Sound("more_rpg_classes:air_magic_impact2");
+        damage.sound = new Sound("mrpg_lib:air_magic_impact2");
 
         var knockUp = new Spell.Impact();
         knockUp.action = new Spell.Impact.Action();
@@ -1478,7 +1478,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 8);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
@@ -1521,7 +1521,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 12);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
@@ -1575,7 +1575,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 20);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
@@ -1646,7 +1646,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 20);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
@@ -1705,13 +1705,13 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.2F, 0);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WATER_MIST)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_MIST)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .alignment(ParticleGroup.Alignment.LOOK)
                                 .count(1F).chance(0.2F)
                                 .speed(0.1F, 0.1F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .alignment(ParticleGroup.Alignment.LOOK)
                                 .count(1.5F).speed(0.5F, 1.0F)
@@ -1732,7 +1732,7 @@ public class ElementalWizardSpells {
 
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 30);
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
@@ -1766,7 +1766,7 @@ public class ElementalWizardSpells {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.travel_particles = List.of(
-                ParticleGroupBuilder.of(MoreParticles.WIND_VACUUM)
+                ParticleGroupBuilder.of(MoreSpellParticles.WIND_VACUUM)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(3.0F).speed(0.1F, 0.1F)),
                 ParticleGroupBuilder.of("minecraft:small_gust")
@@ -1776,7 +1776,7 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(1.1F, 1.0F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WIND_VACUUM)
+                ParticleGroupBuilder.of(MoreSpellParticles.WIND_VACUUM)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
                                 .alignment(ParticleGroup.Alignment.LOOK)
@@ -1792,7 +1792,7 @@ public class ElementalWizardSpells {
         SpellBuilder.Cost.exhaust(spell, 0.3F);
         SpellBuilder.Cost.cooldown(spell, 36);
         spell.cost.cooldown.proportional = true;
-        SpellBuilder.Cost.item(spell, "more_rpg_classes:storm_stone", 1);
+        SpellBuilder.Cost.item(spell, "mrpg_lib:storm_stone", 1);
 
         return new Entry(id, spell, title, description).book(Book.WIND);
     }
@@ -1814,7 +1814,7 @@ public class ElementalWizardSpells {
                                 ParticleGroup.Motion.FLOAT, Color.from(0x7affff))
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.05F, 0.1F)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F)
                                 .speed(0.2F, 1.0F)
@@ -1823,21 +1823,21 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.7F, 0.2F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(25F).speed(0.3F, 0.7F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(0.75F)),
-                ParticleGroupBuilder.of(MoreParticles.SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(5.0F).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)),
-                ParticleGroupBuilder.of(MoreParticles.WATER_CIRCLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.WATER_CIRCLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).chance(0.1F)
                                 .speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = Sound.withVolume(Identifier.of("mrpg_lib:water_magic_impact1"), 0.4F);
 
         spell.impacts = List.of(heal, damage);
 
@@ -1857,12 +1857,12 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(1.0F, 1.0F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.BIG_SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.BIG_SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(25F).speed(0.3F, 0.7F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(0.75F)),
-                ParticleGroupBuilder.of(MoreParticles.SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(5.0F).speed(0.05F, 0.2F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -2008,7 +2008,7 @@ public class ElementalWizardSpells {
         custom.action.custom = new Spell.Impact.Action.Custom();
         custom.action.type = Spell.Impact.Action.Type.CUSTOM;
         custom.action.custom.intent = SpellTarget.Intent.HARMFUL;
-        custom.action.custom.handler = "more_rpg_classes:trembling";
+        custom.action.custom.handler = "mrpg_lib:trembling";
 
         spell.impacts = List.of(damage, custom);
 
@@ -2028,7 +2028,7 @@ public class ElementalWizardSpells {
 
         var damage = damageImpact(0.7F, 1.2F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.WIND_VACUUM)
+                ParticleGroupBuilder.of(MoreSpellParticles.WIND_VACUUM)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
                                 .alignment(ParticleGroup.Alignment.LOOK)
@@ -2052,7 +2052,7 @@ public class ElementalWizardSpells {
         spell.school = MoreSpellSchools.AIR;
 
         var damage = damageImpact(0.4F, 0.1F);
-        damage.sound = new Sound("more_rpg_classes:air_magic_impact2");
+        damage.sound = new Sound("mrpg_lib:air_magic_impact2");
 
         var debuff = createEffectImpact(Identifier.of("minecraft:levitation"), 2);
         bossImmuneDeny(debuff);
@@ -2060,17 +2060,17 @@ public class ElementalWizardSpells {
         debuff.action.status_effect.show_particles = false;
         debuff.action.status_effect.amplifier_power_multiplier = 0.3F;
         debuff.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
                                 .count(25F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(1F)),
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
                                 .count(25F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
                                 .extent(3F)),
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
                                 .count(25F).speed(0.2F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
@@ -2082,7 +2082,7 @@ public class ElementalWizardSpells {
         spell.area_impact.radius = 5.0F;
         spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
         spell.area_impact.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.SMALL_GUST)
+                ParticleGroupBuilder.of(MoreSpellParticles.SMALL_GUST)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
                                 .count(50F).speed(0.5F, 1.0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -2127,10 +2127,10 @@ public class ElementalWizardSpells {
                 ParticleGroupBuilder.of("campfire_cosy_smoke")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.1F, 0.2F)),
-                ParticleGroupBuilder.of(MoreParticles.STONE_PARTICLE)
+                ParticleGroupBuilder.of(MoreSpellParticles.STONE_PARTICLE)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(5F).speed(0.1F, 0.2F)));
-        spell.area_impact.sound = Sound.withVolume(Identifier.of("more_rpg_classes:earth_magic_impact1"),0.7F);
+        spell.area_impact.sound = Sound.withVolume(Identifier.of("mrpg_lib:earth_magic_impact1"),0.7F);
         configureCooldown(spell, 20);
         return new Entry(id, spell, title, description);
     }
@@ -2153,7 +2153,7 @@ public class ElementalWizardSpells {
         cloud.time_to_live_seconds = 5;
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.particles = List.of(
-                ParticleGroupBuilder.of(MoreParticles.SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(20F).speed(0F, 0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));
@@ -2169,9 +2169,9 @@ public class ElementalWizardSpells {
 
 
         var damage = damageImpact(0.15F, 1.5F);
-        damage.sound = new Sound("more_rpg_classes:water_magic_impact1");
+        damage.sound = new Sound("mrpg_lib:water_magic_impact1");
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of(MoreParticles.SPLASH)
+                ParticleGroupBuilder.of(MoreSpellParticles.SPLASH)
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(20F).speed(0F, 0F)
                                 .verticalOrigin(ParticleGroupBuilder.Batches.FEET)));

@@ -3,7 +3,7 @@ package net.elemental_wizards_rpg.compat.wizards;
 import net.elemental_wizards_rpg.item.armor.Armors;
 import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.minecraft.village.TradeOffers;
-import net.more_rpg_classes.item.MRPGCItems;
+import com.mrpg_lib.item.MRPGCItems;
 
 import java.util.LinkedHashMap;
 import java.util.List;

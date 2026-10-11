@@ -1,3 +1,9 @@
+# 3.2.0 - 1.21.1
+- Adopt Spell Engine 1.10.9 & More RPG Library 2.8.0
+- **BREAKING for modpack/datapack developers:** More RPG Library's namespace was renamed `more_rpg_classes` -> `mrpg_lib` (and its advancement root moved to `mrpg_lib:root`). If you have any data files, loot tables, tags or advancements that reference the old `more_rpg_classes:`/`more_rpg_content:` ids from this mod or MRPGL, update them to `mrpg_lib:`
+- Updated internal advancement parents, mod dependency declarations (fabric.mod.json, neoforge.mods.toml)
+- Earth-, Water- & Wind-Wizard equipment is now affiliated loot: it drops more often for players carrying the matching spell book
+
 # 3.1.1 - 1.21.1
 - Drop Forgified Fabric API (FFAPI) as a required dependency
 - Replace AzurelibArmor with Armor Model API

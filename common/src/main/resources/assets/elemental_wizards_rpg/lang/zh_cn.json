@@ -127,18 +127,18 @@
 
     "advancements.rpg_classes.water_rune.title": "水之道路",
     "advancements.rpg_classes.water_rune.description": "获得水系符文",
-    "advancements.more_rpg_content.water_spells.title": "治愈之水",
-    "advancements.more_rpg_content.water_spells.description": "掌握全部水系法术",
+    "advancements.mrpg_lib.water_spells.title": "治愈之水",
+    "advancements.mrpg_lib.water_spells.description": "掌握全部水系法术",
   
     "advancements.rpg_classes.earth_rune.title": "大地之道",
     "advancements.rpg_classes.earth_rune.description": "获得土系符文",
-    "advancements.more_rpg_content.earth_spells.title": "崩岩之力",
-    "advancements.more_rpg_content.earth_spells.description": "掌握全部土系法术",
+    "advancements.mrpg_lib.earth_spells.title": "崩岩之力",
+    "advancements.mrpg_lib.earth_spells.description": "掌握全部土系法术",
   
     "advancements.rpg_classes.air_rune.title": "风之轨迹",
     "advancements.rpg_classes.air_rune.description": "获得风系符文",
-    "advancements.more_rpg_content.air_spells.title": "风暴之眼",
-    "advancements.more_rpg_content.air_spells.description": "掌握全部风系法术",
+    "advancements.mrpg_lib.air_spells.title": "风暴之眼",
+    "advancements.mrpg_lib.air_spells.description": "掌握全部风系法术",
 
     "item.elemental_wizards_rpg.aqua.treasure_spell_scroll": "水系秘法卷轴",
     "item.elemental_wizards_rpg.terra.treasure_spell_scroll": "土系秘法卷轴",

@@ -5,7 +5,7 @@ import net.elemental_wizards_rpg.item.weapons.WeaponsRegister;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.datagen.SmithingRecipeGenerator;
+import com.mrpg_lib.datagen.SmithingRecipeGenerator;
 
 import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 import static net.elemental_wizards_rpg.compat.CompatLoadingCheck.armoryLoadCheck;
@@ -89,7 +89,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "smithing_wind",
                     Armors.windArmor.armorSet(),
                     Identifier.of("armory_rpgs", "epic_armor_upgrade"),
-                    Identifier.of("more_rpg_classes", "warden_upgrade_crystal"),
+                    Identifier.of("mrpg_lib", "warden_upgrade_crystal"),
                     Armors.hurricaneArmorSet.armorSet(),
                     "armory_rpgs"
             );
@@ -98,7 +98,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "smithing_netherite_wind",
                     Armors.netheriteWindArmor.armorSet(),
                     Identifier.of("armory_rpgs", "epic_armor_upgrade"),
-                    Identifier.of("more_rpg_classes", "warden_upgrade_crystal"),
+                    Identifier.of("mrpg_lib", "warden_upgrade_crystal"),
                     Armors.hurricaneArmorSet.armorSet(),
                     "armory_rpgs"
             );
@@ -107,7 +107,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "smithing_dripstone",
                     Armors.dripstoneArmor.armorSet(),
                     Identifier.of("armory_rpgs", "epic_armor_upgrade"),
-                    Identifier.of("more_rpg_classes", "warden_upgrade_crystal"),
+                    Identifier.of("mrpg_lib", "warden_upgrade_crystal"),
                     Armors.mountainArmorSet.armorSet(),
                     "armory_rpgs"
             );
@@ -116,7 +116,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "smithing_netherite_dripstone",
                     Armors.netheriteDripstoneArmor.armorSet(),
                     Identifier.of("armory_rpgs", "epic_armor_upgrade"),
-                    Identifier.of("more_rpg_classes", "warden_upgrade_crystal"),
+                    Identifier.of("mrpg_lib", "warden_upgrade_crystal"),
                     Armors.mountainArmorSet.armorSet(),
                     "armory_rpgs"
             );
@@ -125,7 +125,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "smithing_kelp",
                     Armors.kelpArmor.armorSet(),
                     Identifier.of("armory_rpgs", "epic_armor_upgrade"),
-                    Identifier.of("more_rpg_classes", "warden_upgrade_crystal"),
+                    Identifier.of("mrpg_lib", "warden_upgrade_crystal"),
                     Armors.oceanArmorSet.armorSet(),
                     "armory_rpgs"
             );
@@ -134,7 +134,7 @@ public class ElementalSmithingRecipeProvider extends SmithingRecipeGenerator {
                     "smithing_netherite_kelp",
                     Armors.netheriteKelpNetheriteArmor.armorSet(),
                     Identifier.of("armory_rpgs", "epic_armor_upgrade"),
-                    Identifier.of("more_rpg_classes", "warden_upgrade_crystal"),
+                    Identifier.of("mrpg_lib", "warden_upgrade_crystal"),
                     Armors.oceanArmorSet.armorSet(),
                     "armory_rpgs"
             );

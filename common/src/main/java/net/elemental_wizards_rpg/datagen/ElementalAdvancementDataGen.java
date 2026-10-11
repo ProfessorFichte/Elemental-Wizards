@@ -8,7 +8,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.DataWriter;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.datagen.SpellEngineAdvancementHelper;
+import com.mrpg_lib.datagen.SpellEngineAdvancementHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -67,7 +67,7 @@ public class ElementalAdvancementDataGen implements DataProvider {
                 id("path_choose_aqua"),
                 "Path of the Water",
                 "Create the Tome of Water",
-                Identifier.of("more_rpg_content", "root"),
+                Identifier.of("mrpg_lib", "root"),
                 MOD_ID + ":item/spell_scroll/aqua",
                 AdvancementFrame.TASK,
                 true, true, false, null,
@@ -111,7 +111,7 @@ public class ElementalAdvancementDataGen implements DataProvider {
                 id("path_choose_terra"),
                 "Path of the Earth",
                 "Create the Tome of Earth",
-                Identifier.of("more_rpg_content", "root"),
+                Identifier.of("mrpg_lib", "root"),
                 MOD_ID + ":item/spell_scroll/terra",
                 AdvancementFrame.TASK,
                 true, true, false, null,
@@ -155,7 +155,7 @@ public class ElementalAdvancementDataGen implements DataProvider {
                 id("path_choose_wind"),
                 "Path of the Wind",
                 "Create the Tome of Wind",
-                Identifier.of("more_rpg_content", "root"),
+                Identifier.of("mrpg_lib", "root"),
                 MOD_ID + ":item/spell_scroll/wind",
                 AdvancementFrame.TASK,
                 true, true, false, null,

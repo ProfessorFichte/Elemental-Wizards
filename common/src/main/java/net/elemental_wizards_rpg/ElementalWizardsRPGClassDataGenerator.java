@@ -20,9 +20,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.spell_engine.rpg_series.item.Equipment;
 import net.spell_engine.api.datagen.SimpleSoundGeneratorV2;
 import net.spell_engine.api.datagen.SpellGenerator;
 import net.spell_engine.api.spell.Spell;
@@ -222,6 +225,43 @@ public class ElementalWizardsRPGClassDataGenerator implements DataGeneratorEntry
 					RPGSeriesItemTags.ArmorMetaType.MAGIC,
 					armorTagOptions2
 			);
+			generateLootAffiliations();
+		}
+
+		private TagKey<Item> generateClassArmorTag(String name, List<Armor.Entry> armors) {
+			var tagKey = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "armor_type/" + name));
+			var tag = this.getOrCreateTagBuilder(tagKey);
+			for (var armor : armors) {
+				if (armor == null) {
+					continue;
+				}
+				for (var id : armor.armorSet().pieceIds()) {
+					tag.addOptional((Identifier) id);
+				}
+			}
+			return tagKey;
+		}
+
+		private void generateLootAffiliation(String book, List<Equipment.WeaponType> weaponTypes, List<TagKey<Item>> armorTags) {
+			var tag = this.getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "loot_affiliation/" + book)));
+			for (var type : weaponTypes) {
+				tag.addOptionalTag(RPGSeriesItemTags.WeaponType.get(type));
+			}
+			for (var armorTag : armorTags) {
+				tag.addOptionalTag(armorTag);
+			}
+		}
+
+		private void generateLootAffiliations() {
+			var weaponTypes = List.of(Equipment.WeaponType.DAMAGE_STAFF, Equipment.WeaponType.DAMAGE_WAND);
+
+			var aquaArmor = generateClassArmorTag("aqua", List.of(Armors.elementalArmor, Armors.kelpArmor, Armors.netheriteKelpNetheriteArmor));
+			var terraArmor = generateClassArmorTag("terra", List.of(Armors.elementalArmor, Armors.dripstoneArmor, Armors.netheriteDripstoneArmor));
+			var windArmor = generateClassArmorTag("wind", List.of(Armors.elementalArmor, Armors.windArmor, Armors.netheriteWindArmor));
+
+			generateLootAffiliation("aqua", weaponTypes, List.of(aquaArmor));
+			generateLootAffiliation("terra", weaponTypes, List.of(terraArmor));
+			generateLootAffiliation("wind", weaponTypes, List.of(windArmor));
 		}
 	}
 

@@ -15,7 +15,7 @@
       },
       "particles": [
         {
-          "id": "more_rpg_classes:big_splash",
+          "id": "mrpg_lib:big_splash",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -28,7 +28,7 @@
           }
         },
         {
-          "id": "more_rpg_classes:water_circle",
+          "id": "mrpg_lib:water_circle",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -48,7 +48,7 @@
       "id": "spell_engine:one_handed_projectile_release"
     },
     "sound": {
-      "id": "more_rpg_classes:water_release_1"
+      "id": "mrpg_lib:water_release_1"
     }
   },
   "target": {
@@ -66,7 +66,7 @@
         "client_data": {
           "travel_particles": [
             {
-              "id": "more_rpg_classes:bubble",
+              "id": "mrpg_lib:bubble",
               "appearance": {},
               "batch": {
                 "count": 1.0,
@@ -104,7 +104,7 @@
         }
       },
       "sound": {
-        "id": "more_rpg_classes:water_magic_impact1"
+        "id": "mrpg_lib:water_magic_impact1"
       }
     },
     {
@@ -117,7 +117,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:water_heal",
+            "id": "mrpg_lib:water_heal",
             "appearance": {},
             "batch": {
               "count": 10.0,
@@ -128,7 +128,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:water_circle",
+            "id": "mrpg_lib:water_circle",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -153,7 +153,7 @@
       "duration": 10.0
     },
     "item": {
-      "id": "more_rpg_classes:aqua_stone"
+      "id": "mrpg_lib:aqua_stone"
     }
   }
 }

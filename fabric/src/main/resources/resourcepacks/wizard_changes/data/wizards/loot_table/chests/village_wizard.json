@@ -92,7 +92,7 @@
         {
           "type": "minecraft:item",
           "weight": 2,
-          "name": "more_rpg_classes:aqua_stone",
+          "name": "mrpg_lib:aqua_stone",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -108,7 +108,7 @@
         {
           "type": "minecraft:item",
           "weight": 2,
-          "name": "more_rpg_classes:terra_stone",
+          "name": "mrpg_lib:terra_stone",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -124,7 +124,7 @@
         {
           "type": "minecraft:item",
           "weight": 2,
-          "name": "more_rpg_classes:storm_stone",
+          "name": "mrpg_lib:storm_stone",
           "functions": [
             {
               "function": "minecraft:set_count",

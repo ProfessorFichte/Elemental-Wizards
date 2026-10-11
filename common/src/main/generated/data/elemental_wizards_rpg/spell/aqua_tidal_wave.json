@@ -15,7 +15,7 @@
       },
       "particles": [
         {
-          "id": "more_rpg_classes:big_splash",
+          "id": "mrpg_lib:big_splash",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -28,7 +28,7 @@
           }
         },
         {
-          "id": "more_rpg_classes:water_circle",
+          "id": "mrpg_lib:water_circle",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -74,7 +74,7 @@
       "proportional": true
     },
     "item": {
-      "id": "more_rpg_classes:aqua_stone"
+      "id": "mrpg_lib:aqua_stone"
     }
   }
 }

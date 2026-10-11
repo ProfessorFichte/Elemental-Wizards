@@ -118,16 +118,16 @@
 
   "advancements.rpg_classes.water_rune.title": "Weg des Wassers",
   "advancements.rpg_classes.water_rune.description": "Erhalte eine Wasser Rune",
-  "advancements.more_rpg_content.water_spells.title": "Beruhigendes Wasser",
-  "advancements.more_rpg_content.water_spells.description": "Schalte alle Wasser Zauber frei",
+  "advancements.mrpg_lib.water_spells.title": "Beruhigendes Wasser",
+  "advancements.mrpg_lib.water_spells.description": "Schalte alle Wasser Zauber frei",
 
   "advancements.rpg_classes.earth_rune.title": "Weg der Erde",
   "advancements.rpg_classes.earth_rune.description": "Erhalte eine Erde Rune",
-  "advancements.more_rpg_content.earth_spells.title": "Zerschmetternder Fels",
-  "advancements.more_rpg_content.earth_spells.description": "Schalte alle Erde Zauber frei",
+  "advancements.mrpg_lib.earth_spells.title": "Zerschmetternder Fels",
+  "advancements.mrpg_lib.earth_spells.description": "Schalte alle Erde Zauber frei",
 
   "advancements.rpg_classes.air_rune.title": "Weg der Luft",
   "advancements.rpg_classes.air_rune.description": "Erhalte eine Luft Rune",
-  "advancements.more_rpg_content.air_spells.title": "Auge des Sturms",
-  "advancements.more_rpg_content.air_spells.description": "Schalte alle Luft Zauber frei"
+  "advancements.mrpg_lib.air_spells.title": "Auge des Sturms",
+  "advancements.mrpg_lib.air_spells.description": "Schalte alle Luft Zauber frei"
 }

@@ -11,11 +11,11 @@
         "id": "spell_engine:one_handed_projectile_charge"
       },
       "sound": {
-        "id": "more_rpg_classes:air_magic_cast1"
+        "id": "mrpg_lib:air_magic_cast1"
       },
       "particles": [
         {
-          "id": "more_rpg_classes:small_gust",
+          "id": "mrpg_lib:small_gust",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -27,7 +27,7 @@
           }
         },
         {
-          "id": "more_rpg_classes:small_gust",
+          "id": "mrpg_lib:small_gust",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -80,7 +80,7 @@
         ]
       },
       "sound": {
-        "id": "more_rpg_classes:air_magic_impact3"
+        "id": "mrpg_lib:air_magic_impact3"
       }
     },
     {
@@ -141,7 +141,7 @@
       "proportional": true
     },
     "item": {
-      "id": "more_rpg_classes:storm_stone"
+      "id": "mrpg_lib:storm_stone"
     }
   }
 }

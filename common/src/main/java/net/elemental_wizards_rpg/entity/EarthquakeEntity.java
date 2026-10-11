@@ -18,12 +18,12 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
-import net.more_rpg_classes.sounds.MRPGLibSounds;
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellParameters;
-import net.more_rpg_classes.util.CustomMethods;
+import com.mrpg_lib.util.AllyHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -291,7 +291,7 @@ public class EarthquakeEntity extends Entity implements SpellEntity.Spawned {
 
         PeriodicAreaImpact.apply(this.getWorld(), owner, this, damageBox,
                 Identifier.of(MOD_ID, "helper/terra_earthquake_impact"),
-                entity -> entity != owner && !CustomMethods.isEntityProtectedCheck(entity, owner),
+                entity -> entity != owner && AllyHelper.canHurt(owner, entity),
                 null, false, null);
     }
 

@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.DataWriter;
 import net.minecraft.registry.RegistryWrapper;
-import net.more_rpg_classes.datagen.BetterCombatWeaponAttributeGenerator;
+import com.mrpg_lib.datagen.BetterCombatWeaponAttributeGenerator;
 
 import java.util.concurrent.CompletableFuture;
 

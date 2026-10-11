@@ -226,7 +226,7 @@ public class ElementalRecipeProvider extends RecipeProvider {
                 "B", Items.GOLD_INGOT,
                 "C", net.minecraft.registry.tag.TagKey.of(
                         net.minecraft.registry.RegistryKeys.ITEM,
-                        Identifier.of("more_rpg_classes", "coral_plants")
+                        Identifier.of("mrpg_lib", "coral_plants")
                 )
         );
 

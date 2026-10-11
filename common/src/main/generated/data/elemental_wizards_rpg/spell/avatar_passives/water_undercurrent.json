@@ -22,7 +22,7 @@
         "client_data": {
           "particles": [
             {
-              "id": "more_rpg_classes:splash",
+              "id": "mrpg_lib:splash",
               "appearance": {},
               "batch": {
                 "count": 20.0,
@@ -63,7 +63,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:splash",
+            "id": "mrpg_lib:splash",
             "appearance": {},
             "batch": {
               "count": 20.0,
@@ -75,7 +75,7 @@
         ]
       },
       "sound": {
-        "id": "more_rpg_classes:water_magic_impact1"
+        "id": "mrpg_lib:water_magic_impact1"
       }
     },
     {

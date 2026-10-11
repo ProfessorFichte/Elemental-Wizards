@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.spell_engine.api.entity.SpellEntity;
-import net.more_rpg_classes.util.CustomMethods;
+import com.mrpg_lib.util.AllyHelper;
 
 import java.util.UUID;
 
@@ -136,18 +136,10 @@ public class EarthGolemSpikeEntity extends Entity implements Ownable, SpellEntit
         PeriodicAreaImpact.apply(this.getWorld(), golem, this, box,
                 Identifier.of(MOD_ID, "helper/terra_earth_golem_spike_impact"),
                 target -> {
-                    if (target == player) return false;
-                    if (target == golem) return false;
-                    if (CustomMethods.isEntityProtectedCheck(target, player)) return false;
+                    if (target == golem || !AllyHelper.canHurt(player, target)) return false;
                     if (target instanceof EarthGolemEntity golemTarget) {
                         LivingEntity golemOwner = golemTarget.getOwner();
-                        if (golemOwner != null && golemOwner == player) return false;
-                        if (golemOwner != null && golemOwner != player && CustomMethods.isEntityProtectedCheck(golemOwner, player)) return false;
-                    }
-                    if (target instanceof TameableEntity tameable && tameable.isTamed()) {
-                        LivingEntity tameableOwner = tameable.getOwner();
-                        if (tameableOwner != null && tameableOwner == player) return false;
-                        if (tameableOwner != null && tameableOwner != player && CustomMethods.isEntityProtectedCheck(tameableOwner, player)) return false;
+                        return golemOwner == null || AllyHelper.canHurt(player, golemOwner);
                     }
                     return true;
                 },

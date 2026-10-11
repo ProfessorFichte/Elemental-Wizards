@@ -39,6 +39,6 @@
 
   "advancements.rpg_classes.water_rune.title": "Путь Воды",
   "advancements.rpg_classes.water_rune.description": "Получите Руну Воды",
-  "advancements.more_rpg_content.water_spells.title": "Успокаивающая Вода",
-  "advancements.more_rpg_content.water_spells.description": "Получите все заклинания Водной Стихии"
+  "advancements.mrpg_lib.water_spells.title": "Успокаивающая Вода",
+  "advancements.mrpg_lib.water_spells.description": "Получите все заклинания Водной Стихии"
 }

@@ -42,6 +42,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.elemental_wizards_rpg]]
+modId = "mrpg_lib"
+type = "required"
+versionRange = "[${more_rpg_library_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
 modId = "wizards"
 type = "required"
 versionRange = "[${wizards_version},)"

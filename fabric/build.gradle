@@ -72,7 +72,9 @@ repositories {
     }
     maven { url 'https://maven.wispforest.io/releases' }
 
-    mavenLocal()
+    mavenLocal {
+        content { excludeModule('maven.modrinth', 'more-rpg-library') }
+    }
 }
 
 dependencies {

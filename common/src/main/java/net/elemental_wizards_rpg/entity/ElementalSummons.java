@@ -4,7 +4,7 @@ import net.elemental_wizards_rpg.spell.ElementalSounds;
 import net.elemental_wizards_rpg.spell.ElementalWizardSpells;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.more_rpg_classes.custom.MoreSpellSchools;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.Spell.Impact.Action.Summon;
 import net.spell_engine.api.spell.fx.Sound;

@@ -21,7 +21,7 @@ import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.more_rpg_classes.util.CustomMethods;
+import com.mrpg_lib.util.AllyHelper;
 
 import java.util.UUID;
 
@@ -310,7 +310,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
                 Identifier.of(MOD_ID, "helper/aqua_tidal_wave_impact"),
                 entity -> {
                     if (entity == owner) return false;
-                    if (CustomMethods.isEntityProtectedCheck(entity, owner)) return false;
+                    if (!AllyHelper.canHurt(owner, entity)) return false;
                     int entityId = entity.getId();
                     Integer lastTick = lastDamageTick.get(entityId);
                     if (lastTick != null && currentTick - lastTick < 10) return false;

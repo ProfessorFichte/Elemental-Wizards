@@ -8,15 +8,15 @@
     "cast": {
       "duration": 1.0,
       "animation": {
-        "id": "more_rpg_classes:two_handed_ground_channeling"
+        "id": "mrpg_lib:two_handed_ground_channeling"
       },
       "sound": {
-        "id": "more_rpg_classes:earth_magic_cast1",
+        "id": "mrpg_lib:earth_magic_cast1",
         "volume": 0.5
       },
       "particles": [
         {
-          "id": "more_rpg_classes:stone_particle",
+          "id": "mrpg_lib:stone_particle",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -53,7 +53,7 @@
         "client_data": {
           "travel_particles": [
             {
-              "id": "more_rpg_classes:stone_particle",
+              "id": "mrpg_lib:stone_particle",
               "appearance": {},
               "batch": {
                 "count": 1.0,
@@ -102,7 +102,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:stone_explosion",
+            "id": "mrpg_lib:stone_explosion",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -134,13 +134,13 @@
       ]
     },
     "sound": {
-      "id": "more_rpg_classes:earth_magic_impact1",
+      "id": "mrpg_lib:earth_magic_impact1",
       "volume": 0.5
     }
   },
   "cost": {
     "item": {
-      "id": "more_rpg_classes:terra_stone"
+      "id": "mrpg_lib:terra_stone"
     }
   }
 }

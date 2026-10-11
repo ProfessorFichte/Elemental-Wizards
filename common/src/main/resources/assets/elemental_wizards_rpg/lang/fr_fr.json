@@ -73,11 +73,11 @@
 
   "advancements.rpg_classes.water_rune.title": "Chemin de l'Eau",
   "advancements.rpg_classes.water_rune.description": "Obtenir une Rune d'Eau",
-  "advancements.more_rpg_content.water_spells.title": "Eau Apaisante",
-  "advancements.more_rpg_content.water_spells.description": "Obtenir tous les sorts Élémentaires d'Eau",
+  "advancements.mrpg_lib.water_spells.title": "Eau Apaisante",
+  "advancements.mrpg_lib.water_spells.description": "Obtenir tous les sorts Élémentaires d'Eau",
 
   "advancements.rpg_classes.earth_rune.title": "Chemin de la Terre",
   "advancements.rpg_classes.earth_rune.description": "Obtenir une Rune de Terre",
-  "advancements.more_rpg_content.earth_spells.title": "Roches Fracassantes",
-  "advancements.more_rpg_content.earth_spells.description": "Obtenir tous les sorts Élémentaires de Terre"
+  "advancements.mrpg_lib.earth_spells.title": "Roches Fracassantes",
+  "advancements.mrpg_lib.earth_spells.description": "Obtenir tous les sorts Élémentaires de Terre"
 }

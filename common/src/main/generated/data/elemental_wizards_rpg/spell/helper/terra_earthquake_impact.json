@@ -48,7 +48,7 @@
         "type": "CUSTOM",
         "custom": {
           "intent": "HARMFUL",
-          "handler": "more_rpg_classes:trembling"
+          "handler": "mrpg_lib:trembling"
         }
       }
     }

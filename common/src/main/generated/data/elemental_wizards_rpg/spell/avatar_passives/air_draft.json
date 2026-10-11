@@ -27,7 +27,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:small_gust",
+            "id": "mrpg_lib:small_gust",
             "appearance": {},
             "batch": {
               "count": 25.0,
@@ -41,7 +41,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:small_gust",
+            "id": "mrpg_lib:small_gust",
             "appearance": {},
             "batch": {
               "count": 25.0,
@@ -55,7 +55,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:small_gust",
+            "id": "mrpg_lib:small_gust",
             "appearance": {},
             "batch": {
               "count": 25.0,
@@ -80,7 +80,7 @@
         }
       },
       "sound": {
-        "id": "more_rpg_classes:air_magic_impact2"
+        "id": "mrpg_lib:air_magic_impact2"
       }
     }
   ],
@@ -92,7 +92,7 @@
     "visuals": {
       "particles": [
         {
-          "id": "more_rpg_classes:small_gust",
+          "id": "mrpg_lib:small_gust",
           "appearance": {},
           "batch": {
             "count": 50.0,

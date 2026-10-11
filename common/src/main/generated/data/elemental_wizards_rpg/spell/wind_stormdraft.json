@@ -19,7 +19,7 @@
       },
       "particles": [
         {
-          "id": "more_rpg_classes:small_gust",
+          "id": "mrpg_lib:small_gust",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -31,7 +31,7 @@
           }
         },
         {
-          "id": "more_rpg_classes:small_gust",
+          "id": "mrpg_lib:small_gust",
           "appearance": {},
           "batch": {
             "count": 1.0,
@@ -59,7 +59,7 @@
         "client_data": {
           "travel_particles": [
             {
-              "id": "more_rpg_classes:wind_vacuum",
+              "id": "mrpg_lib:wind_vacuum",
               "appearance": {},
               "batch": {
                 "count": 3.0,
@@ -96,7 +96,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:wind_vacuum",
+            "id": "mrpg_lib:wind_vacuum",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -121,7 +121,7 @@
         ]
       },
       "sound": {
-        "id": "more_rpg_classes:air_magic_impact2"
+        "id": "mrpg_lib:air_magic_impact2"
       }
     },
     {
@@ -144,7 +144,7 @@
       "proportional": true
     },
     "item": {
-      "id": "more_rpg_classes:storm_stone"
+      "id": "mrpg_lib:storm_stone"
     }
   }
 }

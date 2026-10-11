@@ -18,7 +18,7 @@ import net.elemental_wizards_rpg.entity.HealingRainCloudEntity;
 import net.elemental_wizards_rpg.entity.TerraStoneEntity;
 import net.elemental_wizards_rpg.entity.TidalWaveEntity;
 import net.elemental_wizards_rpg.entity.WhirlwindEntity;
-import net.more_rpg_classes.client.MoreRPGClassesClient;
+import com.mrpg_lib.client.MoreRPGClassesClient;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;

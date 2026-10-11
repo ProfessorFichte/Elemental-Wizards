@@ -23,7 +23,7 @@
       },
       "particles": [
         {
-          "id": "more_rpg_classes:bubble",
+          "id": "mrpg_lib:bubble",
           "appearance": {},
           "batch": {
             "count": 3.0,
@@ -61,7 +61,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:water_heal",
+            "id": "mrpg_lib:water_heal",
             "appearance": {},
             "batch": {
               "count": 10.0,
@@ -72,7 +72,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:water_circle",
+            "id": "mrpg_lib:water_circle",
             "appearance": {},
             "batch": {
               "count": 1.0,
@@ -101,7 +101,7 @@
       "visuals": {
         "particles": [
           {
-            "id": "more_rpg_classes:bubble_pop",
+            "id": "mrpg_lib:bubble_pop",
             "appearance": {},
             "batch": {
               "count": 10.0,
@@ -112,7 +112,7 @@
             }
           },
           {
-            "id": "more_rpg_classes:bubble",
+            "id": "mrpg_lib:bubble",
             "appearance": {},
             "batch": {
               "count": 5.0,
@@ -147,7 +147,7 @@
       "proportional": true
     },
     "item": {
-      "id": "more_rpg_classes:aqua_stone"
+      "id": "mrpg_lib:aqua_stone"
     }
   }
 }
