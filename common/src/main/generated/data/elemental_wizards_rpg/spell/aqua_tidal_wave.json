@@ -58,7 +58,7 @@
         "spawns": [
           {
             "entity_type_id": "elemental_wizards_rpg:tidal_wave",
-            "time_to_live_seconds": 20,
+            "time_to_live_seconds": 4,
             "placement": {
               "apply_yaw": true
             }

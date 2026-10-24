@@ -1,3 +1,10 @@
+# 3.2.1 - 1.21.1
+- Whirlwind and Tidal Wave now respect range bonuses and lifetime extensions. To make that work, Twister's base lifetime went from 7s to 5s and Tidal Wave's from 20s to 4s (Tidal Wave keeps the same base reach)
+- Tidal Wave no longer shares its range between instances
+- Fixed Aeroblast's Slow Falling not applying
+- Fixed the Tornado model vanishing at a fixed time instead of lasting as long as the cloud, it now shrinks out smoothly at the real end of the cloud, also when skill tree nodes make it last longer
+- Re-Added the missing lne wizard biome tags for the elemental wizard themed structures, so they only generate when this mod is installed
+
 # 3.2.0 - 1.21.1
 - Adopt Spell Engine 1.10.9 & More RPG Library 2.8.0
 - **BREAKING for modpack/datapack developers:** More RPG Library's namespace was renamed `more_rpg_classes` -> `mrpg_lib` (and its advancement root moved to `mrpg_lib:root`). If you have any data files, loot tables, tags or advancements that reference the old `more_rpg_classes:`/`more_rpg_content:` ids from this mod or MRPGL, update them to `mrpg_lib:`

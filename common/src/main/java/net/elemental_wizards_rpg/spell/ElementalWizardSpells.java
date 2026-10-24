@@ -739,7 +739,7 @@ public class ElementalWizardSpells {
         spell.release.sound = new Sound(ElementalSounds.TIDAL_WAVE_RELEASE.id().toString());
 
         int delay = 0;
-        int toLiveSeconds = 20;
+        int toLiveSeconds = 4;
         String entityId = "elemental_wizards_rpg:tidal_wave";
         var spawn = new Spell.Impact();
         spawn.action = new Spell.Impact.Action();
@@ -1471,7 +1471,6 @@ public class ElementalWizardSpells {
         bossImmuneDeny(knockUp);
 
         var debuff = SpellBuilder.Impacts.effectSet(StatusEffects.SLOW_FALLING.getIdAsString(),1.0F,0);
-        debuff.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
 
         spell.impacts = List.of(damage, knockUp, debuff);
 
@@ -1504,7 +1503,7 @@ public class ElementalWizardSpells {
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
 
         int delay = 0;
-        int toLiveSeconds = 7;
+        int toLiveSeconds = 5;
         String entityId = "elemental_wizards_rpg:whirlwind";
         var spawn = new Spell.Impact();
         spawn.action = new Spell.Impact.Action();
@@ -1688,6 +1687,7 @@ public class ElementalWizardSpells {
         cloud.time_to_live_seconds = 7;
         cloud.spawn_ticks = 25;
         cloud.despawn_ticks = 15;
+        var tornadoSpinTicks = 20 * 60 * 2;
         var tornadoTotalTicks = cloud.spawn_ticks + Math.round(cloud.time_to_live_seconds * 20F) + cloud.despawn_ticks;
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.model_fx = List.of(
@@ -1697,7 +1697,7 @@ public class ElementalWizardSpells {
                         .duration(tornadoTotalTicks)
                         .scaleIn(0, cloud.spawn_ticks, Easing.EASE_OUT_CUBIC)
                         .scaleOut(tornadoTotalTicks - cloud.despawn_ticks, tornadoTotalTicks, Easing.EASE_IN_CUBIC)
-                        .rotate(0, 25F * tornadoTotalTicks, 0, 0, tornadoTotalTicks, Easing.LINEAR)
+                        .rotate(0, 25F * tornadoSpinTicks, 0, 0, tornadoSpinTicks, Easing.LINEAR)
                         .build()
         );
         cloud.placement.apply_yaw = true;

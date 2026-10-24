@@ -9,7 +9,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -19,8 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.elemental_wizards_rpg.entity.util.PeriodicAreaImpact;
 import net.spell_engine.api.entity.SpellEntity;
-import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.registry.SpellRegistry;
+import net.spell_engine.internals.SpellParameters;
 import com.mrpg_lib.util.AllyHelper;
 
 import java.util.UUID;
@@ -29,9 +27,7 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<TidalWaveEntity> ENTITY_TYPE;
-    private static final Identifier WAVE_SPELL_ID = Identifier.of(MOD_ID, "aqua_tidal_wave");
-    RegistryEntry<Spell> spellEntry = null;
-    private static float MAX_DISTANCE = 16.0F;
+    private static final float DEFAULT_MAX_DISTANCE = 16.0F;
     private static final float MOVEMENT_SPEED = 0.4F;
     private static final int DAMAGE_INTERVAL = 15;
 
@@ -53,6 +49,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
     private static final TrackedData<Float> DIRECTION_YAW_TRACKER = DataTracker.registerData(TidalWaveEntity.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Integer> STATE_TICK_TRACKER = DataTracker.registerData(TidalWaveEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
+    private float maxDistance = DEFAULT_MAX_DISTANCE;
     private Identifier spellId;
     private UUID ownerUuid;
     private int timeToLive;
@@ -97,7 +94,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         this.prevYaw = ownerYaw;
         this.getDataTracker().set(DIRECTION_YAW_TRACKER, ownerYaw);
 
-        SpellRegistry.from(owner.getWorld()).getEntry(WAVE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
+        this.maxDistance = SpellParameters.getRange(owner, args.spell());
 
         this.waveState = WaveState.MOVING_FORWARD;
         this.stateTick = 0;
@@ -152,6 +149,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.containsUuid("Owner")) this.ownerUuid = nbt.getUuid("Owner");
         this.timeToLive = nbt.getInt("TimeToLive");
         this.currentTick = nbt.getInt("CurrentTick");
+        if (nbt.contains("MaxDistance")) this.maxDistance = nbt.getFloat("MaxDistance");
         this.stateTick = nbt.getInt("StateTick");
         this.waveState = WaveState.values()[nbt.getInt("WaveState")];
 
@@ -199,6 +197,7 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
         if (this.ownerUuid != null) nbt.putUuid("Owner", this.ownerUuid);
         nbt.putInt("TimeToLive", this.timeToLive);
         nbt.putInt("CurrentTick", this.currentTick);
+        nbt.putFloat("MaxDistance", this.maxDistance);
         nbt.putInt("StateTick", this.stateTick);
         nbt.putInt("WaveState", this.waveState.ordinal());
         nbt.putFloat("DirectionYaw", this.getDataTracker().get(DIRECTION_YAW_TRACKER));
@@ -237,26 +236,14 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
                 this.discard();
                 return;
             }
-
-            if (this.age > this.timeToLive) {
-                this.discard();
-                return;
-            }
         }
 
         if (!this.getWorld().isClient() && movementDirection != null && startPosition != null) {
-            if (spellEntry == null) {
-                SpellRegistry.from(this.getWorld()).getEntry(WAVE_SPELL_ID).ifPresent(e -> this.spellEntry = e);
-            }
-            if (spellEntry != null) {
-                MAX_DISTANCE = spellEntry.value().range;
-            }
-
             double distanceFromStart = this.getPos().distanceTo(startPosition);
 
             switch (waveState) {
                 case MOVING_FORWARD -> {
-                    if (distanceFromStart >= MAX_DISTANCE) {
+                    if (distanceFromStart >= maxDistance) {
                         waveState = WaveState.SUBMERGING;
                         stateTick = 0;
                     } else {
@@ -288,8 +275,13 @@ public class TidalWaveEntity extends Entity implements SpellEntity.Spawned {
                 }
                 case MOVING_BACKWARD -> {
                     if (distanceFromStart <= 1.0) {
-                        this.discard();
-                        return;
+                        if (this.age >= this.timeToLive) {
+                            this.discard();
+                            return;
+                        }
+                        waveState = WaveState.MOVING_FORWARD;
+                        stateTick = 0;
+                        movementDirection = movementDirection.negate();
                     }
                     this.setPosition(this.getPos().add(movementDirection));
                     if (currentTick % DAMAGE_INTERVAL == 0) damageEntities();

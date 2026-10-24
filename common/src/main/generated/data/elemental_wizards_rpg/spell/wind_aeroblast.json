@@ -120,8 +120,7 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "minecraft:slow_falling",
-          "duration": 1.0,
-          "apply_limit": {}
+          "duration": 1.0
         }
       }
     }

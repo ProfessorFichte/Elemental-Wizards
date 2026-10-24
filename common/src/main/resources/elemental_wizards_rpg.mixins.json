@@ -5,7 +5,12 @@
   "mixins": [
     "LivingEntityMixin"
   ],
+  "client": [
+    "ModelEffectOperationsMixin",
+    "SpellCloudAccessor",
+    "SpellCloudRendererMixin"
+  ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
 	}
 }

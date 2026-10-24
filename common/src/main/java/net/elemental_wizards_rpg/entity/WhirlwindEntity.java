@@ -9,7 +9,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -18,8 +17,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.spell_engine.api.entity.SpellEntity;
-import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.registry.SpellRegistry;
+import net.spell_engine.internals.SpellParameters;
 import com.mrpg_lib.util.AllyHelper;
 
 import java.util.UUID;
@@ -28,7 +26,6 @@ import static net.elemental_wizards_rpg.ElementalMod.MOD_ID;
 
 public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<WhirlwindEntity> ENTITY_TYPE;
-    private static final Identifier TWISTER_SPELL_ID = Identifier.of(MOD_ID, "wind_twister");
 
     private static final float FORWARD_SPEED = 0.25F;
     private static final float MIN_RADIUS = 1.1F;
@@ -49,7 +46,6 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
     private UUID ownerUuid;
     private int timeToLive;
     private LivingEntity cachedOwner = null;
-    private RegistryEntry<Spell> spellEntry = null;
     private float maxTravelDistance = DEFAULT_MAX_TRAVEL_DISTANCE;
     private Vec3d movementDirection;
     private Vec3d rightDirection;
@@ -91,10 +87,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         float directionYaw = (float) Math.toDegrees(Math.atan2(-movementDirection.x, movementDirection.z));
         this.getDataTracker().set(DIRECTION_YAW_TRACKER, directionYaw);
 
-        SpellRegistry.from(owner.getWorld()).getEntry(TWISTER_SPELL_ID).ifPresent(e -> this.spellEntry = e);
-        if (this.spellEntry != null) {
-            this.maxTravelDistance = this.spellEntry.value().range;
-        }
+        this.maxTravelDistance = SpellParameters.getRange(owner, args.spell());
     }
 
     @Override
@@ -141,6 +134,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         if (nbt.containsUuid("Owner")) this.ownerUuid = nbt.getUuid("Owner");
         this.timeToLive = nbt.getInt("TimeToLive");
         this.currentTick = nbt.getInt("CurrentTick");
+        if (nbt.contains("MaxTravel")) this.maxTravelDistance = nbt.getFloat("MaxTravel");
 
         if (nbt.contains("DirectionX")) {
             this.movementDirection = new Vec3d(
@@ -184,6 +178,7 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
         if (this.ownerUuid != null) nbt.putUuid("Owner", this.ownerUuid);
         nbt.putInt("TimeToLive", this.timeToLive);
         nbt.putInt("CurrentTick", this.currentTick);
+        nbt.putFloat("MaxTravel", this.maxTravelDistance);
 
         if (this.movementDirection != null) {
             nbt.putDouble("DirectionX", this.movementDirection.x);
@@ -225,21 +220,9 @@ public class WhirlwindEntity extends Entity implements SpellEntity.Spawned {
             return;
         }
 
-        if (spellEntry == null) {
-            SpellRegistry.from(world).getEntry(TWISTER_SPELL_ID).ifPresent(e -> this.spellEntry = e);
-        }
-        if (spellEntry != null) {
-            maxTravelDistance = spellEntry.value().range;
-        }
-
         if (movementDirection != null && startPosition != null) {
-            float forwardDistance = FORWARD_SPEED * this.age;
+            float forwardDistance = Math.min(FORWARD_SPEED * this.age, maxTravelDistance);
             float circleAngle = ANGULAR_SPEED * this.age;
-
-            if (forwardDistance > maxTravelDistance) {
-                this.discard();
-                return;
-            }
 
             Vec3d center = startPosition.add(movementDirection.multiply(forwardDistance));
 
