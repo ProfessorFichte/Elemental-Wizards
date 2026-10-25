@@ -1,3 +1,6 @@
+# 3.2.2 - 1.21.1
+- Accidentally added worldgen files from LNE-Wizards to this mod causing a crash, when it was not installed
+
 # 3.2.1 - 1.21.1
 - Whirlwind and Tidal Wave now respect range bonuses and lifetime extensions. To make that work, Twister's base lifetime went from 7s to 5s and Tidal Wave's from 20s to 4s (Tidal Wave keeps the same base reach)
 - Tidal Wave no longer shares its range between instances
