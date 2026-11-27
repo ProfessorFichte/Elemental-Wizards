@@ -1,12 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-#issueTrackerURL = "https://github.com/ProfessorFichte/Elemental-Wizards/issues"
+issueTrackerURL = "https://github.com/ProfessorFichte/Elemental-Wizards/issues"
 license = "ARR"
 
 [[mods]]
 modId = "elemental_wizards_rpg"
 version = "${version}"
-displayName = "Elemental Wizards (RPG Series Plus)"
+displayName = "Elemental Wizards"
+displayURL = "https://modrinth.com/mod/elemental-wizards-rpg"
 authors = "Fichte"
 description = '''
 Master the elements to overcome your foes! Spell Engine Add-On
@@ -55,6 +56,33 @@ versionRange = "[${wizards_version},)"
 ordering = "AFTER"
 side = "BOTH"
 
+[[dependencies.elemental_wizards_rpg]]
+modId = "spell_power"
+type = "required"
+versionRange = "[${spell_power_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "armory_rpgs"
+type = "optional"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "arsenal"
+type = "optional"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.elemental_wizards_rpg]]
+modId = "mrpgc_skill_tree"
+type = "optional"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[mixins]]
 config = "elemental_wizards_rpg.mixins.json"

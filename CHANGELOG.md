@@ -1,86 +1,181 @@
-# 3.2.2 - 1.21.1
+# Changelog
+
+All notable changes to Elemental Wizards are documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [3.2.3+1.21.1]
+
+### Fixed
+
+- Tidal Wave and Healing Rain play their release animation again (they pointed at an animation that no longer exists in Spell Engine)
+- Fixed Undercurrent spamming the server log with errors while its water zone is active (it had no sound set), it now bubbles. Springwater also got its missing release sound
+
+- Sound effects are now mono and 48 kHz, so they come from the right direction and get quieter with distance like vanilla sounds
+
+## [3.2.2+1.21.1]
+
+### Changed
+
 - Accidentally added worldgen files from LNE-Wizards to this mod causing a crash, when it was not installed
 
-# 3.2.1 - 1.21.1
+## [3.2.1+1.21.1]
+
+### Changed
+
 - Whirlwind and Tidal Wave now respect range bonuses and lifetime extensions. To make that work, Twister's base lifetime went from 7s to 5s and Tidal Wave's from 20s to 4s (Tidal Wave keeps the same base reach)
 - Tidal Wave no longer shares its range between instances
-- Fixed Aeroblast's Slow Falling not applying
-- Fixed the Tornado model vanishing at a fixed time instead of lasting as long as the cloud, it now shrinks out smoothly at the real end of the cloud, also when skill tree nodes make it last longer
 - Re-Added the missing lne wizard biome tags for the elemental wizard themed structures, so they only generate when this mod is installed
 
-# 3.2.0 - 1.21.1
+### Fixed
+
+- Fixed Aeroblast's Slow Falling not applying
+- Fixed the Tornado model vanishing at a fixed time instead of lasting as long as the cloud, it now shrinks out smoothly at the real end of the cloud, also when skill tree nodes make it last longer
+
+## [3.2.0+1.21.1]
+
+### Changed
+
 - Adopt Spell Engine 1.10.9 & More RPG Library 2.8.0
 - **BREAKING for modpack/datapack developers:** More RPG Library's namespace was renamed `more_rpg_classes` -> `mrpg_lib` (and its advancement root moved to `mrpg_lib:root`). If you have any data files, loot tables, tags or advancements that reference the old `more_rpg_classes:`/`more_rpg_content:` ids from this mod or MRPGL, update them to `mrpg_lib:`
 - Updated internal advancement parents, mod dependency declarations (fabric.mod.json, neoforge.mods.toml)
 - Earth-, Water- & Wind-Wizard equipment is now affiliated loot: it drops more often for players carrying the matching spell book
 
-# 3.1.1 - 1.21.1
+## [3.1.1+1.21.1]
+
+### Changed
+
 - Drop Forgified Fabric API (FFAPI) as a required dependency
 - Replace AzurelibArmor with Armor Model API
 - Inject Elemental Wizard items into Wizard Merchant Villager Trades
 
-# 3.1.0 - 1.21.1
+## [3.1.0+1.21.1]
+
+### Changed
+
 - Adopt Spell Engine 1.10 - Thanks Daedelus for the PR!
 
-# 3.0.2 - 1.21.1
-- Armory & Arsenal Compat Equipment is now added to a separate Item Group
-- Remove old loot Tables causing an error message in the Logs - GH #12
+## [3.0.2+1.21.1]
+
+### Added
+
 - Add some sound effects for the Earth Golem & the Tornado
 
-# 3.0.1 - 1.21.1
+### Changed
+
+- Armory & Arsenal Compat Equipment is now added to a separate Item Group
+
+### Removed
+
+- Remove old loot Tables causing an error message in the Logs - GH #12
+
+## [3.0.1+1.21.1]
+
+### Added
+
+- Added uk_ua localization- #11 - thx Ch1sho
+
+### Changed
+
 - Converted the Tornado Spell to a Spell Cloud instead of an Entity
 - Also, the Tornado received a new Spawning & De-Spawning Animation
 - Attempt to fix a crash on Neoforge, caused by the TerraStoneEntity
-- removed the custom knock up spell impacts and use spell engines new velocity impact
 - improved the earth golem's spell casting behaviour
-- Added uk_ua localization- #11 - thx Ch1sho
 
-# 3.0.0 - 1.21.1
-- Adapt to Spell Engine 1.9.10+ API Changes
+### Removed
+
+- removed the custom knock up spell impacts and use spell engines new velocity impact
+
+## [3.0.0+1.21.1]
+
 **Balancing & Internal Changes:**
+
+### Changed
+
+- Adapt to Spell Engine 1.9.10+ API Changes
 - Earthquake: now is a channeled spell, increasing it's range the longer you channel them.
 - Earth Golem: Completely uses Spell Engine's Summoned Entity System now.  It can now also cast the Stone Throw Ability.
 - Improved the behaviour of many Custom Spell Entities.
 - The Earth Golem will receive some additional Animations soon
 
-# 2.6.8 - 1.21.1
+## [2.6.8+1.21.1]
+
+### Changed
+
 - Improved the Bubble Model (Thx Slepykat)
+
+### Fixed
+
 - Fixed squished Healing Rain Entity Model
 
-# 2.6.7 - 1.21.1
+## [2.6.7+1.21.1]
+
+### Changed
+
 - Attempt to fix Neoforge Server Crash due to Entities Ticking
 - Change Project Suffix to RPG Series Plus
 
-# 2.6.6 - 1.21.1
+## [2.6.6+1.21.1]
+
+### Fixed
+
 - Fixed a client crash when leaving a server due to a wrong registered sound id
 
-# 2.6.5 - 1.21.1
+## [2.6.5+1.21.1]
+
+### Added
+
 - Added ja_jp.json - Thanks Anpan715
-- changed the tornado texture (a bit brighter and some transparent parts) - Ty Slepykat
-- Fixed the rendering issue where you could see clouds through the tornado model
 - Added a small Heal Impact to the Waterball spell
-- Fixed Bubble Foam's Pushback Mechanism not working on players if a mob has the effect
-- Fixed Stone Flesh Effect Renderer not working on Mob-Entities
 - Added a small emerge animation for the ImpaleEffect Renderer
 
-# 2.6.4 - 1.21.1
+### Changed
+
+- changed the tornado texture (a bit brighter and some transparent parts) - Ty Slepykat
+
+### Fixed
+
+- Fixed the rendering issue where you could see clouds through the tornado model
+- Fixed Bubble Foam's Pushback Mechanism not working on players if a mob has the effect
+- Fixed Stone Flesh Effect Renderer not working on Mob-Entities
+
+## [2.6.4+1.21.1]
+
+### Fixed
+
 - Fixed Stormdraft only damaging the first target it hit
 - Fixed the golems summoned stone spike renderer issue on neoforge
 
-# 2.6.3 - 1.21.1
-- Fixed that the Summoned Earth Golem stops attacking other entities after it killed one
-- Fixed that the Summoned Earth Golem Spikes deal to fast multiple damage to a target
+## [2.6.3+1.21.1]
+
+### Added
+
+- Added a visual Status Effect Model renderer with an Animation for the Stone Flesh Status Effect
+
+### Changed
+
 - The Earth Golem can now move up 1 Block high to not get stuck behind
 - Now when the Earth Golem de-spawns a sound is played and dust & stone particles are spawned
 - There is now a small damage and knockback area around the Earth Golem when he is smashing the ground 
-- Added a visual Status Effect Model renderer with an Animation for the Stone Flesh Status Effect
 - Also, if the player has 100% health, the player model is completely rendered with the dripstone-block texture
 - Also, I gave the BubbleFoam Status Effect a new visual animation and renderer!
 - Increased the Damage Window for the Stormdraft spell
 
-# 2.6.2 - 1.21.1
+### Fixed
+
+- Fixed that the Summoned Earth Golem stops attacking other entities after it killed one
+- Fixed that the Summoned Earth Golem Spikes deal to fast multiple damage to a target
+
+## [2.6.2+1.21.1]
+
 **Elemental Wizards Spell Expansion:**
+**Fixes and Changes**
+
+### Added
+
 - New Spell Choices for the Spell Tier's 2-4 for every Elemental Wizard Spell Book!
+
+### Changed
+
 - **Earth:** T2: Impale T3: Shattering Stones (Old LNE Spell) T4: Stone Golem
 - Impale: Impales a target with a sharp stone, blocking its movement and dealing damage to it.
 - Shattering Stones: Launch a stone that shatters on impact, sending fragments in all directions that cause bleeding wounds.
@@ -93,20 +188,33 @@
 - Windfield: Calls a field of strong wind that deals damage and reduces movement speed.
 - Storm Draft: Channel bursts of high pressure air that deal damage and shortly stun enemies.
 - **Huge thanks to Slepykat for the new Projectile- & Effect- and Entity Models <3**
-**Fixes and Changes**
 - Moved the LNE-Extra Spells to the LNE-Wizards Mod (Explosive Bubble & Aeroburst)
 - Improved the Tornado Model (by Slepykat) 
-- Fixed some Missing Weapon Recipes
 - Internal Changes for some Spell Spawned Entities to improve their behaviour
 - Improved the Spell Textures for some of the existing Earth Wizard Spell Icons
 - Cleaned up the Code
 
-# 2.6.1 - 1.21.1
+### Fixed
+
+- Fixed some Missing Weapon Recipes
+
+## [2.6.1+1.21.1]
+
+### Fixed
+
 - Fix Neoforge not loading (Did not Register the Entity Attributes on NeoForge)
 - Fixed some model and particle renderer issues on NeoForge
 
-# 2.6.0 - 1.21.1
+## [2.6.0+1.21.1]
+
 **Update to use Spell Engine 1.9.0**
+
+### Added
+
+- New Tier 4 Water Wizard Spell: **Healing Rain Cloud**, a new Entity that is following the caster or the Ally with the lowest health.
+
+### Changed
+
 - DISCLAIMER: All spell books and spell scrolls will be reset, due to major API changes.
 - The Elemental Wizard Spell Books now offer 3 spells only, to match other classes
 - Splash, Gust & Stone Throw are not in the Spell Book any longer, they're Weapon Spells for Wand's
@@ -114,7 +222,6 @@
 - The Elemental Staff, Avatar's Staff & Valkyrie Elementalist Staff can now choose between all three Elemental Staves Weapon Spells
 - Hydro Beam is no longer the Tier 4 Spell of the Water Wizard, it is now a Tier 3 choice with the Springwater Spell
 - Hydro Beam's Damage was nerfed and knockback buffed
-- New Tier 4 Water Wizard Spell: **Healing Rain Cloud**, a new Entity that is following the caster or the Ally with the lowest health.
 - The Healing Rain Cloud deals damage to targets and heals allies that are below the cloud entity standing in the rain
 - All Heal coefficients of Water Spells where slightly nerfed
 - The following spells where changed from Spell Cloud Entities to custom Entities: Terra Circle, Tornado, Earthquake
@@ -126,43 +233,78 @@
 - Already added some internal code, for future extra Spells
 - The Elemental Avatar Passive from the Avatar's Staff will now show in the tooltip which spell will trigger.
 
-# 2.5.4 - 1.21.1
-- fix Stone Throw and Stone Spear not damaging Targets around correctly
+## [2.5.4+1.21.1]
+
+### Changed
+
 - Update to newest MRPG-Lib version
 
-# 2.5.3 - 1.21.1
+### Fixed
+
+- fix Stone Throw and Stone Spear not damaging Targets around correctly
+
+## [2.5.3+1.21.1]
+
+### Fixed
+
 - fix minecraft armor tags not loading when armory compat sets are not loading
 
-# 2.5.2 - 1.21.1
-- Buff Weapon Spell Power
+## [2.5.2+1.21.1]
+
+### Added
+
 - Add T5 Armor Sets (Assets by Slepykat)
 
-# 2.5.1 - 1.21.1
+### Changed
+
+- Buff Weapon Spell Power
+
+## [2.5.1+1.21.1]
+
+### Added
+
+- Add Avatar's Staff to "Crystal Loot Theme"
+
+### Changed
+
 - Re-Balance some of the armor attributes
 - Change some LNE-Wizards Biome Tags
-- Add Avatar's Staff to "Crystal Loot Theme"
 - Nerf Terra Circle again
 
-# 2.5.0 - 1.21.1
+## [2.5.0+1.21.1]
+
+### Added
+
+- Add new Terra Circle Dripstone Models
+
+### Changed
+
 - Move to Architectury Enviroment for Multiloader
 - NeoForge Beta!
 - Changed Spell Book Texture to be more in line with the RPG-Series Books (by SirGhaith, Thanks!)
 - Improve Armor Model Assets (by Slepykat, Thanks!)
 - change some inventory item textures to match their new asset looks
 - rename spell books to "Tome of..." to match the original wizards mod names
-- fixed missing spell assignments
 - improve some water spell textures
-- Add new Terra Circle Dripstone Models
+
+### Fixed
+
+- fixed missing spell assignments
 - Fix wrong Air Cutter Description
 - fix unused sprite error with storm_layer texture
 
-# 2.4.11 - 1.21.1
-### New Content
+## [2.4.11+1.21.1]
+
+### Added
+
 - **Added a new Tier 5 Staff!**
 - [DISCLAIMER] Only available if Arsenal (RPG-Series) is installed or the config is enabled
 - Staff: The Avatar
 - New Passive: The Staff casts a unique passive spell, depending on your highest spell power element
-### Internal Changes
+
+### Changed
+
+**Internal Changes**
 - Explosive Bubbles, Shattering Stone & Aeroburst are now T4 Spells (Only important if LNE-Wizards is installed)
 - Nerf the Springwater Spell a bit (Had a lot of impacts)
 - already added Armory Compat Code (just awaiting Armor Model & Texture for release)
@@ -170,102 +312,162 @@
 - nerfed Earthquake range
 - removed the trembling effect, Earthquake now uses custom spell impact from the MRPGLib
 
-# 2.4.10 - 1.21.1
+## [2.4.10+1.21.1]
+
+### Changed
+
 - Update to MRPGLib 2.3.0
 - Use new Custom Impact Types from MRPGLib
 - Delete Soaked Effect, is now registered via MRPGLib
 
-# 2.4.9 - 1.21.1
-- Spell Engine 1.7 Update
-- Changed Terra Circle Spell a bit, outer circles now have a delay and the spawn locations got rearranged
+## [2.4.9+1.21.1]
+
+### Added
+
 - Add missing recipe for Elemental Staff
 
-# 2.4.8 - 1.21.1
+### Changed
+
+- Spell Engine 1.7 Update
+- Changed Terra Circle Spell a bit, outer circles now have a delay and the spawn locations got rearranged
+
+## [2.4.8+1.21.1]
+
+### Fixed
+
 - fix projectile spells
 
-# 2.4.7 - 1.21.1
+## [2.4.7+1.21.1]
+
+### Changed
+
 - Reduce Water Wizard Particles due to server lag
 - Improve TornadoEffect a bit
 
-# 2.4.6 - 1.21.1
+## [2.4.6+1.21.1]
+
+### Fixed
+
 - fix some spell animations
 - fix earth tower biome tag for LNE-Add-On
 - Fix some spells, which could damage the caster
 
-# 2.4.5 - 1.21.1
+## [2.4.5+1.21.1]
+
+### Fixed
+
 - fix some target modifiers in Passive Spell Impact
 
-# 2.4.4 - 1.21.1
-- Update for newest Spell Engine API
-- fix elemental wizard stuff loot injection in villager wizard chest
-- Fix Springwater Spell Tier
+## [2.4.4+1.21.1]
+
+### Added
+
 - Add LNE related data & spells
 
-# 2.4.3 - 1.21.1
+### Changed
+
+- Update for newest Spell Engine API
+
+### Fixed
+
+- fix elemental wizard stuff loot injection in villager wizard chest
+- Fix Springwater Spell Tier
+
+## [2.4.3+1.21.1]
+
+### Added
+
 - add armor meta type tags
 - add weapon type tags for damage wands
 
-# 2.4.2 - 1.21.1
+## [2.4.2+1.21.1]
+
+### Added
+
 - Add Spell Scroll Textures
 - Add smelting recipes for disassembling weapons and armor pieces
 - Add Datagen
 
-# 2.4.1 - 1.21.1
+## [2.4.1+1.21.1]
+
+### Changed
+
 - The Dripstone Circle Spell can now also be casted on the targets location, with the casters location as fallback
 - Spell Engine 1.6 Update
 - changed some tags
 - inject elemental wizards loot in Wizard Villager Chest
 
-# 2.4.0 - 1.21.1
+## [2.4.0+1.21.1]
+
+### Added
+
+- Add Elementalist Staff with all 3 elemental Spell Powers
+- Add TweaksConfig, so special Weapons can also be used without Better End & Nether and the Aether
+
+### Changed
+
 - Spell Engine 1.5 Update
 - deleted unused old spells
 - bubble beam will now only give the shield to the caster
-- removed custom spell impacts, now every spell works with spell engine api options
 - increased trembling effect amplifier stun conversion
 - tweaked some cooldowns
 - [BREAKING FOR TEXTURE PACKS] Clean up item texture folder
-- Add Elementalist Staff with all 3 elemental Spell Powers
 - Re-Textured and recolored some Water Mage Spells
 - Re-Textured all Item-Textures
 - Changed the elementalist armor texture a bit
-- Add TweaksConfig, so special Weapons can also be used without Better End & Nether and the Aether
 - Update to Fabric Loom 1.9
 - The Tornado can now be spawned on the target, with the caster as a fallback
 
-# 2.3.1 - 1.21.1
+### Removed
+
+- removed custom spell impacts, now every spell works with spell engine api options
+
+## [2.3.1+1.21.1]
+
+### Changed
+
 - Wind related Spell Effect Conditions, like the Tornado knock up will not work on bosses "#c:bosses"
 - Earthquake Spell Effect Conditions, like the Tornado knock up will not work on bosses "#c:bosses"
 - The Soaked Effect cant be applied on entities with the tag "more_rpg_classes:resistant_to_to_water_spells"
 - Dripstone Circle and Stonespear Bleeding Effect cant be applied on "#minecraft:undead"
 
-# 2.3.0 - 1.21.1
+## [2.3.0+1.21.1]
+
 **- Spell Engine 1.4 Update!**
+2.2.1 - 1.21.1
+2.2.0
+2.1.1
+2.1.0
+2.0.2
+2.0.1
+2.0.0
+
+### Added
+
+- added the Valkyrie Elementalist Staff (Aether Variant)
+- Added 3rd tier Armor, Netherite Armor for Elemental Wizards
+
+### Changed
+
 - AzureLib Armor 3.0 Update!
 - Water Spells now always crit against Fire themed Mobs (via Entity Type Tag: "more_rpg_classes:vulnerable_to_water_spells")
 - Water Spells deal 30% less damage against Underwater themed Mobs (via Entity Type Tag: "more_rpg_classes:resistant_to_to_water_spells")
 
-2.2.1 - 1.21.1
 - Update for Spell Scrolls
 
-2.2.0
 - Spell Engine 1.2 Update
-- added the Valkyrie Elementalist Staff (Aether Variant)
 - made the outlines for the Wind Staff a bit darker for better contrast
 
-2.1.1
 - forgot to add minecraft armor tags for enchanting
 
-2.1.0
-- Added 3rd tier Armor, Netherite Armor for Elemental Wizards
 - Changed balancing of Weapons & Armor, to match the new RPG Series balancing
 
-2.0.2
 - nerfed Dripstone Circles Damage Multiplier and impact time
-- fixed the missing Wind Spell Book Advancement
-
-2.0.1
 - Netherite Wind Staff & Wand recipe had a typo
 - nerfed Air Cutter ang Gust Knockback a bit
 
-2.0.0
 - 1.21.x Release!
+
+### Fixed
+
+- fixed the missing Wind Spell Book Advancement

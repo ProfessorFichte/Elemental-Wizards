@@ -2,13 +2,15 @@
 	"schemaVersion": 1,
 	"id": "elemental_wizards_rpg",
 	"version": "${version}",
-	"name": "Elemental Wizards (RPG Series Plus)",
+	"name": "Elemental Wizards",
 	"description": "Master the elements to overcome your foes! Spell Engine Add-On",
 	"authors": [
 		"Fichte"
 	],
 	"contact": {
-		"sources": "https://github.com/ProfessorFichte"
+		"homepage": "https://modrinth.com/mod/elemental-wizards-rpg",
+		"sources": "https://github.com/ProfessorFichte/Elemental-Wizards",
+		"issues": "https://github.com/ProfessorFichte/Elemental-Wizards/issues"
 	},
 	"license": "ARR",
 	"icon": "icon.png",
@@ -39,12 +41,18 @@
 		"wizards": "*"
 	},
 	"suggests": {
-		"better_combat": "*"
+		"bettercombat": "*",
+		"armory_rpgs": "*",
+		"arsenal": "*",
+		"mrpgc_skill_tree": "*"
 	},
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modmenu.discord": "https://discord.gg/AShKd5XrTu"
+				"modmenu.discord": "https://discord.gg/AShKd5XrTu",
+				"modmenu.kofi": "https://ko-fi.com/fichteee",
+				"modmenu.modrinth": "https://modrinth.com/mod/elemental-wizards-rpg",
+				"modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/elemental-wizards-rpg-class"
 			}
 		}
 	}

@@ -11,14 +11,12 @@ def changelog_last_section() {
     if (!changelogFile.exists()) {
         return "No changelog available"
     }
-
     def content = changelogFile.text
-    def sections = content.split(/(?m)(?=^# )/)
-
-    // Return the first section (most recent) after the split
-    // Remove the first empty element if it exists
-    def recentSection = sections.find { it.trim().startsWith('#') }
-    return recentSection ?: "No changelog available"
+    def releases = content.split(/(?m)(?=^## \[)/).findAll { it.startsWith('## [') && !it.startsWith('## [Unreleased]') }
+    if (releases) {
+        return releases.first().replaceAll(/(?m)^\[[^\]]+\]: .*$/, '').trim()
+    }
+    return "No changelog available"
 }
 
 architectury {
@@ -70,7 +68,6 @@ repositories {
         name = "Ladysnake Libs"
         url = 'https://maven.ladysnake.org/releases'
     }
-    maven { url 'https://maven.wispforest.io/releases' }
 
     mavenLocal {
         content { excludeModule('maven.modrinth', 'more-rpg-library') }
@@ -132,7 +129,7 @@ tasks.register("publishMod") {
 
 publishMods {
     file = remapJar.archiveFile
-    changelog = providers.provider { changelog_last_section() }
+    changelog = providers.environmentVariable("MOD_CHANGELOG").orElse(providers.provider { changelog_last_section() })
     type = releaseTypeName == "release" ? me.modmuss50.mpp.ReleaseType.STABLE
             : releaseTypeName == "alpha" ? me.modmuss50.mpp.ReleaseType.ALPHA
             : me.modmuss50.mpp.ReleaseType.BETA
@@ -148,6 +145,7 @@ publishMods {
         server = true
         changelogType = "markdown"
         requires("spell-engine", "more-rpg-library", "wizards")
+        optional("armory-rpg-series", "arsenal-rpg-series", "mrpgc-skill-tree")
     }
 
     modrinth {
@@ -159,6 +157,9 @@ publishMods {
         requires { slug = "more-rpg-library" }
         requires { slug = "wizards" }
         optional { slug = "lne-wizards" }
+        optional { slug = "armory-rpg-series" }
+        optional { slug = "arsenal-rpg-series" }
+        optional { slug = "more-rpg-classes-skill-tree" }
     }
 
     github {
