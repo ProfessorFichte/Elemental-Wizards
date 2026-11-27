@@ -11,7 +11,7 @@
         "id": "mrpg_lib:two_handed_ground_channeling"
       },
       "sound": {
-        "id": "block.bubble_column.whirlpool_ambient"
+        "id": "minecraft:block.bubble_column.whirlpool_ambient"
       },
       "particles": [
         {
@@ -48,7 +48,7 @@
       "id": "mrpg_lib:two_handed_ground_release"
     },
     "sound": {
-      "id": ""
+      "id": "mrpg_lib:water_release_2"
     }
   },
   "target": {

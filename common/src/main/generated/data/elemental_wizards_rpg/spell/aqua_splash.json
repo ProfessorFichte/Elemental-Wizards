@@ -11,7 +11,7 @@
         "id": "spell_engine:one_handed_projectile_charge"
       },
       "sound": {
-        "id": "block.bubble_column.whirlpool_ambient"
+        "id": "minecraft:block.bubble_column.whirlpool_ambient"
       },
       "particles": [
         {

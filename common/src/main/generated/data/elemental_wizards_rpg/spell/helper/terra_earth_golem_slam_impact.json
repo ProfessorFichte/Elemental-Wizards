@@ -81,7 +81,7 @@
         ]
       },
       "sound": {
-        "id": "block.pointed_dripstone.break"
+        "id": "minecraft:block.pointed_dripstone.break"
       }
     }
   ]

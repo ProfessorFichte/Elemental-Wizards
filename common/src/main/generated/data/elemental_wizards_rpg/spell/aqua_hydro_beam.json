@@ -50,7 +50,7 @@
   },
   "release": {
     "sound": {
-      "id": "block.bubble_column.whirlpool_ambient"
+      "id": "minecraft:block.bubble_column.whirlpool_ambient"
     }
   },
   "target": {

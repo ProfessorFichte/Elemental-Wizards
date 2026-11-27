@@ -14,7 +14,8 @@
             "vertical_range_multiplier": 0.3
           },
           "sound": {
-            "id": ""
+            "id": "mrpg_lib:water_bubbles",
+            "volume": 0.6
           }
         },
         "time_to_live_seconds": 5.0,

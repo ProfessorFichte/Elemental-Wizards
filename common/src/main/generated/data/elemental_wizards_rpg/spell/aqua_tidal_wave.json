@@ -11,7 +11,7 @@
         "id": "spell_engine:two_handed_channeling"
       },
       "sound": {
-        "id": "block.bubble_column.upwards_inside"
+        "id": "minecraft:block.bubble_column.upwards_inside"
       },
       "particles": [
         {
@@ -45,7 +45,7 @@
   },
   "release": {
     "animation": {
-      "id": "spell_engine:two_handed_channeling_release"
+      "id": "mrpg_lib:two_handed_ground_release"
     },
     "sound": {
       "id": "elemental_wizards_rpg:tidal_wave_release"

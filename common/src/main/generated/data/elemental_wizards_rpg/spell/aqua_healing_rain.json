@@ -12,7 +12,7 @@
       },
       "movement_speed": 0.0,
       "sound": {
-        "id": "weather.rain.above"
+        "id": "minecraft:weather.rain.above"
       },
       "particles": [
         {
@@ -48,7 +48,7 @@
   },
   "release": {
     "animation": {
-      "id": "spell_engine:two_handed_channeling_release"
+      "id": "mrpg_lib:two_handed_ground_release"
     }
   },
   "impacts": [

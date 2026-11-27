@@ -15,7 +15,7 @@
         "id": "spell_engine:one_handed_healing_charge"
       },
       "start_sound": {
-        "id": "block.bubble_column.whirlpool_ambient"
+        "id": "minecraft:block.bubble_column.whirlpool_ambient"
       },
       "sound": {
         "id": "minecraft:block.bubble_column.upwards_ambient",
@@ -40,7 +40,7 @@
   },
   "release": {
     "sound": {
-      "id": "block.bubble_column.whirlpool_ambient"
+      "id": "minecraft:block.bubble_column.whirlpool_ambient"
     }
   },
   "target": {
@@ -125,7 +125,7 @@
         ]
       },
       "sound": {
-        "id": "block.bubble_column.bubble_pop"
+        "id": "minecraft:block.bubble_column.bubble_pop"
       }
     },
     {
