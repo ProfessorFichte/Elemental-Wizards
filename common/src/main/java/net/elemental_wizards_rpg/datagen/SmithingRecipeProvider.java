@@ -252,7 +252,7 @@ public abstract class SmithingRecipeProvider implements DataProvider {
                     modCondition.addProperty("modid", mod);
                     innerConditions.add(modCondition);
                 }
-                andCondition.add("conditions", innerConditions);
+                andCondition.add("values", innerConditions);
                 neoforgeConditions.add(andCondition);
             }
             recipe.add("neoforge:conditions", neoforgeConditions);
